@@ -7,6 +7,7 @@ Go1 Quadruped - Stationary Marching (YMCA)
 - Alternates Diagonal pairs (Trot pattern) based on Kick vs Snare.
 """
 
+from enum import Enum
 import time
 import json
 import numpy as np
@@ -30,6 +31,32 @@ STAND = np.array([
     -HIP_WIDTH, 0.9, -1.8,   # RR
      HIP_WIDTH, 0.9, -1.8,   # RL
 ])
+
+"""
+INTRO - the intro to the song
+YOUNG_MAN = beginning of vocal section
+YMCA - chorus beginning with "It's fun to stay at the Y-M-C-A" (approx 31/32 sec)
+"""
+Song_States = Enum('Song_States', ['INTRO', 'YOUNG_MAN', 'CHORUS', 'BRIDGE', 'OUTRO'])
+
+
+def get_song_state_by_time_ms(t_ms):
+    if t_ms < 28000:
+        return Song_States.INTRO
+    elif t_ms < 45000:
+        return Song_States.YOUNG_MAN
+    elif t_ms < 60000:
+        return Song_States.CHORUS
+    elif t_ms < 91000:
+        return Song_States.YOUNG_MAN
+    elif t_ms < 124000:
+        return Song_States.CHORUS
+    elif t_ms < 156000:
+        return Song_States.YOUNG_MAN
+    elif t_ms < 189000:
+        return Song_States.CHORUS
+    else: # 4 seconds onward
+        return Song_States.OUTRO
 
 def get_pose_by_letter(letter):
     """Static Poses for Chorus."""
@@ -148,6 +175,8 @@ def main():
             # Sync
             music_pos = pygame.mixer.music.get_pos()
             now = (time.time() - start_time) if music_pos == -1 else (music_pos / 1000.0)
+            song_state = get_song_state_by_time_ms(music_pos)
+            print(song_state)
 
             # Brain
             evt, phase = get_beat_phase(now, events)
