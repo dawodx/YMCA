@@ -379,28 +379,22 @@
         <p class="section-title">Demos</p>
 
         <div class="demos">
-            <div class="demo-card" onclick="showCommand(this, 'go1')">
+            <div class="demo-card" onclick="runDemo('go1_keyboard', this)">
                 <span class="icon">🐕</span>
                 <h3>Go1 Keyboard Control</h3>
                 <p>Control the Unitree Go1 quadruped with keyboard. W/S for height, arrows for lean, 1-4 for YMCA poses!</p>
-                <div class="command" id="cmd-go1">
-                    /Users/dawod/ARA-Robotic/.venv/bin/mjpython mo_simulation/run_go1_keyboard.py
-                </div>
             </div>
 
-            <div class="demo-card" onclick="showCommand(this, 'launcher')">
-                <span class="icon">🚀</span>
-                <h3>Web Launcher</h3>
-                <p>Start the Python web server to launch demos from your browser</p>
-                <div class="command" id="cmd-launcher">
-                    python launcher.py
-                </div>
+            <div class="demo-card" onclick="runDemo('dance_demo', this)">
+                <span class="icon">💃</span>
+                <h3>YMCA Dance Demo</h3>
+                <p>Watch the Go1 perform the full YMCA dance routine synced to music!</p>
             </div>
         </div>
 
         <div class="instructions">
             <h4>Quick Start</h4>
-            <code id="quickstart">cd /Users/dawod/YMCA && /Users/dawod/ARA-Robotic/.venv/bin/mjpython mo_simulation/run_go1_keyboard.py</code>
+            <code id="quickstart">cd /Users/dawod/YMCA && .venv/bin/mjpython mo_simulation/run_go1_keyboard.py</code>
             <button class="copy-btn" onclick="copyCommand()">Copy</button>
         </div>
 
@@ -420,6 +414,11 @@
                 <div class="name">Alex</div>
                 <div class="role">Music</div>
             </div>
+            <div class="team-member">
+                <div class="avatar">👁️</div>
+                <div class="name">Andrew</div>
+                <div class="role">Vision</div>
+            </div>
         </div>
 
         <p class="footer">
@@ -429,10 +428,32 @@
     </div>
 
     <script>
-        function showCommand(element, id) {
-            const cmd = document.getElementById('cmd-' + id);
-            if (cmd) {
-                cmd.style.display = cmd.style.display === 'block' ? 'none' : 'block';
+        async function runDemo(demoId, element) {
+            // Update UI
+            document.querySelectorAll('.demo-card').forEach(card => {
+                card.classList.remove('running');
+                const status = card.querySelector('.status');
+                if (status) status.remove();
+            });
+
+            element.classList.add('running');
+            const statusEl = document.createElement('div');
+            statusEl.className = 'status';
+            statusEl.textContent = '🚀 Launching...';
+            element.appendChild(statusEl);
+
+            try {
+                const response = await fetch('http://localhost:8889/run/' + demoId, { method: 'POST' });
+                const data = await response.json();
+                if (data.success) {
+                    statusEl.textContent = '✓ Running - check the MuJoCo window!';
+                } else {
+                    statusEl.textContent = '✗ ' + data.error;
+                    statusEl.style.color = '#ff6b6b';
+                }
+            } catch (err) {
+                statusEl.innerHTML = '⚠️ Server not running!<br><small>Run: python launcher.py</small>';
+                statusEl.style.color = '#ff6b6b';
             }
         }
 

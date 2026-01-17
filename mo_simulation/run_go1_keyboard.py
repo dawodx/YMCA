@@ -26,10 +26,9 @@ from pathlib import Path
 import threading
 import math
 
-# Paths - use Go1 from ARA-Robotic's mujoco_menagerie
+# Paths - use local Go1 model
 SCRIPT_DIR = Path(__file__).parent.parent
-ARA_ROBOTIC = Path("/Users/dawod/ARA-Robotic")
-GO1_XML = ARA_ROBOTIC / "models/mujoco_menagerie/unitree_go1/scene.xml"
+GO1_XML = SCRIPT_DIR / "models/unitree_go1/scene.xml"
 
 # Go1 has 12 joints: 4 legs x 3 joints each
 # Order: FR_hip, FR_thigh, FR_calf, FL_hip, FL_thigh, FL_calf,

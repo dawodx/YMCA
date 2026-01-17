@@ -1,3 +1,25 @@
-unitree_legged_sdk
-numpy
-pygame  # for music playback and timing
+# YMCA Robot Rave - Dependencies
+# Run: pip install -r requirements.txt
+
+# Core - MuJoCo simulation
+mujoco>=3.0.0
+numpy>=1.24.0
+
+# Deep learning
+torch>=2.0.0
+
+# Computer Vision (Andrew)
+mediapipe>=0.10.0
+opencv-python>=4.8.0
+
+# Audio Analysis (Alex)
+librosa>=0.10.0
+pydub>=0.25.0
+pygame>=2.5.0
+
+# Utilities
+tqdm>=4.65.0
+
+# Optional: For video recording
+imageio>=2.31.0
+imageio-ffmpeg>=0.4.9

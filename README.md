@@ -2,6 +2,27 @@
 
 Making a Unitree Go1 robot dog dance to YMCA like Trump!
 
+## Quick Start
+
+```bash
+# Clone the repo
+git clone https://github.com/dawodx/YMCA.git
+cd YMCA
+
+# Run setup (creates venv + installs dependencies)
+./setup.sh
+
+# Activate environment
+source .venv/bin/activate
+
+# Launch the disco UI
+python launcher.py
+# Then go to http://localhost:8889
+
+# Or run simulation directly
+.venv/bin/mjpython mo_simulation/run_go1_keyboard.py
+```
+
 ## Architecture
 
 ```
@@ -13,15 +34,22 @@ Making a Unitree Go1 robot dog dance to YMCA like Trump!
 │  - YMCA timing  │     │  - Choreography  │     │  - Go1 connect  │
 │  - Move triggers│     │  - SDK interface │     │  - Sim2Real     │
 └─────────────────┘     └──────────────────┘     └─────────────────┘
-        │                       │                        │
-        └───────────────────────┴────────────────────────┘
-                                │
-                         ┌──────▼──────┐
-                         │   SHARED    │
-                         │  - Types    │
-                         │  - Config   │
-                         │  - Constants│
-                         └─────────────┘
+        │                       ▲                        │
+        │               ┌───────┴────────┐               │
+        │               │    ANDREW      │               │
+        │               │  Vision → Move │               │
+        │               │  - Pose extract│               │
+        │               │  - Trump dance │               │
+        │               │  - Human→Robot │               │
+        │               └────────────────┘               │
+        └────────────────────────┬───────────────────────┘
+                                 │
+                          ┌──────▼──────┐
+                          │   SHARED    │
+                          │  - Types    │
+                          │  - Config   │
+                          │  - Constants│
+                          └─────────────┘
 ```
 
 ## Team Responsibilities
@@ -31,48 +59,96 @@ Making a Unitree Go1 robot dog dance to YMCA like Trump!
 | Mo | `mo_simulation/` | Mujoco sim, real robot connection |
 | Patwic | `patwic_control/` | Robot moves, control, choreography |
 | Alex | `alex_music/` | Music analysis, beat detection, move timing |
+| Andrew | `andrew_vision/` | Computer vision, pose extraction, human→robot translation |
 
-## Data Flow
+## Project Structure
 
-1. **Alex** analyzes YMCA song → outputs timestamped move commands
-2. **Patwic** defines moves → exposes move API that takes commands
-3. **Mo** runs simulation → connects to real Go1 when ready
+```
+YMCA/
+├── setup.sh                 # Quick setup script
+├── launcher.py              # Web server for disco UI
+├── launcher.html            # Disco-themed launcher
+├── requirements.txt         # Python dependencies
+├── models/
+│   └── unitree_go1/         # Go1 robot model (MuJoCo)
+├── shared/                  # Shared types & config
+│   ├── types.py             # Move, Choreography, RobotState
+│   └── config.py            # Robot settings
+├── mo_simulation/           # Mo's zone
+│   └── run_go1_keyboard.py  # Keyboard control demo
+├── patwic_control/          # Patwic's zone
+├── alex_music/              # Alex's zone
+└── andrew_vision/           # Andrew's zone
+```
 
-## Shared Interface (everyone uses this!)
+## Useful Resources
+
+### Unitree Go1
+- **Unitree SDK (Python)**: https://github.com/unitreerobotics/unitree_legged_sdk
+- **Go1 ROS Package**: https://github.com/unitreerobotics/unitree_ros
+- **Go1 Documentation**: https://support.unitree.com/home/en/developer/Quick_start
+- **Go1 URDF/MJCF**: Included in `models/unitree_go1/`
+
+### MuJoCo Simulation
+- **MuJoCo Docs**: https://mujoco.readthedocs.io/
+- **MuJoCo Menagerie** (robot models): https://github.com/google-deepmind/mujoco_menagerie
+- **MuJoCo Python**: https://mujoco.readthedocs.io/en/stable/python.html
+
+### Computer Vision (Andrew)
+- **MediaPipe Pose**: https://google.github.io/mediapipe/solutions/pose
+- **OpenPose**: https://github.com/CMU-Perceptual-Computing-Lab/openpose
+
+### Audio Analysis (Alex)
+- **Librosa** (beat detection): https://librosa.org/doc/latest/index.html
+- **YMCA by Village People**: ~127 BPM
+
+### Real Robot Connection
+```bash
+# Network setup
+# 1. Connect Go1 via Ethernet
+# 2. Set your IP: 192.168.123.xxx
+# 3. Go1 IP: 192.168.123.161
+
+# Clone Unitree SDK
+git clone https://github.com/unitreerobotics/unitree_legged_sdk
+cd unitree_legged_sdk
+mkdir build && cd build
+cmake ..
+make
+```
+
+## Shared Interface
+
+Everyone uses types from `shared/types.py`:
 
 ```python
-# shared/types.py - THE CONTRACT
+from shared.types import Move, MoveType, Choreography
 
-class Move:
-    name: str        # "fist_pump", "y_pose", "trump_sway", etc.
-    timestamp: float # when to execute (seconds from song start)
-    duration: float  # how long the move takes
-    intensity: float # 0.0 to 1.0
+# Example: Create a dance move
+move = Move(
+    move_type=MoveType.TRUMP_SWAY,
+    timestamp=0.0,
+    duration=2.0,
+    intensity=1.0
+)
 
-class Choreography:
-    moves: List[Move]
-    song_bpm: int    # YMCA is ~127 BPM
+# Example: Create choreography
+dance = Choreography(
+    moves=[move, ...],
+    song_bpm=127
+)
 ```
 
-## Quick Start
+## Controls (Keyboard Demo)
 
-```bash
-# Clone and install
-git clone <repo>
-cd YMCA
-pip install -r requirements.txt
-
-# Each person works in their folder
-cd mo_simulation/      # Mo
-cd patwic_control/     # Patwic
-cd alex_music/         # Alex
-```
-
-## Integration Points
-
-- `shared/types.py` - Common data structures (DON'T CHANGE without team agreement!)
-- `shared/config.py` - Robot settings, timing constants
-- `main.py` - Brings everything together (we build this last)
+| Key | Action |
+|-----|--------|
+| W/S | Body height up/down |
+| Arrow Keys | Lean forward/back/left/right |
+| A/D | Yaw left/right |
+| 1/2/3/4 | YMCA dance poses |
+| Space | Reset to stand |
+| Esc | Quit |
 
 ## Git Workflow
 
@@ -80,5 +156,18 @@ cd alex_music/         # Alex
 2. Commit often with clear messages
 3. Don't modify other people's folders without asking
 4. `shared/` changes need team discussion
+5. Pull before you push!
 
-LET'S MAKE THIS DOG DANCE!
+```bash
+git pull
+# ... make changes ...
+git add -A
+git commit -m "Description of changes"
+git push
+```
+
+---
+
+**SOTA COCA Hackathon London 2026**
+
+LET'S MAKE THIS DOG DANCE! 🐕🎵

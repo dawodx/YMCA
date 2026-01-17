@@ -11,7 +11,6 @@ from pathlib import Path
 
 PORT = 8889
 PROJECT_ROOT = Path(__file__).parent
-ARA_ROBOTIC = Path("/Users/dawod/ARA-Robotic")
 
 DEMOS = {
     "go1_keyboard": {
@@ -116,11 +115,29 @@ class Handler(http.server.BaseHTTPRequestHandler):
     def log_message(self, format, *args):
         pass
 
+    def send_cors_headers(self):
+        self.send_header("Access-Control-Allow-Origin", "*")
+        self.send_header("Access-Control-Allow-Methods", "GET, POST, OPTIONS")
+        self.send_header("Access-Control-Allow-Headers", "Content-Type")
+
+    def do_OPTIONS(self):
+        self.send_response(200)
+        self.send_cors_headers()
+        self.end_headers()
+
     def do_GET(self):
         if self.path == "/" or self.path == "/index.html":
-            html = HTML.replace("{demo_cards}", generate_demo_cards())
+            # Serve the disco launcher.html
+            html_path = PROJECT_ROOT / "launcher.html"
+            if html_path.exists():
+                html = html_path.read_text()
+                # Fix the fetch URL to be relative
+                html = html.replace("http://localhost:8889/run/", "/run/")
+            else:
+                html = HTML.replace("{demo_cards}", generate_demo_cards())
             self.send_response(200)
             self.send_header("Content-type", "text/html")
+            self.send_cors_headers()
             self.end_headers()
             self.wfile.write(html.encode())
         else:
@@ -141,7 +158,7 @@ class Handler(http.server.BaseHTTPRequestHandler):
     def run_demo(self, demo_id):
         demo = DEMOS[demo_id]
         script_path = PROJECT_ROOT / demo["script"]
-        mjpython = ARA_ROBOTIC / ".venv" / "bin" / "mjpython"
+        mjpython = PROJECT_ROOT / ".venv" / "bin" / "mjpython"
 
         if not script_path.exists():
             self.send_json({"success": False, "error": f"Script not found"})
@@ -166,6 +183,7 @@ class Handler(http.server.BaseHTTPRequestHandler):
     def send_json(self, data):
         self.send_response(200)
         self.send_header("Content-type", "application/json")
+        self.send_cors_headers()
         self.end_headers()
         self.wfile.write(json.dumps(data).encode())
 
