@@ -41,6 +41,13 @@ DEMOS = {
         "description": "Custom YMCA poses! Connect to robot WiFi first. 1-4 YMCA, 5 full dance!",
         "use_mjpython": False
     },
+    "go1_dashboard": {
+        "name": "Go1 Visual Dashboard",
+        "script": "mo_simulation/go1_dashboard.py",
+        "icon": "📊",
+        "description": "Web dashboard with all commands, timing stats, LED control & action log!",
+        "use_mjpython": False
+    },
 }
 
 HTML = """<!DOCTYPE html>
