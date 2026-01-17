@@ -486,6 +486,7 @@ HTML = """<!DOCTYPE html>
         <button class="mode-btn realtime active" onclick="setMode('realtime')">⚡ REALTIME</button>
         <button class="mode-btn record" onclick="setMode('record')">⏺ RECORD</button>
         <button class="mode-btn play" onclick="playSequence()">▶ PLAY</button>
+        <button class="mode-btn stop" onclick="stopPlayback()" style="background:#f44336;display:none;">⏹ STOP</button>
     </div>
 
     <div class="now-playing" id="nowPlaying">
@@ -686,6 +687,10 @@ HTML = """<!DOCTYPE html>
             const nowPlaying = document.getElementById('nowPlaying');
             nowPlaying.classList.add('active');
 
+            // Show stop button, hide play button
+            document.querySelector('.mode-btn.play').style.display = 'none';
+            document.querySelector('.mode-btn.stop').style.display = 'inline-block';
+
             const statusEl = document.getElementById('modeStatus');
             statusEl.textContent = '▶ PLAYING';
             statusEl.style.background = '#2196F3';
@@ -702,12 +707,26 @@ HTML = """<!DOCTYPE html>
                 await sleep(item.duration);
             }
 
+            stopPlayback();
+        }
+
+        function stopPlayback() {
             isPlaying = false;
+            const nowPlaying = document.getElementById('nowPlaying');
             nowPlaying.classList.remove('active');
+
+            // Show play button, hide stop button
+            document.querySelector('.mode-btn.play').style.display = 'inline-block';
+            document.querySelector('.mode-btn.stop').style.display = 'none';
+
+            const statusEl = document.getElementById('modeStatus');
             statusEl.textContent = 'REALTIME';
             statusEl.style.background = '#4CAF50';
             statusEl.classList.remove('playing');
             setMode('realtime');
+
+            // Send stand command to stop robot
+            sendCmd('stand');
         }
 
         function sleep(ms) {
