@@ -1,43 +1,106 @@
 # Mo's Zone - Simulation & Real Robot Connection
 
+## Quick Start
+
+```bash
+# Run the Go1 keyboard control simulation
+/Users/dawod/ARA-Robotic/.venv/bin/mjpython mo_simulation/run_go1_keyboard.py
+
+# Or use the launcher
+python launcher.py
+```
+
+## Controls (Keyboard)
+| Key | Action |
+|-----|--------|
+| W/S | Body height up/down |
+| Arrow Keys | Lean forward/back/left/right |
+| A/D | Yaw left/right |
+| Q/E | Roll left/right |
+| 1/2/3/4 | Dance poses Y/M/C/A |
+| Space | Reset to stand |
+| Esc | Quit |
+
 ## Your Mission
-1. Set up Mujoco simulation for Go1
-2. Connect simulation to Patwic's control interface
-3. Bridge to real Go1 robot when ready
+1. Get Go1 simulation working with keyboard control
+2. Add more dance moves / refine existing ones
+3. Connect to real Go1 robot when ready
 
-## Tasks
+## Go1 Joint Structure
 
-### Task 1: Mujoco Setup
-- [ ] Get Go1 MJCF/URDF model loaded in Mujoco
-- [ ] Basic simulation running
-- [ ] Visualization working
+```
+Go1 has 12 joints (4 legs x 3 joints each):
 
-### Task 2: Simulation Interface
-- [ ] Create `simulator.py` that Patwic's code can call
-- [ ] Implement `execute_move(move: Move)` function
-- [ ] Return `RobotState` after each move
+FR (Front Right):  FR_hip, FR_thigh, FR_calf  [0, 1, 2]
+FL (Front Left):   FL_hip, FL_thigh, FL_calf  [3, 4, 5]
+RR (Rear Right):   RR_hip, RR_thigh, RR_calf  [6, 7, 8]
+RL (Rear Left):    RL_hip, RL_thigh, RL_calf  [9, 10, 11]
 
-### Task 3: Real Robot Bridge
-- [ ] Connect to real Go1 via UDP
-- [ ] Same interface as simulation (swap in/out easily)
-- [ ] Safety checks before sending commands
+Joint types:
+- hip (abduction): side-to-side leg spread, range [-0.863, 0.863] rad
+- thigh: forward/back leg swing, range [-0.686, 4.501] rad
+- calf (knee): knee bend, range [-2.818, -0.888] rad
+```
 
-## Interface You Need to Provide
+## Connecting to Real Go1
+
+### Network Setup
+1. Connect to Go1 via Ethernet cable
+2. Set your IP to `192.168.123.xxx` (e.g., 192.168.123.100)
+3. Go1's IP is `192.168.123.161`
+
+### Unitree SDK Options
+
+**Option 1: unitree_legged_sdk (C++/Python)**
+```bash
+git clone https://github.com/unitreerobotics/unitree_legged_sdk
+cd unitree_legged_sdk
+mkdir build && cd build
+cmake ..
+make
+```
+
+**Option 2: Go1 Python High-Level Control**
+```python
+# High-level commands (easier, less control)
+from ucl.highlevel import HighLevelInterface
+
+robot = HighLevelInterface()
+robot.stand()
+robot.move(vx=0.5, vy=0, vyaw=0)  # walk forward
+```
+
+**Option 3: Low-Level Control (full joint control)**
+```python
+# Low-level for precise dance moves
+from ucl.lowlevel import LowLevelInterface
+
+robot = LowLevelInterface()
+robot.set_joint_positions([...])  # 12 joint angles
+```
+
+### Interface to Implement
 
 ```python
-# mo_simulation/simulator.py
+# mo_simulation/robot_interface.py
 
 class RobotInterface:
+    """Abstract interface - both sim and real implement this"""
+
     def connect(self) -> bool:
-        """Connect to sim or real robot"""
+        """Connect to robot (sim or real)"""
         pass
 
-    def execute_move(self, move: Move) -> RobotState:
-        """Execute a move and return new state"""
+    def set_joint_positions(self, positions: np.ndarray):
+        """Set 12 joint positions in radians"""
         pass
 
-    def get_state(self) -> RobotState:
-        """Get current robot state"""
+    def get_joint_positions(self) -> np.ndarray:
+        """Get current 12 joint positions"""
+        pass
+
+    def get_body_state(self) -> dict:
+        """Get body position, orientation, velocity"""
         pass
 
     def disconnect(self):
@@ -45,12 +108,22 @@ class RobotInterface:
         pass
 ```
 
-## Resources
-- Mujoco: https://mujoco.readthedocs.io/
-- Go1 URDF: https://github.com/unitreerobotics/unitree_ros
-- Unitree SDK: https://github.com/unitreerobotics/unitree_legged_sdk
+## Files
 
-## Files to Create
-- `simulator.py` - Main simulation class
-- `real_robot.py` - Real Go1 connection
-- `robot_interface.py` - Abstract interface both implement
+- `run_go1_keyboard.py` - Keyboard control simulation (DONE)
+- `robot_interface.py` - Abstract interface (TODO)
+- `sim_robot.py` - MuJoCo simulation implementation (TODO)
+- `real_robot.py` - Real Go1 UDP connection (TODO)
+
+## Resources
+
+- Go1 Model: `/Users/dawod/ARA-Robotic/models/mujoco_menagerie/unitree_go1/`
+- Unitree SDK: https://github.com/unitreerobotics/unitree_legged_sdk
+- Go1 Docs: https://support.unitree.com/home/en/developer/Quick_start
+
+## Next Steps
+
+1. Test keyboard control in simulation
+2. Refine dance poses (adjust joint angles in `compute_pose()`)
+3. Create `robot_interface.py` abstract class
+4. Implement `real_robot.py` when you have the Go1 connected
