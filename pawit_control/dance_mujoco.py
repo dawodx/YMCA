@@ -24,8 +24,8 @@ BPM = 129.0 # Standard disco is usually 126-128
 
 # --- STATES ---
 class SongState(Enum):
-    INTRO = 1
-    YOUNG_MAN = 2
+    INTRO_1 = 1
+    INTRO_2 = 2
     CHORUS = 3
     OUTRO = 4
 
@@ -34,19 +34,19 @@ MOVES_INTRO = ["twistLeft", "twistRight"]
 
 def get_song_state(t_ms):
     """Timestamp map for YMCA."""
-    if t_ms < 28000:
-        return SongState.INTRO
+    if t_ms < 27500:
+        return SongState.INTRO_1
     elif t_ms < 62000: # "Young man..."
-        return SongState.YOUNG_MAN
+        return SongState.INTRO_2
     elif t_ms < 92000: # "It's fun to stay..."
         return SongState.CHORUS
-    elif t_ms < 126000: # Verse 2
-        return SongState.YOUNG_MAN
-    elif t_ms < 156000: # Chorus 2
+    elif t_ms < 125000: # Verse 2
+        return SongState.INTRO_1
+    elif t_ms < 155000: # Chorus 2
         return SongState.CHORUS
-    elif t_ms < 156000: # Verse 3
-        return SongState.YOUNG_MAN
-    elif t_ms < 189000: # Chorus 3
+    elif t_ms < 200000: # Verse 3
+        return SongState.INTRO_1
+    elif t_ms < 220000: # Chorus 3
         return SongState.CHORUS
     else:
         return SongState.OUTRO
@@ -97,11 +97,11 @@ def main():
         if current_state != last_state:
             print(f"\n[{now:.2f}s] === ENTERING {current_state.name} ===")
             
-            if current_state == SongState.INTRO:
+            if current_state == SongState.INTRO_1:
                 send_command("stand")
                 send_command("ledYellow")
 
-            elif current_state == SongState.YOUNG_MAN:
+            elif current_state == SongState.INTRO_2:
                 # ACTION: Wiggle Hips (Once)
                 # This puts the robot in a special mode that loops internally
                 send_command("stand")
@@ -123,7 +123,7 @@ def main():
         if now >= next_beat_time:
             
             # --- INTRO LOGIC ---
-            if current_state == SongState.INTRO:
+            if current_state == SongState.INTRO_1:
                 # Twist back and forth
                 cmd = MOVES_INTRO[intro_move_index % 2]
                 send_command(cmd)
@@ -136,21 +136,21 @@ def main():
                 cycle = beat_counter % 4
                 
                 if cycle == 0:
-                    # Y - Arms/Head Up
-                    send_command("lookUp")
-                    print(f"[{now:.2f}s] Y (LookUp)")
-                elif cycle == 1:
-                    # M - Head Down
-                    send_command("lookDown")
-                    print(f"[{now:.2f}s] M (LookDown)")
-                elif cycle == 2:
-                    # C - Squat / Curve
+                    # Y - Squat
                     send_command("squat")
-                    print(f"[{now:.2f}s] C (Squat)")
+                    print(f"[{now:.2f}s] Y (Squat)")
+                elif cycle == 1:
+                    # M - Stand
+                    send_command("stand")
+                    print(f"[{now:.2f}s] M (Stand)")
+                elif cycle == 2:
+                    # C - Twist Left
+                    send_command("twistLeft")
+                    print(f"[{now:.2f}s] C (TwistLeft)")
                 elif cycle == 3:
-                    # A - Extend / Tall
-                    send_command("extend")
-                    print(f"[{now:.2f}s] A (Extend)")
+                    # A - Twist Right
+                    send_command("twistRight")
+                    print(f"[{now:.2f}s] A (TwistRight)")
 
             # Advance Clock
             next_beat_time += beat_interval
