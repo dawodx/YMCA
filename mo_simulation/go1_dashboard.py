@@ -150,6 +150,14 @@ COMMANDS = {
     "ledPink": {"name": "LED Pink", "category": "led", "color": "#E91E63", "duration": 100, "rgb": [255, 20, 147]},
     "ledCyan": {"name": "LED Cyan", "category": "led", "color": "#00BCD4", "duration": 100, "rgb": [0, 188, 212]},
     "ledOff": {"name": "LED Off", "category": "led", "color": "#333333", "duration": 100, "rgb": [0, 0, 0]},
+
+    # YMCA Dance Poses (from dance_mujoco.py)
+    "ymcaY": {"name": "Y Pose", "category": "ymca", "color": "#FFD700", "duration": 1500},
+    "ymcaM": {"name": "M Pose", "category": "ymca", "color": "#FFD700", "duration": 1500},
+    "ymcaC": {"name": "C Pose", "category": "ymca", "color": "#FFD700", "duration": 1500},
+    "ymcaA": {"name": "A Pose", "category": "ymca", "color": "#FFD700", "duration": 1500},
+    "ymcaMarch": {"name": "March", "category": "ymca", "color": "#FF9800", "duration": 2000},
+    "ymcaDance": {"name": "YMCA Dance!", "category": "ymca", "color": "#E91E63", "duration": 30000},
 }
 
 
@@ -197,6 +205,62 @@ def execute_command(cmd):
         if led_info and "rgb" in led_info:
             r, g, b = led_info["rgb"]
             return timed_action(cmd, lambda: robot.set_led_color(r, g, b))
+
+    # YMCA Dance commands
+    if cmd == "ymcaY":
+        # Y Pose: Front legs up (using straight hand move)
+        return timed_action(cmd, lambda: robot.set_mode(Go1Mode.STRAIGHT_HAND1))
+    elif cmd == "ymcaM":
+        # M Pose: Deep crouch
+        return timed_action(cmd, lambda: robot.set_mode(Go1Mode.STAND_DOWN))
+    elif cmd == "ymcaC":
+        # C Pose: Lean right (body pose)
+        def do_c_pose():
+            robot.set_mode(Go1Mode.STAND)
+            time.sleep(0.2)
+            loop = asyncio.new_event_loop()
+            loop.run_until_complete(robot.lean_right(0.6, 300))
+            loop.close()
+        return timed_action(cmd, do_c_pose)
+    elif cmd == "ymcaA":
+        # A Pose: Tall stance
+        def do_a_pose():
+            robot.set_mode(Go1Mode.STAND)
+            time.sleep(0.2)
+            loop = asyncio.new_event_loop()
+            loop.run_until_complete(robot.extend_up(0.5, 300))
+            loop.close()
+        return timed_action(cmd, do_a_pose)
+    elif cmd == "ymcaMarch":
+        # March in place using dance1
+        return timed_action(cmd, lambda: robot.set_mode(Go1Mode.DANCE1))
+    elif cmd == "ymcaDance":
+        # Full YMCA dance sequence
+        def do_ymca_dance():
+            poses = [
+                (Go1Mode.DANCE1, 2.0),       # Intro march
+                (Go1Mode.STRAIGHT_HAND1, 1.5),  # Y
+                (Go1Mode.STAND_DOWN, 1.5),      # M
+                ("leanRight", 1.5),              # C
+                (Go1Mode.STAND_UP, 1.5),        # A
+                (Go1Mode.STRAIGHT_HAND1, 1.5),  # Y
+                (Go1Mode.STAND_DOWN, 1.5),      # M
+                ("leanRight", 1.5),              # C
+                (Go1Mode.STAND_UP, 1.5),        # A
+                (Go1Mode.DANCE2, 3.0),       # Outro
+            ]
+            for pose, duration in poses:
+                if isinstance(pose, str):
+                    # Body pose command
+                    robot.set_mode(Go1Mode.STAND)
+                    time.sleep(0.2)
+                    loop = asyncio.new_event_loop()
+                    loop.run_until_complete(robot.lean_right(0.6, 300))
+                    loop.close()
+                else:
+                    robot.set_mode(pose)
+                time.sleep(duration)
+        return timed_action(cmd, do_ymca_dance)
 
     return {"name": cmd, "time_ms": 0, "success": False, "error": "Unknown command"}
 
@@ -335,8 +399,20 @@ HTML = """<!DOCTYPE html>
         }
         .mode-btn.realtime { background: #4CAF50; }
         .mode-btn.record { background: #f44336; }
+        .mode-btn.teach { background: #00BCD4; }
         .mode-btn.play { background: #2196F3; }
         .mode-btn.active { border-color: #ffd700; transform: scale(1.1); }
+        .teach-banner {
+            display: none;
+            background: linear-gradient(90deg, #00BCD4, #009688);
+            color: white;
+            text-align: center;
+            padding: 12px;
+            margin: 10px 0;
+            border-radius: 8px;
+            font-weight: bold;
+        }
+        .teach-banner.active { display: block; animation: pulse 1.5s infinite; }
         .mode-btn:hover { transform: scale(1.05); }
 
         .container {
@@ -503,6 +579,7 @@ HTML = """<!DOCTYPE html>
     <div class="mode-selector">
         <button class="mode-btn realtime active" onclick="setMode('realtime')">REALTIME</button>
         <button class="mode-btn record" onclick="setMode('record')">REC</button>
+        <button class="mode-btn teach" onclick="startTeachMode()" style="background:#00BCD4;">TEACH</button>
         <button class="mode-btn play" onclick="playSequence()">PLAY</button>
         <button class="mode-btn stop" onclick="stopPlayback()" style="background:#f44336;">STOP</button>
     </div>
@@ -512,6 +589,10 @@ HTML = """<!DOCTYPE html>
         <div class="progress" id="playProgress">0 / 0</div>
     </div>
 
+    <div class="teach-banner" id="teachBanner">
+        TEACH MODE: Robot is soft - move legs manually, then use Body Pose buttons to record positions
+    </div>
+
     <div class="container">
         <div class="main-panel">
             <div class="panel">
@@ -519,6 +600,7 @@ HTML = """<!DOCTYPE html>
                     <button class="btn" style="background:#4CAF50;" onclick="connect()">Connect</button>
                     <button class="btn" style="background:#FF9800;" onclick="unlock()">Unlock SDK</button>
                     <button class="btn" style="background:#9C27B0;" onclick="startSimulation()">Start Simulation</button>
+                    <button class="btn" style="background:#607D8B;" onclick="resetSimulation()">Reset Sim</button>
                 </div>
             </div>
 
@@ -550,6 +632,11 @@ HTML = """<!DOCTYPE html>
             <div class="panel">
                 <h2>LED Colors</h2>
                 <div class="btn-grid" id="led-btns"></div>
+            </div>
+
+            <div class="panel">
+                <h2>YMCA Dance</h2>
+                <div class="btn-grid" id="ymca-btns"></div>
             </div>
         </div>
 
@@ -619,7 +706,8 @@ HTML = """<!DOCTYPE html>
                 'move': 'move-btns',
                 'pose': 'pose-btns',
                 'wait': 'wait-btns',
-                'led': 'led-btns'
+                'led': 'led-btns',
+                'ymca': 'ymca-btns'
             };
 
             for (const [cmd, info] of Object.entries(COMMANDS)) {
@@ -638,9 +726,14 @@ HTML = """<!DOCTYPE html>
         function setMode(mode) {
             currentMode = mode;
             document.querySelectorAll('.mode-btn').forEach(b => b.classList.remove('active'));
-            document.querySelector('.mode-btn.' + mode).classList.add('active');
+            const modeBtn = document.querySelector('.mode-btn.' + mode);
+            if (modeBtn) modeBtn.classList.add('active');
 
             const statusEl = document.getElementById('modeStatus');
+            const teachBanner = document.getElementById('teachBanner');
+            teachBanner.classList.remove('active');
+            statusEl.classList.remove('recording');
+
             if (mode === 'realtime') {
                 statusEl.textContent = 'REALTIME';
                 statusEl.style.background = '#4CAF50';
@@ -648,7 +741,30 @@ HTML = """<!DOCTYPE html>
                 statusEl.textContent = 'RECORDING';
                 statusEl.style.background = '#f44336';
                 statusEl.classList.add('recording');
+            } else if (mode === 'teach') {
+                statusEl.textContent = 'TEACH MODE';
+                statusEl.style.background = '#00BCD4';
+                teachBanner.classList.add('active');
             }
+        }
+
+        async function startTeachMode() {
+            // Put robot in damping mode (soft/compliant joints)
+            await sendCmd('damping');
+            addLog('Teach Mode: Robot is soft', true, 0);
+
+            // Switch to teach mode (which records like record mode)
+            setMode('teach');
+            currentMode = 'record';  // Buttons will record to sequence
+
+            document.querySelectorAll('.mode-btn').forEach(b => b.classList.remove('active'));
+            document.querySelector('.mode-btn.teach').classList.add('active');
+        }
+
+        function exitTeachMode() {
+            // Stand the robot back up
+            sendCmd('recoverStand');
+            setMode('realtime');
         }
 
         function handleClick(cmd) {
@@ -787,6 +903,20 @@ HTML = """<!DOCTYPE html>
                 }
             } catch(e) {
                 addLog('Failed to start sim', false, 0);
+            }
+        }
+
+        async function resetSimulation() {
+            if (!isSimMode) {
+                addLog('Switch to SIM mode first', false, 0);
+                return;
+            }
+            try {
+                const res = await fetch(apiBase + '/api/reset', {method: 'POST'});
+                const data = await res.json();
+                addLog('Sim Reset', data.success, data.time_ms || 0);
+            } catch(e) {
+                addLog('Reset failed', false, 0);
             }
         }
 

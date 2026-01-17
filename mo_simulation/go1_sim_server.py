@@ -93,6 +93,35 @@ HANDSTAND_POSE = np.array([
     0, -0.5, -0.3,  # RL
 ])
 
+# YMCA Poses (from dance_mujoco.py)
+YMCA_Y = np.array([
+    0.6, 0.0, -1.0,   # FR - up and out
+    -0.6, 0.0, -1.0,  # FL - up and out
+    -0.1, 0.9, -1.8,  # RR - standing
+    0.1, 0.9, -1.8,   # RL - standing
+])
+
+YMCA_M = np.array([
+    -0.1, 1.5, -2.6,  # FR - deep crouch
+    0.1, 1.5, -2.6,   # FL
+    -0.1, 1.5, -2.6,  # RR
+    0.1, 1.5, -2.6,   # RL
+])
+
+YMCA_C = np.array([
+    -0.3, 0.7, -1.4,  # FR - lean right
+    0.5, 1.2, -2.2,   # FL
+    -0.3, 0.7, -1.4,  # RR
+    0.5, 1.2, -2.2,   # RL
+])
+
+YMCA_A = np.array([
+    -0.1, 0.6, -1.4,  # FR - tall
+    0.1, 0.6, -1.4,   # FL
+    -0.1, 0.6, -1.4,  # RR
+    0.1, 0.6, -1.4,   # RL
+])
+
 # Body pose adjustments (relative to stand)
 LOOK_UP = np.array([0, -0.2, 0.3, 0, -0.2, 0.3, 0, 0.2, -0.3, 0, 0.2, -0.3])
 LOOK_DOWN = np.array([0, 0.3, -0.4, 0, 0.3, -0.4, 0, -0.2, 0.2, 0, -0.2, 0.2])
@@ -326,6 +355,35 @@ def execute_sim_command(cmd):
         delay = int(cmd.replace("wait", ""))
         state.action_duration = delay
 
+    # YMCA commands
+    elif cmd == "ymcaY":
+        state.velocity = [0.0, 0.0]
+        state.target_pose = YMCA_Y.copy()
+        state.action_duration = 1500
+    elif cmd == "ymcaM":
+        state.velocity = [0.0, 0.0]
+        state.target_pose = YMCA_M.copy()
+        state.action_duration = 1500
+    elif cmd == "ymcaC":
+        state.velocity = [0.0, 0.0]
+        state.target_pose = YMCA_C.copy()
+        state.action_duration = 1500
+    elif cmd == "ymcaA":
+        state.velocity = [0.0, 0.0]
+        state.target_pose = YMCA_A.copy()
+        state.action_duration = 1500
+    elif cmd == "ymcaMarch":
+        state.velocity = [0.0, 0.0]
+        state.command = "ymcaMarch"
+        state.dance_time = time.time()
+        state.action_duration = 2000
+    elif cmd == "ymcaDance":
+        state.velocity = [0.0, 0.0]
+        state.command = "ymcaDance"
+        state.dance_time = time.time()
+        state.dance_step = 0
+        state.action_duration = 30000
+
     elapsed = (time.time() - start_time) * 1000
     return {"name": cmd, "time_ms": round(elapsed, 1), "success": True}
 
@@ -364,6 +422,14 @@ class SimHandler(BaseHTTPRequestHandler):
                 r, g, b = int(parts[3]), int(parts[4]), int(parts[5])
                 state.led_color = [r, g, b]
             self.send_json({'success': True})
+        elif self.path == '/api/reset':
+            # Reset simulation to initial state
+            state.command = "stand"
+            state.velocity = [0.0, 0.0]
+            state.target_pose = STAND.copy()
+            state.dance_step = 0
+            state.led_color = [0, 255, 0]
+            self.send_json({'success': True, 'time_ms': 1})
         else:
             self.send_error(404)
 
@@ -442,6 +508,38 @@ def main():
                 target[3] = wiggle
                 target[6] = wiggle
                 target[9] = wiggle
+            elif state.command == "ymcaMarch":
+                # Marching in place - alternate diagonal pairs
+                elapsed = time.time() - state.dance_time
+                phase = (elapsed * 2) % 1.0  # 2 Hz march
+                swing = np.sin(phase * np.pi)
+                lift = 0.15
+                target = STAND.copy()
+                # Trot gait: FR+RL vs FL+RR
+                if phase < 0.5:
+                    # Lift FR and RL
+                    target[1] -= lift * swing * 2  # FR thigh
+                    target[2] += lift * 2 * swing * 2  # FR calf
+                    target[10] -= lift * swing * 2  # RL thigh
+                    target[11] += lift * 2 * swing * 2  # RL calf
+                else:
+                    # Lift FL and RR
+                    target[4] -= lift * swing * 2  # FL thigh
+                    target[5] += lift * 2 * swing * 2  # FL calf
+                    target[7] -= lift * swing * 2  # RR thigh
+                    target[8] += lift * 2 * swing * 2  # RR calf
+            elif state.command == "ymcaDance":
+                # Full YMCA dance sequence
+                elapsed = time.time() - state.dance_time
+                cycle_time = elapsed % 8.0  # 8 second cycle for Y-M-C-A
+                if cycle_time < 2.0:
+                    target = YMCA_Y.copy()
+                elif cycle_time < 4.0:
+                    target = YMCA_M.copy()
+                elif cycle_time < 6.0:
+                    target = YMCA_C.copy()
+                else:
+                    target = YMCA_A.copy()
             elif abs(state.velocity[0]) > 0.1 or abs(state.velocity[1]) > 0.1:
                 target = cpg_gait(t, state.velocity[0], state.velocity[1])
             else:

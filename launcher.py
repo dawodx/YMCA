@@ -55,6 +55,13 @@ DEMOS = {
         "description": "MuJoCo simulation with dashboard API. Run this, then use Dashboard in SIM mode!",
         "use_mjpython": True
     },
+    "go1_pose_builder": {
+        "name": "Go1 Pose Builder",
+        "script": "mo_simulation/go1_pose_builder.py",
+        "icon": "🎨",
+        "description": "Create custom poses with joint sliders! Save poses and build choreography sequences.",
+        "use_mjpython": False
+    },
 }
 
 HTML = """<!DOCTYPE html>
