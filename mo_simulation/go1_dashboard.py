@@ -1,18 +1,17 @@
 #!/usr/bin/env python3
 """
-Go1 Visual Dashboard - Web-based control with timing info
+Go1 Visual Dashboard - Web-based control with Record & Playback
 
 Features:
-- Visual buttons for all commands
-- Real-time timing for each action
-- LED color picker
-- Connection status
+- REALTIME: Click buttons to execute immediately
+- RECORD: Record a sequence of actions
+- PLAY: Play back recorded sequence
+- Timing stats for each action
 """
 
 import asyncio
 import json
 import subprocess
-import threading
 import time
 from http.server import HTTPServer, SimpleHTTPRequestHandler
 import webbrowser
@@ -24,10 +23,12 @@ except ImportError:
     print("Run: pip install go1pylib")
     exit(1)
 
-# Global robot instance
+# Global state
 robot = None
 action_log = []
 connected = False
+recorded_sequence = []
+is_recording = False
 
 # ============== ROBOT CONTROL ==============
 
@@ -58,7 +59,7 @@ def timed_action(name, action_func):
     start = time.time()
     try:
         action_func()
-        elapsed = (time.time() - start) * 1000  # ms
+        elapsed = (time.time() - start) * 1000
         result = {"name": name, "time_ms": round(elapsed, 1), "success": True}
     except Exception as e:
         elapsed = (time.time() - start) * 1000
@@ -91,56 +92,67 @@ async def timed_async_action(name, action_coro):
 
 COMMANDS = {
     # Modes
-    "stand": {"name": "Stand", "category": "mode", "color": "#4CAF50"},
-    "standUp": {"name": "Stand Up", "category": "mode", "color": "#4CAF50"},
-    "standDown": {"name": "Sit Down", "category": "mode", "color": "#4CAF50"},
-    "walk": {"name": "Walk Mode", "category": "mode", "color": "#2196F3"},
-    "run": {"name": "Run Mode", "category": "mode", "color": "#2196F3"},
-    "climb": {"name": "Climb Mode", "category": "mode", "color": "#2196F3"},
-    "damping": {"name": "Damping", "category": "mode", "color": "#FF9800"},
-    "recoverStand": {"name": "Recovery", "category": "mode", "color": "#FF9800"},
+    "stand": {"name": "Stand", "category": "mode", "color": "#4CAF50", "duration": 500},
+    "standUp": {"name": "Stand Up", "category": "mode", "color": "#4CAF50", "duration": 1000},
+    "standDown": {"name": "Sit Down", "category": "mode", "color": "#4CAF50", "duration": 1000},
+    "walk": {"name": "Walk Mode", "category": "mode", "color": "#2196F3", "duration": 300},
+    "run": {"name": "Run Mode", "category": "mode", "color": "#2196F3", "duration": 300},
+    "climb": {"name": "Climb Mode", "category": "mode", "color": "#2196F3", "duration": 300},
+    "damping": {"name": "Damping", "category": "mode", "color": "#FF9800", "duration": 500},
+    "recoverStand": {"name": "Recovery", "category": "mode", "color": "#FF9800", "duration": 2000},
 
     # Dances
-    "dance1": {"name": "Dance 1", "category": "dance", "color": "#E91E63"},
-    "dance2": {"name": "Dance 2", "category": "dance", "color": "#E91E63"},
-    "dance3": {"name": "Dance 3", "category": "dance", "color": "#9C27B0"},
-    "dance4": {"name": "Dance 4", "category": "dance", "color": "#9C27B0"},
+    "dance1": {"name": "Dance 1", "category": "dance", "color": "#E91E63", "duration": 5000},
+    "dance2": {"name": "Dance 2", "category": "dance", "color": "#E91E63", "duration": 5000},
+    "dance3": {"name": "Dance 3", "category": "dance", "color": "#9C27B0", "duration": 5000},
+    "dance4": {"name": "Dance 4", "category": "dance", "color": "#9C27B0", "duration": 5000},
 
     # Special moves
-    "jumpYaw": {"name": "Jump Yaw", "category": "special", "color": "#FF5722"},
-    "straightHand1": {"name": "Straight Hand", "category": "special", "color": "#FF5722"},
-    "frontJump": {"name": "Front Jump", "category": "special", "color": "#FF5722"},
-    "frontPounce": {"name": "Front Pounce", "category": "special", "color": "#FF5722"},
-    "stretch": {"name": "Stretch", "category": "special", "color": "#795548"},
-    "pray": {"name": "Pray", "category": "special", "color": "#795548"},
-    "handStand": {"name": "Hand Stand", "category": "special", "color": "#795548"},
-    "wiggleHips": {"name": "Wiggle Hips", "category": "special", "color": "#795548"},
-    "bound": {"name": "Bound Jump", "category": "special", "color": "#795548"},
-    "backflip": {"name": "BACKFLIP", "category": "danger", "color": "#f44336"},
+    "jumpYaw": {"name": "Jump Yaw", "category": "special", "color": "#FF5722", "duration": 2000},
+    "straightHand1": {"name": "Straight Hand", "category": "special", "color": "#FF5722", "duration": 2000},
+    "frontJump": {"name": "Front Jump", "category": "special", "color": "#FF5722", "duration": 1500},
+    "frontPounce": {"name": "Front Pounce", "category": "special", "color": "#FF5722", "duration": 1500},
+    "stretch": {"name": "Stretch", "category": "special", "color": "#795548", "duration": 2000},
+    "pray": {"name": "Pray", "category": "special", "color": "#795548", "duration": 2000},
+    "handStand": {"name": "Hand Stand", "category": "special", "color": "#795548", "duration": 3000},
+    "wiggleHips": {"name": "Wiggle Hips", "category": "special", "color": "#795548", "duration": 2000},
+    "bound": {"name": "Bound Jump", "category": "special", "color": "#795548", "duration": 1500},
+    "backflip": {"name": "BACKFLIP", "category": "danger", "color": "#f44336", "duration": 3000},
 
     # Movement
-    "forward": {"name": "Forward", "category": "move", "color": "#00BCD4"},
-    "backward": {"name": "Backward", "category": "move", "color": "#00BCD4"},
-    "left": {"name": "Strafe Left", "category": "move", "color": "#00BCD4"},
-    "right": {"name": "Strafe Right", "category": "move", "color": "#00BCD4"},
-    "turnLeft": {"name": "Turn Left", "category": "move", "color": "#00BCD4"},
-    "turnRight": {"name": "Turn Right", "category": "move", "color": "#00BCD4"},
+    "forward": {"name": "Forward", "category": "move", "color": "#00BCD4", "duration": 200},
+    "backward": {"name": "Backward", "category": "move", "color": "#00BCD4", "duration": 200},
+    "left": {"name": "Strafe L", "category": "move", "color": "#00BCD4", "duration": 200},
+    "right": {"name": "Strafe R", "category": "move", "color": "#00BCD4", "duration": 200},
+    "turnLeft": {"name": "Turn L", "category": "move", "color": "#00BCD4", "duration": 200},
+    "turnRight": {"name": "Turn R", "category": "move", "color": "#00BCD4", "duration": 200},
 
     # Body pose
-    "lookUp": {"name": "Look Up", "category": "pose", "color": "#607D8B"},
-    "lookDown": {"name": "Look Down", "category": "pose", "color": "#607D8B"},
-    "leanLeft": {"name": "Lean Left", "category": "pose", "color": "#607D8B"},
-    "leanRight": {"name": "Lean Right", "category": "pose", "color": "#607D8B"},
-    "twistLeft": {"name": "Twist Left", "category": "pose", "color": "#607D8B"},
-    "twistRight": {"name": "Twist Right", "category": "pose", "color": "#607D8B"},
-    "squat": {"name": "Squat", "category": "pose", "color": "#607D8B"},
-    "extend": {"name": "Extend", "category": "pose", "color": "#607D8B"},
+    "lookUp": {"name": "Look Up", "category": "pose", "color": "#607D8B", "duration": 400},
+    "lookDown": {"name": "Look Down", "category": "pose", "color": "#607D8B", "duration": 400},
+    "leanLeft": {"name": "Lean L", "category": "pose", "color": "#607D8B", "duration": 400},
+    "leanRight": {"name": "Lean R", "category": "pose", "color": "#607D8B", "duration": 400},
+    "twistLeft": {"name": "Twist L", "category": "pose", "color": "#607D8B", "duration": 400},
+    "twistRight": {"name": "Twist R", "category": "pose", "color": "#607D8B", "duration": 400},
+    "squat": {"name": "Squat", "category": "pose", "color": "#607D8B", "duration": 400},
+    "extend": {"name": "Extend", "category": "pose", "color": "#607D8B", "duration": 400},
+
+    # Delays for choreography
+    "wait500": {"name": "Wait 0.5s", "category": "wait", "color": "#9E9E9E", "duration": 500},
+    "wait1000": {"name": "Wait 1s", "category": "wait", "color": "#9E9E9E", "duration": 1000},
+    "wait2000": {"name": "Wait 2s", "category": "wait", "color": "#9E9E9E", "duration": 2000},
 }
 
 
 def execute_command(cmd):
     """Execute a command and return timing."""
     global robot
+
+    if cmd.startswith("wait"):
+        # Just a delay, no robot action
+        delay = int(cmd.replace("wait", ""))
+        time.sleep(delay / 1000)
+        return {"name": cmd, "time_ms": delay, "success": True}
 
     if not robot or not connected:
         return {"name": cmd, "time_ms": 0, "success": False, "error": "Not connected"}
@@ -228,6 +240,24 @@ async def execute_pose(cmd):
     return {"name": cmd, "time_ms": 0, "success": False, "error": "Unknown pose"}
 
 
+def run_command(cmd):
+    """Run any command (sync wrapper)."""
+    category = COMMANDS.get(cmd, {}).get('category', '')
+
+    if category in ['move']:
+        loop = asyncio.new_event_loop()
+        result = loop.run_until_complete(execute_movement(cmd))
+        loop.close()
+    elif category in ['pose']:
+        loop = asyncio.new_event_loop()
+        result = loop.run_until_complete(execute_pose(cmd))
+        loop.close()
+    else:
+        result = execute_command(cmd)
+
+    return result
+
+
 # ============== WEB SERVER ==============
 
 HTML = """<!DOCTYPE html>
@@ -242,19 +272,21 @@ HTML = """<!DOCTYPE html>
             background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
             min-height: 100vh;
             color: white;
-            padding: 20px;
+            padding: 15px;
         }
         .header {
             text-align: center;
-            margin-bottom: 20px;
+            margin-bottom: 15px;
         }
-        .header h1 {
-            font-size: 28px;
-            color: #ffd700;
-            margin-bottom: 5px;
+        .header h1 { font-size: 24px; color: #ffd700; }
+        .status-bar {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin: 10px 0;
+            flex-wrap: wrap;
         }
         .status {
-            display: inline-block;
             padding: 5px 15px;
             border-radius: 20px;
             font-size: 12px;
@@ -262,190 +294,279 @@ HTML = """<!DOCTYPE html>
         }
         .status.connected { background: #4CAF50; }
         .status.disconnected { background: #f44336; }
+        .status.recording { background: #f44336; animation: pulse 1s infinite; }
+        .status.playing { background: #2196F3; animation: pulse 1s infinite; }
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
+        .mode-selector {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin: 15px 0;
+        }
+        .mode-btn {
+            padding: 12px 25px;
+            border: 3px solid transparent;
+            border-radius: 25px;
+            font-size: 14px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        .mode-btn.realtime { background: #4CAF50; }
+        .mode-btn.record { background: #f44336; }
+        .mode-btn.play { background: #2196F3; }
+        .mode-btn.active { border-color: #ffd700; transform: scale(1.1); }
+        .mode-btn:hover { transform: scale(1.05); }
+
         .container {
-            max-width: 1200px;
+            max-width: 1400px;
             margin: 0 auto;
             display: grid;
-            grid-template-columns: 1fr 300px;
-            gap: 20px;
+            grid-template-columns: 1fr 280px;
+            gap: 15px;
         }
         @media (max-width: 900px) {
             .container { grid-template-columns: 1fr; }
         }
+
         .panel {
             background: rgba(255,255,255,0.05);
-            border-radius: 15px;
-            padding: 15px;
+            border-radius: 12px;
+            padding: 12px;
             border: 1px solid rgba(255,255,255,0.1);
+            margin-bottom: 10px;
         }
         .panel h2 {
-            font-size: 14px;
+            font-size: 12px;
             color: #ffd700;
-            margin-bottom: 15px;
+            margin-bottom: 10px;
             text-transform: uppercase;
             letter-spacing: 1px;
         }
         .btn-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
-            gap: 8px;
+            grid-template-columns: repeat(auto-fill, minmax(85px, 1fr));
+            gap: 6px;
         }
         .btn {
-            padding: 12px 8px;
+            padding: 10px 6px;
             border: none;
-            border-radius: 10px;
-            font-size: 11px;
+            border-radius: 8px;
+            font-size: 10px;
             font-weight: 600;
             cursor: pointer;
             transition: all 0.2s;
             color: white;
             text-transform: uppercase;
         }
-        .btn:hover {
-            transform: scale(1.05);
-            box-shadow: 0 5px 20px rgba(0,0,0,0.3);
-        }
+        .btn:hover { transform: scale(1.05); box-shadow: 0 5px 15px rgba(0,0,0,0.3); }
         .btn:active { transform: scale(0.95); }
-        .btn.danger { animation: pulse 1s infinite; }
-        @keyframes pulse {
-            0%, 100% { box-shadow: 0 0 0 0 rgba(244,67,54,0.5); }
-            50% { box-shadow: 0 0 0 10px rgba(244,67,54,0); }
+        .btn.danger { animation: glow 2s infinite; }
+        @keyframes glow {
+            0%, 100% { box-shadow: 0 0 5px rgba(244,67,54,0.5); }
+            50% { box-shadow: 0 0 20px rgba(244,67,54,0.8); }
         }
-        .category { margin-bottom: 20px; }
-        .category-title {
-            font-size: 11px;
-            color: rgba(255,255,255,0.5);
-            margin-bottom: 8px;
-            text-transform: uppercase;
-        }
-        .log {
-            max-height: 400px;
+
+        .sequence-panel {
+            background: rgba(0,0,0,0.3);
+            border-radius: 10px;
+            padding: 10px;
+            min-height: 150px;
+            max-height: 300px;
             overflow-y: auto;
-            font-family: monospace;
-            font-size: 11px;
         }
-        .log-entry {
-            padding: 8px 10px;
-            border-bottom: 1px solid rgba(255,255,255,0.05);
+        .sequence-item {
             display: flex;
             justify-content: space-between;
             align-items: center;
+            padding: 6px 10px;
+            margin: 4px 0;
+            background: rgba(255,255,255,0.1);
+            border-radius: 6px;
+            font-size: 11px;
+        }
+        .sequence-item .remove {
+            cursor: pointer;
+            color: #f44336;
+            font-weight: bold;
+        }
+        .sequence-controls {
+            display: flex;
+            gap: 8px;
+            margin-top: 10px;
+        }
+        .seq-btn {
+            flex: 1;
+            padding: 10px;
+            border: none;
+            border-radius: 8px;
+            font-weight: bold;
+            cursor: pointer;
+            font-size: 11px;
+        }
+
+        .log {
+            max-height: 200px;
+            overflow-y: auto;
+            font-family: monospace;
+            font-size: 10px;
+        }
+        .log-entry {
+            padding: 6px 8px;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+            display: flex;
+            justify-content: space-between;
         }
         .log-entry.success { border-left: 3px solid #4CAF50; }
         .log-entry.error { border-left: 3px solid #f44336; }
-        .log-time {
-            color: #ffd700;
-            font-weight: bold;
-        }
+        .log-time { color: #ffd700; font-weight: bold; }
+
         .led-picker {
             display: flex;
-            gap: 10px;
-            margin-top: 10px;
+            gap: 8px;
+            flex-wrap: wrap;
         }
         .led-btn {
-            width: 40px;
-            height: 40px;
+            width: 35px;
+            height: 35px;
             border-radius: 50%;
-            border: 3px solid rgba(255,255,255,0.3);
+            border: 2px solid rgba(255,255,255,0.3);
             cursor: pointer;
         }
-        .led-btn:hover { border-color: white; }
-        .connect-btn {
-            width: 100%;
-            padding: 15px;
-            font-size: 14px;
-            margin-bottom: 15px;
+        .led-btn:hover { border-color: white; transform: scale(1.1); }
+
+        .connect-row {
+            display: flex;
+            gap: 8px;
         }
-        .timing-stats {
+        .connect-row .btn { flex: 1; padding: 12px; font-size: 12px; }
+
+        .stats {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 10px;
-            margin-top: 15px;
+            gap: 8px;
+            margin-bottom: 10px;
         }
         .stat {
             background: rgba(0,0,0,0.3);
-            padding: 10px;
+            padding: 8px;
             border-radius: 8px;
             text-align: center;
         }
-        .stat-value {
-            font-size: 24px;
-            font-weight: bold;
-            color: #ffd700;
+        .stat-value { font-size: 20px; font-weight: bold; color: #ffd700; }
+        .stat-label { font-size: 9px; color: rgba(255,255,255,0.5); text-transform: uppercase; }
+
+        .now-playing {
+            text-align: center;
+            padding: 15px;
+            background: rgba(33,150,243,0.2);
+            border-radius: 10px;
+            margin-bottom: 10px;
+            display: none;
         }
-        .stat-label {
-            font-size: 10px;
-            color: rgba(255,255,255,0.5);
-            text-transform: uppercase;
-        }
+        .now-playing.active { display: block; }
+        .now-playing .cmd { font-size: 18px; font-weight: bold; color: #2196F3; }
+        .now-playing .progress { font-size: 12px; color: rgba(255,255,255,0.7); }
     </style>
 </head>
 <body>
     <div class="header">
-        <h1>🐕 Go1 Dashboard</h1>
-        <span class="status disconnected" id="status">Disconnected</span>
+        <h1>🐕 Go1 Control Dashboard</h1>
+        <div class="status-bar">
+            <span class="status disconnected" id="connStatus">Disconnected</span>
+            <span class="status" id="modeStatus" style="background:#4CAF50;">REALTIME</span>
+        </div>
+    </div>
+
+    <div class="mode-selector">
+        <button class="mode-btn realtime active" onclick="setMode('realtime')">⚡ REALTIME</button>
+        <button class="mode-btn record" onclick="setMode('record')">⏺ RECORD</button>
+        <button class="mode-btn play" onclick="playSequence()">▶ PLAY</button>
+    </div>
+
+    <div class="now-playing" id="nowPlaying">
+        <div class="cmd" id="currentCmd">-</div>
+        <div class="progress" id="playProgress">0 / 0</div>
     </div>
 
     <div class="container">
         <div class="main-panel">
             <div class="panel">
-                <button class="btn connect-btn" style="background: #4CAF50;" onclick="connect()">
-                    Connect to Go1
-                </button>
-                <button class="btn" style="background: #FF9800; width: 100%;" onclick="unlock()">
-                    🔓 Unlock SDK Mode
-                </button>
+                <div class="connect-row">
+                    <button class="btn" style="background:#4CAF50;" onclick="connect()">Connect</button>
+                    <button class="btn" style="background:#FF9800;" onclick="unlock()">🔓 Unlock</button>
+                </div>
             </div>
 
-            <div class="panel" style="margin-top: 15px;">
-                <h2>Mode Controls</h2>
+            <div class="panel">
+                <h2>Modes</h2>
                 <div class="btn-grid" id="mode-btns"></div>
             </div>
 
-            <div class="panel" style="margin-top: 15px;">
-                <h2>Dance & Special Moves</h2>
+            <div class="panel">
+                <h2>Dance & Special</h2>
                 <div class="btn-grid" id="dance-btns"></div>
             </div>
 
-            <div class="panel" style="margin-top: 15px;">
+            <div class="panel">
                 <h2>Movement</h2>
                 <div class="btn-grid" id="move-btns"></div>
             </div>
 
-            <div class="panel" style="margin-top: 15px;">
+            <div class="panel">
                 <h2>Body Pose</h2>
                 <div class="btn-grid" id="pose-btns"></div>
             </div>
 
-            <div class="panel" style="margin-top: 15px;">
-                <h2>LED Control</h2>
+            <div class="panel">
+                <h2>Timing / Waits</h2>
+                <div class="btn-grid" id="wait-btns"></div>
+            </div>
+
+            <div class="panel">
+                <h2>LED</h2>
                 <div class="led-picker">
-                    <div class="led-btn" style="background: #f44336;" onclick="setLed(255,0,0)"></div>
-                    <div class="led-btn" style="background: #4CAF50;" onclick="setLed(0,255,0)"></div>
-                    <div class="led-btn" style="background: #2196F3;" onclick="setLed(0,0,255)"></div>
-                    <div class="led-btn" style="background: #ffd700;" onclick="setLed(255,215,0)"></div>
-                    <div class="led-btn" style="background: #E91E63;" onclick="setLed(255,20,147)"></div>
-                    <div class="led-btn" style="background: #333;" onclick="setLed(0,0,0)"></div>
+                    <div class="led-btn" style="background:#f44336;" onclick="setLed(255,0,0)"></div>
+                    <div class="led-btn" style="background:#4CAF50;" onclick="setLed(0,255,0)"></div>
+                    <div class="led-btn" style="background:#2196F3;" onclick="setLed(0,0,255)"></div>
+                    <div class="led-btn" style="background:#ffd700;" onclick="setLed(255,215,0)"></div>
+                    <div class="led-btn" style="background:#E91E63;" onclick="setLed(255,20,147)"></div>
+                    <div class="led-btn" style="background:#00BCD4;" onclick="setLed(0,188,212)"></div>
+                    <div class="led-btn" style="background:#333;" onclick="setLed(0,0,0)"></div>
                 </div>
             </div>
         </div>
 
         <div class="side-panel">
             <div class="panel">
-                <h2>Timing Stats</h2>
-                <div class="timing-stats">
+                <h2>Stats</h2>
+                <div class="stats">
                     <div class="stat">
-                        <div class="stat-value" id="avg-time">0</div>
-                        <div class="stat-label">Avg (ms)</div>
+                        <div class="stat-value" id="avgTime">0</div>
+                        <div class="stat-label">Avg ms</div>
                     </div>
                     <div class="stat">
-                        <div class="stat-value" id="total-cmds">0</div>
+                        <div class="stat-value" id="totalCmds">0</div>
                         <div class="stat-label">Commands</div>
                     </div>
                 </div>
             </div>
 
-            <div class="panel" style="margin-top: 15px;">
+            <div class="panel">
+                <h2>Recorded Sequence (<span id="seqCount">0</span>)</h2>
+                <div class="sequence-panel" id="sequence"></div>
+                <div class="sequence-controls">
+                    <button class="seq-btn" style="background:#f44336;" onclick="clearSequence()">Clear</button>
+                    <button class="seq-btn" style="background:#9C27B0;" onclick="saveSequence()">Save</button>
+                    <button class="seq-btn" style="background:#607D8B;" onclick="loadSequence()">Load</button>
+                </div>
+            </div>
+
+            <div class="panel">
                 <h2>Action Log</h2>
                 <div class="log" id="log"></div>
             </div>
@@ -454,6 +575,9 @@ HTML = """<!DOCTYPE html>
 
     <script>
         const COMMANDS = COMMANDS_JSON;
+        let currentMode = 'realtime';
+        let sequence = [];
+        let isPlaying = false;
 
         function createButtons() {
             const categories = {
@@ -462,7 +586,8 @@ HTML = """<!DOCTYPE html>
                 'special': 'dance-btns',
                 'danger': 'dance-btns',
                 'move': 'move-btns',
-                'pose': 'pose-btns'
+                'pose': 'pose-btns',
+                'wait': 'wait-btns'
             };
 
             for (const [cmd, info] of Object.entries(COMMANDS)) {
@@ -473,22 +598,133 @@ HTML = """<!DOCTYPE html>
                 btn.className = 'btn' + (info.category === 'danger' ? ' danger' : '');
                 btn.style.background = info.color;
                 btn.textContent = info.name;
-                btn.onclick = () => sendCmd(cmd);
+                btn.onclick = () => handleClick(cmd);
                 container.appendChild(btn);
             }
+        }
+
+        function setMode(mode) {
+            currentMode = mode;
+            document.querySelectorAll('.mode-btn').forEach(b => b.classList.remove('active'));
+            document.querySelector('.mode-btn.' + mode).classList.add('active');
+
+            const statusEl = document.getElementById('modeStatus');
+            if (mode === 'realtime') {
+                statusEl.textContent = 'REALTIME';
+                statusEl.style.background = '#4CAF50';
+            } else if (mode === 'record') {
+                statusEl.textContent = '⏺ RECORDING';
+                statusEl.style.background = '#f44336';
+                statusEl.classList.add('recording');
+            }
+        }
+
+        function handleClick(cmd) {
+            if (currentMode === 'realtime') {
+                sendCmd(cmd);
+            } else if (currentMode === 'record') {
+                addToSequence(cmd);
+            }
+        }
+
+        function addToSequence(cmd) {
+            const info = COMMANDS[cmd];
+            sequence.push({ cmd, name: info.name, duration: info.duration });
+            renderSequence();
+        }
+
+        function removeFromSequence(index) {
+            sequence.splice(index, 1);
+            renderSequence();
+        }
+
+        function renderSequence() {
+            const container = document.getElementById('sequence');
+            container.innerHTML = '';
+            sequence.forEach((item, i) => {
+                const div = document.createElement('div');
+                div.className = 'sequence-item';
+                div.innerHTML = `
+                    <span>${i + 1}. ${item.name} (${item.duration}ms)</span>
+                    <span class="remove" onclick="removeFromSequence(${i})">✕</span>
+                `;
+                container.appendChild(div);
+            });
+            document.getElementById('seqCount').textContent = sequence.length;
+        }
+
+        function clearSequence() {
+            sequence = [];
+            renderSequence();
+        }
+
+        function saveSequence() {
+            const json = JSON.stringify(sequence);
+            localStorage.setItem('go1_sequence', json);
+            alert('Sequence saved! (' + sequence.length + ' actions)');
+        }
+
+        function loadSequence() {
+            const json = localStorage.getItem('go1_sequence');
+            if (json) {
+                sequence = JSON.parse(json);
+                renderSequence();
+                alert('Sequence loaded! (' + sequence.length + ' actions)');
+            } else {
+                alert('No saved sequence found');
+            }
+        }
+
+        async function playSequence() {
+            if (sequence.length === 0) {
+                alert('No actions recorded!');
+                return;
+            }
+            if (isPlaying) return;
+
+            isPlaying = true;
+            const nowPlaying = document.getElementById('nowPlaying');
+            nowPlaying.classList.add('active');
+
+            const statusEl = document.getElementById('modeStatus');
+            statusEl.textContent = '▶ PLAYING';
+            statusEl.style.background = '#2196F3';
+            statusEl.classList.add('playing');
+
+            for (let i = 0; i < sequence.length; i++) {
+                if (!isPlaying) break;
+
+                const item = sequence[i];
+                document.getElementById('currentCmd').textContent = item.name;
+                document.getElementById('playProgress').textContent = `${i + 1} / ${sequence.length}`;
+
+                await sendCmd(item.cmd);
+                await sleep(item.duration);
+            }
+
+            isPlaying = false;
+            nowPlaying.classList.remove('active');
+            statusEl.textContent = 'REALTIME';
+            statusEl.style.background = '#4CAF50';
+            statusEl.classList.remove('playing');
+            setMode('realtime');
+        }
+
+        function sleep(ms) {
+            return new Promise(resolve => setTimeout(resolve, ms));
         }
 
         async function connect() {
             const res = await fetch('/api/connect', {method: 'POST'});
             const data = await res.json();
-            updateStatus(data.connected);
+            updateConnStatus(data.connected);
             addLog('Connect', data.connected, data.time_ms || 0);
         }
 
         async function unlock() {
             const res = await fetch('/api/unlock', {method: 'POST'});
             const data = await res.json();
-            addLog('Unlock SDK', data.success, data.time_ms || 0);
+            addLog('Unlock', data.success, data.time_ms || 0);
         }
 
         async function sendCmd(cmd) {
@@ -496,15 +732,15 @@ HTML = """<!DOCTYPE html>
             const data = await res.json();
             addLog(data.name, data.success, data.time_ms);
             updateStats();
+            return data;
         }
 
         async function setLed(r, g, b) {
             await fetch(`/api/led/${r}/${g}/${b}`, {method: 'POST'});
-            addLog(`LED(${r},${g},${b})`, true, 0);
         }
 
-        function updateStatus(connected) {
-            const el = document.getElementById('status');
+        function updateConnStatus(connected) {
+            const el = document.getElementById('connStatus');
             el.textContent = connected ? 'Connected' : 'Disconnected';
             el.className = 'status ' + (connected ? 'connected' : 'disconnected');
         }
@@ -515,8 +751,7 @@ HTML = """<!DOCTYPE html>
             entry.className = 'log-entry ' + (success ? 'success' : 'error');
             entry.innerHTML = `<span>${name}</span><span class="log-time">${time_ms}ms</span>`;
             log.insertBefore(entry, log.firstChild);
-            if (log.children.length > 50) log.removeChild(log.lastChild);
-            updateStats();
+            if (log.children.length > 30) log.removeChild(log.lastChild);
         }
 
         function updateStats() {
@@ -526,18 +761,17 @@ HTML = """<!DOCTYPE html>
                 const time = parseFloat(e.querySelector('.log-time').textContent);
                 if (time > 0) { total += time; count++; }
             });
-            document.getElementById('avg-time').textContent = count ? Math.round(total / count) : 0;
-            document.getElementById('total-cmds').textContent = entries.length;
+            document.getElementById('avgTime').textContent = count ? Math.round(total / count) : 0;
+            document.getElementById('totalCmds').textContent = entries.length;
         }
 
-        // Poll status
         setInterval(async () => {
             try {
                 const res = await fetch('/api/status');
                 const data = await res.json();
-                updateStatus(data.connected);
+                updateConnStatus(data.connected);
             } catch(e) {}
-        }, 2000);
+        }, 3000);
 
         createButtons();
     </script>
@@ -548,7 +782,7 @@ HTML = """<!DOCTYPE html>
 
 class DashboardHandler(SimpleHTTPRequestHandler):
     def log_message(self, format, *args):
-        pass  # Suppress logs
+        pass
 
     def do_GET(self):
         if self.path == '/' or self.path == '/index.html':
@@ -585,20 +819,7 @@ class DashboardHandler(SimpleHTTPRequestHandler):
 
         elif self.path.startswith('/api/cmd/'):
             cmd = self.path.split('/')[-1]
-            category = COMMANDS.get(cmd, {}).get('category', '')
-
-            if category in ['move']:
-                # Run async movement
-                loop = asyncio.new_event_loop()
-                result = loop.run_until_complete(execute_movement(cmd))
-                loop.close()
-            elif category in ['pose']:
-                loop = asyncio.new_event_loop()
-                result = loop.run_until_complete(execute_pose(cmd))
-                loop.close()
-            else:
-                result = execute_command(cmd)
-
+            result = run_command(cmd)
             self.send_json(result)
 
         elif self.path.startswith('/api/led/'):
@@ -625,14 +846,13 @@ def main():
     server = HTTPServer(('', port), DashboardHandler)
 
     print("\n" + "=" * 50)
-    print("  🐕 Go1 Visual Dashboard")
+    print("  🐕 Go1 Control Dashboard")
     print("=" * 50)
     print(f"\n  Open: http://localhost:{port}")
-    print("\n  Features:")
-    print("  - Visual buttons for all commands")
-    print("  - Real-time timing for each action")
-    print("  - Action log with success/failure")
-    print("  - LED color picker")
+    print("\n  MODES:")
+    print("  ⚡ REALTIME - Execute immediately on click")
+    print("  ⏺  RECORD  - Record actions to sequence")
+    print("  ▶  PLAY    - Play recorded sequence")
     print("\n  Press Ctrl+C to stop")
     print("=" * 50 + "\n")
 
