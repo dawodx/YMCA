@@ -20,7 +20,7 @@
 ### Task 3: Robot Translation
 - [ ] Map human body keypoints to Go1 joint angles
 - [ ] Scale movements for quadruped (human → dog)
-- [ ] Output `Move` objects for Patwic's choreography player
+- [ ] Output `Move` objects for Pawit's choreography player
 
 ## Interface You Need to Provide
 
@@ -99,7 +99,7 @@ python andrew_vision/pose_extractor.py --video trump_ymca.mp4
 
 ## Output Format
 
-Your output should be a `Choreography` object that Patwic can use:
+Your output should be a `Choreography` object that Pawit can use:
 
 ```python
 from shared.types import Move, MoveType, Choreography

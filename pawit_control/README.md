@@ -1,4 +1,4 @@
-# Patwic's Zone - Robot Control & Moves
+# Pawit's Zone - Robot Control & Moves
 
 ## Your Mission
 1. Define all the dance moves
@@ -25,7 +25,7 @@
 ## Interface You Need to Provide
 
 ```python
-# patwic_control/move_executor.py
+# pawit_control/move_executor.py
 
 class MoveExecutor:
     def __init__(self, robot_interface):
@@ -37,7 +37,7 @@ class MoveExecutor:
         pass
 
 
-# patwic_control/player.py
+# pawit_control/player.py
 
 class ChoreographyPlayer:
     def __init__(self, executor: MoveExecutor):

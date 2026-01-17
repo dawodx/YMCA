@@ -27,7 +27,7 @@ python launcher.py
 
 ```
 ┌─────────────────┐     ┌──────────────────┐     ┌─────────────────┐
-│   ALEX          │     │    PATWIC        │     │      MO         │
+│   ALEX          │     │    PAWIT        │     │      MO         │
 │   Music Analysis│────▶│    Robot Control │────▶│   Simulation    │
 │                 │     │    & Moves       │     │   & Real Robot  │
 │  - Beat detect  │     │  - Move library  │     │  - Mujoco sim   │
@@ -57,7 +57,7 @@ python launcher.py
 | Member | Folder | Focus |
 |--------|--------|-------|
 | Mo | `mo_simulation/` | Mujoco sim, real robot connection |
-| Patwic | `patwic_control/` | Robot moves, control, choreography |
+| Pawit | `pawit_control/` | Robot moves, control, choreography |
 | Alex | `alex_music/` | Music analysis, beat detection, move timing |
 | Andrew | `andrew_vision/` | Computer vision, pose extraction, human→robot translation |
 
@@ -76,7 +76,7 @@ YMCA/
 │   └── config.py            # Robot settings
 ├── mo_simulation/           # Mo's zone
 │   └── run_go1_keyboard.py  # Keyboard control demo
-├── patwic_control/          # Patwic's zone
+├── pawit_control/           # Pawit's zone
 ├── alex_music/              # Alex's zone
 └── andrew_vision/           # Andrew's zone
 ```

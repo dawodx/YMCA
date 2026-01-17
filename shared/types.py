@@ -5,7 +5,7 @@ DO NOT MODIFY WITHOUT TEAM AGREEMENT!
 
 This file defines the interfaces that connect:
 - Alex's music analysis
-- Patwic's robot control
+- Pawit's robot control
 - Mo's simulation
 """
 
@@ -15,7 +15,7 @@ from enum import Enum
 
 
 class MoveType(Enum):
-    """Available dance moves - Patwic defines these, everyone uses them"""
+    """Available dance moves - Pawit defines these, everyone uses them"""
     # YMCA letter poses
     Y_POSE = "y_pose"
     M_POSE = "m_pose"

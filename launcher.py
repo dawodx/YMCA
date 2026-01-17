@@ -101,7 +101,7 @@ HTML = """<!DOCTYPE html>
         <div class="demos">
             {demo_cards}
         </div>
-        <p class="team">Mo | Patwic | Alex</p>
+        <p class="team">Mo | Pawit | Alex</p>
     </div>
     <script>
         async function runDemo(demoId, element) {

@@ -1,0 +1,4991 @@
+{
+    "source_file": "alex_music/music/ymca_music.mp3",
+    "tempo": 129.0,
+    "total_beats": 623,
+    "events": [
+        {
+            "timestamp": 0.603718820861678,
+            "beat_index": 0,
+            "beat_in_bar": 0,
+            "bar_index": 0,
+            "type": "VERSE",
+            "drum": "KICK"
+        },
+        {
+            "timestamp": 1.0688350999314455,
+            "beat_index": 1,
+            "beat_in_bar": 1,
+            "bar_index": 0,
+            "type": "VERSE",
+            "drum": "SNARE"
+        },
+        {
+            "timestamp": 1.533951379001213,
+            "beat_index": 2,
+            "beat_in_bar": 2,
+            "bar_index": 0,
+            "type": "VERSE",
+            "drum": "KICK"
+        },
+        {
+            "timestamp": 1.9990676580709803,
+            "beat_index": 3,
+            "beat_in_bar": 3,
+            "bar_index": 0,
+            "type": "VERSE",
+            "drum": "SNARE"
+        },
+        {
+            "timestamp": 2.464183937140748,
+            "beat_index": 4,
+            "beat_in_bar": 0,
+            "bar_index": 1,
+            "type": "VERSE",
+            "drum": "KICK"
+        },
+        {
+            "timestamp": 2.9293002162105153,
+            "beat_index": 5,
+            "beat_in_bar": 1,
+            "bar_index": 1,
+            "type": "VERSE",
+            "drum": "SNARE"
+        },
+        {
+            "timestamp": 3.3944164952802827,
+            "beat_index": 6,
+            "beat_in_bar": 2,
+            "bar_index": 1,
+            "type": "VERSE",
+            "drum": "KICK"
+        },
+        {
+            "timestamp": 3.85953277435005,
+            "beat_index": 7,
+            "beat_in_bar": 3,
+            "bar_index": 1,
+            "type": "VERSE",
+            "drum": "SNARE"
+        },
+        {
+            "timestamp": 4.324649053419818,
+            "beat_index": 8,
+            "beat_in_bar": 0,
+            "bar_index": 2,
+            "type": "VERSE",
+            "drum": "KICK"
+        },
+        {
+            "timestamp": 4.789765332489585,
+            "beat_index": 9,
+            "beat_in_bar": 1,
+            "bar_index": 2,
+            "type": "VERSE",
+            "drum": "SNARE"
+        },
+        {
+            "timestamp": 5.254881611559353,
+            "beat_index": 10,
+            "beat_in_bar": 2,
+            "bar_index": 2,
+            "type": "VERSE",
+            "drum": "KICK"
+        },
+        {
+            "timestamp": 5.71999789062912,
+            "beat_index": 11,
+            "beat_in_bar": 3,
+            "bar_index": 2,
+            "type": "VERSE",
+            "drum": "SNARE"
+        },
+        {
+            "timestamp": 6.185114169698887,
+            "beat_index": 12,
+            "beat_in_bar": 0,
+            "bar_index": 3,
+            "type": "VERSE",
+            "drum": "KICK"
+        },
+        {
+            "timestamp": 6.650230448768655,
+            "beat_index": 13,
+            "beat_in_bar": 1,
+            "bar_index": 3,
+            "type": "VERSE",
+            "drum": "SNARE"
+        },
+        {
+            "timestamp": 7.115346727838422,
+            "beat_index": 14,
+            "beat_in_bar": 2,
+            "bar_index": 3,
+            "type": "VERSE",
+            "drum": "KICK"
+        },
+        {
+            "timestamp": 7.5804630069081895,
+            "beat_index": 15,
+            "beat_in_bar": 3,
+            "bar_index": 3,
+            "type": "VERSE",
+            "drum": "SNARE"
+        },
+        {
+            "timestamp": 8.045579285977958,
+            "beat_index": 16,
+            "beat_in_bar": 0,
+            "bar_index": 4,
+            "type": "VERSE",
+            "drum": "KICK"
+        },
+        {
+            "timestamp": 8.510695565047726,
+            "beat_index": 17,
+            "beat_in_bar": 1,
+            "bar_index": 4,
+            "type": "VERSE",
+            "drum": "SNARE"
+        },
+        {
+            "timestamp": 8.975811844117494,
+            "beat_index": 18,
+            "beat_in_bar": 2,
+            "bar_index": 4,
+            "type": "VERSE",
+            "drum": "KICK"
+        },
+        {
+            "timestamp": 9.440928123187263,
+            "beat_index": 19,
+            "beat_in_bar": 3,
+            "bar_index": 4,
+            "type": "VERSE",
+            "drum": "SNARE"
+        },
+        {
+            "timestamp": 9.90604440225703,
+            "beat_index": 20,
+            "beat_in_bar": 0,
+            "bar_index": 5,
+            "type": "VERSE",
+            "drum": "KICK"
+        },
+        {
+            "timestamp": 10.3711606813268,
+            "beat_index": 21,
+            "beat_in_bar": 1,
+            "bar_index": 5,
+            "type": "VERSE",
+            "drum": "SNARE"
+        },
+        {
+            "timestamp": 10.836276960396567,
+            "beat_index": 22,
+            "beat_in_bar": 2,
+            "bar_index": 5,
+            "type": "VERSE",
+            "drum": "KICK"
+        },
+        {
+            "timestamp": 11.301393239466336,
+            "beat_index": 23,
+            "beat_in_bar": 3,
+            "bar_index": 5,
+            "type": "VERSE",
+            "drum": "SNARE"
+        },
+        {
+            "timestamp": 11.766509518536104,
+            "beat_index": 24,
+            "beat_in_bar": 0,
+            "bar_index": 6,
+            "type": "VERSE",
+            "drum": "KICK"
+        },
+        {
+            "timestamp": 12.231625797605872,
+            "beat_index": 25,
+            "beat_in_bar": 1,
+            "bar_index": 6,
+            "type": "VERSE",
+            "drum": "SNARE"
+        },
+        {
+            "timestamp": 12.69674207667564,
+            "beat_index": 26,
+            "beat_in_bar": 2,
+            "bar_index": 6,
+            "type": "VERSE",
+            "drum": "KICK"
+        },
+        {
+            "timestamp": 13.161858355745409,
+            "beat_index": 27,
+            "beat_in_bar": 3,
+            "bar_index": 6,
+            "type": "VERSE",
+            "drum": "SNARE"
+        },
+        {
+            "timestamp": 13.626974634815177,
+            "beat_index": 28,
+            "beat_in_bar": 0,
+            "bar_index": 7,
+            "type": "VERSE",
+            "drum": "KICK"
+        },
+        {
+            "timestamp": 14.092090913884945,
+            "beat_index": 29,
+            "beat_in_bar": 1,
+            "bar_index": 7,
+            "type": "VERSE",
+            "drum": "SNARE"
+        },
+        {
+            "timestamp": 14.557207192954714,
+            "beat_index": 30,
+            "beat_in_bar": 2,
+            "bar_index": 7,
+            "type": "VERSE",
+            "drum": "KICK"
+        },
+        {
+            "timestamp": 15.022323472024482,
+            "beat_index": 31,
+            "beat_in_bar": 3,
+            "bar_index": 7,
+            "type": "VERSE",
+            "drum": "SNARE"
+        },
+        {
+            "timestamp": 15.48743975109425,
+            "beat_index": 32,
+            "beat_in_bar": 0,
+            "bar_index": 8,
+            "type": "VERSE",
+            "drum": "KICK"
+        },
+        {
+            "timestamp": 15.952556030164018,
+            "beat_index": 33,
+            "beat_in_bar": 1,
+            "bar_index": 8,
+            "type": "VERSE",
+            "drum": "SNARE"
+        },
+        {
+            "timestamp": 16.417672309233787,
+            "beat_index": 34,
+            "beat_in_bar": 2,
+            "bar_index": 8,
+            "type": "VERSE",
+            "drum": "KICK"
+        },
+        {
+            "timestamp": 16.882788588303555,
+            "beat_index": 35,
+            "beat_in_bar": 3,
+            "bar_index": 8,
+            "type": "VERSE",
+            "drum": "SNARE"
+        },
+        {
+            "timestamp": 17.347904867373323,
+            "beat_index": 36,
+            "beat_in_bar": 0,
+            "bar_index": 9,
+            "type": "VERSE",
+            "drum": "KICK"
+        },
+        {
+            "timestamp": 17.81302114644309,
+            "beat_index": 37,
+            "beat_in_bar": 1,
+            "bar_index": 9,
+            "type": "VERSE",
+            "drum": "SNARE"
+        },
+        {
+            "timestamp": 18.27813742551286,
+            "beat_index": 38,
+            "beat_in_bar": 2,
+            "bar_index": 9,
+            "type": "VERSE",
+            "drum": "KICK"
+        },
+        {
+            "timestamp": 18.743253704582628,
+            "beat_index": 39,
+            "beat_in_bar": 3,
+            "bar_index": 9,
+            "type": "VERSE",
+            "drum": "SNARE"
+        },
+        {
+            "timestamp": 19.208369983652396,
+            "beat_index": 40,
+            "beat_in_bar": 0,
+            "bar_index": 10,
+            "type": "VERSE",
+            "drum": "KICK"
+        },
+        {
+            "timestamp": 19.673486262722164,
+            "beat_index": 41,
+            "beat_in_bar": 1,
+            "bar_index": 10,
+            "type": "VERSE",
+            "drum": "SNARE"
+        },
+        {
+            "timestamp": 20.138602541791933,
+            "beat_index": 42,
+            "beat_in_bar": 2,
+            "bar_index": 10,
+            "type": "VERSE",
+            "drum": "KICK"
+        },
+        {
+            "timestamp": 20.6037188208617,
+            "beat_index": 43,
+            "beat_in_bar": 3,
+            "bar_index": 10,
+            "type": "VERSE",
+            "drum": "SNARE"
+        },
+        {
+            "timestamp": 21.06883509993147,
+            "beat_index": 44,
+            "beat_in_bar": 0,
+            "bar_index": 11,
+            "type": "VERSE",
+            "drum": "KICK"
+        },
+        {
+            "timestamp": 21.533951379001238,
+            "beat_index": 45,
+            "beat_in_bar": 1,
+            "bar_index": 11,
+            "type": "VERSE",
+            "drum": "SNARE"
+        },
+        {
+            "timestamp": 21.999067658071006,
+            "beat_index": 46,
+            "beat_in_bar": 2,
+            "bar_index": 11,
+            "type": "VERSE",
+            "drum": "KICK"
+        },
+        {
+            "timestamp": 22.464183937140774,
+            "beat_index": 47,
+            "beat_in_bar": 3,
+            "bar_index": 11,
+            "type": "VERSE",
+            "drum": "SNARE"
+        },
+        {
+            "timestamp": 22.929300216210542,
+            "beat_index": 48,
+            "beat_in_bar": 0,
+            "bar_index": 12,
+            "type": "VERSE",
+            "drum": "KICK"
+        },
+        {
+            "timestamp": 23.39441649528031,
+            "beat_index": 49,
+            "beat_in_bar": 1,
+            "bar_index": 12,
+            "type": "VERSE",
+            "drum": "SNARE"
+        },
+        {
+            "timestamp": 23.85953277435008,
+            "beat_index": 50,
+            "beat_in_bar": 2,
+            "bar_index": 12,
+            "type": "VERSE",
+            "drum": "KICK"
+        },
+        {
+            "timestamp": 24.324649053419847,
+            "beat_index": 51,
+            "beat_in_bar": 3,
+            "bar_index": 12,
+            "type": "VERSE",
+            "drum": "SNARE"
+        },
+        {
+            "timestamp": 24.789765332489615,
+            "beat_index": 52,
+            "beat_in_bar": 0,
+            "bar_index": 13,
+            "type": "VERSE",
+            "drum": "KICK"
+        },
+        {
+            "timestamp": 25.254881611559384,
+            "beat_index": 53,
+            "beat_in_bar": 1,
+            "bar_index": 13,
+            "type": "VERSE",
+            "drum": "SNARE"
+        },
+        {
+            "timestamp": 25.719997890629152,
+            "beat_index": 54,
+            "beat_in_bar": 2,
+            "bar_index": 13,
+            "type": "VERSE",
+            "drum": "KICK"
+        },
+        {
+            "timestamp": 26.18511416969892,
+            "beat_index": 55,
+            "beat_in_bar": 3,
+            "bar_index": 13,
+            "type": "VERSE",
+            "drum": "SNARE"
+        },
+        {
+            "timestamp": 26.65023044876869,
+            "beat_index": 56,
+            "beat_in_bar": 0,
+            "bar_index": 14,
+            "type": "VERSE",
+            "drum": "KICK"
+        },
+        {
+            "timestamp": 27.115346727838457,
+            "beat_index": 57,
+            "beat_in_bar": 1,
+            "bar_index": 14,
+            "type": "VERSE",
+            "drum": "SNARE"
+        },
+        {
+            "timestamp": 27.580463006908225,
+            "beat_index": 58,
+            "beat_in_bar": 2,
+            "bar_index": 14,
+            "type": "VERSE",
+            "drum": "KICK"
+        },
+        {
+            "timestamp": 28.045579285977993,
+            "beat_index": 59,
+            "beat_in_bar": 3,
+            "bar_index": 14,
+            "type": "VERSE",
+            "drum": "SNARE"
+        },
+        {
+            "timestamp": 28.51069556504776,
+            "beat_index": 60,
+            "beat_in_bar": 0,
+            "bar_index": 15,
+            "type": "VERSE",
+            "drum": "KICK"
+        },
+        {
+            "timestamp": 28.97581184411753,
+            "beat_index": 61,
+            "beat_in_bar": 1,
+            "bar_index": 15,
+            "type": "VERSE",
+            "drum": "SNARE"
+        },
+        {
+            "timestamp": 29.440928123187298,
+            "beat_index": 62,
+            "beat_in_bar": 2,
+            "bar_index": 15,
+            "type": "VERSE",
+            "drum": "KICK"
+        },
+        {
+            "timestamp": 29.906044402257066,
+            "beat_index": 63,
+            "beat_in_bar": 3,
+            "bar_index": 15,
+            "type": "VERSE",
+            "drum": "SNARE"
+        },
+        {
+            "timestamp": 30.371160681326835,
+            "beat_index": 64,
+            "beat_in_bar": 0,
+            "bar_index": 16,
+            "type": "VERSE",
+            "drum": "KICK"
+        },
+        {
+            "timestamp": 30.836276960396603,
+            "beat_index": 65,
+            "beat_in_bar": 1,
+            "bar_index": 16,
+            "type": "VERSE",
+            "drum": "SNARE"
+        },
+        {
+            "timestamp": 31.30139323946637,
+            "beat_index": 66,
+            "beat_in_bar": 2,
+            "bar_index": 16,
+            "type": "VERSE",
+            "drum": "KICK"
+        },
+        {
+            "timestamp": 31.76650951853614,
+            "beat_index": 67,
+            "beat_in_bar": 3,
+            "bar_index": 16,
+            "type": "VERSE",
+            "drum": "SNARE"
+        },
+        {
+            "timestamp": 32.23162579760591,
+            "beat_index": 68,
+            "beat_in_bar": 0,
+            "bar_index": 17,
+            "type": "VERSE",
+            "drum": "KICK"
+        },
+        {
+            "timestamp": 32.696742076675676,
+            "beat_index": 69,
+            "beat_in_bar": 1,
+            "bar_index": 17,
+            "type": "VERSE",
+            "drum": "SNARE"
+        },
+        {
+            "timestamp": 33.161858355745444,
+            "beat_index": 70,
+            "beat_in_bar": 2,
+            "bar_index": 17,
+            "type": "VERSE",
+            "drum": "KICK"
+        },
+        {
+            "timestamp": 33.62697463481521,
+            "beat_index": 71,
+            "beat_in_bar": 3,
+            "bar_index": 17,
+            "type": "VERSE",
+            "drum": "SNARE"
+        },
+        {
+            "timestamp": 34.09209091388498,
+            "beat_index": 72,
+            "beat_in_bar": 0,
+            "bar_index": 18,
+            "type": "VERSE",
+            "drum": "KICK"
+        },
+        {
+            "timestamp": 34.55720719295475,
+            "beat_index": 73,
+            "beat_in_bar": 1,
+            "bar_index": 18,
+            "type": "VERSE",
+            "drum": "SNARE"
+        },
+        {
+            "timestamp": 35.02232347202452,
+            "beat_index": 74,
+            "beat_in_bar": 2,
+            "bar_index": 18,
+            "type": "VERSE",
+            "drum": "KICK"
+        },
+        {
+            "timestamp": 35.487439751094286,
+            "beat_index": 75,
+            "beat_in_bar": 3,
+            "bar_index": 18,
+            "type": "VERSE",
+            "drum": "SNARE"
+        },
+        {
+            "timestamp": 35.952556030164054,
+            "beat_index": 76,
+            "beat_in_bar": 0,
+            "bar_index": 19,
+            "type": "VERSE",
+            "drum": "KICK"
+        },
+        {
+            "timestamp": 36.41767230923382,
+            "beat_index": 77,
+            "beat_in_bar": 1,
+            "bar_index": 19,
+            "type": "VERSE",
+            "drum": "SNARE"
+        },
+        {
+            "timestamp": 36.88278858830359,
+            "beat_index": 78,
+            "beat_in_bar": 2,
+            "bar_index": 19,
+            "type": "VERSE",
+            "drum": "KICK"
+        },
+        {
+            "timestamp": 37.34790486737336,
+            "beat_index": 79,
+            "beat_in_bar": 3,
+            "bar_index": 19,
+            "type": "VERSE",
+            "drum": "SNARE"
+        },
+        {
+            "timestamp": 37.81302114644313,
+            "beat_index": 80,
+            "beat_in_bar": 0,
+            "bar_index": 20,
+            "type": "VERSE",
+            "drum": "KICK"
+        },
+        {
+            "timestamp": 38.278137425512895,
+            "beat_index": 81,
+            "beat_in_bar": 1,
+            "bar_index": 20,
+            "type": "VERSE",
+            "drum": "SNARE"
+        },
+        {
+            "timestamp": 38.74325370458266,
+            "beat_index": 82,
+            "beat_in_bar": 2,
+            "bar_index": 20,
+            "type": "VERSE",
+            "drum": "KICK"
+        },
+        {
+            "timestamp": 39.20836998365243,
+            "beat_index": 83,
+            "beat_in_bar": 3,
+            "bar_index": 20,
+            "type": "VERSE",
+            "drum": "SNARE"
+        },
+        {
+            "timestamp": 39.6734862627222,
+            "beat_index": 84,
+            "beat_in_bar": 0,
+            "bar_index": 21,
+            "type": "VERSE",
+            "drum": "KICK"
+        },
+        {
+            "timestamp": 40.13860254179197,
+            "beat_index": 85,
+            "beat_in_bar": 1,
+            "bar_index": 21,
+            "type": "VERSE",
+            "drum": "SNARE"
+        },
+        {
+            "timestamp": 40.60371882086174,
+            "beat_index": 86,
+            "beat_in_bar": 2,
+            "bar_index": 21,
+            "type": "VERSE",
+            "drum": "KICK"
+        },
+        {
+            "timestamp": 41.068835099931505,
+            "beat_index": 87,
+            "beat_in_bar": 3,
+            "bar_index": 21,
+            "type": "VERSE",
+            "drum": "SNARE"
+        },
+        {
+            "timestamp": 41.53395137900127,
+            "beat_index": 88,
+            "beat_in_bar": 0,
+            "bar_index": 22,
+            "type": "VERSE",
+            "drum": "KICK"
+        },
+        {
+            "timestamp": 41.99906765807104,
+            "beat_index": 89,
+            "beat_in_bar": 1,
+            "bar_index": 22,
+            "type": "VERSE",
+            "drum": "SNARE"
+        },
+        {
+            "timestamp": 42.46418393714081,
+            "beat_index": 90,
+            "beat_in_bar": 2,
+            "bar_index": 22,
+            "type": "VERSE",
+            "drum": "KICK"
+        },
+        {
+            "timestamp": 42.92930021621058,
+            "beat_index": 91,
+            "beat_in_bar": 3,
+            "bar_index": 22,
+            "type": "VERSE",
+            "drum": "SNARE"
+        },
+        {
+            "timestamp": 43.394416495280346,
+            "beat_index": 92,
+            "beat_in_bar": 0,
+            "bar_index": 23,
+            "type": "VERSE",
+            "drum": "KICK"
+        },
+        {
+            "timestamp": 43.859532774350114,
+            "beat_index": 93,
+            "beat_in_bar": 1,
+            "bar_index": 23,
+            "type": "VERSE",
+            "drum": "SNARE"
+        },
+        {
+            "timestamp": 44.32464905341988,
+            "beat_index": 94,
+            "beat_in_bar": 2,
+            "bar_index": 23,
+            "type": "VERSE",
+            "drum": "KICK"
+        },
+        {
+            "timestamp": 44.78976533248965,
+            "beat_index": 95,
+            "beat_in_bar": 3,
+            "bar_index": 23,
+            "type": "VERSE",
+            "drum": "SNARE"
+        },
+        {
+            "timestamp": 45.25488161155942,
+            "beat_index": 96,
+            "beat_in_bar": 0,
+            "bar_index": 24,
+            "type": "CHORUS",
+            "drum": "KICK"
+        },
+        {
+            "timestamp": 45.71999789062919,
+            "beat_index": 97,
+            "beat_in_bar": 1,
+            "bar_index": 24,
+            "type": "CHORUS",
+            "drum": "SNARE"
+        },
+        {
+            "timestamp": 46.185114169698956,
+            "beat_index": 98,
+            "beat_in_bar": 2,
+            "bar_index": 24,
+            "type": "CHORUS",
+            "drum": "KICK"
+        },
+        {
+            "timestamp": 46.650230448768724,
+            "beat_index": 99,
+            "beat_in_bar": 3,
+            "bar_index": 24,
+            "type": "CHORUS",
+            "drum": "SNARE"
+        },
+        {
+            "timestamp": 47.11534672783849,
+            "beat_index": 100,
+            "beat_in_bar": 0,
+            "bar_index": 25,
+            "type": "CHORUS",
+            "drum": "KICK"
+        },
+        {
+            "timestamp": 47.58046300690826,
+            "beat_index": 101,
+            "beat_in_bar": 1,
+            "bar_index": 25,
+            "type": "CHORUS",
+            "drum": "SNARE"
+        },
+        {
+            "timestamp": 48.04557928597803,
+            "beat_index": 102,
+            "beat_in_bar": 2,
+            "bar_index": 25,
+            "type": "CHORUS",
+            "drum": "KICK"
+        },
+        {
+            "timestamp": 48.5106955650478,
+            "beat_index": 103,
+            "beat_in_bar": 3,
+            "bar_index": 25,
+            "type": "CHORUS",
+            "drum": "SNARE"
+        },
+        {
+            "timestamp": 48.975811844117565,
+            "beat_index": 104,
+            "beat_in_bar": 0,
+            "bar_index": 26,
+            "type": "CHORUS",
+            "drum": "KICK"
+        },
+        {
+            "timestamp": 49.440928123187334,
+            "beat_index": 105,
+            "beat_in_bar": 1,
+            "bar_index": 26,
+            "type": "CHORUS",
+            "drum": "SNARE"
+        },
+        {
+            "timestamp": 49.9060444022571,
+            "beat_index": 106,
+            "beat_in_bar": 2,
+            "bar_index": 26,
+            "type": "CHORUS",
+            "drum": "KICK"
+        },
+        {
+            "timestamp": 50.37116068132687,
+            "beat_index": 107,
+            "beat_in_bar": 3,
+            "bar_index": 26,
+            "type": "CHORUS",
+            "drum": "SNARE"
+        },
+        {
+            "timestamp": 50.83627696039664,
+            "beat_index": 108,
+            "beat_in_bar": 0,
+            "bar_index": 27,
+            "type": "CHORUS",
+            "drum": "KICK"
+        },
+        {
+            "timestamp": 51.30139323946641,
+            "beat_index": 109,
+            "beat_in_bar": 1,
+            "bar_index": 27,
+            "type": "CHORUS",
+            "drum": "SNARE"
+        },
+        {
+            "timestamp": 51.766509518536175,
+            "beat_index": 110,
+            "beat_in_bar": 2,
+            "bar_index": 27,
+            "type": "CHORUS",
+            "drum": "KICK"
+        },
+        {
+            "timestamp": 52.23162579760594,
+            "beat_index": 111,
+            "beat_in_bar": 3,
+            "bar_index": 27,
+            "type": "CHORUS",
+            "drum": "SNARE"
+        },
+        {
+            "timestamp": 52.69674207667571,
+            "beat_index": 112,
+            "beat_in_bar": 0,
+            "bar_index": 28,
+            "type": "CHORUS",
+            "drum": "KICK"
+        },
+        {
+            "timestamp": 53.16185835574548,
+            "beat_index": 113,
+            "beat_in_bar": 1,
+            "bar_index": 28,
+            "type": "CHORUS",
+            "drum": "SNARE"
+        },
+        {
+            "timestamp": 53.62697463481525,
+            "beat_index": 114,
+            "beat_in_bar": 2,
+            "bar_index": 28,
+            "type": "CHORUS",
+            "drum": "KICK"
+        },
+        {
+            "timestamp": 54.092090913885016,
+            "beat_index": 115,
+            "beat_in_bar": 3,
+            "bar_index": 28,
+            "type": "CHORUS",
+            "drum": "SNARE"
+        },
+        {
+            "timestamp": 54.557207192954785,
+            "beat_index": 116,
+            "beat_in_bar": 0,
+            "bar_index": 29,
+            "type": "CHORUS",
+            "drum": "KICK"
+        },
+        {
+            "timestamp": 55.02232347202455,
+            "beat_index": 117,
+            "beat_in_bar": 1,
+            "bar_index": 29,
+            "type": "CHORUS",
+            "drum": "SNARE"
+        },
+        {
+            "timestamp": 55.48743975109432,
+            "beat_index": 118,
+            "beat_in_bar": 2,
+            "bar_index": 29,
+            "type": "CHORUS",
+            "drum": "KICK"
+        },
+        {
+            "timestamp": 55.95255603016409,
+            "beat_index": 119,
+            "beat_in_bar": 3,
+            "bar_index": 29,
+            "type": "CHORUS",
+            "drum": "SNARE"
+        },
+        {
+            "timestamp": 56.41767230923386,
+            "beat_index": 120,
+            "beat_in_bar": 0,
+            "bar_index": 30,
+            "type": "CHORUS",
+            "drum": "KICK"
+        },
+        {
+            "timestamp": 56.882788588303626,
+            "beat_index": 121,
+            "beat_in_bar": 1,
+            "bar_index": 30,
+            "type": "CHORUS",
+            "drum": "SNARE"
+        },
+        {
+            "timestamp": 57.347904867373394,
+            "beat_index": 122,
+            "beat_in_bar": 2,
+            "bar_index": 30,
+            "type": "CHORUS",
+            "drum": "KICK"
+        },
+        {
+            "timestamp": 57.81302114644316,
+            "beat_index": 123,
+            "beat_in_bar": 3,
+            "bar_index": 30,
+            "type": "CHORUS",
+            "drum": "SNARE"
+        },
+        {
+            "timestamp": 58.27813742551293,
+            "beat_index": 124,
+            "beat_in_bar": 0,
+            "bar_index": 31,
+            "type": "CHORUS",
+            "drum": "KICK"
+        },
+        {
+            "timestamp": 58.7432537045827,
+            "beat_index": 125,
+            "beat_in_bar": 1,
+            "bar_index": 31,
+            "type": "CHORUS",
+            "drum": "SNARE"
+        },
+        {
+            "timestamp": 59.20836998365247,
+            "beat_index": 126,
+            "beat_in_bar": 2,
+            "bar_index": 31,
+            "type": "CHORUS",
+            "drum": "KICK"
+        },
+        {
+            "timestamp": 59.673486262722236,
+            "beat_index": 127,
+            "beat_in_bar": 3,
+            "bar_index": 31,
+            "type": "CHORUS",
+            "drum": "SNARE"
+        },
+        {
+            "timestamp": 60.138602541792004,
+            "beat_index": 128,
+            "beat_in_bar": 0,
+            "bar_index": 32,
+            "type": "CHORUS",
+            "drum": "KICK"
+        },
+        {
+            "timestamp": 60.60371882086177,
+            "beat_index": 129,
+            "beat_in_bar": 1,
+            "bar_index": 32,
+            "type": "CHORUS",
+            "drum": "SNARE"
+        },
+        {
+            "timestamp": 61.06883509993154,
+            "beat_index": 130,
+            "beat_in_bar": 2,
+            "bar_index": 32,
+            "type": "CHORUS",
+            "drum": "KICK"
+        },
+        {
+            "timestamp": 61.53395137900131,
+            "beat_index": 131,
+            "beat_in_bar": 3,
+            "bar_index": 32,
+            "type": "CHORUS",
+            "drum": "SNARE"
+        },
+        {
+            "timestamp": 61.99906765807108,
+            "beat_index": 132,
+            "beat_in_bar": 0,
+            "bar_index": 33,
+            "type": "CHORUS",
+            "drum": "KICK"
+        },
+        {
+            "timestamp": 62.464183937140845,
+            "beat_index": 133,
+            "beat_in_bar": 1,
+            "bar_index": 33,
+            "type": "CHORUS",
+            "drum": "SNARE"
+        },
+        {
+            "timestamp": 62.92930021621061,
+            "beat_index": 134,
+            "beat_in_bar": 2,
+            "bar_index": 33,
+            "type": "CHORUS",
+            "drum": "KICK"
+        },
+        {
+            "timestamp": 63.39441649528038,
+            "beat_index": 135,
+            "beat_in_bar": 3,
+            "bar_index": 33,
+            "type": "CHORUS",
+            "drum": "SNARE"
+        },
+        {
+            "timestamp": 63.85953277435015,
+            "beat_index": 136,
+            "beat_in_bar": 0,
+            "bar_index": 34,
+            "type": "CHORUS",
+            "drum": "KICK"
+        },
+        {
+            "timestamp": 64.32464905341992,
+            "beat_index": 137,
+            "beat_in_bar": 1,
+            "bar_index": 34,
+            "type": "CHORUS",
+            "drum": "SNARE"
+        },
+        {
+            "timestamp": 64.78976533248968,
+            "beat_index": 138,
+            "beat_in_bar": 2,
+            "bar_index": 34,
+            "type": "CHORUS",
+            "drum": "KICK"
+        },
+        {
+            "timestamp": 65.25488161155944,
+            "beat_index": 139,
+            "beat_in_bar": 3,
+            "bar_index": 34,
+            "type": "CHORUS",
+            "drum": "SNARE"
+        },
+        {
+            "timestamp": 65.7199978906292,
+            "beat_index": 140,
+            "beat_in_bar": 0,
+            "bar_index": 35,
+            "type": "CHORUS",
+            "drum": "KICK"
+        },
+        {
+            "timestamp": 66.18511416969896,
+            "beat_index": 141,
+            "beat_in_bar": 1,
+            "bar_index": 35,
+            "type": "CHORUS",
+            "drum": "SNARE"
+        },
+        {
+            "timestamp": 66.65023044876872,
+            "beat_index": 142,
+            "beat_in_bar": 2,
+            "bar_index": 35,
+            "type": "CHORUS",
+            "drum": "KICK"
+        },
+        {
+            "timestamp": 67.11534672783849,
+            "beat_index": 143,
+            "beat_in_bar": 3,
+            "bar_index": 35,
+            "type": "CHORUS",
+            "drum": "SNARE"
+        },
+        {
+            "timestamp": 67.58046300690825,
+            "beat_index": 144,
+            "beat_in_bar": 0,
+            "bar_index": 36,
+            "type": "CHORUS",
+            "drum": "KICK"
+        },
+        {
+            "timestamp": 68.04557928597801,
+            "beat_index": 145,
+            "beat_in_bar": 1,
+            "bar_index": 36,
+            "type": "CHORUS",
+            "drum": "SNARE"
+        },
+        {
+            "timestamp": 68.51069556504777,
+            "beat_index": 146,
+            "beat_in_bar": 2,
+            "bar_index": 36,
+            "type": "CHORUS",
+            "drum": "KICK"
+        },
+        {
+            "timestamp": 68.97581184411753,
+            "beat_index": 147,
+            "beat_in_bar": 3,
+            "bar_index": 36,
+            "type": "CHORUS",
+            "drum": "SNARE"
+        },
+        {
+            "timestamp": 69.44092812318729,
+            "beat_index": 148,
+            "beat_in_bar": 0,
+            "bar_index": 37,
+            "type": "CHORUS",
+            "drum": "KICK"
+        },
+        {
+            "timestamp": 69.90604440225705,
+            "beat_index": 149,
+            "beat_in_bar": 1,
+            "bar_index": 37,
+            "type": "CHORUS",
+            "drum": "SNARE"
+        },
+        {
+            "timestamp": 70.37116068132681,
+            "beat_index": 150,
+            "beat_in_bar": 2,
+            "bar_index": 37,
+            "type": "CHORUS",
+            "drum": "KICK"
+        },
+        {
+            "timestamp": 70.83627696039657,
+            "beat_index": 151,
+            "beat_in_bar": 3,
+            "bar_index": 37,
+            "type": "CHORUS",
+            "drum": "SNARE"
+        },
+        {
+            "timestamp": 71.30139323946634,
+            "beat_index": 152,
+            "beat_in_bar": 0,
+            "bar_index": 38,
+            "type": "CHORUS",
+            "drum": "KICK"
+        },
+        {
+            "timestamp": 71.7665095185361,
+            "beat_index": 153,
+            "beat_in_bar": 1,
+            "bar_index": 38,
+            "type": "CHORUS",
+            "drum": "SNARE"
+        },
+        {
+            "timestamp": 72.23162579760586,
+            "beat_index": 154,
+            "beat_in_bar": 2,
+            "bar_index": 38,
+            "type": "CHORUS",
+            "drum": "KICK"
+        },
+        {
+            "timestamp": 72.69674207667562,
+            "beat_index": 155,
+            "beat_in_bar": 3,
+            "bar_index": 38,
+            "type": "CHORUS",
+            "drum": "SNARE"
+        },
+        {
+            "timestamp": 73.16185835574538,
+            "beat_index": 156,
+            "beat_in_bar": 0,
+            "bar_index": 39,
+            "type": "CHORUS",
+            "drum": "KICK"
+        },
+        {
+            "timestamp": 73.62697463481514,
+            "beat_index": 157,
+            "beat_in_bar": 1,
+            "bar_index": 39,
+            "type": "CHORUS",
+            "drum": "SNARE"
+        },
+        {
+            "timestamp": 74.0920909138849,
+            "beat_index": 158,
+            "beat_in_bar": 2,
+            "bar_index": 39,
+            "type": "CHORUS",
+            "drum": "KICK"
+        },
+        {
+            "timestamp": 74.55720719295466,
+            "beat_index": 159,
+            "beat_in_bar": 3,
+            "bar_index": 39,
+            "type": "CHORUS",
+            "drum": "SNARE"
+        },
+        {
+            "timestamp": 75.02232347202442,
+            "beat_index": 160,
+            "beat_in_bar": 0,
+            "bar_index": 40,
+            "type": "CHORUS",
+            "drum": "KICK"
+        },
+        {
+            "timestamp": 75.48743975109419,
+            "beat_index": 161,
+            "beat_in_bar": 1,
+            "bar_index": 40,
+            "type": "CHORUS",
+            "drum": "SNARE"
+        },
+        {
+            "timestamp": 75.95255603016395,
+            "beat_index": 162,
+            "beat_in_bar": 2,
+            "bar_index": 40,
+            "type": "CHORUS",
+            "drum": "KICK"
+        },
+        {
+            "timestamp": 76.41767230923371,
+            "beat_index": 163,
+            "beat_in_bar": 3,
+            "bar_index": 40,
+            "type": "VERSE",
+            "drum": "SNARE"
+        },
+        {
+            "timestamp": 76.88278858830347,
+            "beat_index": 164,
+            "beat_in_bar": 0,
+            "bar_index": 41,
+            "type": "VERSE",
+            "drum": "KICK"
+        },
+        {
+            "timestamp": 77.34790486737323,
+            "beat_index": 165,
+            "beat_in_bar": 1,
+            "bar_index": 41,
+            "type": "VERSE",
+            "drum": "SNARE"
+        },
+        {
+            "timestamp": 77.81302114644299,
+            "beat_index": 166,
+            "beat_in_bar": 2,
+            "bar_index": 41,
+            "type": "VERSE",
+            "drum": "KICK"
+        },
+        {
+            "timestamp": 78.27813742551275,
+            "beat_index": 167,
+            "beat_in_bar": 3,
+            "bar_index": 41,
+            "type": "VERSE",
+            "drum": "SNARE"
+        },
+        {
+            "timestamp": 78.74325370458251,
+            "beat_index": 168,
+            "beat_in_bar": 0,
+            "bar_index": 42,
+            "type": "VERSE",
+            "drum": "KICK"
+        },
+        {
+            "timestamp": 79.20836998365228,
+            "beat_index": 169,
+            "beat_in_bar": 1,
+            "bar_index": 42,
+            "type": "VERSE",
+            "drum": "SNARE"
+        },
+        {
+            "timestamp": 79.67348626272204,
+            "beat_index": 170,
+            "beat_in_bar": 2,
+            "bar_index": 42,
+            "type": "VERSE",
+            "drum": "KICK"
+        },
+        {
+            "timestamp": 80.1386025417918,
+            "beat_index": 171,
+            "beat_in_bar": 3,
+            "bar_index": 42,
+            "type": "VERSE",
+            "drum": "SNARE"
+        },
+        {
+            "timestamp": 80.60371882086156,
+            "beat_index": 172,
+            "beat_in_bar": 0,
+            "bar_index": 43,
+            "type": "VERSE",
+            "drum": "KICK"
+        },
+        {
+            "timestamp": 81.06883509993132,
+            "beat_index": 173,
+            "beat_in_bar": 1,
+            "bar_index": 43,
+            "type": "VERSE",
+            "drum": "SNARE"
+        },
+        {
+            "timestamp": 81.53395137900108,
+            "beat_index": 174,
+            "beat_in_bar": 2,
+            "bar_index": 43,
+            "type": "VERSE",
+            "drum": "KICK"
+        },
+        {
+            "timestamp": 81.99906765807084,
+            "beat_index": 175,
+            "beat_in_bar": 3,
+            "bar_index": 43,
+            "type": "VERSE",
+            "drum": "SNARE"
+        },
+        {
+            "timestamp": 82.4641839371406,
+            "beat_index": 176,
+            "beat_in_bar": 0,
+            "bar_index": 44,
+            "type": "VERSE",
+            "drum": "KICK"
+        },
+        {
+            "timestamp": 82.92930021621036,
+            "beat_index": 177,
+            "beat_in_bar": 1,
+            "bar_index": 44,
+            "type": "VERSE",
+            "drum": "SNARE"
+        },
+        {
+            "timestamp": 83.39441649528013,
+            "beat_index": 178,
+            "beat_in_bar": 2,
+            "bar_index": 44,
+            "type": "VERSE",
+            "drum": "KICK"
+        },
+        {
+            "timestamp": 83.85953277434989,
+            "beat_index": 179,
+            "beat_in_bar": 3,
+            "bar_index": 44,
+            "type": "VERSE",
+            "drum": "SNARE"
+        },
+        {
+            "timestamp": 84.32464905341965,
+            "beat_index": 180,
+            "beat_in_bar": 0,
+            "bar_index": 45,
+            "type": "VERSE",
+            "drum": "KICK"
+        },
+        {
+            "timestamp": 84.78976533248941,
+            "beat_index": 181,
+            "beat_in_bar": 1,
+            "bar_index": 45,
+            "type": "VERSE",
+            "drum": "SNARE"
+        },
+        {
+            "timestamp": 85.25488161155917,
+            "beat_index": 182,
+            "beat_in_bar": 2,
+            "bar_index": 45,
+            "type": "VERSE",
+            "drum": "KICK"
+        },
+        {
+            "timestamp": 85.71999789062893,
+            "beat_index": 183,
+            "beat_in_bar": 3,
+            "bar_index": 45,
+            "type": "VERSE",
+            "drum": "SNARE"
+        },
+        {
+            "timestamp": 86.18511416969869,
+            "beat_index": 184,
+            "beat_in_bar": 0,
+            "bar_index": 46,
+            "type": "VERSE",
+            "drum": "KICK"
+        },
+        {
+            "timestamp": 86.65023044876845,
+            "beat_index": 185,
+            "beat_in_bar": 1,
+            "bar_index": 46,
+            "type": "VERSE",
+            "drum": "SNARE"
+        },
+        {
+            "timestamp": 87.11534672783822,
+            "beat_index": 186,
+            "beat_in_bar": 2,
+            "bar_index": 46,
+            "type": "VERSE",
+            "drum": "KICK"
+        },
+        {
+            "timestamp": 87.58046300690798,
+            "beat_index": 187,
+            "beat_in_bar": 3,
+            "bar_index": 46,
+            "type": "VERSE",
+            "drum": "SNARE"
+        },
+        {
+            "timestamp": 88.04557928597774,
+            "beat_index": 188,
+            "beat_in_bar": 0,
+            "bar_index": 47,
+            "type": "VERSE",
+            "drum": "KICK"
+        },
+        {
+            "timestamp": 88.5106955650475,
+            "beat_index": 189,
+            "beat_in_bar": 1,
+            "bar_index": 47,
+            "type": "VERSE",
+            "drum": "SNARE"
+        },
+        {
+            "timestamp": 88.97581184411726,
+            "beat_index": 190,
+            "beat_in_bar": 2,
+            "bar_index": 47,
+            "type": "VERSE",
+            "drum": "KICK"
+        },
+        {
+            "timestamp": 89.44092812318702,
+            "beat_index": 191,
+            "beat_in_bar": 3,
+            "bar_index": 47,
+            "type": "VERSE",
+            "drum": "SNARE"
+        },
+        {
+            "timestamp": 89.90604440225678,
+            "beat_index": 192,
+            "beat_in_bar": 0,
+            "bar_index": 48,
+            "type": "VERSE",
+            "drum": "KICK"
+        },
+        {
+            "timestamp": 90.37116068132654,
+            "beat_index": 193,
+            "beat_in_bar": 1,
+            "bar_index": 48,
+            "type": "VERSE",
+            "drum": "SNARE"
+        },
+        {
+            "timestamp": 90.8362769603963,
+            "beat_index": 194,
+            "beat_in_bar": 2,
+            "bar_index": 48,
+            "type": "VERSE",
+            "drum": "KICK"
+        },
+        {
+            "timestamp": 91.30139323946607,
+            "beat_index": 195,
+            "beat_in_bar": 3,
+            "bar_index": 48,
+            "type": "VERSE",
+            "drum": "SNARE"
+        },
+        {
+            "timestamp": 91.76650951853583,
+            "beat_index": 196,
+            "beat_in_bar": 0,
+            "bar_index": 49,
+            "type": "VERSE",
+            "drum": "KICK"
+        },
+        {
+            "timestamp": 92.23162579760559,
+            "beat_index": 197,
+            "beat_in_bar": 1,
+            "bar_index": 49,
+            "type": "VERSE",
+            "drum": "SNARE"
+        },
+        {
+            "timestamp": 92.69674207667535,
+            "beat_index": 198,
+            "beat_in_bar": 2,
+            "bar_index": 49,
+            "type": "VERSE",
+            "drum": "KICK"
+        },
+        {
+            "timestamp": 93.16185835574511,
+            "beat_index": 199,
+            "beat_in_bar": 3,
+            "bar_index": 49,
+            "type": "VERSE",
+            "drum": "SNARE"
+        },
+        {
+            "timestamp": 93.62697463481487,
+            "beat_index": 200,
+            "beat_in_bar": 0,
+            "bar_index": 50,
+            "type": "VERSE",
+            "drum": "KICK"
+        },
+        {
+            "timestamp": 94.09209091388463,
+            "beat_index": 201,
+            "beat_in_bar": 1,
+            "bar_index": 50,
+            "type": "VERSE",
+            "drum": "SNARE"
+        },
+        {
+            "timestamp": 94.5572071929544,
+            "beat_index": 202,
+            "beat_in_bar": 2,
+            "bar_index": 50,
+            "type": "VERSE",
+            "drum": "KICK"
+        },
+        {
+            "timestamp": 95.02232347202415,
+            "beat_index": 203,
+            "beat_in_bar": 3,
+            "bar_index": 50,
+            "type": "VERSE",
+            "drum": "SNARE"
+        },
+        {
+            "timestamp": 95.48743975109392,
+            "beat_index": 204,
+            "beat_in_bar": 0,
+            "bar_index": 51,
+            "type": "VERSE",
+            "drum": "KICK"
+        },
+        {
+            "timestamp": 95.95255603016368,
+            "beat_index": 205,
+            "beat_in_bar": 1,
+            "bar_index": 51,
+            "type": "VERSE",
+            "drum": "SNARE"
+        },
+        {
+            "timestamp": 96.41767230923344,
+            "beat_index": 206,
+            "beat_in_bar": 2,
+            "bar_index": 51,
+            "type": "VERSE",
+            "drum": "KICK"
+        },
+        {
+            "timestamp": 96.8827885883032,
+            "beat_index": 207,
+            "beat_in_bar": 3,
+            "bar_index": 51,
+            "type": "VERSE",
+            "drum": "SNARE"
+        },
+        {
+            "timestamp": 97.34790486737296,
+            "beat_index": 208,
+            "beat_in_bar": 0,
+            "bar_index": 52,
+            "type": "VERSE",
+            "drum": "KICK"
+        },
+        {
+            "timestamp": 97.81302114644272,
+            "beat_index": 209,
+            "beat_in_bar": 1,
+            "bar_index": 52,
+            "type": "VERSE",
+            "drum": "SNARE"
+        },
+        {
+            "timestamp": 98.27813742551248,
+            "beat_index": 210,
+            "beat_in_bar": 2,
+            "bar_index": 52,
+            "type": "VERSE",
+            "drum": "KICK"
+        },
+        {
+            "timestamp": 98.74325370458224,
+            "beat_index": 211,
+            "beat_in_bar": 3,
+            "bar_index": 52,
+            "type": "VERSE",
+            "drum": "SNARE"
+        },
+        {
+            "timestamp": 99.208369983652,
+            "beat_index": 212,
+            "beat_in_bar": 0,
+            "bar_index": 53,
+            "type": "VERSE",
+            "drum": "KICK"
+        },
+        {
+            "timestamp": 99.67348626272177,
+            "beat_index": 213,
+            "beat_in_bar": 1,
+            "bar_index": 53,
+            "type": "VERSE",
+            "drum": "SNARE"
+        },
+        {
+            "timestamp": 100.13860254179153,
+            "beat_index": 214,
+            "beat_in_bar": 2,
+            "bar_index": 53,
+            "type": "VERSE",
+            "drum": "KICK"
+        },
+        {
+            "timestamp": 100.60371882086129,
+            "beat_index": 215,
+            "beat_in_bar": 3,
+            "bar_index": 53,
+            "type": "VERSE",
+            "drum": "SNARE"
+        },
+        {
+            "timestamp": 101.06883509993105,
+            "beat_index": 216,
+            "beat_in_bar": 0,
+            "bar_index": 54,
+            "type": "VERSE",
+            "drum": "KICK"
+        },
+        {
+            "timestamp": 101.53395137900081,
+            "beat_index": 217,
+            "beat_in_bar": 1,
+            "bar_index": 54,
+            "type": "VERSE",
+            "drum": "SNARE"
+        },
+        {
+            "timestamp": 101.99906765807057,
+            "beat_index": 218,
+            "beat_in_bar": 2,
+            "bar_index": 54,
+            "type": "VERSE",
+            "drum": "KICK"
+        },
+        {
+            "timestamp": 102.46418393714033,
+            "beat_index": 219,
+            "beat_in_bar": 3,
+            "bar_index": 54,
+            "type": "VERSE",
+            "drum": "SNARE"
+        },
+        {
+            "timestamp": 102.9293002162101,
+            "beat_index": 220,
+            "beat_in_bar": 0,
+            "bar_index": 55,
+            "type": "VERSE",
+            "drum": "KICK"
+        },
+        {
+            "timestamp": 103.39441649527986,
+            "beat_index": 221,
+            "beat_in_bar": 1,
+            "bar_index": 55,
+            "type": "VERSE",
+            "drum": "SNARE"
+        },
+        {
+            "timestamp": 103.85953277434962,
+            "beat_index": 222,
+            "beat_in_bar": 2,
+            "bar_index": 55,
+            "type": "VERSE",
+            "drum": "KICK"
+        },
+        {
+            "timestamp": 104.32464905341938,
+            "beat_index": 223,
+            "beat_in_bar": 3,
+            "bar_index": 55,
+            "type": "VERSE",
+            "drum": "SNARE"
+        },
+        {
+            "timestamp": 104.78976533248914,
+            "beat_index": 224,
+            "beat_in_bar": 0,
+            "bar_index": 56,
+            "type": "VERSE",
+            "drum": "KICK"
+        },
+        {
+            "timestamp": 105.2548816115589,
+            "beat_index": 225,
+            "beat_in_bar": 1,
+            "bar_index": 56,
+            "type": "VERSE",
+            "drum": "SNARE"
+        },
+        {
+            "timestamp": 105.71999789062866,
+            "beat_index": 226,
+            "beat_in_bar": 2,
+            "bar_index": 56,
+            "type": "VERSE",
+            "drum": "KICK"
+        },
+        {
+            "timestamp": 106.18511416969842,
+            "beat_index": 227,
+            "beat_in_bar": 3,
+            "bar_index": 56,
+            "type": "VERSE",
+            "drum": "SNARE"
+        },
+        {
+            "timestamp": 106.65023044876818,
+            "beat_index": 228,
+            "beat_in_bar": 0,
+            "bar_index": 57,
+            "type": "VERSE",
+            "drum": "KICK"
+        },
+        {
+            "timestamp": 107.11534672783795,
+            "beat_index": 229,
+            "beat_in_bar": 1,
+            "bar_index": 57,
+            "type": "VERSE",
+            "drum": "SNARE"
+        },
+        {
+            "timestamp": 107.5804630069077,
+            "beat_index": 230,
+            "beat_in_bar": 2,
+            "bar_index": 57,
+            "type": "VERSE",
+            "drum": "KICK"
+        },
+        {
+            "timestamp": 108.04557928597747,
+            "beat_index": 231,
+            "beat_in_bar": 3,
+            "bar_index": 57,
+            "type": "VERSE",
+            "drum": "SNARE"
+        },
+        {
+            "timestamp": 108.51069556504723,
+            "beat_index": 232,
+            "beat_in_bar": 0,
+            "bar_index": 58,
+            "type": "VERSE",
+            "drum": "KICK"
+        },
+        {
+            "timestamp": 108.97581184411699,
+            "beat_index": 233,
+            "beat_in_bar": 1,
+            "bar_index": 58,
+            "type": "VERSE",
+            "drum": "SNARE"
+        },
+        {
+            "timestamp": 109.44092812318675,
+            "beat_index": 234,
+            "beat_in_bar": 2,
+            "bar_index": 58,
+            "type": "VERSE",
+            "drum": "KICK"
+        },
+        {
+            "timestamp": 109.90604440225651,
+            "beat_index": 235,
+            "beat_in_bar": 3,
+            "bar_index": 58,
+            "type": "VERSE",
+            "drum": "SNARE"
+        },
+        {
+            "timestamp": 110.37116068132627,
+            "beat_index": 236,
+            "beat_in_bar": 0,
+            "bar_index": 59,
+            "type": "CHORUS",
+            "drum": "KICK"
+        },
+        {
+            "timestamp": 110.83627696039603,
+            "beat_index": 237,
+            "beat_in_bar": 1,
+            "bar_index": 59,
+            "type": "CHORUS",
+            "drum": "SNARE"
+        },
+        {
+            "timestamp": 111.3013932394658,
+            "beat_index": 238,
+            "beat_in_bar": 2,
+            "bar_index": 59,
+            "type": "CHORUS",
+            "drum": "KICK"
+        },
+        {
+            "timestamp": 111.76650951853556,
+            "beat_index": 239,
+            "beat_in_bar": 3,
+            "bar_index": 59,
+            "type": "CHORUS",
+            "drum": "SNARE"
+        },
+        {
+            "timestamp": 112.23162579760532,
+            "beat_index": 240,
+            "beat_in_bar": 0,
+            "bar_index": 60,
+            "type": "CHORUS",
+            "drum": "KICK"
+        },
+        {
+            "timestamp": 112.69674207667508,
+            "beat_index": 241,
+            "beat_in_bar": 1,
+            "bar_index": 60,
+            "type": "CHORUS",
+            "drum": "SNARE"
+        },
+        {
+            "timestamp": 113.16185835574484,
+            "beat_index": 242,
+            "beat_in_bar": 2,
+            "bar_index": 60,
+            "type": "CHORUS",
+            "drum": "KICK"
+        },
+        {
+            "timestamp": 113.6269746348146,
+            "beat_index": 243,
+            "beat_in_bar": 3,
+            "bar_index": 60,
+            "type": "CHORUS",
+            "drum": "SNARE"
+        },
+        {
+            "timestamp": 114.09209091388436,
+            "beat_index": 244,
+            "beat_in_bar": 0,
+            "bar_index": 61,
+            "type": "CHORUS",
+            "drum": "KICK"
+        },
+        {
+            "timestamp": 114.55720719295412,
+            "beat_index": 245,
+            "beat_in_bar": 1,
+            "bar_index": 61,
+            "type": "CHORUS",
+            "drum": "SNARE"
+        },
+        {
+            "timestamp": 115.02232347202388,
+            "beat_index": 246,
+            "beat_in_bar": 2,
+            "bar_index": 61,
+            "type": "CHORUS",
+            "drum": "KICK"
+        },
+        {
+            "timestamp": 115.48743975109365,
+            "beat_index": 247,
+            "beat_in_bar": 3,
+            "bar_index": 61,
+            "type": "CHORUS",
+            "drum": "SNARE"
+        },
+        {
+            "timestamp": 115.95255603016341,
+            "beat_index": 248,
+            "beat_in_bar": 0,
+            "bar_index": 62,
+            "type": "CHORUS",
+            "drum": "KICK"
+        },
+        {
+            "timestamp": 116.41767230923317,
+            "beat_index": 249,
+            "beat_in_bar": 1,
+            "bar_index": 62,
+            "type": "CHORUS",
+            "drum": "SNARE"
+        },
+        {
+            "timestamp": 116.88278858830293,
+            "beat_index": 250,
+            "beat_in_bar": 2,
+            "bar_index": 62,
+            "type": "CHORUS",
+            "drum": "KICK"
+        },
+        {
+            "timestamp": 117.34790486737269,
+            "beat_index": 251,
+            "beat_in_bar": 3,
+            "bar_index": 62,
+            "type": "CHORUS",
+            "drum": "SNARE"
+        },
+        {
+            "timestamp": 117.81302114644245,
+            "beat_index": 252,
+            "beat_in_bar": 0,
+            "bar_index": 63,
+            "type": "CHORUS",
+            "drum": "KICK"
+        },
+        {
+            "timestamp": 118.27813742551221,
+            "beat_index": 253,
+            "beat_in_bar": 1,
+            "bar_index": 63,
+            "type": "CHORUS",
+            "drum": "SNARE"
+        },
+        {
+            "timestamp": 118.74325370458197,
+            "beat_index": 254,
+            "beat_in_bar": 2,
+            "bar_index": 63,
+            "type": "CHORUS",
+            "drum": "KICK"
+        },
+        {
+            "timestamp": 119.20836998365174,
+            "beat_index": 255,
+            "beat_in_bar": 3,
+            "bar_index": 63,
+            "type": "CHORUS",
+            "drum": "SNARE"
+        },
+        {
+            "timestamp": 119.6734862627215,
+            "beat_index": 256,
+            "beat_in_bar": 0,
+            "bar_index": 64,
+            "type": "CHORUS",
+            "drum": "KICK"
+        },
+        {
+            "timestamp": 120.13860254179126,
+            "beat_index": 257,
+            "beat_in_bar": 1,
+            "bar_index": 64,
+            "type": "CHORUS",
+            "drum": "SNARE"
+        },
+        {
+            "timestamp": 120.60371882086102,
+            "beat_index": 258,
+            "beat_in_bar": 2,
+            "bar_index": 64,
+            "type": "CHORUS",
+            "drum": "KICK"
+        },
+        {
+            "timestamp": 121.06883509993078,
+            "beat_index": 259,
+            "beat_in_bar": 3,
+            "bar_index": 64,
+            "type": "CHORUS",
+            "drum": "SNARE"
+        },
+        {
+            "timestamp": 121.53395137900054,
+            "beat_index": 260,
+            "beat_in_bar": 0,
+            "bar_index": 65,
+            "type": "CHORUS",
+            "drum": "KICK"
+        },
+        {
+            "timestamp": 121.9990676580703,
+            "beat_index": 261,
+            "beat_in_bar": 1,
+            "bar_index": 65,
+            "type": "CHORUS",
+            "drum": "SNARE"
+        },
+        {
+            "timestamp": 122.46418393714006,
+            "beat_index": 262,
+            "beat_in_bar": 2,
+            "bar_index": 65,
+            "type": "CHORUS",
+            "drum": "KICK"
+        },
+        {
+            "timestamp": 122.92930021620982,
+            "beat_index": 263,
+            "beat_in_bar": 3,
+            "bar_index": 65,
+            "type": "CHORUS",
+            "drum": "SNARE"
+        },
+        {
+            "timestamp": 123.39441649527959,
+            "beat_index": 264,
+            "beat_in_bar": 0,
+            "bar_index": 66,
+            "type": "CHORUS",
+            "drum": "KICK"
+        },
+        {
+            "timestamp": 123.85953277434935,
+            "beat_index": 265,
+            "beat_in_bar": 1,
+            "bar_index": 66,
+            "type": "CHORUS",
+            "drum": "SNARE"
+        },
+        {
+            "timestamp": 124.32464905341911,
+            "beat_index": 266,
+            "beat_in_bar": 2,
+            "bar_index": 66,
+            "type": "CHORUS",
+            "drum": "KICK"
+        },
+        {
+            "timestamp": 124.78976533248887,
+            "beat_index": 267,
+            "beat_in_bar": 3,
+            "bar_index": 66,
+            "type": "CHORUS",
+            "drum": "SNARE"
+        },
+        {
+            "timestamp": 125.25488161155863,
+            "beat_index": 268,
+            "beat_in_bar": 0,
+            "bar_index": 67,
+            "type": "CHORUS",
+            "drum": "KICK"
+        },
+        {
+            "timestamp": 125.71999789062839,
+            "beat_index": 269,
+            "beat_in_bar": 1,
+            "bar_index": 67,
+            "type": "CHORUS",
+            "drum": "SNARE"
+        },
+        {
+            "timestamp": 126.18511416969815,
+            "beat_index": 270,
+            "beat_in_bar": 2,
+            "bar_index": 67,
+            "type": "CHORUS",
+            "drum": "KICK"
+        },
+        {
+            "timestamp": 126.65023044876791,
+            "beat_index": 271,
+            "beat_in_bar": 3,
+            "bar_index": 67,
+            "type": "CHORUS",
+            "drum": "SNARE"
+        },
+        {
+            "timestamp": 127.11534672783768,
+            "beat_index": 272,
+            "beat_in_bar": 0,
+            "bar_index": 68,
+            "type": "CHORUS",
+            "drum": "KICK"
+        },
+        {
+            "timestamp": 127.58046300690744,
+            "beat_index": 273,
+            "beat_in_bar": 1,
+            "bar_index": 68,
+            "type": "CHORUS",
+            "drum": "SNARE"
+        },
+        {
+            "timestamp": 128.0455792859772,
+            "beat_index": 274,
+            "beat_in_bar": 2,
+            "bar_index": 68,
+            "type": "CHORUS",
+            "drum": "KICK"
+        },
+        {
+            "timestamp": 128.51069556504697,
+            "beat_index": 275,
+            "beat_in_bar": 3,
+            "bar_index": 68,
+            "type": "CHORUS",
+            "drum": "SNARE"
+        },
+        {
+            "timestamp": 128.97581184411675,
+            "beat_index": 276,
+            "beat_in_bar": 0,
+            "bar_index": 69,
+            "type": "CHORUS",
+            "drum": "KICK"
+        },
+        {
+            "timestamp": 129.44092812318652,
+            "beat_index": 277,
+            "beat_in_bar": 1,
+            "bar_index": 69,
+            "type": "CHORUS",
+            "drum": "SNARE"
+        },
+        {
+            "timestamp": 129.9060444022563,
+            "beat_index": 278,
+            "beat_in_bar": 2,
+            "bar_index": 69,
+            "type": "CHORUS",
+            "drum": "KICK"
+        },
+        {
+            "timestamp": 130.37116068132607,
+            "beat_index": 279,
+            "beat_in_bar": 3,
+            "bar_index": 69,
+            "type": "CHORUS",
+            "drum": "SNARE"
+        },
+        {
+            "timestamp": 130.83627696039585,
+            "beat_index": 280,
+            "beat_in_bar": 0,
+            "bar_index": 70,
+            "type": "CHORUS",
+            "drum": "KICK"
+        },
+        {
+            "timestamp": 131.30139323946563,
+            "beat_index": 281,
+            "beat_in_bar": 1,
+            "bar_index": 70,
+            "type": "CHORUS",
+            "drum": "SNARE"
+        },
+        {
+            "timestamp": 131.7665095185354,
+            "beat_index": 282,
+            "beat_in_bar": 2,
+            "bar_index": 70,
+            "type": "CHORUS",
+            "drum": "KICK"
+        },
+        {
+            "timestamp": 132.23162579760518,
+            "beat_index": 283,
+            "beat_in_bar": 3,
+            "bar_index": 70,
+            "type": "CHORUS",
+            "drum": "SNARE"
+        },
+        {
+            "timestamp": 132.69674207667495,
+            "beat_index": 284,
+            "beat_in_bar": 0,
+            "bar_index": 71,
+            "type": "CHORUS",
+            "drum": "KICK"
+        },
+        {
+            "timestamp": 133.16185835574473,
+            "beat_index": 285,
+            "beat_in_bar": 1,
+            "bar_index": 71,
+            "type": "CHORUS",
+            "drum": "SNARE"
+        },
+        {
+            "timestamp": 133.6269746348145,
+            "beat_index": 286,
+            "beat_in_bar": 2,
+            "bar_index": 71,
+            "type": "CHORUS",
+            "drum": "KICK"
+        },
+        {
+            "timestamp": 134.09209091388428,
+            "beat_index": 287,
+            "beat_in_bar": 3,
+            "bar_index": 71,
+            "type": "CHORUS",
+            "drum": "SNARE"
+        },
+        {
+            "timestamp": 134.55720719295405,
+            "beat_index": 288,
+            "beat_in_bar": 0,
+            "bar_index": 72,
+            "type": "CHORUS",
+            "drum": "KICK"
+        },
+        {
+            "timestamp": 135.02232347202383,
+            "beat_index": 289,
+            "beat_in_bar": 1,
+            "bar_index": 72,
+            "type": "CHORUS",
+            "drum": "SNARE"
+        },
+        {
+            "timestamp": 135.4874397510936,
+            "beat_index": 290,
+            "beat_in_bar": 2,
+            "bar_index": 72,
+            "type": "CHORUS",
+            "drum": "KICK"
+        },
+        {
+            "timestamp": 135.95255603016338,
+            "beat_index": 291,
+            "beat_in_bar": 3,
+            "bar_index": 72,
+            "type": "CHORUS",
+            "drum": "SNARE"
+        },
+        {
+            "timestamp": 136.41767230923315,
+            "beat_index": 292,
+            "beat_in_bar": 0,
+            "bar_index": 73,
+            "type": "CHORUS",
+            "drum": "KICK"
+        },
+        {
+            "timestamp": 136.88278858830293,
+            "beat_index": 293,
+            "beat_in_bar": 1,
+            "bar_index": 73,
+            "type": "CHORUS",
+            "drum": "SNARE"
+        },
+        {
+            "timestamp": 137.3479048673727,
+            "beat_index": 294,
+            "beat_in_bar": 2,
+            "bar_index": 73,
+            "type": "CHORUS",
+            "drum": "KICK"
+        },
+        {
+            "timestamp": 137.81302114644248,
+            "beat_index": 295,
+            "beat_in_bar": 3,
+            "bar_index": 73,
+            "type": "CHORUS",
+            "drum": "SNARE"
+        },
+        {
+            "timestamp": 138.27813742551226,
+            "beat_index": 296,
+            "beat_in_bar": 0,
+            "bar_index": 74,
+            "type": "CHORUS",
+            "drum": "KICK"
+        },
+        {
+            "timestamp": 138.74325370458203,
+            "beat_index": 297,
+            "beat_in_bar": 1,
+            "bar_index": 74,
+            "type": "CHORUS",
+            "drum": "SNARE"
+        },
+        {
+            "timestamp": 139.2083699836518,
+            "beat_index": 298,
+            "beat_in_bar": 2,
+            "bar_index": 74,
+            "type": "CHORUS",
+            "drum": "KICK"
+        },
+        {
+            "timestamp": 139.67348626272158,
+            "beat_index": 299,
+            "beat_in_bar": 3,
+            "bar_index": 74,
+            "type": "CHORUS",
+            "drum": "SNARE"
+        },
+        {
+            "timestamp": 140.13860254179136,
+            "beat_index": 300,
+            "beat_in_bar": 0,
+            "bar_index": 75,
+            "type": "VERSE",
+            "drum": "KICK"
+        },
+        {
+            "timestamp": 140.60371882086113,
+            "beat_index": 301,
+            "beat_in_bar": 1,
+            "bar_index": 75,
+            "type": "VERSE",
+            "drum": "SNARE"
+        },
+        {
+            "timestamp": 141.0688350999309,
+            "beat_index": 302,
+            "beat_in_bar": 2,
+            "bar_index": 75,
+            "type": "VERSE",
+            "drum": "KICK"
+        },
+        {
+            "timestamp": 141.53395137900068,
+            "beat_index": 303,
+            "beat_in_bar": 3,
+            "bar_index": 75,
+            "type": "VERSE",
+            "drum": "SNARE"
+        },
+        {
+            "timestamp": 141.99906765807046,
+            "beat_index": 304,
+            "beat_in_bar": 0,
+            "bar_index": 76,
+            "type": "VERSE",
+            "drum": "KICK"
+        },
+        {
+            "timestamp": 142.46418393714023,
+            "beat_index": 305,
+            "beat_in_bar": 1,
+            "bar_index": 76,
+            "type": "VERSE",
+            "drum": "SNARE"
+        },
+        {
+            "timestamp": 142.92930021621,
+            "beat_index": 306,
+            "beat_in_bar": 2,
+            "bar_index": 76,
+            "type": "VERSE",
+            "drum": "KICK"
+        },
+        {
+            "timestamp": 143.39441649527978,
+            "beat_index": 307,
+            "beat_in_bar": 3,
+            "bar_index": 76,
+            "type": "VERSE",
+            "drum": "SNARE"
+        },
+        {
+            "timestamp": 143.85953277434956,
+            "beat_index": 308,
+            "beat_in_bar": 0,
+            "bar_index": 77,
+            "type": "VERSE",
+            "drum": "KICK"
+        },
+        {
+            "timestamp": 144.32464905341934,
+            "beat_index": 309,
+            "beat_in_bar": 1,
+            "bar_index": 77,
+            "type": "VERSE",
+            "drum": "SNARE"
+        },
+        {
+            "timestamp": 144.7897653324891,
+            "beat_index": 310,
+            "beat_in_bar": 2,
+            "bar_index": 77,
+            "type": "VERSE",
+            "drum": "KICK"
+        },
+        {
+            "timestamp": 145.2548816115589,
+            "beat_index": 311,
+            "beat_in_bar": 3,
+            "bar_index": 77,
+            "type": "VERSE",
+            "drum": "SNARE"
+        },
+        {
+            "timestamp": 145.71999789062866,
+            "beat_index": 312,
+            "beat_in_bar": 0,
+            "bar_index": 78,
+            "type": "VERSE",
+            "drum": "KICK"
+        },
+        {
+            "timestamp": 146.18511416969844,
+            "beat_index": 313,
+            "beat_in_bar": 1,
+            "bar_index": 78,
+            "type": "VERSE",
+            "drum": "SNARE"
+        },
+        {
+            "timestamp": 146.6502304487682,
+            "beat_index": 314,
+            "beat_in_bar": 2,
+            "bar_index": 78,
+            "type": "VERSE",
+            "drum": "KICK"
+        },
+        {
+            "timestamp": 147.115346727838,
+            "beat_index": 315,
+            "beat_in_bar": 3,
+            "bar_index": 78,
+            "type": "VERSE",
+            "drum": "SNARE"
+        },
+        {
+            "timestamp": 147.58046300690776,
+            "beat_index": 316,
+            "beat_in_bar": 0,
+            "bar_index": 79,
+            "type": "VERSE",
+            "drum": "KICK"
+        },
+        {
+            "timestamp": 148.04557928597754,
+            "beat_index": 317,
+            "beat_in_bar": 1,
+            "bar_index": 79,
+            "type": "VERSE",
+            "drum": "SNARE"
+        },
+        {
+            "timestamp": 148.5106955650473,
+            "beat_index": 318,
+            "beat_in_bar": 2,
+            "bar_index": 79,
+            "type": "VERSE",
+            "drum": "KICK"
+        },
+        {
+            "timestamp": 148.9758118441171,
+            "beat_index": 319,
+            "beat_in_bar": 3,
+            "bar_index": 79,
+            "type": "VERSE",
+            "drum": "SNARE"
+        },
+        {
+            "timestamp": 149.44092812318686,
+            "beat_index": 320,
+            "beat_in_bar": 0,
+            "bar_index": 80,
+            "type": "VERSE",
+            "drum": "KICK"
+        },
+        {
+            "timestamp": 149.90604440225664,
+            "beat_index": 321,
+            "beat_in_bar": 1,
+            "bar_index": 80,
+            "type": "VERSE",
+            "drum": "SNARE"
+        },
+        {
+            "timestamp": 150.37116068132642,
+            "beat_index": 322,
+            "beat_in_bar": 2,
+            "bar_index": 80,
+            "type": "VERSE",
+            "drum": "KICK"
+        },
+        {
+            "timestamp": 150.8362769603962,
+            "beat_index": 323,
+            "beat_in_bar": 3,
+            "bar_index": 80,
+            "type": "VERSE",
+            "drum": "SNARE"
+        },
+        {
+            "timestamp": 151.30139323946597,
+            "beat_index": 324,
+            "beat_in_bar": 0,
+            "bar_index": 81,
+            "type": "VERSE",
+            "drum": "KICK"
+        },
+        {
+            "timestamp": 151.76650951853574,
+            "beat_index": 325,
+            "beat_in_bar": 1,
+            "bar_index": 81,
+            "type": "VERSE",
+            "drum": "SNARE"
+        },
+        {
+            "timestamp": 152.23162579760552,
+            "beat_index": 326,
+            "beat_in_bar": 2,
+            "bar_index": 81,
+            "type": "VERSE",
+            "drum": "KICK"
+        },
+        {
+            "timestamp": 152.6967420766753,
+            "beat_index": 327,
+            "beat_in_bar": 3,
+            "bar_index": 81,
+            "type": "VERSE",
+            "drum": "SNARE"
+        },
+        {
+            "timestamp": 153.16185835574507,
+            "beat_index": 328,
+            "beat_in_bar": 0,
+            "bar_index": 82,
+            "type": "VERSE",
+            "drum": "KICK"
+        },
+        {
+            "timestamp": 153.62697463481484,
+            "beat_index": 329,
+            "beat_in_bar": 1,
+            "bar_index": 82,
+            "type": "VERSE",
+            "drum": "SNARE"
+        },
+        {
+            "timestamp": 154.09209091388462,
+            "beat_index": 330,
+            "beat_in_bar": 2,
+            "bar_index": 82,
+            "type": "VERSE",
+            "drum": "KICK"
+        },
+        {
+            "timestamp": 154.5572071929544,
+            "beat_index": 331,
+            "beat_in_bar": 3,
+            "bar_index": 82,
+            "type": "VERSE",
+            "drum": "SNARE"
+        },
+        {
+            "timestamp": 155.02232347202417,
+            "beat_index": 332,
+            "beat_in_bar": 0,
+            "bar_index": 83,
+            "type": "VERSE",
+            "drum": "KICK"
+        },
+        {
+            "timestamp": 155.48743975109394,
+            "beat_index": 333,
+            "beat_in_bar": 1,
+            "bar_index": 83,
+            "type": "VERSE",
+            "drum": "SNARE"
+        },
+        {
+            "timestamp": 155.95255603016372,
+            "beat_index": 334,
+            "beat_in_bar": 2,
+            "bar_index": 83,
+            "type": "VERSE",
+            "drum": "KICK"
+        },
+        {
+            "timestamp": 156.4176723092335,
+            "beat_index": 335,
+            "beat_in_bar": 3,
+            "bar_index": 83,
+            "type": "VERSE",
+            "drum": "SNARE"
+        },
+        {
+            "timestamp": 156.88278858830327,
+            "beat_index": 336,
+            "beat_in_bar": 0,
+            "bar_index": 84,
+            "type": "VERSE",
+            "drum": "KICK"
+        },
+        {
+            "timestamp": 157.34790486737305,
+            "beat_index": 337,
+            "beat_in_bar": 1,
+            "bar_index": 84,
+            "type": "VERSE",
+            "drum": "SNARE"
+        },
+        {
+            "timestamp": 157.81302114644282,
+            "beat_index": 338,
+            "beat_in_bar": 2,
+            "bar_index": 84,
+            "type": "VERSE",
+            "drum": "KICK"
+        },
+        {
+            "timestamp": 158.2781374255126,
+            "beat_index": 339,
+            "beat_in_bar": 3,
+            "bar_index": 84,
+            "type": "VERSE",
+            "drum": "SNARE"
+        },
+        {
+            "timestamp": 158.74325370458237,
+            "beat_index": 340,
+            "beat_in_bar": 0,
+            "bar_index": 85,
+            "type": "VERSE",
+            "drum": "KICK"
+        },
+        {
+            "timestamp": 159.20836998365215,
+            "beat_index": 341,
+            "beat_in_bar": 1,
+            "bar_index": 85,
+            "type": "VERSE",
+            "drum": "SNARE"
+        },
+        {
+            "timestamp": 159.67348626272192,
+            "beat_index": 342,
+            "beat_in_bar": 2,
+            "bar_index": 85,
+            "type": "VERSE",
+            "drum": "KICK"
+        },
+        {
+            "timestamp": 160.1386025417917,
+            "beat_index": 343,
+            "beat_in_bar": 3,
+            "bar_index": 85,
+            "type": "VERSE",
+            "drum": "SNARE"
+        },
+        {
+            "timestamp": 160.60371882086147,
+            "beat_index": 344,
+            "beat_in_bar": 0,
+            "bar_index": 86,
+            "type": "VERSE",
+            "drum": "KICK"
+        },
+        {
+            "timestamp": 161.06883509993125,
+            "beat_index": 345,
+            "beat_in_bar": 1,
+            "bar_index": 86,
+            "type": "VERSE",
+            "drum": "SNARE"
+        },
+        {
+            "timestamp": 161.53395137900102,
+            "beat_index": 346,
+            "beat_in_bar": 2,
+            "bar_index": 86,
+            "type": "VERSE",
+            "drum": "KICK"
+        },
+        {
+            "timestamp": 161.9990676580708,
+            "beat_index": 347,
+            "beat_in_bar": 3,
+            "bar_index": 86,
+            "type": "VERSE",
+            "drum": "SNARE"
+        },
+        {
+            "timestamp": 162.46418393714058,
+            "beat_index": 348,
+            "beat_in_bar": 0,
+            "bar_index": 87,
+            "type": "VERSE",
+            "drum": "KICK"
+        },
+        {
+            "timestamp": 162.92930021621035,
+            "beat_index": 349,
+            "beat_in_bar": 1,
+            "bar_index": 87,
+            "type": "VERSE",
+            "drum": "SNARE"
+        },
+        {
+            "timestamp": 163.39441649528013,
+            "beat_index": 350,
+            "beat_in_bar": 2,
+            "bar_index": 87,
+            "type": "VERSE",
+            "drum": "KICK"
+        },
+        {
+            "timestamp": 163.8595327743499,
+            "beat_index": 351,
+            "beat_in_bar": 3,
+            "bar_index": 87,
+            "type": "VERSE",
+            "drum": "SNARE"
+        },
+        {
+            "timestamp": 164.32464905341968,
+            "beat_index": 352,
+            "beat_in_bar": 0,
+            "bar_index": 88,
+            "type": "VERSE",
+            "drum": "KICK"
+        },
+        {
+            "timestamp": 164.78976533248945,
+            "beat_index": 353,
+            "beat_in_bar": 1,
+            "bar_index": 88,
+            "type": "VERSE",
+            "drum": "SNARE"
+        },
+        {
+            "timestamp": 165.25488161155923,
+            "beat_index": 354,
+            "beat_in_bar": 2,
+            "bar_index": 88,
+            "type": "VERSE",
+            "drum": "KICK"
+        },
+        {
+            "timestamp": 165.719997890629,
+            "beat_index": 355,
+            "beat_in_bar": 3,
+            "bar_index": 88,
+            "type": "VERSE",
+            "drum": "SNARE"
+        },
+        {
+            "timestamp": 166.18511416969878,
+            "beat_index": 356,
+            "beat_in_bar": 0,
+            "bar_index": 89,
+            "type": "VERSE",
+            "drum": "KICK"
+        },
+        {
+            "timestamp": 166.65023044876855,
+            "beat_index": 357,
+            "beat_in_bar": 1,
+            "bar_index": 89,
+            "type": "VERSE",
+            "drum": "SNARE"
+        },
+        {
+            "timestamp": 167.11534672783833,
+            "beat_index": 358,
+            "beat_in_bar": 2,
+            "bar_index": 89,
+            "type": "VERSE",
+            "drum": "KICK"
+        },
+        {
+            "timestamp": 167.5804630069081,
+            "beat_index": 359,
+            "beat_in_bar": 3,
+            "bar_index": 89,
+            "type": "VERSE",
+            "drum": "SNARE"
+        },
+        {
+            "timestamp": 168.04557928597788,
+            "beat_index": 360,
+            "beat_in_bar": 0,
+            "bar_index": 90,
+            "type": "VERSE",
+            "drum": "KICK"
+        },
+        {
+            "timestamp": 168.51069556504766,
+            "beat_index": 361,
+            "beat_in_bar": 1,
+            "bar_index": 90,
+            "type": "VERSE",
+            "drum": "SNARE"
+        },
+        {
+            "timestamp": 168.97581184411743,
+            "beat_index": 362,
+            "beat_in_bar": 2,
+            "bar_index": 90,
+            "type": "VERSE",
+            "drum": "KICK"
+        },
+        {
+            "timestamp": 169.4409281231872,
+            "beat_index": 363,
+            "beat_in_bar": 3,
+            "bar_index": 90,
+            "type": "VERSE",
+            "drum": "SNARE"
+        },
+        {
+            "timestamp": 169.90604440225698,
+            "beat_index": 364,
+            "beat_in_bar": 0,
+            "bar_index": 91,
+            "type": "VERSE",
+            "drum": "KICK"
+        },
+        {
+            "timestamp": 170.37116068132676,
+            "beat_index": 365,
+            "beat_in_bar": 1,
+            "bar_index": 91,
+            "type": "VERSE",
+            "drum": "SNARE"
+        },
+        {
+            "timestamp": 170.83627696039653,
+            "beat_index": 366,
+            "beat_in_bar": 2,
+            "bar_index": 91,
+            "type": "VERSE",
+            "drum": "KICK"
+        },
+        {
+            "timestamp": 171.3013932394663,
+            "beat_index": 367,
+            "beat_in_bar": 3,
+            "bar_index": 91,
+            "type": "VERSE",
+            "drum": "SNARE"
+        },
+        {
+            "timestamp": 171.76650951853608,
+            "beat_index": 368,
+            "beat_in_bar": 0,
+            "bar_index": 92,
+            "type": "VERSE",
+            "drum": "KICK"
+        },
+        {
+            "timestamp": 172.23162579760586,
+            "beat_index": 369,
+            "beat_in_bar": 1,
+            "bar_index": 92,
+            "type": "VERSE",
+            "drum": "SNARE"
+        },
+        {
+            "timestamp": 172.69674207667563,
+            "beat_index": 370,
+            "beat_in_bar": 2,
+            "bar_index": 92,
+            "type": "VERSE",
+            "drum": "KICK"
+        },
+        {
+            "timestamp": 173.1618583557454,
+            "beat_index": 371,
+            "beat_in_bar": 3,
+            "bar_index": 92,
+            "type": "VERSE",
+            "drum": "SNARE"
+        },
+        {
+            "timestamp": 173.62697463481518,
+            "beat_index": 372,
+            "beat_in_bar": 0,
+            "bar_index": 93,
+            "type": "VERSE",
+            "drum": "KICK"
+        },
+        {
+            "timestamp": 174.09209091388496,
+            "beat_index": 373,
+            "beat_in_bar": 1,
+            "bar_index": 93,
+            "type": "VERSE",
+            "drum": "SNARE"
+        },
+        {
+            "timestamp": 174.55720719295473,
+            "beat_index": 374,
+            "beat_in_bar": 2,
+            "bar_index": 93,
+            "type": "VERSE",
+            "drum": "KICK"
+        },
+        {
+            "timestamp": 175.0223234720245,
+            "beat_index": 375,
+            "beat_in_bar": 3,
+            "bar_index": 93,
+            "type": "CHORUS",
+            "drum": "SNARE"
+        },
+        {
+            "timestamp": 175.48743975109429,
+            "beat_index": 376,
+            "beat_in_bar": 0,
+            "bar_index": 94,
+            "type": "CHORUS",
+            "drum": "KICK"
+        },
+        {
+            "timestamp": 175.95255603016406,
+            "beat_index": 377,
+            "beat_in_bar": 1,
+            "bar_index": 94,
+            "type": "CHORUS",
+            "drum": "SNARE"
+        },
+        {
+            "timestamp": 176.41767230923384,
+            "beat_index": 378,
+            "beat_in_bar": 2,
+            "bar_index": 94,
+            "type": "CHORUS",
+            "drum": "KICK"
+        },
+        {
+            "timestamp": 176.8827885883036,
+            "beat_index": 379,
+            "beat_in_bar": 3,
+            "bar_index": 94,
+            "type": "CHORUS",
+            "drum": "SNARE"
+        },
+        {
+            "timestamp": 177.3479048673734,
+            "beat_index": 380,
+            "beat_in_bar": 0,
+            "bar_index": 95,
+            "type": "CHORUS",
+            "drum": "KICK"
+        },
+        {
+            "timestamp": 177.81302114644316,
+            "beat_index": 381,
+            "beat_in_bar": 1,
+            "bar_index": 95,
+            "type": "CHORUS",
+            "drum": "SNARE"
+        },
+        {
+            "timestamp": 178.27813742551294,
+            "beat_index": 382,
+            "beat_in_bar": 2,
+            "bar_index": 95,
+            "type": "CHORUS",
+            "drum": "KICK"
+        },
+        {
+            "timestamp": 178.7432537045827,
+            "beat_index": 383,
+            "beat_in_bar": 3,
+            "bar_index": 95,
+            "type": "CHORUS",
+            "drum": "SNARE"
+        },
+        {
+            "timestamp": 179.2083699836525,
+            "beat_index": 384,
+            "beat_in_bar": 0,
+            "bar_index": 96,
+            "type": "CHORUS",
+            "drum": "KICK"
+        },
+        {
+            "timestamp": 179.67348626272226,
+            "beat_index": 385,
+            "beat_in_bar": 1,
+            "bar_index": 96,
+            "type": "CHORUS",
+            "drum": "SNARE"
+        },
+        {
+            "timestamp": 180.13860254179204,
+            "beat_index": 386,
+            "beat_in_bar": 2,
+            "bar_index": 96,
+            "type": "CHORUS",
+            "drum": "KICK"
+        },
+        {
+            "timestamp": 180.60371882086181,
+            "beat_index": 387,
+            "beat_in_bar": 3,
+            "bar_index": 96,
+            "type": "CHORUS",
+            "drum": "SNARE"
+        },
+        {
+            "timestamp": 181.0688350999316,
+            "beat_index": 388,
+            "beat_in_bar": 0,
+            "bar_index": 97,
+            "type": "CHORUS",
+            "drum": "KICK"
+        },
+        {
+            "timestamp": 181.53395137900137,
+            "beat_index": 389,
+            "beat_in_bar": 1,
+            "bar_index": 97,
+            "type": "CHORUS",
+            "drum": "SNARE"
+        },
+        {
+            "timestamp": 181.99906765807114,
+            "beat_index": 390,
+            "beat_in_bar": 2,
+            "bar_index": 97,
+            "type": "CHORUS",
+            "drum": "KICK"
+        },
+        {
+            "timestamp": 182.46418393714092,
+            "beat_index": 391,
+            "beat_in_bar": 3,
+            "bar_index": 97,
+            "type": "CHORUS",
+            "drum": "SNARE"
+        },
+        {
+            "timestamp": 182.9293002162107,
+            "beat_index": 392,
+            "beat_in_bar": 0,
+            "bar_index": 98,
+            "type": "CHORUS",
+            "drum": "KICK"
+        },
+        {
+            "timestamp": 183.39441649528047,
+            "beat_index": 393,
+            "beat_in_bar": 1,
+            "bar_index": 98,
+            "type": "CHORUS",
+            "drum": "SNARE"
+        },
+        {
+            "timestamp": 183.85953277435024,
+            "beat_index": 394,
+            "beat_in_bar": 2,
+            "bar_index": 98,
+            "type": "CHORUS",
+            "drum": "KICK"
+        },
+        {
+            "timestamp": 184.32464905342002,
+            "beat_index": 395,
+            "beat_in_bar": 3,
+            "bar_index": 98,
+            "type": "CHORUS",
+            "drum": "SNARE"
+        },
+        {
+            "timestamp": 184.7897653324898,
+            "beat_index": 396,
+            "beat_in_bar": 0,
+            "bar_index": 99,
+            "type": "CHORUS",
+            "drum": "KICK"
+        },
+        {
+            "timestamp": 185.25488161155957,
+            "beat_index": 397,
+            "beat_in_bar": 1,
+            "bar_index": 99,
+            "type": "CHORUS",
+            "drum": "SNARE"
+        },
+        {
+            "timestamp": 185.71999789062934,
+            "beat_index": 398,
+            "beat_in_bar": 2,
+            "bar_index": 99,
+            "type": "CHORUS",
+            "drum": "KICK"
+        },
+        {
+            "timestamp": 186.18511416969912,
+            "beat_index": 399,
+            "beat_in_bar": 3,
+            "bar_index": 99,
+            "type": "CHORUS",
+            "drum": "SNARE"
+        },
+        {
+            "timestamp": 186.6502304487689,
+            "beat_index": 400,
+            "beat_in_bar": 0,
+            "bar_index": 100,
+            "type": "CHORUS",
+            "drum": "KICK"
+        },
+        {
+            "timestamp": 187.11534672783867,
+            "beat_index": 401,
+            "beat_in_bar": 1,
+            "bar_index": 100,
+            "type": "CHORUS",
+            "drum": "SNARE"
+        },
+        {
+            "timestamp": 187.58046300690845,
+            "beat_index": 402,
+            "beat_in_bar": 2,
+            "bar_index": 100,
+            "type": "CHORUS",
+            "drum": "KICK"
+        },
+        {
+            "timestamp": 188.04557928597822,
+            "beat_index": 403,
+            "beat_in_bar": 3,
+            "bar_index": 100,
+            "type": "CHORUS",
+            "drum": "SNARE"
+        },
+        {
+            "timestamp": 188.510695565048,
+            "beat_index": 404,
+            "beat_in_bar": 0,
+            "bar_index": 101,
+            "type": "CHORUS",
+            "drum": "KICK"
+        },
+        {
+            "timestamp": 188.97581184411777,
+            "beat_index": 405,
+            "beat_in_bar": 1,
+            "bar_index": 101,
+            "type": "CHORUS",
+            "drum": "SNARE"
+        },
+        {
+            "timestamp": 189.44092812318755,
+            "beat_index": 406,
+            "beat_in_bar": 2,
+            "bar_index": 101,
+            "type": "CHORUS",
+            "drum": "KICK"
+        },
+        {
+            "timestamp": 189.90604440225732,
+            "beat_index": 407,
+            "beat_in_bar": 3,
+            "bar_index": 101,
+            "type": "CHORUS",
+            "drum": "SNARE"
+        },
+        {
+            "timestamp": 190.3711606813271,
+            "beat_index": 408,
+            "beat_in_bar": 0,
+            "bar_index": 102,
+            "type": "CHORUS",
+            "drum": "KICK"
+        },
+        {
+            "timestamp": 190.83627696039687,
+            "beat_index": 409,
+            "beat_in_bar": 1,
+            "bar_index": 102,
+            "type": "CHORUS",
+            "drum": "SNARE"
+        },
+        {
+            "timestamp": 191.30139323946665,
+            "beat_index": 410,
+            "beat_in_bar": 2,
+            "bar_index": 102,
+            "type": "CHORUS",
+            "drum": "KICK"
+        },
+        {
+            "timestamp": 191.76650951853642,
+            "beat_index": 411,
+            "beat_in_bar": 3,
+            "bar_index": 102,
+            "type": "CHORUS",
+            "drum": "SNARE"
+        },
+        {
+            "timestamp": 192.2316257976062,
+            "beat_index": 412,
+            "beat_in_bar": 0,
+            "bar_index": 103,
+            "type": "CHORUS",
+            "drum": "KICK"
+        },
+        {
+            "timestamp": 192.69674207667597,
+            "beat_index": 413,
+            "beat_in_bar": 1,
+            "bar_index": 103,
+            "type": "CHORUS",
+            "drum": "SNARE"
+        },
+        {
+            "timestamp": 193.16185835574575,
+            "beat_index": 414,
+            "beat_in_bar": 2,
+            "bar_index": 103,
+            "type": "CHORUS",
+            "drum": "KICK"
+        },
+        {
+            "timestamp": 193.62697463481553,
+            "beat_index": 415,
+            "beat_in_bar": 3,
+            "bar_index": 103,
+            "type": "CHORUS",
+            "drum": "SNARE"
+        },
+        {
+            "timestamp": 194.0920909138853,
+            "beat_index": 416,
+            "beat_in_bar": 0,
+            "bar_index": 104,
+            "type": "CHORUS",
+            "drum": "KICK"
+        },
+        {
+            "timestamp": 194.55720719295508,
+            "beat_index": 417,
+            "beat_in_bar": 1,
+            "bar_index": 104,
+            "type": "CHORUS",
+            "drum": "SNARE"
+        },
+        {
+            "timestamp": 195.02232347202485,
+            "beat_index": 418,
+            "beat_in_bar": 2,
+            "bar_index": 104,
+            "type": "CHORUS",
+            "drum": "KICK"
+        },
+        {
+            "timestamp": 195.48743975109463,
+            "beat_index": 419,
+            "beat_in_bar": 3,
+            "bar_index": 104,
+            "type": "CHORUS",
+            "drum": "SNARE"
+        },
+        {
+            "timestamp": 195.9525560301644,
+            "beat_index": 420,
+            "beat_in_bar": 0,
+            "bar_index": 105,
+            "type": "CHORUS",
+            "drum": "KICK"
+        },
+        {
+            "timestamp": 196.41767230923418,
+            "beat_index": 421,
+            "beat_in_bar": 1,
+            "bar_index": 105,
+            "type": "CHORUS",
+            "drum": "SNARE"
+        },
+        {
+            "timestamp": 196.88278858830395,
+            "beat_index": 422,
+            "beat_in_bar": 2,
+            "bar_index": 105,
+            "type": "CHORUS",
+            "drum": "KICK"
+        },
+        {
+            "timestamp": 197.34790486737373,
+            "beat_index": 423,
+            "beat_in_bar": 3,
+            "bar_index": 105,
+            "type": "CHORUS",
+            "drum": "SNARE"
+        },
+        {
+            "timestamp": 197.8130211464435,
+            "beat_index": 424,
+            "beat_in_bar": 0,
+            "bar_index": 106,
+            "type": "CHORUS",
+            "drum": "KICK"
+        },
+        {
+            "timestamp": 198.27813742551328,
+            "beat_index": 425,
+            "beat_in_bar": 1,
+            "bar_index": 106,
+            "type": "CHORUS",
+            "drum": "SNARE"
+        },
+        {
+            "timestamp": 198.74325370458305,
+            "beat_index": 426,
+            "beat_in_bar": 2,
+            "bar_index": 106,
+            "type": "CHORUS",
+            "drum": "KICK"
+        },
+        {
+            "timestamp": 199.20836998365283,
+            "beat_index": 427,
+            "beat_in_bar": 3,
+            "bar_index": 106,
+            "type": "CHORUS",
+            "drum": "SNARE"
+        },
+        {
+            "timestamp": 199.6734862627226,
+            "beat_index": 428,
+            "beat_in_bar": 0,
+            "bar_index": 107,
+            "type": "CHORUS",
+            "drum": "KICK"
+        },
+        {
+            "timestamp": 200.13860254179238,
+            "beat_index": 429,
+            "beat_in_bar": 1,
+            "bar_index": 107,
+            "type": "VERSE",
+            "drum": "SNARE"
+        },
+        {
+            "timestamp": 200.60371882086216,
+            "beat_index": 430,
+            "beat_in_bar": 2,
+            "bar_index": 107,
+            "type": "VERSE",
+            "drum": "KICK"
+        },
+        {
+            "timestamp": 201.06883509993193,
+            "beat_index": 431,
+            "beat_in_bar": 3,
+            "bar_index": 107,
+            "type": "VERSE",
+            "drum": "SNARE"
+        },
+        {
+            "timestamp": 201.5339513790017,
+            "beat_index": 432,
+            "beat_in_bar": 0,
+            "bar_index": 108,
+            "type": "VERSE",
+            "drum": "KICK"
+        },
+        {
+            "timestamp": 201.99906765807148,
+            "beat_index": 433,
+            "beat_in_bar": 1,
+            "bar_index": 108,
+            "type": "VERSE",
+            "drum": "SNARE"
+        },
+        {
+            "timestamp": 202.46418393714126,
+            "beat_index": 434,
+            "beat_in_bar": 2,
+            "bar_index": 108,
+            "type": "VERSE",
+            "drum": "KICK"
+        },
+        {
+            "timestamp": 202.92930021621103,
+            "beat_index": 435,
+            "beat_in_bar": 3,
+            "bar_index": 108,
+            "type": "VERSE",
+            "drum": "SNARE"
+        },
+        {
+            "timestamp": 203.3944164952808,
+            "beat_index": 436,
+            "beat_in_bar": 0,
+            "bar_index": 109,
+            "type": "VERSE",
+            "drum": "KICK"
+        },
+        {
+            "timestamp": 203.85953277435058,
+            "beat_index": 437,
+            "beat_in_bar": 1,
+            "bar_index": 109,
+            "type": "VERSE",
+            "drum": "SNARE"
+        },
+        {
+            "timestamp": 204.32464905342036,
+            "beat_index": 438,
+            "beat_in_bar": 2,
+            "bar_index": 109,
+            "type": "VERSE",
+            "drum": "KICK"
+        },
+        {
+            "timestamp": 204.78976533249013,
+            "beat_index": 439,
+            "beat_in_bar": 3,
+            "bar_index": 109,
+            "type": "VERSE",
+            "drum": "SNARE"
+        },
+        {
+            "timestamp": 205.2548816115599,
+            "beat_index": 440,
+            "beat_in_bar": 0,
+            "bar_index": 110,
+            "type": "VERSE",
+            "drum": "KICK"
+        },
+        {
+            "timestamp": 205.71999789062968,
+            "beat_index": 441,
+            "beat_in_bar": 1,
+            "bar_index": 110,
+            "type": "VERSE",
+            "drum": "SNARE"
+        },
+        {
+            "timestamp": 206.18511416969946,
+            "beat_index": 442,
+            "beat_in_bar": 2,
+            "bar_index": 110,
+            "type": "VERSE",
+            "drum": "KICK"
+        },
+        {
+            "timestamp": 206.65023044876924,
+            "beat_index": 443,
+            "beat_in_bar": 3,
+            "bar_index": 110,
+            "type": "VERSE",
+            "drum": "SNARE"
+        },
+        {
+            "timestamp": 207.115346727839,
+            "beat_index": 444,
+            "beat_in_bar": 0,
+            "bar_index": 111,
+            "type": "VERSE",
+            "drum": "KICK"
+        },
+        {
+            "timestamp": 207.5804630069088,
+            "beat_index": 445,
+            "beat_in_bar": 1,
+            "bar_index": 111,
+            "type": "VERSE",
+            "drum": "SNARE"
+        },
+        {
+            "timestamp": 208.04557928597856,
+            "beat_index": 446,
+            "beat_in_bar": 2,
+            "bar_index": 111,
+            "type": "VERSE",
+            "drum": "KICK"
+        },
+        {
+            "timestamp": 208.51069556504834,
+            "beat_index": 447,
+            "beat_in_bar": 3,
+            "bar_index": 111,
+            "type": "VERSE",
+            "drum": "SNARE"
+        },
+        {
+            "timestamp": 208.9758118441181,
+            "beat_index": 448,
+            "beat_in_bar": 0,
+            "bar_index": 112,
+            "type": "VERSE",
+            "drum": "KICK"
+        },
+        {
+            "timestamp": 209.4409281231879,
+            "beat_index": 449,
+            "beat_in_bar": 1,
+            "bar_index": 112,
+            "type": "VERSE",
+            "drum": "SNARE"
+        },
+        {
+            "timestamp": 209.90604440225766,
+            "beat_index": 450,
+            "beat_in_bar": 2,
+            "bar_index": 112,
+            "type": "VERSE",
+            "drum": "KICK"
+        },
+        {
+            "timestamp": 210.37116068132744,
+            "beat_index": 451,
+            "beat_in_bar": 3,
+            "bar_index": 112,
+            "type": "VERSE",
+            "drum": "SNARE"
+        },
+        {
+            "timestamp": 210.8362769603972,
+            "beat_index": 452,
+            "beat_in_bar": 0,
+            "bar_index": 113,
+            "type": "VERSE",
+            "drum": "KICK"
+        },
+        {
+            "timestamp": 211.301393239467,
+            "beat_index": 453,
+            "beat_in_bar": 1,
+            "bar_index": 113,
+            "type": "VERSE",
+            "drum": "SNARE"
+        },
+        {
+            "timestamp": 211.76650951853676,
+            "beat_index": 454,
+            "beat_in_bar": 2,
+            "bar_index": 113,
+            "type": "VERSE",
+            "drum": "KICK"
+        },
+        {
+            "timestamp": 212.23162579760654,
+            "beat_index": 455,
+            "beat_in_bar": 3,
+            "bar_index": 113,
+            "type": "VERSE",
+            "drum": "SNARE"
+        },
+        {
+            "timestamp": 212.69674207667632,
+            "beat_index": 456,
+            "beat_in_bar": 0,
+            "bar_index": 114,
+            "type": "VERSE",
+            "drum": "KICK"
+        },
+        {
+            "timestamp": 213.1618583557461,
+            "beat_index": 457,
+            "beat_in_bar": 1,
+            "bar_index": 114,
+            "type": "VERSE",
+            "drum": "SNARE"
+        },
+        {
+            "timestamp": 213.62697463481587,
+            "beat_index": 458,
+            "beat_in_bar": 2,
+            "bar_index": 114,
+            "type": "VERSE",
+            "drum": "KICK"
+        },
+        {
+            "timestamp": 214.09209091388564,
+            "beat_index": 459,
+            "beat_in_bar": 3,
+            "bar_index": 114,
+            "type": "VERSE",
+            "drum": "SNARE"
+        },
+        {
+            "timestamp": 214.55720719295542,
+            "beat_index": 460,
+            "beat_in_bar": 0,
+            "bar_index": 115,
+            "type": "VERSE",
+            "drum": "KICK"
+        },
+        {
+            "timestamp": 215.0223234720252,
+            "beat_index": 461,
+            "beat_in_bar": 1,
+            "bar_index": 115,
+            "type": "VERSE",
+            "drum": "SNARE"
+        },
+        {
+            "timestamp": 215.48743975109497,
+            "beat_index": 462,
+            "beat_in_bar": 2,
+            "bar_index": 115,
+            "type": "VERSE",
+            "drum": "KICK"
+        },
+        {
+            "timestamp": 215.95255603016474,
+            "beat_index": 463,
+            "beat_in_bar": 3,
+            "bar_index": 115,
+            "type": "VERSE",
+            "drum": "SNARE"
+        },
+        {
+            "timestamp": 216.41767230923452,
+            "beat_index": 464,
+            "beat_in_bar": 0,
+            "bar_index": 116,
+            "type": "VERSE",
+            "drum": "KICK"
+        },
+        {
+            "timestamp": 216.8827885883043,
+            "beat_index": 465,
+            "beat_in_bar": 1,
+            "bar_index": 116,
+            "type": "VERSE",
+            "drum": "SNARE"
+        },
+        {
+            "timestamp": 217.34790486737407,
+            "beat_index": 466,
+            "beat_in_bar": 2,
+            "bar_index": 116,
+            "type": "VERSE",
+            "drum": "KICK"
+        },
+        {
+            "timestamp": 217.81302114644384,
+            "beat_index": 467,
+            "beat_in_bar": 3,
+            "bar_index": 116,
+            "type": "VERSE",
+            "drum": "SNARE"
+        },
+        {
+            "timestamp": 218.27813742551362,
+            "beat_index": 468,
+            "beat_in_bar": 0,
+            "bar_index": 117,
+            "type": "VERSE",
+            "drum": "KICK"
+        },
+        {
+            "timestamp": 218.7432537045834,
+            "beat_index": 469,
+            "beat_in_bar": 1,
+            "bar_index": 117,
+            "type": "VERSE",
+            "drum": "SNARE"
+        },
+        {
+            "timestamp": 219.20836998365317,
+            "beat_index": 470,
+            "beat_in_bar": 2,
+            "bar_index": 117,
+            "type": "VERSE",
+            "drum": "KICK"
+        },
+        {
+            "timestamp": 219.67348626272295,
+            "beat_index": 471,
+            "beat_in_bar": 3,
+            "bar_index": 117,
+            "type": "VERSE",
+            "drum": "SNARE"
+        },
+        {
+            "timestamp": 220.13860254179272,
+            "beat_index": 472,
+            "beat_in_bar": 0,
+            "bar_index": 118,
+            "type": "VERSE",
+            "drum": "KICK"
+        },
+        {
+            "timestamp": 220.6037188208625,
+            "beat_index": 473,
+            "beat_in_bar": 1,
+            "bar_index": 118,
+            "type": "VERSE",
+            "drum": "SNARE"
+        },
+        {
+            "timestamp": 221.06883509993227,
+            "beat_index": 474,
+            "beat_in_bar": 2,
+            "bar_index": 118,
+            "type": "VERSE",
+            "drum": "KICK"
+        },
+        {
+            "timestamp": 221.53395137900205,
+            "beat_index": 475,
+            "beat_in_bar": 3,
+            "bar_index": 118,
+            "type": "VERSE",
+            "drum": "SNARE"
+        },
+        {
+            "timestamp": 221.99906765807182,
+            "beat_index": 476,
+            "beat_in_bar": 0,
+            "bar_index": 119,
+            "type": "VERSE",
+            "drum": "KICK"
+        },
+        {
+            "timestamp": 222.4641839371416,
+            "beat_index": 477,
+            "beat_in_bar": 1,
+            "bar_index": 119,
+            "type": "VERSE",
+            "drum": "SNARE"
+        },
+        {
+            "timestamp": 222.92930021621137,
+            "beat_index": 478,
+            "beat_in_bar": 2,
+            "bar_index": 119,
+            "type": "VERSE",
+            "drum": "KICK"
+        },
+        {
+            "timestamp": 223.39441649528115,
+            "beat_index": 479,
+            "beat_in_bar": 3,
+            "bar_index": 119,
+            "type": "VERSE",
+            "drum": "SNARE"
+        },
+        {
+            "timestamp": 223.85953277435092,
+            "beat_index": 480,
+            "beat_in_bar": 0,
+            "bar_index": 120,
+            "type": "VERSE",
+            "drum": "KICK"
+        },
+        {
+            "timestamp": 224.3246490534207,
+            "beat_index": 481,
+            "beat_in_bar": 1,
+            "bar_index": 120,
+            "type": "VERSE",
+            "drum": "SNARE"
+        },
+        {
+            "timestamp": 224.78976533249048,
+            "beat_index": 482,
+            "beat_in_bar": 2,
+            "bar_index": 120,
+            "type": "VERSE",
+            "drum": "KICK"
+        },
+        {
+            "timestamp": 225.25488161156025,
+            "beat_index": 483,
+            "beat_in_bar": 3,
+            "bar_index": 120,
+            "type": "VERSE",
+            "drum": "SNARE"
+        },
+        {
+            "timestamp": 225.71999789063003,
+            "beat_index": 484,
+            "beat_in_bar": 0,
+            "bar_index": 121,
+            "type": "VERSE",
+            "drum": "KICK"
+        },
+        {
+            "timestamp": 226.1851141696998,
+            "beat_index": 485,
+            "beat_in_bar": 1,
+            "bar_index": 121,
+            "type": "VERSE",
+            "drum": "SNARE"
+        },
+        {
+            "timestamp": 226.65023044876958,
+            "beat_index": 486,
+            "beat_in_bar": 2,
+            "bar_index": 121,
+            "type": "VERSE",
+            "drum": "KICK"
+        },
+        {
+            "timestamp": 227.11534672783935,
+            "beat_index": 487,
+            "beat_in_bar": 3,
+            "bar_index": 121,
+            "type": "VERSE",
+            "drum": "SNARE"
+        },
+        {
+            "timestamp": 227.58046300690913,
+            "beat_index": 488,
+            "beat_in_bar": 0,
+            "bar_index": 122,
+            "type": "VERSE",
+            "drum": "KICK"
+        },
+        {
+            "timestamp": 228.0455792859789,
+            "beat_index": 489,
+            "beat_in_bar": 1,
+            "bar_index": 122,
+            "type": "VERSE",
+            "drum": "SNARE"
+        },
+        {
+            "timestamp": 228.51069556504868,
+            "beat_index": 490,
+            "beat_in_bar": 2,
+            "bar_index": 122,
+            "type": "VERSE",
+            "drum": "KICK"
+        },
+        {
+            "timestamp": 228.97581184411845,
+            "beat_index": 491,
+            "beat_in_bar": 3,
+            "bar_index": 122,
+            "type": "VERSE",
+            "drum": "SNARE"
+        },
+        {
+            "timestamp": 229.44092812318823,
+            "beat_index": 492,
+            "beat_in_bar": 0,
+            "bar_index": 123,
+            "type": "VERSE",
+            "drum": "KICK"
+        },
+        {
+            "timestamp": 229.906044402258,
+            "beat_index": 493,
+            "beat_in_bar": 1,
+            "bar_index": 123,
+            "type": "VERSE",
+            "drum": "SNARE"
+        },
+        {
+            "timestamp": 230.37116068132778,
+            "beat_index": 494,
+            "beat_in_bar": 2,
+            "bar_index": 123,
+            "type": "VERSE",
+            "drum": "KICK"
+        },
+        {
+            "timestamp": 230.83627696039756,
+            "beat_index": 495,
+            "beat_in_bar": 3,
+            "bar_index": 123,
+            "type": "VERSE",
+            "drum": "SNARE"
+        },
+        {
+            "timestamp": 231.30139323946733,
+            "beat_index": 496,
+            "beat_in_bar": 0,
+            "bar_index": 124,
+            "type": "VERSE",
+            "drum": "KICK"
+        },
+        {
+            "timestamp": 231.7665095185371,
+            "beat_index": 497,
+            "beat_in_bar": 1,
+            "bar_index": 124,
+            "type": "VERSE",
+            "drum": "SNARE"
+        },
+        {
+            "timestamp": 232.23162579760688,
+            "beat_index": 498,
+            "beat_in_bar": 2,
+            "bar_index": 124,
+            "type": "VERSE",
+            "drum": "KICK"
+        },
+        {
+            "timestamp": 232.69674207667666,
+            "beat_index": 499,
+            "beat_in_bar": 3,
+            "bar_index": 124,
+            "type": "VERSE",
+            "drum": "SNARE"
+        },
+        {
+            "timestamp": 233.16185835574643,
+            "beat_index": 500,
+            "beat_in_bar": 0,
+            "bar_index": 125,
+            "type": "VERSE",
+            "drum": "KICK"
+        },
+        {
+            "timestamp": 233.6269746348162,
+            "beat_index": 501,
+            "beat_in_bar": 1,
+            "bar_index": 125,
+            "type": "VERSE",
+            "drum": "SNARE"
+        },
+        {
+            "timestamp": 234.09209091388598,
+            "beat_index": 502,
+            "beat_in_bar": 2,
+            "bar_index": 125,
+            "type": "VERSE",
+            "drum": "KICK"
+        },
+        {
+            "timestamp": 234.55720719295576,
+            "beat_index": 503,
+            "beat_in_bar": 3,
+            "bar_index": 125,
+            "type": "VERSE",
+            "drum": "SNARE"
+        },
+        {
+            "timestamp": 235.02232347202553,
+            "beat_index": 504,
+            "beat_in_bar": 0,
+            "bar_index": 126,
+            "type": "VERSE",
+            "drum": "KICK"
+        },
+        {
+            "timestamp": 235.4874397510953,
+            "beat_index": 505,
+            "beat_in_bar": 1,
+            "bar_index": 126,
+            "type": "VERSE",
+            "drum": "SNARE"
+        },
+        {
+            "timestamp": 235.95255603016508,
+            "beat_index": 506,
+            "beat_in_bar": 2,
+            "bar_index": 126,
+            "type": "VERSE",
+            "drum": "KICK"
+        },
+        {
+            "timestamp": 236.41767230923486,
+            "beat_index": 507,
+            "beat_in_bar": 3,
+            "bar_index": 126,
+            "type": "VERSE",
+            "drum": "SNARE"
+        },
+        {
+            "timestamp": 236.88278858830463,
+            "beat_index": 508,
+            "beat_in_bar": 0,
+            "bar_index": 127,
+            "type": "VERSE",
+            "drum": "KICK"
+        },
+        {
+            "timestamp": 237.3479048673744,
+            "beat_index": 509,
+            "beat_in_bar": 1,
+            "bar_index": 127,
+            "type": "VERSE",
+            "drum": "SNARE"
+        },
+        {
+            "timestamp": 237.81302114644419,
+            "beat_index": 510,
+            "beat_in_bar": 2,
+            "bar_index": 127,
+            "type": "VERSE",
+            "drum": "KICK"
+        },
+        {
+            "timestamp": 238.27813742551396,
+            "beat_index": 511,
+            "beat_in_bar": 3,
+            "bar_index": 127,
+            "type": "VERSE",
+            "drum": "SNARE"
+        },
+        {
+            "timestamp": 238.74325370458374,
+            "beat_index": 512,
+            "beat_in_bar": 0,
+            "bar_index": 128,
+            "type": "VERSE",
+            "drum": "KICK"
+        },
+        {
+            "timestamp": 239.2083699836535,
+            "beat_index": 513,
+            "beat_in_bar": 1,
+            "bar_index": 128,
+            "type": "VERSE",
+            "drum": "SNARE"
+        },
+        {
+            "timestamp": 239.6734862627233,
+            "beat_index": 514,
+            "beat_in_bar": 2,
+            "bar_index": 128,
+            "type": "VERSE",
+            "drum": "KICK"
+        },
+        {
+            "timestamp": 240.13860254179306,
+            "beat_index": 515,
+            "beat_in_bar": 3,
+            "bar_index": 128,
+            "type": "VERSE",
+            "drum": "SNARE"
+        },
+        {
+            "timestamp": 240.60371882086284,
+            "beat_index": 516,
+            "beat_in_bar": 0,
+            "bar_index": 129,
+            "type": "VERSE",
+            "drum": "KICK"
+        },
+        {
+            "timestamp": 241.0688350999326,
+            "beat_index": 517,
+            "beat_in_bar": 1,
+            "bar_index": 129,
+            "type": "VERSE",
+            "drum": "SNARE"
+        },
+        {
+            "timestamp": 241.5339513790024,
+            "beat_index": 518,
+            "beat_in_bar": 2,
+            "bar_index": 129,
+            "type": "VERSE",
+            "drum": "KICK"
+        },
+        {
+            "timestamp": 241.99906765807216,
+            "beat_index": 519,
+            "beat_in_bar": 3,
+            "bar_index": 129,
+            "type": "VERSE",
+            "drum": "SNARE"
+        },
+        {
+            "timestamp": 242.46418393714194,
+            "beat_index": 520,
+            "beat_in_bar": 0,
+            "bar_index": 130,
+            "type": "VERSE",
+            "drum": "KICK"
+        },
+        {
+            "timestamp": 242.92930021621171,
+            "beat_index": 521,
+            "beat_in_bar": 1,
+            "bar_index": 130,
+            "type": "VERSE",
+            "drum": "SNARE"
+        },
+        {
+            "timestamp": 243.3944164952815,
+            "beat_index": 522,
+            "beat_in_bar": 2,
+            "bar_index": 130,
+            "type": "VERSE",
+            "drum": "KICK"
+        },
+        {
+            "timestamp": 243.85953277435127,
+            "beat_index": 523,
+            "beat_in_bar": 3,
+            "bar_index": 130,
+            "type": "VERSE",
+            "drum": "SNARE"
+        },
+        {
+            "timestamp": 244.32464905342104,
+            "beat_index": 524,
+            "beat_in_bar": 0,
+            "bar_index": 131,
+            "type": "VERSE",
+            "drum": "KICK"
+        },
+        {
+            "timestamp": 244.78976533249082,
+            "beat_index": 525,
+            "beat_in_bar": 1,
+            "bar_index": 131,
+            "type": "VERSE",
+            "drum": "SNARE"
+        },
+        {
+            "timestamp": 245.2548816115606,
+            "beat_index": 526,
+            "beat_in_bar": 2,
+            "bar_index": 131,
+            "type": "VERSE",
+            "drum": "KICK"
+        },
+        {
+            "timestamp": 245.71999789063037,
+            "beat_index": 527,
+            "beat_in_bar": 3,
+            "bar_index": 131,
+            "type": "VERSE",
+            "drum": "SNARE"
+        },
+        {
+            "timestamp": 246.18511416970014,
+            "beat_index": 528,
+            "beat_in_bar": 0,
+            "bar_index": 132,
+            "type": "VERSE",
+            "drum": "KICK"
+        },
+        {
+            "timestamp": 246.65023044876992,
+            "beat_index": 529,
+            "beat_in_bar": 1,
+            "bar_index": 132,
+            "type": "VERSE",
+            "drum": "SNARE"
+        },
+        {
+            "timestamp": 247.1153467278397,
+            "beat_index": 530,
+            "beat_in_bar": 2,
+            "bar_index": 132,
+            "type": "VERSE",
+            "drum": "KICK"
+        },
+        {
+            "timestamp": 247.58046300690947,
+            "beat_index": 531,
+            "beat_in_bar": 3,
+            "bar_index": 132,
+            "type": "VERSE",
+            "drum": "SNARE"
+        },
+        {
+            "timestamp": 248.04557928597924,
+            "beat_index": 532,
+            "beat_in_bar": 0,
+            "bar_index": 133,
+            "type": "VERSE",
+            "drum": "KICK"
+        },
+        {
+            "timestamp": 248.51069556504902,
+            "beat_index": 533,
+            "beat_in_bar": 1,
+            "bar_index": 133,
+            "type": "VERSE",
+            "drum": "SNARE"
+        },
+        {
+            "timestamp": 248.9758118441188,
+            "beat_index": 534,
+            "beat_in_bar": 2,
+            "bar_index": 133,
+            "type": "VERSE",
+            "drum": "KICK"
+        },
+        {
+            "timestamp": 249.44092812318857,
+            "beat_index": 535,
+            "beat_in_bar": 3,
+            "bar_index": 133,
+            "type": "VERSE",
+            "drum": "SNARE"
+        },
+        {
+            "timestamp": 249.90604440225835,
+            "beat_index": 536,
+            "beat_in_bar": 0,
+            "bar_index": 134,
+            "type": "VERSE",
+            "drum": "KICK"
+        },
+        {
+            "timestamp": 250.37116068132812,
+            "beat_index": 537,
+            "beat_in_bar": 1,
+            "bar_index": 134,
+            "type": "VERSE",
+            "drum": "SNARE"
+        },
+        {
+            "timestamp": 250.8362769603979,
+            "beat_index": 538,
+            "beat_in_bar": 2,
+            "bar_index": 134,
+            "type": "VERSE",
+            "drum": "KICK"
+        },
+        {
+            "timestamp": 251.30139323946767,
+            "beat_index": 539,
+            "beat_in_bar": 3,
+            "bar_index": 134,
+            "type": "VERSE",
+            "drum": "SNARE"
+        },
+        {
+            "timestamp": 251.76650951853745,
+            "beat_index": 540,
+            "beat_in_bar": 0,
+            "bar_index": 135,
+            "type": "VERSE",
+            "drum": "KICK"
+        },
+        {
+            "timestamp": 252.23162579760722,
+            "beat_index": 541,
+            "beat_in_bar": 1,
+            "bar_index": 135,
+            "type": "VERSE",
+            "drum": "SNARE"
+        },
+        {
+            "timestamp": 252.696742076677,
+            "beat_index": 542,
+            "beat_in_bar": 2,
+            "bar_index": 135,
+            "type": "VERSE",
+            "drum": "KICK"
+        },
+        {
+            "timestamp": 253.16185835574677,
+            "beat_index": 543,
+            "beat_in_bar": 3,
+            "bar_index": 135,
+            "type": "VERSE",
+            "drum": "SNARE"
+        },
+        {
+            "timestamp": 253.62697463481655,
+            "beat_index": 544,
+            "beat_in_bar": 0,
+            "bar_index": 136,
+            "type": "VERSE",
+            "drum": "KICK"
+        },
+        {
+            "timestamp": 254.09209091388632,
+            "beat_index": 545,
+            "beat_in_bar": 1,
+            "bar_index": 136,
+            "type": "VERSE",
+            "drum": "SNARE"
+        },
+        {
+            "timestamp": 254.5572071929561,
+            "beat_index": 546,
+            "beat_in_bar": 2,
+            "bar_index": 136,
+            "type": "VERSE",
+            "drum": "KICK"
+        },
+        {
+            "timestamp": 255.02232347202587,
+            "beat_index": 547,
+            "beat_in_bar": 3,
+            "bar_index": 136,
+            "type": "VERSE",
+            "drum": "SNARE"
+        },
+        {
+            "timestamp": 255.48743975109565,
+            "beat_index": 548,
+            "beat_in_bar": 0,
+            "bar_index": 137,
+            "type": "VERSE",
+            "drum": "KICK"
+        },
+        {
+            "timestamp": 255.95255603016543,
+            "beat_index": 549,
+            "beat_in_bar": 1,
+            "bar_index": 137,
+            "type": "VERSE",
+            "drum": "SNARE"
+        },
+        {
+            "timestamp": 256.4176723092352,
+            "beat_index": 550,
+            "beat_in_bar": 2,
+            "bar_index": 137,
+            "type": "VERSE",
+            "drum": "KICK"
+        },
+        {
+            "timestamp": 256.88278858830495,
+            "beat_index": 551,
+            "beat_in_bar": 3,
+            "bar_index": 137,
+            "type": "VERSE",
+            "drum": "SNARE"
+        },
+        {
+            "timestamp": 257.3479048673747,
+            "beat_index": 552,
+            "beat_in_bar": 0,
+            "bar_index": 138,
+            "type": "VERSE",
+            "drum": "KICK"
+        },
+        {
+            "timestamp": 257.8130211464445,
+            "beat_index": 553,
+            "beat_in_bar": 1,
+            "bar_index": 138,
+            "type": "VERSE",
+            "drum": "SNARE"
+        },
+        {
+            "timestamp": 258.2781374255143,
+            "beat_index": 554,
+            "beat_in_bar": 2,
+            "bar_index": 138,
+            "type": "VERSE",
+            "drum": "KICK"
+        },
+        {
+            "timestamp": 258.74325370458405,
+            "beat_index": 555,
+            "beat_in_bar": 3,
+            "bar_index": 138,
+            "type": "VERSE",
+            "drum": "SNARE"
+        },
+        {
+            "timestamp": 259.2083699836538,
+            "beat_index": 556,
+            "beat_in_bar": 0,
+            "bar_index": 139,
+            "type": "VERSE",
+            "drum": "KICK"
+        },
+        {
+            "timestamp": 259.6734862627236,
+            "beat_index": 557,
+            "beat_in_bar": 1,
+            "bar_index": 139,
+            "type": "VERSE",
+            "drum": "SNARE"
+        },
+        {
+            "timestamp": 260.1386025417934,
+            "beat_index": 558,
+            "beat_in_bar": 2,
+            "bar_index": 139,
+            "type": "VERSE",
+            "drum": "KICK"
+        },
+        {
+            "timestamp": 260.60371882086315,
+            "beat_index": 559,
+            "beat_in_bar": 3,
+            "bar_index": 139,
+            "type": "VERSE",
+            "drum": "SNARE"
+        },
+        {
+            "timestamp": 261.0688350999329,
+            "beat_index": 560,
+            "beat_in_bar": 0,
+            "bar_index": 140,
+            "type": "VERSE",
+            "drum": "KICK"
+        },
+        {
+            "timestamp": 261.5339513790027,
+            "beat_index": 561,
+            "beat_in_bar": 1,
+            "bar_index": 140,
+            "type": "VERSE",
+            "drum": "SNARE"
+        },
+        {
+            "timestamp": 261.9990676580725,
+            "beat_index": 562,
+            "beat_in_bar": 2,
+            "bar_index": 140,
+            "type": "VERSE",
+            "drum": "KICK"
+        },
+        {
+            "timestamp": 262.46418393714225,
+            "beat_index": 563,
+            "beat_in_bar": 3,
+            "bar_index": 140,
+            "type": "VERSE",
+            "drum": "SNARE"
+        },
+        {
+            "timestamp": 262.929300216212,
+            "beat_index": 564,
+            "beat_in_bar": 0,
+            "bar_index": 141,
+            "type": "VERSE",
+            "drum": "KICK"
+        },
+        {
+            "timestamp": 263.3944164952818,
+            "beat_index": 565,
+            "beat_in_bar": 1,
+            "bar_index": 141,
+            "type": "VERSE",
+            "drum": "SNARE"
+        },
+        {
+            "timestamp": 263.8595327743516,
+            "beat_index": 566,
+            "beat_in_bar": 2,
+            "bar_index": 141,
+            "type": "VERSE",
+            "drum": "KICK"
+        },
+        {
+            "timestamp": 264.32464905342135,
+            "beat_index": 567,
+            "beat_in_bar": 3,
+            "bar_index": 141,
+            "type": "VERSE",
+            "drum": "SNARE"
+        },
+        {
+            "timestamp": 264.78976533249113,
+            "beat_index": 568,
+            "beat_in_bar": 0,
+            "bar_index": 142,
+            "type": "VERSE",
+            "drum": "KICK"
+        },
+        {
+            "timestamp": 265.2548816115609,
+            "beat_index": 569,
+            "beat_in_bar": 1,
+            "bar_index": 142,
+            "type": "VERSE",
+            "drum": "SNARE"
+        },
+        {
+            "timestamp": 265.7199978906307,
+            "beat_index": 570,
+            "beat_in_bar": 2,
+            "bar_index": 142,
+            "type": "VERSE",
+            "drum": "KICK"
+        },
+        {
+            "timestamp": 266.18511416970046,
+            "beat_index": 571,
+            "beat_in_bar": 3,
+            "bar_index": 142,
+            "type": "VERSE",
+            "drum": "SNARE"
+        },
+        {
+            "timestamp": 266.65023044877023,
+            "beat_index": 572,
+            "beat_in_bar": 0,
+            "bar_index": 143,
+            "type": "VERSE",
+            "drum": "KICK"
+        },
+        {
+            "timestamp": 267.11534672784,
+            "beat_index": 573,
+            "beat_in_bar": 1,
+            "bar_index": 143,
+            "type": "VERSE",
+            "drum": "SNARE"
+        },
+        {
+            "timestamp": 267.5804630069098,
+            "beat_index": 574,
+            "beat_in_bar": 2,
+            "bar_index": 143,
+            "type": "VERSE",
+            "drum": "KICK"
+        },
+        {
+            "timestamp": 268.04557928597956,
+            "beat_index": 575,
+            "beat_in_bar": 3,
+            "bar_index": 143,
+            "type": "VERSE",
+            "drum": "SNARE"
+        },
+        {
+            "timestamp": 268.51069556504933,
+            "beat_index": 576,
+            "beat_in_bar": 0,
+            "bar_index": 144,
+            "type": "VERSE",
+            "drum": "KICK"
+        },
+        {
+            "timestamp": 268.9758118441191,
+            "beat_index": 577,
+            "beat_in_bar": 1,
+            "bar_index": 144,
+            "type": "VERSE",
+            "drum": "SNARE"
+        },
+        {
+            "timestamp": 269.4409281231889,
+            "beat_index": 578,
+            "beat_in_bar": 2,
+            "bar_index": 144,
+            "type": "VERSE",
+            "drum": "KICK"
+        },
+        {
+            "timestamp": 269.90604440225866,
+            "beat_index": 579,
+            "beat_in_bar": 3,
+            "bar_index": 144,
+            "type": "VERSE",
+            "drum": "SNARE"
+        },
+        {
+            "timestamp": 270.37116068132843,
+            "beat_index": 580,
+            "beat_in_bar": 0,
+            "bar_index": 145,
+            "type": "VERSE",
+            "drum": "KICK"
+        },
+        {
+            "timestamp": 270.8362769603982,
+            "beat_index": 581,
+            "beat_in_bar": 1,
+            "bar_index": 145,
+            "type": "VERSE",
+            "drum": "SNARE"
+        },
+        {
+            "timestamp": 271.301393239468,
+            "beat_index": 582,
+            "beat_in_bar": 2,
+            "bar_index": 145,
+            "type": "VERSE",
+            "drum": "KICK"
+        },
+        {
+            "timestamp": 271.76650951853776,
+            "beat_index": 583,
+            "beat_in_bar": 3,
+            "bar_index": 145,
+            "type": "VERSE",
+            "drum": "SNARE"
+        },
+        {
+            "timestamp": 272.23162579760753,
+            "beat_index": 584,
+            "beat_in_bar": 0,
+            "bar_index": 146,
+            "type": "VERSE",
+            "drum": "KICK"
+        },
+        {
+            "timestamp": 272.6967420766773,
+            "beat_index": 585,
+            "beat_in_bar": 1,
+            "bar_index": 146,
+            "type": "VERSE",
+            "drum": "SNARE"
+        },
+        {
+            "timestamp": 273.1618583557471,
+            "beat_index": 586,
+            "beat_in_bar": 2,
+            "bar_index": 146,
+            "type": "VERSE",
+            "drum": "KICK"
+        },
+        {
+            "timestamp": 273.62697463481686,
+            "beat_index": 587,
+            "beat_in_bar": 3,
+            "bar_index": 146,
+            "type": "VERSE",
+            "drum": "SNARE"
+        },
+        {
+            "timestamp": 274.09209091388664,
+            "beat_index": 588,
+            "beat_in_bar": 0,
+            "bar_index": 147,
+            "type": "VERSE",
+            "drum": "KICK"
+        },
+        {
+            "timestamp": 274.5572071929564,
+            "beat_index": 589,
+            "beat_in_bar": 1,
+            "bar_index": 147,
+            "type": "VERSE",
+            "drum": "SNARE"
+        },
+        {
+            "timestamp": 275.0223234720262,
+            "beat_index": 590,
+            "beat_in_bar": 2,
+            "bar_index": 147,
+            "type": "VERSE",
+            "drum": "KICK"
+        },
+        {
+            "timestamp": 275.48743975109596,
+            "beat_index": 591,
+            "beat_in_bar": 3,
+            "bar_index": 147,
+            "type": "VERSE",
+            "drum": "SNARE"
+        },
+        {
+            "timestamp": 275.95255603016574,
+            "beat_index": 592,
+            "beat_in_bar": 0,
+            "bar_index": 148,
+            "type": "VERSE",
+            "drum": "KICK"
+        },
+        {
+            "timestamp": 276.4176723092355,
+            "beat_index": 593,
+            "beat_in_bar": 1,
+            "bar_index": 148,
+            "type": "VERSE",
+            "drum": "SNARE"
+        },
+        {
+            "timestamp": 276.8827885883053,
+            "beat_index": 594,
+            "beat_in_bar": 2,
+            "bar_index": 148,
+            "type": "VERSE",
+            "drum": "KICK"
+        },
+        {
+            "timestamp": 277.34790486737506,
+            "beat_index": 595,
+            "beat_in_bar": 3,
+            "bar_index": 148,
+            "type": "VERSE",
+            "drum": "SNARE"
+        },
+        {
+            "timestamp": 277.81302114644484,
+            "beat_index": 596,
+            "beat_in_bar": 0,
+            "bar_index": 149,
+            "type": "VERSE",
+            "drum": "KICK"
+        },
+        {
+            "timestamp": 278.2781374255146,
+            "beat_index": 597,
+            "beat_in_bar": 1,
+            "bar_index": 149,
+            "type": "VERSE",
+            "drum": "SNARE"
+        },
+        {
+            "timestamp": 278.7432537045844,
+            "beat_index": 598,
+            "beat_in_bar": 2,
+            "bar_index": 149,
+            "type": "VERSE",
+            "drum": "KICK"
+        },
+        {
+            "timestamp": 279.20836998365417,
+            "beat_index": 599,
+            "beat_in_bar": 3,
+            "bar_index": 149,
+            "type": "VERSE",
+            "drum": "SNARE"
+        },
+        {
+            "timestamp": 279.67348626272394,
+            "beat_index": 600,
+            "beat_in_bar": 0,
+            "bar_index": 150,
+            "type": "VERSE",
+            "drum": "KICK"
+        },
+        {
+            "timestamp": 280.1386025417937,
+            "beat_index": 601,
+            "beat_in_bar": 1,
+            "bar_index": 150,
+            "type": "VERSE",
+            "drum": "SNARE"
+        },
+        {
+            "timestamp": 280.6037188208635,
+            "beat_index": 602,
+            "beat_in_bar": 2,
+            "bar_index": 150,
+            "type": "VERSE",
+            "drum": "KICK"
+        },
+        {
+            "timestamp": 281.06883509993327,
+            "beat_index": 603,
+            "beat_in_bar": 3,
+            "bar_index": 150,
+            "type": "VERSE",
+            "drum": "SNARE"
+        },
+        {
+            "timestamp": 281.53395137900304,
+            "beat_index": 604,
+            "beat_in_bar": 0,
+            "bar_index": 151,
+            "type": "VERSE",
+            "drum": "KICK"
+        },
+        {
+            "timestamp": 281.9990676580728,
+            "beat_index": 605,
+            "beat_in_bar": 1,
+            "bar_index": 151,
+            "type": "VERSE",
+            "drum": "SNARE"
+        },
+        {
+            "timestamp": 282.4641839371426,
+            "beat_index": 606,
+            "beat_in_bar": 2,
+            "bar_index": 151,
+            "type": "VERSE",
+            "drum": "KICK"
+        },
+        {
+            "timestamp": 282.92930021621237,
+            "beat_index": 607,
+            "beat_in_bar": 3,
+            "bar_index": 151,
+            "type": "VERSE",
+            "drum": "SNARE"
+        },
+        {
+            "timestamp": 283.39441649528214,
+            "beat_index": 608,
+            "beat_in_bar": 0,
+            "bar_index": 152,
+            "type": "VERSE",
+            "drum": "KICK"
+        },
+        {
+            "timestamp": 283.8595327743519,
+            "beat_index": 609,
+            "beat_in_bar": 1,
+            "bar_index": 152,
+            "type": "VERSE",
+            "drum": "SNARE"
+        },
+        {
+            "timestamp": 284.3246490534217,
+            "beat_index": 610,
+            "beat_in_bar": 2,
+            "bar_index": 152,
+            "type": "VERSE",
+            "drum": "KICK"
+        },
+        {
+            "timestamp": 284.78976533249147,
+            "beat_index": 611,
+            "beat_in_bar": 3,
+            "bar_index": 152,
+            "type": "VERSE",
+            "drum": "SNARE"
+        },
+        {
+            "timestamp": 285.25488161156125,
+            "beat_index": 612,
+            "beat_in_bar": 0,
+            "bar_index": 153,
+            "type": "VERSE",
+            "drum": "KICK"
+        },
+        {
+            "timestamp": 285.719997890631,
+            "beat_index": 613,
+            "beat_in_bar": 1,
+            "bar_index": 153,
+            "type": "VERSE",
+            "drum": "SNARE"
+        },
+        {
+            "timestamp": 286.1851141697008,
+            "beat_index": 614,
+            "beat_in_bar": 2,
+            "bar_index": 153,
+            "type": "VERSE",
+            "drum": "KICK"
+        },
+        {
+            "timestamp": 286.65023044877057,
+            "beat_index": 615,
+            "beat_in_bar": 3,
+            "bar_index": 153,
+            "type": "VERSE",
+            "drum": "SNARE"
+        },
+        {
+            "timestamp": 287.11534672784035,
+            "beat_index": 616,
+            "beat_in_bar": 0,
+            "bar_index": 154,
+            "type": "VERSE",
+            "drum": "KICK"
+        },
+        {
+            "timestamp": 287.5804630069101,
+            "beat_index": 617,
+            "beat_in_bar": 1,
+            "bar_index": 154,
+            "type": "VERSE",
+            "drum": "SNARE"
+        },
+        {
+            "timestamp": 288.0455792859799,
+            "beat_index": 618,
+            "beat_in_bar": 2,
+            "bar_index": 154,
+            "type": "VERSE",
+            "drum": "KICK"
+        },
+        {
+            "timestamp": 288.5106955650497,
+            "beat_index": 619,
+            "beat_in_bar": 3,
+            "bar_index": 154,
+            "type": "VERSE",
+            "drum": "SNARE"
+        },
+        {
+            "timestamp": 288.97581184411945,
+            "beat_index": 620,
+            "beat_in_bar": 0,
+            "bar_index": 155,
+            "type": "VERSE",
+            "drum": "KICK"
+        },
+        {
+            "timestamp": 289.4409281231892,
+            "beat_index": 621,
+            "beat_in_bar": 1,
+            "bar_index": 155,
+            "type": "VERSE",
+            "drum": "SNARE"
+        },
+        {
+            "timestamp": 289.906044402259,
+            "beat_index": 622,
+            "beat_in_bar": 2,
+            "bar_index": 155,
+            "type": "VERSE",
+            "drum": "KICK"
+        }
+    ]
+}
