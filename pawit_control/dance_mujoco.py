@@ -1,11 +1,10 @@
 #!/usr/bin/env python3
 """
-Go1 Quadruped - Tuned Dance Controller (Stable)
+Go1 Quadruped - Stationary Marching (YMCA)
 
-FIXES:
-1. Differential Steering: Inner legs take shorter steps, outer legs take longer steps.
-2. Stability: Widened the default stance (Abduction) so it doesn't tip over.
-3. Ground Clearance: Adjusted lift height and phase to prevent toe-stubbing.
+- Keeps the robot in one spot (Walking in Place).
+- Uses "Phase Locking" to stomp feet exactly on the beat.
+- Alternates Diagonal pairs (Trot pattern) based on Kick vs Snare.
 """
 
 import time
@@ -22,195 +21,161 @@ GO1_XML = SCRIPT_DIR / "models/unitree_go1/scene.xml"
 AUDIO_FILE = "alex_music/music/ymca_music.mp3"
 JSON_FILE = "alex_music/music/ymca_music_structure.json"
 
-# --- TUNING PARAMETERS ---
-ROBOT_WIDTH = 0.35   # Distance between left/right feet
-ROBOT_LENGTH = 0.40  # Distance between front/rear feet
-HIP_OFFSET = 0.1     # Radians to widen stance (Stability)
-
-# Base Stand Pose (Widened)
-# FR, FL, RR, RL
-# Hip, Thigh, Calf
+# --- POSE CONSTANTS ---
+# We widen the hips (0.15 rad) to make it very stable while standing on 2 legs
+HIP_WIDTH = 0.15 
 STAND = np.array([
-    -HIP_OFFSET, 0.9, -1.8,   # FR
-     HIP_OFFSET, 0.9, -1.8,   # FL
-    -HIP_OFFSET, 0.9, -1.8,   # RR
-     HIP_OFFSET, 0.9, -1.8,   # RL
+    -HIP_WIDTH, 0.9, -1.8,   # FR
+     HIP_WIDTH, 0.9, -1.8,   # FL
+    -HIP_WIDTH, 0.9, -1.8,   # RR
+     HIP_WIDTH, 0.9, -1.8,   # RL
 ])
 
-def get_dance_pose(letter):
-    """Returns joint angles for Y-M-C-A poses."""
-    # Y: Big arm spread
+def get_pose_by_letter(letter):
+    """Static Poses for Chorus."""
     if letter == 'Y':
         return np.array([
-            0.5, 0.0, -1.0, 
-            -0.5, 0.0, -1.0, 
-            -HIP_OFFSET, 0.9, -1.8, 
-            HIP_OFFSET, 0.9, -1.8
+            0.6, 0.0, -1.0, -0.6, 0.0, -1.0,
+            -0.1, 0.9, -1.8, 0.1, 0.9, -1.8
         ])
-    # M: Deep crouch
     elif letter == 'M':
-        return np.array([
-            -HIP_OFFSET, 1.4, -2.5, 
-            HIP_OFFSET, 1.4, -2.5, 
-            -HIP_OFFSET, 1.4, -2.5, 
-            HIP_OFFSET, 1.4, -2.5
-        ])
-    # C: Lean Right
+        # Deep crouch
+        return np.array([-0.1, 1.5, -2.6, 0.1, 1.5, -2.6] * 2)
     elif letter == 'C':
-        return np.array([
-            -0.2, 0.7, -1.4,  # Right side extends
-            0.4, 1.2, -2.2,   # Left side crunches
-            -0.2, 0.7, -1.4, 
-            0.4, 1.2, -2.2
-        ])
-    # A: Tall narrow stance
+        # Lean Right
+        return np.array([-0.3, 0.7, -1.4, 0.5, 1.2, -2.2, -0.3, 0.7, -1.4, 0.5, 1.2, -2.2])
     elif letter == 'A':
-        return np.array([
-            -0.05, 0.6, -1.4, 
-            0.05, 0.6, -1.4, 
-            -0.05, 0.6, -1.4, 
-            0.05, 0.6, -1.4
-        ])
+        # Tall
+        return np.array([-0.1, 0.6, -1.4, 0.1, 0.6, -1.4] * 2)
     return STAND.copy()
 
-def cpg_gait(t, vx, wz, bpm):
-    """
-    Stabilized Differential Drive CPG.
-    """
-    # 1. STOP CHECK
-    if abs(vx) < 0.01 and abs(wz) < 0.01:
-        return STAND.copy()
+def get_beat_phase(now, events):
+    """Calculates progress (0.0 -> 1.0) through the current beat."""
+    idx = 0
+    for i, e in enumerate(events):
+        if e["timestamp"] > now:
+            break
+        idx = i
+    
+    # Safety checks
+    if idx >= len(events) - 1: return events[-1], 0.0
+    
+    current_evt = events[idx]
+    next_evt = events[idx + 1]
+    
+    beat_duration = next_evt["timestamp"] - current_evt["timestamp"]
+    if beat_duration <= 0: beat_duration = 0.5
+    
+    phase = (now - current_evt["timestamp"]) / beat_duration
+    return current_evt, np.clip(phase, 0.0, 1.0)
 
+def march_in_place(phase, drum_type):
+    """
+    High-Step Marching in place.
+    """
     pose = np.zeros(12)
     
-    # 2. SYNC FREQUENCY
-    # 1 Step per Beat (126 BPM -> 2.1 Hz Step Freq)
-    # Trot Cycle = 2 Steps (L/R) -> 1.05 Hz Cycle Freq
-    beats_per_sec = bpm / 60.0
-    freq = beats_per_sec / 2.0 
-    phase = t * freq * 2 * np.pi
+    # 1. PARAMETERS
+    lift_height = 0.15  # VERY HIGH STEP (Visually energetic)
     
-    # 3. DIFFERENTIAL STEERING (Tank Turn Logic)
-    # Calculate velocity for Left and Right sides separately
-    # V_left = V_linear - (Width * Omega / 2)
-    # V_right = V_linear + (Width * Omega / 2)
+    # 2. SELECT LEGS
+    # KICK (Beat 1, 3) -> Lift Group A (FR + RL)
+    # SNARE (Beat 2, 4) -> Lift Group B (FL + RR)
+    if drum_type == "KICK":
+        # 1 = Swing, 0 = Stance
+        leg_mask = [1, 0, 0, 1] 
+        sway_dir = 1 # Shift body weight to the RIGHT (stancing legs)
+    else:
+        leg_mask = [0, 1, 1, 0]
+        sway_dir = -1 # Shift body weight to the LEFT
+        
+    # 3. PHASE CURVE
+    # Sine wave 0 -> 1 -> 0 over the duration of the beat
+    swing_curve = np.sin(phase * np.pi) 
     
-    vel_left = vx - (ROBOT_WIDTH * wz)
-    vel_right = vx + (ROBOT_WIDTH * wz)
-    
-    velocities = [vel_right, vel_left, vel_right, vel_left] # FR, FL, RR, RL
-    
-    # 4. SASSY HIP SWAY
-    # Side-to-side oscillation to shift weight
-    hip_sway = 0.15 * np.sin(phase * 2) 
-
-    # Gait Parameters
-    lift_height = 0.12
-    step_scale = 0.15  # Scaling factor for velocity -> stride length
-    
-    # Phase Offsets: FR & RL (0), FL & RR (PI) - Standard Trot
-    offsets = [0, np.pi, np.pi, 0]
-    
-    # Signs for hips (Right side negative, Left side positive)
-    side_signs = [-1, 1, -1, 1] 
+    # 4. SWAY CURVE
+    # We shift the Hips to balance over the planted feet
+    hip_shift = 0.05 * swing_curve * sway_dir
 
     for i in range(4):
-        p = phase + offsets[i]
-        
-        # Calculate Stride Length for this specific leg
-        stride = velocities[i] * step_scale
-        
-        # Swing/Stance Math
-        sin_p = np.sin(p)
-        swing = max(0, sin_p)       # 0 to 1 during swing
-        stance = max(0, -sin_p)     # 0 to 1 during stance
-        
-        # --- JOINT CALCULATIONS ---
-        
-        # Hip (Roll): Base Offset + Sassy Sway
-        # We add sway * sign so they move in same global direction (left/right)
-        pose[3*i+0] = (HIP_OFFSET * side_signs[i]) + (hip_sway * side_signs[i])
+        # Base stance
+        side_sign = -1 if i in [0, 2] else 1
+        pose[3*i+0] = (side_sign * HIP_WIDTH) + hip_shift # Hip Roll (Balance)
+        pose[3*i+1] = 0.9  # Thigh Pitch
+        pose[3*i+2] = -1.8 # Calf Pitch
 
-        # Thigh (Pitch): Base 0.9 + Forward/Back Swing + Lift
-        # Sine wave moves leg forward/back. 'swing' adds the vertical hop.
-        pose[3*i+1] = 0.9 + (stride * np.sin(p)) + (lift_height * swing)
-        
-        # Calf (Pitch): Base -1.8 - Knee Retraction
-        # Retract knee during swing to clear ground
-        pose[3*i+2] = -1.8 + (0.4 * swing)
+        # If this leg is swinging (Stepping up)
+        if leg_mask[i] == 1:
+            # Lift Thigh
+            pose[3*i+1] -= (lift_height * swing_curve) 
+            # Retract Calf (Bend knee)
+            pose[3*i+2] += (lift_height * 2.0 * swing_curve) 
 
     return pose
 
 def main():
-    print("\n=== GO1 STABLE DANCE CONTROLLER ===")
+    print("=== YMCA MARCHER ===")
     
+    # Load
     if not Path(JSON_FILE).exists():
-        print("Error: JSON file not found.")
+        print(f"Missing {JSON_FILE}")
         return
-
     with open(JSON_FILE) as f:
         data = json.load(f)
     events = data["events"]
-    bpm = data.get("tempo", 128.0)
-    print(f"Synced to BPM: {bpm:.1f}")
 
+    # Sim
     pygame.init()
     pygame.mixer.init()
     pygame.mixer.music.load(AUDIO_FILE)
-
+    
     model = mujoco.MjModel.from_xml_path(str(GO1_XML))
     d_mj = mujoco.MjData(model)
     mujoco.mj_resetDataKeyframe(model, d_mj, 0)
 
-    # Launch
     with mujoco.viewer.launch_passive(model, d_mj) as viewer:
         time.sleep(1.0)
         pygame.mixer.music.play()
         start_time = time.time()
         
-        # Set camera angle
-        viewer.cam.lookat[:] = [0,0,0.5]
+        viewer.cam.lookat[:] = [0, 0, 0.5]
         viewer.cam.distance = 2.5
-        viewer.cam.azimuth = 45
-
-        event_idx = 0
+        viewer.cam.azimuth = 90
         
         while viewer.is_running():
             step_start = time.time()
             
-            # 1. TIME SYNC
+            # Sync
             music_pos = pygame.mixer.music.get_pos()
             now = (time.time() - start_time) if music_pos == -1 else (music_pos / 1000.0)
 
-            # 2. EVENT LOOKUP
-            while event_idx < len(events) - 1 and events[event_idx+1]["timestamp"] <= now:
-                event_idx += 1
-            ev = events[event_idx]
+            # Brain
+            evt, phase = get_beat_phase(now, events)
             
-            # 3. BEHAVIOR SELECTION
-            if ev["type"] == "CHORUS":
-                # Pose Logic
-                pose_map = ['Y', 'M', 'C', 'A']
-                letter = pose_map[ev["bar_index"] % 4]
-                target_pose = get_dance_pose(letter)
+            # Body
+            if evt["type"] == "CHORUS":
+                # Pose
+                poses = ['Y', 'M', 'C', 'A']
+                target = get_pose_by_letter(poses[evt["bar_index"] % 4])
+                txt = f"POSE: {poses[evt['bar_index'] % 4]}"
             else:
-                # Walk Logic (Circle)
-                # vx=0.3 (Forward), wz=0.5 (Turn Left)
-                target_pose = cpg_gait(d_mj.time, vx=0.3, wz=0.5, bpm=bpm)
+                # March
+                target = march_in_place(phase, evt["drum"])
+                txt = f"MARCH: {evt['drum']}"
 
-            # 4. SIMULATION STEP
-            d_mj.ctrl[:12] = target_pose
-            
-            # Run multiple physics steps per frame for stability
-            for _ in range(10): 
+            # Physics
+            d_mj.ctrl[:12] = target
+            for _ in range(10): # High frequency physics
                 mujoco.mj_step(model, d_mj)
-                
-            viewer.sync()
-            viewer.cam.lookat[:] = d_mj.qpos[:3] # Track robot
             
-            # Frame limiting
+            viewer.sync()
+            
+            if phase < 0.05: # Print on beat start
+                print(f"[{now:.2f}s] {txt}")
+
+            # Frame rate
             elapsed = time.time() - step_start
-            if elapsed < 0.016: # 60 FPS
+            if elapsed < 0.016:
                 time.sleep(0.016 - elapsed)
 
     pygame.quit()
