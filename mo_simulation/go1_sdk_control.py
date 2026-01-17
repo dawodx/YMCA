@@ -3,6 +3,7 @@
 Go1 Real Robot Control - Standard SDK Movements
 
 Uses go1pylib for easy control with all standard Unitree movements.
+Auto-unlocks SDK mode via SSH for dance/special moves.
 
 SETUP:
 1. Turn on Go1 robot
@@ -13,6 +14,7 @@ SETUP:
 """
 
 import asyncio
+import subprocess
 import sys
 
 try:
@@ -21,6 +23,44 @@ except ImportError:
     print("ERROR: go1pylib not installed!")
     print("Run: pip install go1pylib")
     sys.exit(1)
+
+
+# ============== AUTO-UNLOCK SDK MODE ==============
+
+GO1_IP = "192.168.12.1"
+GO1_USER = "pi"
+GO1_PASS = "123"
+
+
+def unlock_sdk_mode():
+    """SSH into Go1 and kill mqttControlNode to unlock special moves."""
+    print("\n[AUTO-UNLOCK] Unlocking SDK mode for dance/special moves...")
+
+    # Check if sshpass is installed
+    result = subprocess.run("which sshpass", shell=True, capture_output=True)
+    if result.returncode != 0:
+        print("  WARNING: sshpass not installed, skipping unlock")
+        print("  Install with: brew install hudochenkov/sshpass/sshpass")
+        print("  Or press L1+L2+START on controller for special moves")
+        return False
+
+    try:
+        # Kill mqttControlNode to unlock special moves
+        ssh_cmd = f"sshpass -p '{GO1_PASS}' ssh -o StrictHostKeyChecking=no -o ConnectTimeout=3 {GO1_USER}@{GO1_IP} 'sudo pkill -f mqttControlNode 2>/dev/null; echo OK'"
+        result = subprocess.run(ssh_cmd, shell=True, capture_output=True, text=True, timeout=10)
+
+        if "OK" in result.stdout:
+            print("  OK - SDK mode unlocked! Dance/special moves enabled.")
+            return True
+        else:
+            print(f"  WARNING: Could not unlock - {result.stderr.strip()}")
+            return False
+    except subprocess.TimeoutExpired:
+        print("  WARNING: SSH timeout - robot may not be reachable")
+        return False
+    except Exception as e:
+        print(f"  WARNING: Unlock failed - {e}")
+        return False
 
 
 def get_key():
@@ -210,10 +250,9 @@ async def main():
     print("\n" + "=" * 60)
     print("  GO1 SDK CONTROL - Standard Unitree Movements")
     print("=" * 60)
-    print("\n  SETUP:")
-    print("  1. Connect Mac to Go1 WiFi")
-    print("  2. For DANCE modes: Press L1+L2+START on controller first!")
-    print("     (This enables SDK Mode 2 required for special moves)")
+
+    # Auto-unlock SDK mode for dance/special moves
+    unlock_sdk_mode()
     print("\n  MOVEMENT:")
     print("    w/s      = Forward/Backward")
     print("    a/d      = Turn left/right")
