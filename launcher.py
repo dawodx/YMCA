@@ -14,10 +14,25 @@ PROJECT_ROOT = Path(__file__).parent
 
 DEMOS = {
     "go1_keyboard": {
-        "name": "Go1 Keyboard Control",
+        "name": "Go1 Simulation (MuJoCo)",
         "script": "mo_simulation/run_go1_keyboard.py",
+        "icon": "🎮",
+        "description": "MuJoCo simulation - Arrows walk, 1-4 YMCA poses (needs mjpython)",
+        "use_mjpython": True
+    },
+    "go1_real": {
+        "name": "Go1 REAL Robot Control",
+        "script": "mo_simulation/go1_real_control.py",
         "icon": "🐕",
-        "description": "Control the Go1 dog with keyboard - W/S height, arrows lean, 1-4 for YMCA poses"
+        "description": "Control the REAL Go1! Connect to robot WiFi first. 1-4 YMCA, 5 full dance!",
+        "use_mjpython": False
+    },
+    "go1_sdk": {
+        "name": "Go1 SDK Control (Standard Moves)",
+        "script": "mo_simulation/go1_sdk_control.py",
+        "icon": "🎛️",
+        "description": "Standard Unitree SDK movements! Trot, run, climb stairs, body poses, jump yaw & more!",
+        "use_mjpython": False
     },
 }
 
@@ -140,6 +155,23 @@ class Handler(http.server.BaseHTTPRequestHandler):
             self.send_cors_headers()
             self.end_headers()
             self.wfile.write(html.encode())
+        elif self.path.startswith("/assets/"):
+            # Serve static assets (images, gifs)
+            asset_path = PROJECT_ROOT / self.path[1:]  # Remove leading /
+            if asset_path.exists():
+                self.send_response(200)
+                if self.path.endswith(".gif"):
+                    self.send_header("Content-type", "image/gif")
+                elif self.path.endswith(".png"):
+                    self.send_header("Content-type", "image/png")
+                elif self.path.endswith(".jpg") or self.path.endswith(".jpeg"):
+                    self.send_header("Content-type", "image/jpeg")
+                self.send_cors_headers()
+                self.end_headers()
+                self.wfile.write(asset_path.read_bytes())
+            else:
+                self.send_response(404)
+                self.end_headers()
         else:
             self.send_response(404)
             self.end_headers()
@@ -158,22 +190,40 @@ class Handler(http.server.BaseHTTPRequestHandler):
     def run_demo(self, demo_id):
         demo = DEMOS[demo_id]
         script_path = PROJECT_ROOT / demo["script"]
-        mjpython = PROJECT_ROOT / ".venv" / "bin" / "mjpython"
+        use_mjpython = demo.get("use_mjpython", True)
 
         if not script_path.exists():
             self.send_json({"success": False, "error": f"Script not found"})
             return
 
-        if not mjpython.exists():
-            self.send_json({"success": False, "error": "mjpython not found - run from ARA-Robotic venv"})
-            return
+        if use_mjpython:
+            # MuJoCo simulation - needs mjpython
+            mjpython = PROJECT_ROOT / ".venv" / "bin" / "mjpython"
+            if not mjpython.exists():
+                self.send_json({"success": False, "error": "mjpython not found - run from ARA-Robotic venv"})
+                return
+            python_cmd = str(mjpython)
+        else:
+            # Regular Python script - runs in terminal
+            python_cmd = str(PROJECT_ROOT / ".venv" / "bin" / "python")
 
         try:
             def run():
-                subprocess.Popen(
-                    [str(mjpython), str(script_path)],
-                    cwd=str(PROJECT_ROOT),
-                )
+                if use_mjpython:
+                    # Run MuJoCo in background
+                    subprocess.Popen(
+                        [python_cmd, str(script_path)],
+                        cwd=str(PROJECT_ROOT),
+                    )
+                else:
+                    # Open in new Terminal window for keyboard input
+                    apple_script = f'''
+                    tell application "Terminal"
+                        activate
+                        do script "cd {PROJECT_ROOT} && {python_cmd} {script_path}"
+                    end tell
+                    '''
+                    subprocess.Popen(["osascript", "-e", apple_script])
 
             threading.Thread(target=run, daemon=True).start()
             self.send_json({"success": True})

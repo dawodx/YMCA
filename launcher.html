@@ -4,21 +4,38 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Team YMCA - Robot Rave 2026</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
 
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #0f0f23 0%, #1a1a3e 50%, #2d1b4e 100%);
-            min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            color: white;
-            overflow: hidden;
+        html {
+            scroll-behavior: smooth;
         }
 
-        /* Animated background */
+        body {
+            font-family: 'Outfit', sans-serif;
+            background: #0a0a0f;
+            min-height: 100vh;
+            color: white;
+            overflow-x: hidden;
+            overflow-y: auto;
+        }
+
+        /* Scrollbar styling */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0a0a0f;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(180deg, #ff6b6b, #ffd93d);
+            border-radius: 4px;
+        }
+
+        /* Fixed disco background */
         .bg-animation {
             position: fixed;
             top: 0;
@@ -26,410 +43,606 @@
             width: 100%;
             height: 100%;
             pointer-events: none;
-            overflow: hidden;
             z-index: 0;
+            background:
+                radial-gradient(ellipse at 20% 20%, rgba(255, 107, 107, 0.15) 0%, transparent 50%),
+                radial-gradient(ellipse at 80% 80%, rgba(77, 150, 255, 0.15) 0%, transparent 50%),
+                radial-gradient(ellipse at 50% 50%, rgba(255, 217, 61, 0.1) 0%, transparent 60%),
+                linear-gradient(180deg, #0a0a0f 0%, #12121f 50%, #0a0a0f 100%);
         }
 
+        /* Disco ball */
         .disco-ball {
-            position: absolute;
-            width: 100px;
-            height: 100px;
+            position: fixed;
+            width: 80px;
+            height: 80px;
             top: 20px;
             left: 50%;
             transform: translateX(-50%);
-            background: radial-gradient(circle at 30% 30%, #fff, #888, #444);
+            background:
+                radial-gradient(circle at 30% 30%, #fff 0%, #ccc 20%, #888 50%, #444 100%);
             border-radius: 50%;
             box-shadow:
-                0 0 60px rgba(255, 215, 0, 0.5),
-                0 0 100px rgba(255, 105, 180, 0.3);
-            animation: spin 10s linear infinite;
+                0 0 60px rgba(255, 215, 0, 0.6),
+                0 0 120px rgba(255, 105, 180, 0.3),
+                inset 0 0 20px rgba(255, 255, 255, 0.5);
+            animation: disco-spin 8s linear infinite;
+            z-index: 100;
         }
 
-        @keyframes spin {
-            from { transform: translateX(-50%) rotate(0deg); }
-            to { transform: translateX(-50%) rotate(360deg); }
+        .disco-ball::before {
+            content: '';
+            position: absolute;
+            inset: 5px;
+            background:
+                repeating-conic-gradient(from 0deg, rgba(255,255,255,0.1) 0deg 10deg, transparent 10deg 20deg);
+            border-radius: 50%;
+            animation: disco-spin 4s linear infinite reverse;
+        }
+
+        @keyframes disco-spin {
+            from { transform: translateX(-50%) rotateY(0deg); }
+            to { transform: translateX(-50%) rotateY(360deg); }
+        }
+
+        /* Light beams */
+        .light-beams {
+            position: fixed;
+            top: 60px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 400px;
+            height: 400px;
+            z-index: 1;
+            opacity: 0.6;
         }
 
         .light-beam {
             position: absolute;
-            width: 4px;
+            width: 3px;
             height: 300px;
-            top: 70px;
+            top: 0;
             left: 50%;
             transform-origin: top center;
-            background: linear-gradient(to bottom, rgba(255,255,255,0.8), transparent);
-            animation: beam 2s ease-in-out infinite;
+            background: linear-gradient(to bottom, rgba(255,255,255,0.9), rgba(255,215,0,0.3), transparent);
+            filter: blur(1px);
         }
 
-        .light-beam:nth-child(2) { animation-delay: 0.3s; }
-        .light-beam:nth-child(3) { animation-delay: 0.6s; }
-        .light-beam:nth-child(4) { animation-delay: 0.9s; }
+        .light-beam:nth-child(1) { animation: beam1 3s ease-in-out infinite; }
+        .light-beam:nth-child(2) { animation: beam2 3s ease-in-out infinite 0.5s; }
+        .light-beam:nth-child(3) { animation: beam3 3s ease-in-out infinite 1s; }
+        .light-beam:nth-child(4) { animation: beam4 3s ease-in-out infinite 1.5s; }
 
-        @keyframes beam {
-            0%, 100% { transform: rotate(-30deg); opacity: 0.3; }
-            50% { transform: rotate(30deg); opacity: 0.8; }
+        @keyframes beam1 { 0%, 100% { transform: rotate(-40deg); opacity: 0.3; } 50% { transform: rotate(40deg); opacity: 0.8; } }
+        @keyframes beam2 { 0%, 100% { transform: rotate(-20deg); opacity: 0.5; } 50% { transform: rotate(60deg); opacity: 0.6; } }
+        @keyframes beam3 { 0%, 100% { transform: rotate(20deg); opacity: 0.4; } 50% { transform: rotate(-50deg); opacity: 0.7; } }
+        @keyframes beam4 { 0%, 100% { transform: rotate(50deg); opacity: 0.6; } 50% { transform: rotate(-30deg); opacity: 0.5; } }
+
+        /* Main content wrapper */
+        .main-wrapper {
+            position: relative;
+            z-index: 10;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 120px 20px 60px;
+            min-height: 100vh;
         }
 
         .container {
             text-align: center;
-            padding: 40px;
             max-width: 700px;
-            z-index: 1;
-            position: relative;
+            width: 100%;
         }
 
+        /* Logo */
         .logo {
-            font-size: 80px;
-            margin-bottom: 10px;
-            animation: bounce 1s ease-in-out infinite;
+            font-size: 70px;
+            margin-bottom: 5px;
+            animation: bounce 2s ease-in-out infinite;
+            filter: drop-shadow(0 0 20px rgba(255, 215, 0, 0.5));
         }
 
         @keyframes bounce {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-10px); }
+            0%, 100% { transform: translateY(0) scale(1); }
+            50% { transform: translateY(-15px) scale(1.05); }
         }
 
+        /* Title */
         .title {
-            font-size: 64px;
-            font-weight: 900;
-            background: linear-gradient(45deg, #ff6b6b, #ffd93d, #6bcb77, #4d96ff);
-            background-size: 300% 300%;
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: clamp(60px, 15vw, 100px);
+            font-weight: 400;
+            letter-spacing: 0.2em;
+            background: linear-gradient(135deg, #ff6b6b 0%, #ffd93d 25%, #6bcb77 50%, #4d96ff 75%, #ff6b6b 100%);
+            background-size: 400% 400%;
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
-            animation: gradient 3s ease infinite;
-            letter-spacing: 15px;
-            text-shadow: 0 0 30px rgba(255, 215, 0, 0.5);
+            animation: shimmer 4s ease-in-out infinite;
+            text-shadow: 0 0 80px rgba(255, 215, 0, 0.3);
+            margin-bottom: 10px;
         }
 
-        @keyframes gradient {
-            0% { background-position: 0% 50%; }
+        @keyframes shimmer {
+            0%, 100% { background-position: 0% 50%; }
             50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
         }
 
         .subtitle {
-            font-size: 18px;
-            color: #aaa;
-            margin: 15px 0 40px 0;
-            letter-spacing: 2px;
+            font-size: 14px;
+            font-weight: 300;
+            color: rgba(255, 255, 255, 0.5);
+            letter-spacing: 0.3em;
+            text-transform: uppercase;
+            margin-bottom: 30px;
+        }
+
+        /* Trump GIF */
+        .trump-gif-wrapper {
+            position: relative;
+            display: inline-block;
+            margin: 20px 0;
+        }
+
+        .trump-gif {
+            width: 180px;
+            border-radius: 16px;
+            border: 3px solid transparent;
+            background: linear-gradient(#0a0a0f, #0a0a0f) padding-box,
+                        linear-gradient(135deg, #ff6b6b, #ffd93d, #6bcb77, #4d96ff) border-box;
+            box-shadow:
+                0 0 40px rgba(255, 215, 0, 0.3),
+                0 20px 60px rgba(0, 0, 0, 0.5);
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0) rotate(-1deg); }
+            50% { transform: translateY(-10px) rotate(1deg); }
         }
 
         .trump-dance {
-            font-size: 14px;
-            color: #ff6b6b;
-            margin-bottom: 30px;
+            font-size: 13px;
+            color: rgba(255, 107, 107, 0.9);
             font-style: italic;
+            font-weight: 300;
+            margin: 15px 0 30px;
+            letter-spacing: 0.05em;
         }
 
+        /* YMCA Letters */
+        .ymca-letters {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin: 25px 0;
+        }
+
+        .ymca-letter {
+            width: 55px;
+            height: 55px;
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 32px;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .ymca-letter::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, rgba(255,255,255,0.3) 0%, transparent 50%);
+            border-radius: inherit;
+        }
+
+        .ymca-letter:hover {
+            transform: scale(1.2) rotate(-5deg);
+            box-shadow: 0 10px 40px currentColor;
+        }
+
+        .ymca-letter:active {
+            transform: scale(0.95);
+        }
+
+        .ymca-letter.y { background: linear-gradient(135deg, #ff6b6b, #ff8e8e); color: white; box-shadow: 0 5px 20px rgba(255, 107, 107, 0.4); }
+        .ymca-letter.m { background: linear-gradient(135deg, #ffd93d, #ffe066); color: #333; box-shadow: 0 5px 20px rgba(255, 217, 61, 0.4); }
+        .ymca-letter.c { background: linear-gradient(135deg, #6bcb77, #8ed99a); color: white; box-shadow: 0 5px 20px rgba(107, 203, 119, 0.4); }
+        .ymca-letter.a { background: linear-gradient(135deg, #4d96ff, #70aaff); color: white; box-shadow: 0 5px 20px rgba(77, 150, 255, 0.4); }
+
+        /* Divider */
         .divider {
-            width: 200px;
-            height: 2px;
-            background: linear-gradient(90deg, transparent, #ffd93d, transparent);
-            margin: 30px auto;
+            width: 150px;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(255, 217, 61, 0.5), transparent);
+            margin: 40px auto;
         }
 
+        /* Section title */
         .section-title {
-            font-size: 12px;
-            color: #666;
+            font-size: 11px;
+            font-weight: 600;
+            color: rgba(255, 255, 255, 0.3);
             text-transform: uppercase;
-            letter-spacing: 4px;
+            letter-spacing: 0.4em;
             margin-bottom: 25px;
         }
 
+        /* Demo cards */
         .demos {
             display: flex;
             flex-direction: column;
-            gap: 15px;
+            gap: 16px;
         }
 
         .demo-card {
-            background: rgba(30, 30, 60, 0.8);
-            border: 2px solid rgba(255, 215, 0, 0.2);
-            border-radius: 16px;
-            padding: 25px 30px;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 20px;
+            padding: 24px 28px;
             cursor: pointer;
-            transition: all 0.3s ease;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             text-align: left;
             position: relative;
             overflow: hidden;
+            backdrop-filter: blur(10px);
         }
 
         .demo-card::before {
             content: '';
             position: absolute;
             top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 215, 0, 0.1), transparent);
-            transition: left 0.5s ease;
-        }
-
-        .demo-card:hover::before {
-            left: 100%;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(255, 215, 0, 0.5), transparent);
+            opacity: 0;
+            transition: opacity 0.3s;
         }
 
         .demo-card:hover {
-            background: rgba(40, 40, 80, 0.9);
-            border-color: #ffd93d;
-            transform: translateY(-3px) scale(1.02);
+            background: rgba(255, 255, 255, 0.06);
+            border-color: rgba(255, 217, 61, 0.3);
+            transform: translateY(-4px);
             box-shadow:
-                0 10px 40px rgba(255, 215, 0, 0.3),
-                0 0 20px rgba(255, 105, 180, 0.2);
+                0 20px 60px rgba(0, 0, 0, 0.4),
+                0 0 40px rgba(255, 215, 0, 0.1);
+        }
+
+        .demo-card:hover::before {
+            opacity: 1;
         }
 
         .demo-card.running {
-            border-color: #6bcb77;
-            box-shadow: 0 0 30px rgba(107, 203, 119, 0.4);
+            border-color: rgba(107, 203, 119, 0.5);
+            box-shadow: 0 0 40px rgba(107, 203, 119, 0.2);
         }
 
         .demo-card .icon {
             float: right;
-            font-size: 40px;
-            animation: wiggle 0.5s ease-in-out infinite;
-            animation-play-state: paused;
+            font-size: 36px;
+            transition: transform 0.3s;
         }
 
         .demo-card:hover .icon {
-            animation-play-state: running;
+            transform: scale(1.1) rotate(5deg);
+            animation: wiggle 0.5s ease-in-out infinite;
         }
 
         @keyframes wiggle {
-            0%, 100% { transform: rotate(-5deg); }
-            50% { transform: rotate(5deg); }
+            0%, 100% { transform: scale(1.1) rotate(5deg); }
+            50% { transform: scale(1.1) rotate(-5deg); }
         }
 
         .demo-card h3 {
+            font-family: 'Bebas Neue', sans-serif;
             color: #ffd93d;
-            font-size: 20px;
+            font-size: 22px;
+            font-weight: 400;
+            letter-spacing: 0.1em;
             margin-bottom: 8px;
         }
 
         .demo-card p {
-            color: #aaa;
-            font-size: 14px;
-            line-height: 1.5;
+            color: rgba(255, 255, 255, 0.5);
+            font-size: 13px;
+            font-weight: 300;
+            line-height: 1.6;
         }
 
         .demo-card .status {
             font-size: 12px;
             color: #6bcb77;
-            margin-top: 10px;
-            font-weight: bold;
+            margin-top: 12px;
+            font-weight: 600;
         }
 
-        .demo-card .command {
-            font-family: 'Courier New', monospace;
-            font-size: 11px;
-            color: #666;
-            margin-top: 10px;
-            background: rgba(0,0,0,0.3);
-            padding: 8px 12px;
-            border-radius: 6px;
-            display: none;
-        }
-
-        .demo-card:hover .command {
-            display: block;
-        }
-
-        .team {
-            margin-top: 50px;
-            display: flex;
-            justify-content: center;
-            gap: 40px;
-        }
-
-        .team-member {
-            text-align: center;
-        }
-
-        .team-member .avatar {
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            background: linear-gradient(135deg, #ff6b6b, #ffd93d);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 24px;
-            margin: 0 auto 8px auto;
-        }
-
-        .team-member .name {
-            font-size: 14px;
-            color: #fff;
-            font-weight: bold;
-        }
-
-        .team-member .role {
-            font-size: 10px;
-            color: #666;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-
-        .footer {
-            margin-top: 40px;
-            font-size: 11px;
-            color: #444;
-        }
-
-        .footer a {
-            color: #ffd93d;
-            text-decoration: none;
-        }
-
-        .ymca-letters {
-            display: flex;
-            justify-content: center;
-            gap: 20px;
-            margin: 20px 0;
-        }
-
-        .ymca-letter {
-            width: 50px;
-            height: 50px;
-            border-radius: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 28px;
-            font-weight: 900;
-            cursor: pointer;
-            transition: all 0.2s ease;
-        }
-
-        .ymca-letter:hover {
-            transform: scale(1.2);
-        }
-
-        .ymca-letter.y { background: #ff6b6b; }
-        .ymca-letter.m { background: #ffd93d; color: #333; }
-        .ymca-letter.c { background: #6bcb77; }
-        .ymca-letter.a { background: #4d96ff; }
-
+        /* Instructions */
         .instructions {
-            background: rgba(0,0,0,0.3);
-            border-radius: 12px;
-            padding: 20px;
+            background: rgba(0, 0, 0, 0.4);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 16px;
+            padding: 24px;
             margin-top: 30px;
             text-align: left;
         }
 
         .instructions h4 {
+            font-family: 'Bebas Neue', sans-serif;
             color: #ffd93d;
-            margin-bottom: 10px;
-            font-size: 14px;
+            font-size: 16px;
+            font-weight: 400;
+            letter-spacing: 0.15em;
+            margin-bottom: 12px;
         }
 
         .instructions code {
             display: block;
-            background: rgba(0,0,0,0.5);
-            padding: 12px;
-            border-radius: 6px;
-            font-family: 'Courier New', monospace;
-            font-size: 12px;
+            background: rgba(0, 0, 0, 0.6);
+            padding: 14px 16px;
+            border-radius: 10px;
+            font-family: 'JetBrains Mono', 'Fira Code', monospace;
+            font-size: 11px;
             color: #6bcb77;
-            margin: 5px 0;
             word-break: break-all;
+            border: 1px solid rgba(107, 203, 119, 0.2);
         }
 
         .copy-btn {
-            background: #ffd93d;
+            background: linear-gradient(135deg, #ffd93d, #ffed4a);
             color: #333;
             border: none;
-            padding: 5px 10px;
-            border-radius: 4px;
-            font-size: 10px;
+            padding: 8px 16px;
+            border-radius: 8px;
+            font-size: 11px;
+            font-weight: 600;
             cursor: pointer;
             float: right;
-            margin-top: -30px;
+            margin-top: -38px;
+            transition: all 0.2s;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
         }
 
         .copy-btn:hover {
-            background: #ffed4a;
+            transform: scale(1.05);
+            box-shadow: 0 5px 20px rgba(255, 217, 61, 0.4);
+        }
+
+        /* Team */
+        .team {
+            margin-top: 50px;
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            flex-wrap: wrap;
+        }
+
+        .team-member {
+            text-align: center;
+            transition: transform 0.3s;
+        }
+
+        .team-member:hover {
+            transform: translateY(-5px);
+        }
+
+        .team-member .avatar {
+            width: 56px;
+            height: 56px;
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 26px;
+            margin: 0 auto 10px auto;
+            position: relative;
+        }
+
+        .team-member:nth-child(1) .avatar { background: linear-gradient(135deg, #ff6b6b, #ff8e8e); }
+        .team-member:nth-child(2) .avatar { background: linear-gradient(135deg, #ffd93d, #ffe066); }
+        .team-member:nth-child(3) .avatar { background: linear-gradient(135deg, #6bcb77, #8ed99a); }
+        .team-member:nth-child(4) .avatar { background: linear-gradient(135deg, #4d96ff, #70aaff); }
+
+        .team-member .name {
+            font-size: 14px;
+            font-weight: 600;
+            color: white;
+            margin-bottom: 2px;
+        }
+
+        .team-member .role {
+            font-size: 10px;
+            color: rgba(255, 255, 255, 0.4);
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            font-weight: 300;
+        }
+
+        /* Footer */
+        .footer {
+            margin-top: 50px;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            font-size: 11px;
+            color: rgba(255, 255, 255, 0.3);
+            font-weight: 300;
+        }
+
+        .footer a {
+            color: #ffd93d;
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        .footer a:hover {
+            color: #ffed4a;
+        }
+
+        /* Floating particles */
+        .particles {
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: 2;
+            overflow: hidden;
+        }
+
+        .particle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: rgba(255, 215, 0, 0.6);
+            border-radius: 50%;
+            animation: particle-float 8s infinite;
+        }
+
+        @keyframes particle-float {
+            0%, 100% { transform: translateY(100vh) scale(0); opacity: 0; }
+            10% { opacity: 1; transform: scale(1); }
+            90% { opacity: 1; }
+            100% { transform: translateY(-100vh) scale(0); opacity: 0; }
+        }
+
+        /* Responsive */
+        @media (max-width: 600px) {
+            .main-wrapper {
+                padding: 100px 16px 40px;
+            }
+
+            .team {
+                gap: 20px;
+            }
+
+            .ymca-letters {
+                gap: 10px;
+            }
+
+            .ymca-letter {
+                width: 48px;
+                height: 48px;
+                font-size: 26px;
+            }
+
+            .disco-ball {
+                width: 60px;
+                height: 60px;
+            }
         }
     </style>
 </head>
 <body>
-    <div class="bg-animation">
-        <div class="disco-ball"></div>
+    <div class="bg-animation"></div>
+
+    <div class="disco-ball"></div>
+
+    <div class="light-beams">
         <div class="light-beam"></div>
         <div class="light-beam"></div>
         <div class="light-beam"></div>
         <div class="light-beam"></div>
     </div>
 
-    <div class="container">
-        <div class="logo">🐕</div>
-        <h1 class="title">YMCA</h1>
-        <p class="subtitle">Robot Rave Hackathon 2026</p>
-        <p class="trump-dance">"Making the Go1 dance like Trump"</p>
+    <div class="particles" id="particles"></div>
 
-        <div class="ymca-letters">
-            <div class="ymca-letter y" onclick="alert('Y Pose: Stand tall, spread legs!')">Y</div>
-            <div class="ymca-letter m" onclick="alert('M Pose: Crouch low, wiggle!')">M</div>
-            <div class="ymca-letter c" onclick="alert('C Pose: Curved lean to side!')">C</div>
-            <div class="ymca-letter a" onclick="alert('A Pose: Straight stance!')">A</div>
+    <div class="main-wrapper">
+        <div class="container">
+            <div class="logo">🐕</div>
+            <h1 class="title">YMCA</h1>
+            <p class="subtitle">Robot Rave Hackathon 2026</p>
+
+            <div class="trump-gif-wrapper">
+                <img src="assets/trump-dance.gif" alt="Trump YMCA Dance" class="trump-gif">
+            </div>
+            <p class="trump-dance">"Making the Go1 dance like Trump"</p>
+
+            <div class="ymca-letters">
+                <div class="ymca-letter y" onclick="alert('Y Pose: Stand tall, spread legs!')">Y</div>
+                <div class="ymca-letter m" onclick="alert('M Pose: Crouch low, wiggle!')">M</div>
+                <div class="ymca-letter c" onclick="alert('C Pose: Curved lean to side!')">C</div>
+                <div class="ymca-letter a" onclick="alert('A Pose: Straight stance!')">A</div>
+            </div>
+
+            <div class="divider"></div>
+            <p class="section-title">Launch Demos</p>
+
+            <div class="demos">
+                <div class="demo-card" onclick="runDemo('go1_keyboard', this)">
+                    <span class="icon">🎮</span>
+                    <h3>Go1 Simulation (MuJoCo)</h3>
+                    <p>MuJoCo simulation - Arrows walk, 1-4 YMCA poses (needs mjpython)</p>
+                </div>
+
+                <div class="demo-card" onclick="runDemo('go1_sdk', this)">
+                    <span class="icon">🎛️</span>
+                    <h3>Go1 SDK Control (Standard Moves)</h3>
+                    <p>REAL ROBOT: Standard Unitree SDK movements! Trot, run, climb stairs, body poses, jump yaw & more!</p>
+                </div>
+
+                <div class="demo-card" onclick="runDemo('go1_real', this)">
+                    <span class="icon">🐕</span>
+                    <h3>Go1 YMCA Dance Control</h3>
+                    <p>REAL ROBOT: Custom YMCA poses! Connect to robot WiFi first. 1-4 YMCA, 5 full dance!</p>
+                </div>
+            </div>
+
+            <div class="instructions">
+                <h4>Quick Start</h4>
+                <code id="quickstart">cd /Users/dawod/YMCA && .venv/bin/mjpython mo_simulation/run_go1_keyboard.py</code>
+                <button class="copy-btn" onclick="copyCommand()">Copy</button>
+            </div>
+
+            <div class="team">
+                <div class="team-member">
+                    <div class="avatar">🔧</div>
+                    <div class="name">Mo</div>
+                    <div class="role">Simulation</div>
+                </div>
+                <div class="team-member">
+                    <div class="avatar">🎮</div>
+                    <div class="name">Patwic</div>
+                    <div class="role">Control</div>
+                </div>
+                <div class="team-member">
+                    <div class="avatar">🎵</div>
+                    <div class="name">Alex</div>
+                    <div class="role">Music</div>
+                </div>
+                <div class="team-member">
+                    <div class="avatar">👁️</div>
+                    <div class="name">Andrew</div>
+                    <div class="role">Vision</div>
+                </div>
+            </div>
+
+            <p class="footer">
+                SOTA COCA Hackathon London 2026 &nbsp;•&nbsp;
+                <a href="https://github.com/dawodx/YMCA" target="_blank">GitHub</a>
+            </p>
         </div>
-
-        <div class="divider"></div>
-        <p class="section-title">Demos</p>
-
-        <div class="demos">
-            <div class="demo-card" onclick="runDemo('go1_keyboard', this)">
-                <span class="icon">🐕</span>
-                <h3>Go1 Keyboard Control</h3>
-                <p>Control the Unitree Go1 quadruped with keyboard. W/S for height, arrows for lean, 1-4 for YMCA poses!</p>
-            </div>
-
-            <div class="demo-card" onclick="runDemo('dance_demo', this)">
-                <span class="icon">💃</span>
-                <h3>YMCA Dance Demo</h3>
-                <p>Watch the Go1 perform the full YMCA dance routine synced to music!</p>
-            </div>
-        </div>
-
-        <div class="instructions">
-            <h4>Quick Start</h4>
-            <code id="quickstart">cd /Users/dawod/YMCA && .venv/bin/mjpython mo_simulation/run_go1_keyboard.py</code>
-            <button class="copy-btn" onclick="copyCommand()">Copy</button>
-        </div>
-
-        <div class="team">
-            <div class="team-member">
-                <div class="avatar">🔧</div>
-                <div class="name">Mo</div>
-                <div class="role">Simulation</div>
-            </div>
-            <div class="team-member">
-                <div class="avatar">🎮</div>
-                <div class="name">Patwic</div>
-                <div class="role">Control</div>
-            </div>
-            <div class="team-member">
-                <div class="avatar">🎵</div>
-                <div class="name">Alex</div>
-                <div class="role">Music</div>
-            </div>
-            <div class="team-member">
-                <div class="avatar">👁️</div>
-                <div class="name">Andrew</div>
-                <div class="role">Vision</div>
-            </div>
-        </div>
-
-        <p class="footer">
-            SOTA COCA Hackathon London 2026 |
-            <a href="https://github.com/dawodx/YMCA" target="_blank">GitHub</a>
-        </p>
     </div>
 
     <script>
+        // Create floating particles
+        const particlesContainer = document.getElementById('particles');
+        for (let i = 0; i < 20; i++) {
+            const particle = document.createElement('div');
+            particle.className = 'particle';
+            particle.style.left = Math.random() * 100 + '%';
+            particle.style.animationDelay = Math.random() * 8 + 's';
+            particle.style.animationDuration = (6 + Math.random() * 4) + 's';
+            const colors = ['rgba(255, 107, 107, 0.6)', 'rgba(255, 217, 61, 0.6)', 'rgba(107, 203, 119, 0.6)', 'rgba(77, 150, 255, 0.6)'];
+            particle.style.background = colors[Math.floor(Math.random() * colors.length)];
+            particlesContainer.appendChild(particle);
+        }
+
         async function runDemo(demoId, element) {
-            // Update UI
             document.querySelectorAll('.demo-card').forEach(card => {
                 card.classList.remove('running');
                 const status = card.querySelector('.status');
@@ -443,16 +656,16 @@
             element.appendChild(statusEl);
 
             try {
-                const response = await fetch('http://localhost:8889/run/' + demoId, { method: 'POST' });
+                const response = await fetch('/run/' + demoId, { method: 'POST' });
                 const data = await response.json();
                 if (data.success) {
-                    statusEl.textContent = '✓ Running - check the MuJoCo window!';
+                    statusEl.textContent = '✓ Running - check MuJoCo or Terminal window!';
                 } else {
                     statusEl.textContent = '✗ ' + data.error;
                     statusEl.style.color = '#ff6b6b';
                 }
             } catch (err) {
-                statusEl.innerHTML = '⚠️ Server not running!<br><small>Run: python launcher.py</small>';
+                statusEl.innerHTML = '⚠️ Server not running! Run: python launcher.py';
                 statusEl.style.color = '#ff6b6b';
             }
         }
@@ -466,16 +679,16 @@
             });
         }
 
-        // Add some disco vibes
+        // YMCA letter pulse animation
         setInterval(() => {
             const letters = document.querySelectorAll('.ymca-letter');
             letters.forEach((letter, i) => {
                 setTimeout(() => {
-                    letter.style.transform = 'scale(1.1)';
-                    setTimeout(() => letter.style.transform = 'scale(1)', 200);
+                    letter.style.transform = 'scale(1.15) rotate(-3deg)';
+                    setTimeout(() => letter.style.transform = '', 200);
                 }, i * 150);
             });
-        }, 3000);
+        }, 4000);
     </script>
 </body>
 </html>
