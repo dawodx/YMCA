@@ -20,18 +20,25 @@ DEMOS = {
         "description": "MuJoCo simulation - Arrows walk, 1-4 YMCA poses (needs mjpython)",
         "use_mjpython": True
     },
-    "go1_real": {
-        "name": "Go1 REAL Robot Control",
-        "script": "mo_simulation/go1_real_control.py",
-        "icon": "🐕",
-        "description": "Control the REAL Go1! Connect to robot WiFi first. 1-4 YMCA, 5 full dance!",
+    "go1_unlock": {
+        "name": "UNLOCK SDK Mode (Run First!)",
+        "script": "mo_simulation/go1_unlock.py",
+        "icon": "🔓",
+        "description": "SSH into Go1 and unlock Dance/Special moves. Run this BEFORE SDK Control!",
         "use_mjpython": False
     },
     "go1_sdk": {
         "name": "Go1 SDK Control (Standard Moves)",
         "script": "mo_simulation/go1_sdk_control.py",
         "icon": "🎛️",
-        "description": "Standard Unitree SDK movements! Trot, run, climb stairs, body poses, jump yaw & more!",
+        "description": "Dance1, Dance2, JumpYaw, body poses & more! Run UNLOCK first for special moves.",
+        "use_mjpython": False
+    },
+    "go1_real": {
+        "name": "Go1 YMCA Dance Control",
+        "script": "mo_simulation/go1_real_control.py",
+        "icon": "🐕",
+        "description": "Custom YMCA poses! Connect to robot WiFi first. 1-4 YMCA, 5 full dance!",
         "use_mjpython": False
     },
 }
