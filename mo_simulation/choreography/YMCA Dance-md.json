@@ -1,0 +1,184 @@
+{
+  "name": "YMCA Dance-md",
+  "song": "ymca_music.mp3",
+  "bpm": 129,
+  "duration_ms": 290196,
+  "sections": [
+    {
+      "name": "INTRO",
+      "start_ms": 0,
+      "end_ms": 26533,
+      "color": "#FFD700"
+    },
+    {
+      "name": "YOUNG MAN",
+      "start_ms": 26533,
+      "end_ms": 55000,
+      "color": "#4CAF50"
+    },
+    {
+      "name": "CHORUS",
+      "start_ms": 55000,
+      "end_ms": 85000,
+      "color": "#E91E63"
+    },
+    {
+      "name": "YOUNG MAN 2",
+      "start_ms": 85000,
+      "end_ms": 115000,
+      "color": "#4CAF50"
+    },
+    {
+      "name": "CHORUS 2",
+      "start_ms": 115000,
+      "end_ms": 145000,
+      "color": "#E91E63"
+    },
+    {
+      "name": "YOUNG MAN 3",
+      "start_ms": 145000,
+      "end_ms": 175000,
+      "color": "#4CAF50"
+    },
+    {
+      "name": "CHORUS 3",
+      "start_ms": 175000,
+      "end_ms": 290000,
+      "color": "#E91E63"
+    }
+  ],
+  "moves": [
+    {
+      "time_ms": 365,
+      "cmd": "ledYellow",
+      "params": {},
+      "label": "LED Yellow"
+    },
+    {
+      "time_ms": 1179,
+      "cmd": "standDown",
+      "params": {},
+      "label": "standDown"
+    },
+    {
+      "time_ms": 2720,
+      "cmd": "standUp",
+      "params": {},
+      "label": "standUp"
+    },
+    {
+      "time_ms": 10845,
+      "cmd": "lookUp",
+      "params": {
+        "intensity": 0.5,
+        "duration": 300
+      },
+      "label": "lookUp"
+    },
+    {
+      "time_ms": 11083,
+      "cmd": "ledGreen",
+      "params": {},
+      "label": "ledGreen"
+    },
+    {
+      "time_ms": 11083,
+      "cmd": "ledBlue",
+      "params": {},
+      "label": "ledBlue"
+    },
+    {
+      "time_ms": 12570,
+      "cmd": "lookDown",
+      "params": {
+        "intensity": 0.5,
+        "duration": 300
+      },
+      "label": "lookDown"
+    },
+    {
+      "time_ms": 22406,
+      "cmd": "ledGreen",
+      "params": {},
+      "label": "ledGreen"
+    },
+    {
+      "time_ms": 26000,
+      "cmd": "dance1",
+      "params": {},
+      "label": "Dance 1"
+    },
+    {
+      "time_ms": 41176,
+      "cmd": "ledRed",
+      "params": {},
+      "label": "ledRed"
+    },
+    {
+      "time_ms": 47563,
+      "cmd": "twistLeft",
+      "params": {
+        "intensity": 0.5,
+        "duration": 300
+      },
+      "label": "twistLeft"
+    },
+    {
+      "time_ms": 49038,
+      "cmd": "twistRight",
+      "params": {
+        "intensity": 0.5,
+        "duration": 300
+      },
+      "label": "twistRight"
+    },
+    {
+      "time_ms": 55000,
+      "cmd": "stand",
+      "params": {},
+      "label": "Stand"
+    },
+    {
+      "time_ms": 56000,
+      "cmd": "lookUp",
+      "params": {
+        "intensity": 0.6,
+        "duration": 400
+      },
+      "label": "Y"
+    },
+    {
+      "time_ms": 57000,
+      "cmd": "lookDown",
+      "params": {
+        "intensity": 0.5,
+        "duration": 400
+      },
+      "label": "M"
+    },
+    {
+      "time_ms": 58000,
+      "cmd": "squat",
+      "params": {
+        "intensity": 0.5,
+        "duration": 400
+      },
+      "label": "C"
+    },
+    {
+      "time_ms": 59000,
+      "cmd": "extend",
+      "params": {
+        "intensity": 0.5,
+        "duration": 400
+      },
+      "label": "A"
+    },
+    {
+      "time_ms": 63877,
+      "cmd": "straightHand1",
+      "params": {},
+      "label": "straightHand1"
+    }
+  ]
+}
