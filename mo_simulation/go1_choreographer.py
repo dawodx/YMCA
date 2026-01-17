@@ -318,6 +318,26 @@ HTML = """<!DOCTYPE html>
         }
         .move-marker:hover .label { opacity: 1; }
 
+        /* Debug flags */
+        .flag-marker {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: #FF9800;
+            z-index: 15;
+            cursor: pointer;
+        }
+        .flag-marker::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -4px;
+            border-left: 5px solid transparent;
+            border-right: 5px solid transparent;
+            border-top: 8px solid #FF9800;
+        }
+
         /* Playhead */
         .playhead {
             position: absolute;
@@ -399,6 +419,56 @@ HTML = """<!DOCTYPE html>
         .editor-row label { color: #888; font-size: 11px; min-width: 60px; }
         .editor-row input { flex: 1; background: #1a1a2e; border: 1px solid #333; border-radius: 4px; padding: 6px; color: white; }
         .editor-actions { display: flex; gap: 8px; margin-top: 10px; }
+
+        /* Modal */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(0,0,0,0.7);
+            z-index: 100;
+            justify-content: center;
+            align-items: center;
+        }
+        .modal-overlay.show { display: flex; }
+        .modal {
+            background: #1a1a2e;
+            border: 1px solid #E91E63;
+            border-radius: 12px;
+            padding: 20px;
+            min-width: 300px;
+            max-width: 400px;
+        }
+        .modal h2 { color: #E91E63; font-size: 16px; margin-bottom: 15px; }
+        .modal-input {
+            width: 100%;
+            background: #0d0d1a;
+            border: 1px solid #333;
+            border-radius: 6px;
+            padding: 10px;
+            color: white;
+            font-size: 14px;
+            margin-bottom: 10px;
+        }
+        .modal-list {
+            max-height: 200px;
+            overflow-y: auto;
+            margin-bottom: 15px;
+        }
+        .modal-item {
+            padding: 10px 12px;
+            background: rgba(255,255,255,0.05);
+            border-radius: 6px;
+            margin-bottom: 5px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .modal-item:hover { background: rgba(233,30,99,0.2); }
+        .modal-item.selected { background: rgba(233,30,99,0.3); border: 1px solid #E91E63; }
+        .modal-actions { display: flex; gap: 10px; justify-content: flex-end; }
+        .modal-empty { color: #666; text-align: center; padding: 20px; }
     </style>
 </head>
 <body>
@@ -433,15 +503,27 @@ HTML = """<!DOCTYPE html>
                 <div class="playback">
                     <button class="btn btn-pink" onclick="togglePlay()" id="playBtn">Play</button>
                     <button class="btn btn-gray" onclick="stopPlay()">Stop</button>
+                    <button class="btn btn-orange" onclick="toggleDebug()" id="debugBtn">Debug Mode</button>
                     <span class="time-display" id="curTime">0:00.0</span>
                     <span style="color:#666">/</span>
                     <span id="totTime" style="color:#666">0:00</span>
                     <label style="color:#888;font-size:11px;margin-left:10px">
                         <input type="checkbox" id="mute"> Mute
                     </label>
+                    <label style="color:#888;font-size:11px;margin-left:10px">
+                        <input type="checkbox" id="execRobot" checked> Execute Robot
+                    </label>
                 </div>
                 <div class="progress-bar" onclick="seekBar(event)">
                     <div class="progress-fill" id="progFill"></div>
+                </div>
+                <div id="debugInfo" style="display:none;margin-top:10px;padding:10px;background:rgba(255,152,0,0.2);border-radius:6px;font-size:12px">
+                    <div style="margin-bottom:8px">
+                        <strong style="color:#FF9800">Debug Mode ON</strong> - Press SPACE or click timeline to flag current time.
+                    </div>
+                    <span id="flagCount" style="color:#4CAF50">0 flags</span>
+                    <button class="btn btn-gray" style="margin-left:10px;padding:4px 8px;font-size:10px" onclick="clearFlags()">Clear Flags</button>
+                    <button class="btn btn-green" style="margin-left:5px;padding:4px 8px;font-size:10px" onclick="exportFlags()">Export Flags</button>
                 </div>
             </div>
 
@@ -503,6 +585,30 @@ HTML = """<!DOCTYPE html>
         </div>
     </div>
 
+    <!-- Save Modal -->
+    <div class="modal-overlay" id="saveModal" onclick="closeSaveModal(event)">
+        <div class="modal" onclick="event.stopPropagation()">
+            <h2>Save Choreography</h2>
+            <input type="text" class="modal-input" id="saveName" placeholder="Enter name...">
+            <div class="modal-actions">
+                <button class="btn btn-gray" onclick="closeSaveModal()">Cancel</button>
+                <button class="btn btn-green" onclick="doSave()">Save</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Load Modal -->
+    <div class="modal-overlay" id="loadModal" onclick="closeLoadModal(event)">
+        <div class="modal" onclick="event.stopPropagation()">
+            <h2>Load Choreography</h2>
+            <div class="modal-list" id="loadList"></div>
+            <div class="modal-actions">
+                <button class="btn btn-gray" onclick="closeLoadModal()">Cancel</button>
+                <button class="btn btn-blue" onclick="doLoad()" id="loadBtn" disabled>Load</button>
+            </div>
+        </div>
+    </div>
+
 <script>
 let choreo = CHOREO_JSON;
 const CMDS = COMMANDS_JSON;
@@ -514,10 +620,92 @@ let curTime = 0;
 let dragging = null;
 let dragType = null;
 let activeCat = 'Poses';
+let debugMode = false;
+let flags = [];
 
 const audio = document.getElementById('audio');
 const container = document.getElementById('container');
 const wrapper = document.getElementById('wrapper');
+
+// Debug mode - flag timestamps while playing
+function toggleDebug() {
+    debugMode = !debugMode;
+    document.getElementById('debugBtn').style.background = debugMode ? '#4CAF50' : '#FF9800';
+    document.getElementById('debugBtn').textContent = debugMode ? 'Debug ON' : 'Debug Mode';
+    document.getElementById('debugInfo').style.display = debugMode ? 'block' : 'none';
+    renderFlags();
+}
+
+function addFlag(ms) {
+    if (!flags.includes(ms)) {
+        flags.push(ms);
+        flags.sort((a, b) => a - b);
+        renderFlags();
+        document.getElementById('flagCount').textContent = flags.length + ' flags';
+    }
+}
+
+function clearFlags() {
+    flags = [];
+    renderFlags();
+    document.getElementById('flagCount').textContent = '0 flags';
+}
+
+function exportFlags() {
+    if (!flags.length) return;
+    const text = flags.map(ms => fmtTime(ms) + ' (' + ms + 'ms)').join('\\n');
+    const blob = new Blob([text], {type: 'text/plain'});
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = 'flags_' + Date.now() + '.txt';
+    a.click();
+}
+
+function renderFlags() {
+    document.querySelectorAll('.flag-marker').forEach(f => f.remove());
+    if (!debugMode) return;
+
+    const dur = getDur();
+    const w = container.offsetWidth;
+    const movesLayer = document.getElementById('moves');
+
+    flags.forEach((ms, i) => {
+        const flag = document.createElement('div');
+        flag.className = 'flag-marker';
+        flag.style.left = (ms / dur * w) + 'px';
+        flag.title = fmtTime(ms) + ' (click to add move, right-click to remove)';
+        flag.onclick = (e) => {
+            e.stopPropagation();
+            document.getElementById('addTime').value = ms;
+            updAddDisp();
+        };
+        flag.oncontextmenu = (e) => {
+            e.preventDefault();
+            flags.splice(i, 1);
+            renderFlags();
+            document.getElementById('flagCount').textContent = flags.length + ' flags';
+        };
+        movesLayer.appendChild(flag);
+    });
+}
+
+// Keyboard shortcuts
+document.addEventListener('keydown', (e) => {
+    // Space to flag in debug mode while playing
+    if (e.code === 'Space' && debugMode && playing) {
+        e.preventDefault();
+        addFlag(curTime);
+    }
+    // Escape to close modals
+    if (e.code === 'Escape') {
+        closeSaveModal();
+        closeLoadModal();
+    }
+    // Enter to submit save modal
+    if (e.code === 'Enter' && document.getElementById('saveModal').classList.contains('show')) {
+        doSave();
+    }
+});
 
 // Init
 function init() {
@@ -893,7 +1081,7 @@ function setAddCurrent() {
     updAddDisp();
 }
 
-// Timeline click - set add time
+// Timeline click - set add time or add flag in debug mode
 function timelineClick(e) {
     if (dragging) return;
     const rect = container.getBoundingClientRect();
@@ -901,6 +1089,12 @@ function timelineClick(e) {
     const dur = getDur();
     const w = container.offsetWidth;
     const ms = Math.round(x / w * dur);
+
+    // In debug mode, add a flag
+    if (debugMode) {
+        addFlag(ms);
+    }
+
     document.getElementById('addTime').value = ms;
     updAddDisp();
     seekTo(ms);
@@ -938,6 +1132,7 @@ function play() {
     audio.muted = document.getElementById('mute').checked;
     audio.play();
 
+    const executeRobot = document.getElementById('execRobot').checked;
     let lastIdx = -1;
     choreo.moves.forEach((m, i) => { if (m.time_ms < curTime) lastIdx = i; });
 
@@ -951,12 +1146,20 @@ function play() {
         document.getElementById('progFill').style.width = pct + '%';
         document.getElementById('playhead').style.left = (curTime / dur * container.offsetWidth) + 'px';
 
-        choreo.moves.forEach((m, i) => {
-            if (i > lastIdx && m.time_ms <= curTime) {
-                lastIdx = i;
-                execMove(m.cmd, m.params);
-            }
-        });
+        // Execute moves only if robot execution is enabled
+        if (executeRobot) {
+            choreo.moves.forEach((m, i) => {
+                if (i > lastIdx && m.time_ms <= curTime) {
+                    lastIdx = i;
+                    execMove(m.cmd, m.params);
+                }
+            });
+        } else {
+            // Still track position for next play
+            choreo.moves.forEach((m, i) => {
+                if (i > lastIdx && m.time_ms <= curTime) lastIdx = i;
+            });
+        }
     }, 50);
 }
 
@@ -1010,9 +1213,22 @@ async function connect() {
     el.style.background = data.connected ? '#4CAF50' : '#f44336';
 }
 
-// Save/Load
-async function saveDialog() {
-    const name = prompt('Save as:', document.getElementById('choreoName').value);
+// Save/Load with modals
+let selectedLoad = null;
+
+function saveDialog() {
+    document.getElementById('saveName').value = document.getElementById('choreoName').value;
+    document.getElementById('saveModal').classList.add('show');
+    document.getElementById('saveName').focus();
+}
+
+function closeSaveModal(e) {
+    if (e && e.target !== e.currentTarget) return;
+    document.getElementById('saveModal').classList.remove('show');
+}
+
+async function doSave() {
+    const name = document.getElementById('saveName').value.trim();
     if (!name) return;
     choreo.name = name;
     choreo.bpm = parseInt(document.getElementById('bpm').value);
@@ -1022,24 +1238,56 @@ async function saveDialog() {
         headers: {'Content-Type': 'application/json'},
         body: JSON.stringify({name, data: choreo})
     });
-    alert('Saved!');
+    closeSaveModal();
+    document.getElementById('choreoName').value = name;
 }
 
 async function loadDialog() {
     const res = await fetch('/api/list');
     const files = await res.json();
-    if (!files.length) { alert('No saves'); return; }
-    const name = prompt('Load:\\n' + files.join('\\n'));
-    if (!name || !files.includes(name)) return;
-    const data = await (await fetch('/api/load/' + name)).json();
+    const list = document.getElementById('loadList');
+    selectedLoad = null;
+    document.getElementById('loadBtn').disabled = true;
+
+    if (!files.length) {
+        list.innerHTML = '<div class="modal-empty">No saved choreographies yet</div>';
+    } else {
+        list.innerHTML = files.map(f => `
+            <div class="modal-item" onclick="selectLoad('${f}', this)">
+                <span>${f}</span>
+                <span style="color:#666;font-size:11px">.json</span>
+            </div>
+        `).join('');
+    }
+    document.getElementById('loadModal').classList.add('show');
+}
+
+function selectLoad(name, el) {
+    document.querySelectorAll('.modal-item').forEach(i => i.classList.remove('selected'));
+    el.classList.add('selected');
+    selectedLoad = name;
+    document.getElementById('loadBtn').disabled = false;
+}
+
+function closeLoadModal(e) {
+    if (e && e.target !== e.currentTarget) return;
+    document.getElementById('loadModal').classList.remove('show');
+}
+
+async function doLoad() {
+    if (!selectedLoad) return;
+    const data = await (await fetch('/api/load/' + selectedLoad)).json();
     if (data) {
         choreo = data;
-        document.getElementById('choreoName').value = data.name || name;
+        document.getElementById('choreoName').value = data.name || selectedLoad;
         document.getElementById('bpm').value = data.bpm || 129;
         document.getElementById('duration').value = data.duration_ms || 290000;
         selIdx = -1;
+        flags = [];
+        document.getElementById('flagCount').textContent = '0 flags';
         init();
     }
+    closeLoadModal();
 }
 
 // Audio duration
