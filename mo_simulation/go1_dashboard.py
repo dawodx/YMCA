@@ -699,6 +699,7 @@ HTML = """<!DOCTYPE html>
                     <button class="btn" style="background:#607D8B;" onclick="resetSimulation()">Reset Sim</button>
                     <button class="btn" style="background:#00BCD4;" onclick="openPoseBuilder()">Pose Builder</button>
                     <button class="btn" style="background:#FF9800;" onclick="openParamEditor()">Param Editor</button>
+                    <button class="btn" style="background:#E91E63;" onclick="openChoreographer()">Choreographer</button>
                 </div>
             </div>
 
@@ -1149,6 +1150,16 @@ HTML = """<!DOCTYPE html>
             }, 1000);
         }
 
+        async function openChoreographer() {
+            addLog('Opening Choreographer...', true, 0);
+            // Start the server first
+            fetch('/api/start_choreographer', {method: 'POST'});
+            // Open the page after a short delay
+            setTimeout(() => {
+                window.open('http://localhost:8894', '_blank');
+            }, 1000);
+        }
+
         async function loadCustomCommands() {
             try {
                 const res = await fetch('/api/custom_commands');
@@ -1385,6 +1396,30 @@ class DashboardHandler(SimpleHTTPRequestHandler):
                 tell application "Terminal"
                     activate
                     do script "cd {project_root} && {python_cmd} {param_script}"
+                end tell
+                '''
+                subprocess.Popen(["osascript", "-e", apple_script])
+                elapsed = (time.time() - start) * 1000
+                self.send_json({'success': True, 'time_ms': round(elapsed, 1)})
+            except Exception as e:
+                self.send_json({'success': False, 'error': str(e)})
+
+        elif self.path == '/api/start_choreographer':
+            start = time.time()
+            try:
+                script_dir = Path(__file__).parent
+                project_root = script_dir.parent
+                python_cmd = project_root / ".venv" / "bin" / "python"
+                choreo_script = script_dir / "go1_choreographer.py"
+
+                if not choreo_script.exists():
+                    self.send_json({'success': False, 'error': 'Choreographer not found'})
+                    return
+
+                apple_script = f'''
+                tell application "Terminal"
+                    activate
+                    do script "cd {project_root} && {python_cmd} {choreo_script}"
                 end tell
                 '''
                 subprocess.Popen(["osascript", "-e", apple_script])

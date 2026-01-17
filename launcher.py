@@ -69,6 +69,13 @@ DEMOS = {
         "description": "See and tweak actual function parameters! Adjust intensity, speed, duration and save custom commands.",
         "use_mjpython": False
     },
+    "go1_choreographer": {
+        "name": "Go1 Choreography Editor",
+        "script": "mo_simulation/go1_choreographer.py",
+        "icon": "🎬",
+        "description": "Visual timeline editor! Map dance moves to song timestamps, play in sync, tweak and save choreographies.",
+        "use_mjpython": False
+    },
 }
 
 HTML = """<!DOCTYPE html>
