@@ -1,213 +1,176 @@
 #!/usr/bin/env python3
 """
-Go1 Quadruped - Stationary Marching (YMCA)
+YMCA Smart Choreographer
 
-- Keeps the robot in one spot (Walking in Place).
-- Uses "Phase Locking" to stomp feet exactly on the beat.
-- Alternates Diagonal pairs (Trot pattern) based on Kick vs Snare.
+1. State Machine: Determines song section (Intro, Verse, Chorus) based on time.
+2. Beat Engine: Calculates 126 BPM beats in real-time.
+3. Logic:
+   - CHORUS: Triggers high-level 'dance1' or 'dance2'.
+   - VERSE/INTRO: Cycles through low-level primitives (twist, lean) on the beat.
 """
 
-from enum import Enum
 import time
-import json
-import numpy as np
-import mujoco
-import mujoco.viewer
+import requests
 import pygame
+from enum import Enum
 from pathlib import Path
 
-# --- CONFIGURATION ---
-SCRIPT_DIR = Path(__file__).parent.parent
-GO1_XML = SCRIPT_DIR / "models/unitree_go1/scene.xml"
+# --- CONFIG ---
+DASHBOARD_URL = "http://localhost:8891/api/cmd" # Make sure port matches your dashboard
 AUDIO_FILE = "alex_music/music/ymca_music.mp3"
-JSON_FILE = "alex_music/music/ymca_music_structure.json"
+BPM = 126.0
 
-# --- POSE CONSTANTS ---
-# We widen the hips (0.15 rad) to make it very stable while standing on 2 legs
-HIP_WIDTH = 0.15 
-STAND = np.array([
-    -HIP_WIDTH, 0.9, -1.8,   # FR
-     HIP_WIDTH, 0.9, -1.8,   # FL
-    -HIP_WIDTH, 0.9, -1.8,   # RR
-     HIP_WIDTH, 0.9, -1.8,   # RL
-])
+# --- DEFINITIONS ---
+class SongState(Enum):
+    INTRO = 1
+    YOUNG_MAN = 2  # Verse
+    CHORUS = 3
+    OUTRO = 4
 
-"""
-INTRO - the intro to the song
-YOUNG_MAN = beginning of vocal section
-YMCA - chorus beginning with "It's fun to stay at the Y-M-C-A" (approx 31/32 sec)
-"""
-Song_States = Enum('Song_States', ['INTRO', 'YOUNG_MAN', 'CHORUS', 'BRIDGE', 'OUTRO'])
+# Primitives to cycle through during verses
+# We create "Move Sets" for variety
+MOVES_INTRO = ["twistLeft", "twistRight"]
+MOVES_VERSE = ["twistLeft", "twistRight", "squat", "extend"]
+MOVES_OUTRO = ["twistLeft", "twistRight"]
 
-
-def get_song_state_by_time_ms(t_ms):
+def get_song_state(t_ms):
+    """Returns the current section of the song based on your timestamps."""
     if t_ms < 28000:
-        return Song_States.INTRO
+        return SongState.INTRO
     elif t_ms < 45000:
-        return Song_States.YOUNG_MAN
+        return SongState.YOUNG_MAN
     elif t_ms < 60000:
-        return Song_States.CHORUS
+        return SongState.CHORUS
     elif t_ms < 91000:
-        return Song_States.YOUNG_MAN
+        return SongState.YOUNG_MAN
     elif t_ms < 124000:
-        return Song_States.CHORUS
+        return SongState.CHORUS
     elif t_ms < 156000:
-        return Song_States.YOUNG_MAN
+        return SongState.YOUNG_MAN
     elif t_ms < 189000:
-        return Song_States.CHORUS
-    else: # 4 seconds onward
-        return Song_States.OUTRO
-
-def get_pose_by_letter(letter):
-    """Static Poses for Chorus."""
-    if letter == 'Y':
-        return np.array([
-            0.6, 0.0, -1.0, -0.6, 0.0, -1.0,
-            -0.1, 0.9, -1.8, 0.1, 0.9, -1.8
-        ])
-    elif letter == 'M':
-        # Deep crouch
-        return np.array([-0.1, 1.5, -2.6, 0.1, 1.5, -2.6] * 2)
-    elif letter == 'C':
-        # Lean Right
-        return np.array([-0.3, 0.7, -1.4, 0.5, 1.2, -2.2, -0.3, 0.7, -1.4, 0.5, 1.2, -2.2])
-    elif letter == 'A':
-        # Tall
-        return np.array([-0.1, 0.6, -1.4, 0.1, 0.6, -1.4] * 2)
-    return STAND.copy()
-
-def get_beat_phase(now, events):
-    """Calculates progress (0.0 -> 1.0) through the current beat."""
-    idx = 0
-    for i, e in enumerate(events):
-        if e["timestamp"] > now:
-            break
-        idx = i
-    
-    # Safety checks
-    if idx >= len(events) - 1: return events[-1], 0.0
-    
-    current_evt = events[idx]
-    next_evt = events[idx + 1]
-    
-    beat_duration = next_evt["timestamp"] - current_evt["timestamp"]
-    if beat_duration <= 0: beat_duration = 0.5
-    
-    phase = (now - current_evt["timestamp"]) / beat_duration
-    return current_evt, np.clip(phase, 0.0, 1.0)
-
-def march_in_place(phase, drum_type):
-    """
-    High-Step Marching in place.
-    """
-    pose = np.zeros(12)
-    
-    # 1. PARAMETERS
-    lift_height = 0.15  # VERY HIGH STEP (Visually energetic)
-    
-    # 2. SELECT LEGS
-    # KICK (Beat 1, 3) -> Lift Group A (FR + RL)
-    # SNARE (Beat 2, 4) -> Lift Group B (FL + RR)
-    if drum_type == "KICK":
-        # 1 = Swing, 0 = Stance
-        leg_mask = [1, 0, 0, 1] 
-        sway_dir = 1 # Shift body weight to the RIGHT (stancing legs)
+        return SongState.CHORUS
     else:
-        leg_mask = [0, 1, 1, 0]
-        sway_dir = -1 # Shift body weight to the LEFT
-        
-    # 3. PHASE CURVE
-    # Sine wave 0 -> 1 -> 0 over the duration of the beat
-    swing_curve = np.sin(phase * np.pi) 
-    
-    # 4. SWAY CURVE
-    # We shift the Hips to balance over the planted feet
-    hip_shift = 0.05 * swing_curve * sway_dir
+        return SongState.OUTRO
 
-    for i in range(4):
-        # Base stance
-        side_sign = -1 if i in [0, 2] else 1
-        pose[3*i+0] = (side_sign * HIP_WIDTH) + hip_shift # Hip Roll (Balance)
-        pose[3*i+1] = 0.9  # Thigh Pitch
-        pose[3*i+2] = -1.8 # Calf Pitch
-
-        # If this leg is swinging (Stepping up)
-        if leg_mask[i] == 1:
-            # Lift Thigh
-            pose[3*i+1] -= (lift_height * swing_curve) 
-            # Retract Calf (Bend knee)
-            pose[3*i+2] += (lift_height * 2.0 * swing_curve) 
-
-    return pose
+def send_command(cmd_name):
+    """Sends command to the dashboard API."""
+    try:
+        url = f"{DASHBOARD_URL}/{cmd_name}"
+        # Print mostly for debug, but keep console clean
+        # print(f"--> {cmd_name}") 
+        requests.post(url, timeout=0.05) 
+    except:
+        pass # Ignore timeouts to keep rhythm
 
 def main():
-    print("=== YMCA MARCHER ===")
+    print(f"--- YMCA SMART CHOREOGRAPHER ({BPM} BPM) ---")
     
-    # Load
-    if not Path(JSON_FILE).exists():
-        print(f"Missing {JSON_FILE}")
+    if not Path(AUDIO_FILE).exists():
+        print(f"Error: {AUDIO_FILE} not found")
         return
-    with open(JSON_FILE) as f:
-        data = json.load(f)
-    events = data["events"]
 
-    # Sim
+    # Setup Audio
     pygame.init()
     pygame.mixer.init()
-    pygame.mixer.music.load(AUDIO_FILE)
+    try:
+        pygame.mixer.music.load(AUDIO_FILE)
+    except Exception as e:
+        print(f"Audio Error: {e}")
+        return
+
+    input("Press Enter to START...")
+    print("3...")
+    time.sleep(1)
+    print("2...")
+    time.sleep(1)
+    print("1... GO!")
     
-    model = mujoco.MjModel.from_xml_path(str(GO1_XML))
-    d_mj = mujoco.MjData(model)
-    mujoco.mj_resetDataKeyframe(model, d_mj, 0)
+    pygame.mixer.music.play()
+    start_time = time.time()
+    
+    # State tracking
+    last_state = None
+    beat_interval = 65.0 / BPM # Seconds per beat
+    next_beat_time = 0.0
+    beat_counter = 0
+    
+    # For cycling moves
+    move_index = 0
 
-    with mujoco.viewer.launch_passive(model, d_mj) as viewer:
-        time.sleep(1.0)
-        pygame.mixer.music.play()
-        start_time = time.time()
+    while True:
+        if not pygame.mixer.music.get_busy():
+            print("Music finished.")
+            break
+            
+        # 1. Get Time
+        # pygame.mixer.music.get_pos() returns ms, converting to seconds
+        # We use time.time() relative to start for smoother beat calc
+        now = time.time() - start_time
+        now_ms = now * 1000
         
-        viewer.cam.lookat[:] = [0, 0, 0.5]
-        viewer.cam.distance = 2.5
-        viewer.cam.azimuth = 90
+        # 2. Get State
+        current_state = get_song_state(now_ms)
         
-        while viewer.is_running():
-            step_start = time.time()
+        # 3. Handle State Changes (Transitions)
+        if current_state != last_state:
+            print(f"\n[{now:.1f}s] >>> SWITCHING TO {current_state.name}")
             
-            # Sync
-            music_pos = pygame.mixer.music.get_pos()
-            now = (time.time() - start_time) if music_pos == -1 else (music_pos / 1000.0)
-            song_state = get_song_state_by_time_ms(music_pos)
-            print(song_state)
+            if current_state == SongState.CHORUS:
+                # Enter Chorus Mode
+                send_command("ledPink")
+                send_command("dance1") 
+                
+            elif current_state == SongState.YOUNG_MAN:
+                # Enter Verse Mode
+                send_command("ledGreen")
+                send_command("stand") # Stop dancing, get ready to groove
+                
+            elif current_state == SongState.OUTRO:
+                send_command("ledOff")
+                send_command("standDown")
+                
+            last_state = current_state
 
-            # Brain
-            evt, phase = get_beat_phase(now, events)
+        # 4. Handle Beats (Rhythmic Actions)
+        if now >= next_beat_time:
+            # We hit a beat!
             
-            # Body
-            if evt["type"] == "CHORUS":
-                # Pose
-                poses = ['Y', 'M', 'C', 'A']
-                target = get_pose_by_letter(poses[evt["bar_index"] % 4])
-                txt = f"POSE: {poses[evt['bar_index'] % 4]}"
-            else:
-                # March
-                target = march_in_place(phase, evt["drum"])
-                txt = f"MARCH: {evt['drum']}"
+            if current_state == SongState.INTRO:
+                # Slow moves on beat
+                cmd = MOVES_INTRO[move_index % len(MOVES_INTRO)]
+                send_command(cmd)
+                print(f"[{now:.2f}s] INTRO: {cmd}")
+                move_index += 1
+                
+            elif current_state == SongState.YOUNG_MAN:
+                # Verse moves (Twisting/Leaning)
+                cmd = MOVES_VERSE[move_index % len(MOVES_VERSE)]
+                send_command(cmd)
+                print(f"[{now:.2f}s] VERSE: {cmd}")
+                move_index += 1
+                
+            elif current_state == SongState.CHORUS:
+                # In chorus, the 'dance1' command mostly handles itself.
+                # But 'dance1' might time out after 5 seconds (depending on dashboard).
+                # Let's re-trigger specific dance moves every 4 bars (approx 8s) or switch it up.
+                if beat_counter % 16 == 0: # Every ~8 seconds
+                    send_command("dance2")
+                    print(f"[{now:.2f}s] CHORUS: Switch to Dance 2")
+                elif beat_counter % 16 == 8:
+                    send_command("dance1")
+                    print(f"[{now:.2f}s] CHORUS: Switch to Dance 1")
+                
+                # Flash LEDs on the beat for extra flair
+                if beat_counter % 2 == 0:
+                    send_command("ledRed")
+                else:
+                    send_command("ledBlue")
 
-            # Physics
-            d_mj.ctrl[:12] = target
-            for _ in range(10): # High frequency physics
-                mujoco.mj_step(model, d_mj)
+            # Schedule next beat
+            next_beat_time += beat_interval
+            beat_counter += 1
             
-            viewer.sync()
-            
-            if phase < 0.05: # Print on beat start
-                print(f"[{now:.2f}s] {txt}")
-
-            # Frame rate
-            elapsed = time.time() - step_start
-            if elapsed < 0.016:
-                time.sleep(0.016 - elapsed)
-
-    pygame.quit()
+        time.sleep(0.01) # High frequency loop
 
 if __name__ == "__main__":
     main()
