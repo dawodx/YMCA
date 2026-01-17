@@ -1,0 +1,11 @@
+{
+  "for1": {
+    "base_cmd": "go_forward",
+    "params": {
+      "speed": 0.2,
+      "duration": 200
+    },
+    "function": "robot.go_forward(speed, duration)",
+    "description": "Walk forward"
+  }
+}

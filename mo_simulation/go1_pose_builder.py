@@ -529,13 +529,34 @@ HTML = """<!DOCTYPE html>
             const container = document.getElementById('savedPoses');
             container.innerHTML = '';
             for (const [name, pose] of Object.entries(savedPoses)) {
+                const wrapper = document.createElement('div');
+                wrapper.style.cssText = 'position:relative;display:inline-block;margin:3px;';
+
                 const btn = document.createElement('button');
                 btn.className = 'pose-btn';
                 btn.textContent = name;
                 btn.onclick = () => { setSliders(pose); sendPose(); };
                 btn.ondblclick = () => addToSequence(name, pose);
-                container.appendChild(btn);
+
+                const delBtn = document.createElement('span');
+                delBtn.textContent = 'x';
+                delBtn.style.cssText = 'position:absolute;top:-6px;right:-6px;background:#f44336;color:white;border-radius:50%;width:16px;height:16px;font-size:10px;cursor:pointer;display:flex;align-items:center;justify-content:center;font-weight:bold;';
+                delBtn.onclick = (e) => { e.stopPropagation(); deletePose(name); };
+
+                wrapper.appendChild(btn);
+                wrapper.appendChild(delBtn);
+                container.appendChild(wrapper);
             }
+        }
+
+        async function deletePose(name) {
+            if (!confirm('Delete "' + name + '"?')) return;
+            await fetch('/api/delete_pose', {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({name: name})
+            });
+            loadSavedPoses();
         }
 
         function addToSequence(name, pose) {

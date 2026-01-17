@@ -13,8 +13,47 @@ import asyncio
 import json
 import subprocess
 import time
+import os
+import urllib.parse
 from http.server import HTTPServer, SimpleHTTPRequestHandler
+from pathlib import Path
 import webbrowser
+
+SCRIPT_DIR = Path(__file__).parent
+SEQUENCES_DIR = SCRIPT_DIR / "sequences"
+SAVED_POSES_FILE = SCRIPT_DIR / "saved_poses.json"
+CUSTOM_COMMANDS_FILE = SCRIPT_DIR / "custom_commands.json"
+DEFAULT_PARAMS_FILE = SCRIPT_DIR / "default_params.json"
+
+
+def load_default_params():
+    """Load saved default parameters from Parameter Editor."""
+    if DEFAULT_PARAMS_FILE.exists():
+        try:
+            with open(DEFAULT_PARAMS_FILE, 'r') as f:
+                return json.load(f)
+        except:
+            pass
+    return {}
+
+
+def get_param(cmd_id, param_name, fallback):
+    """Get a parameter value, using saved default if available."""
+    defaults = load_default_params()
+    if cmd_id in defaults and param_name in defaults[cmd_id]:
+        return defaults[cmd_id][param_name]
+    return fallback
+
+
+def load_custom_commands():
+    """Load custom commands from Parameter Editor."""
+    if CUSTOM_COMMANDS_FILE.exists():
+        try:
+            with open(CUSTOM_COMMANDS_FILE, 'r') as f:
+                return json.load(f)
+        except:
+            pass
+    return {}
 
 try:
     from go1pylib import Go1, Go1Mode
@@ -29,6 +68,46 @@ action_log = []
 connected = False
 recorded_sequence = []
 is_recording = False
+
+# Ensure sequences directory exists
+SEQUENCES_DIR.mkdir(exist_ok=True)
+
+
+def load_saved_poses():
+    """Load custom poses from saved_poses.json"""
+    if SAVED_POSES_FILE.exists():
+        try:
+            with open(SAVED_POSES_FILE, 'r') as f:
+                return json.load(f)
+        except:
+            pass
+    return {}
+
+
+def get_sequence_files():
+    """Get list of saved sequence files."""
+    files = []
+    if SEQUENCES_DIR.exists():
+        for f in SEQUENCES_DIR.glob("*.json"):
+            files.append(f.stem)
+    return sorted(files)
+
+
+def save_sequence_file(name, sequence):
+    """Save sequence to file."""
+    filepath = SEQUENCES_DIR / f"{name}.json"
+    with open(filepath, 'w') as f:
+        json.dump(sequence, f, indent=2)
+    return True
+
+
+def load_sequence_file(name):
+    """Load sequence from file."""
+    filepath = SEQUENCES_DIR / f"{name}.json"
+    if filepath.exists():
+        with open(filepath, 'r') as f:
+            return json.load(f)
+    return []
 
 # ============== ROBOT CONTROL ==============
 
@@ -202,20 +281,24 @@ def execute_command(cmd):
         return timed_action(cmd, lambda: robot.set_mode(Go1Mode.STAND_DOWN))
     elif cmd == "ymcaC":
         # C Pose: Lean right (body pose)
+        intensity = get_param("lean_right", "intensity", 0.6)
+        duration = int(get_param("lean_right", "duration", 300))
         def do_c_pose():
             robot.set_mode(Go1Mode.STAND)
             time.sleep(0.2)
             loop = asyncio.new_event_loop()
-            loop.run_until_complete(robot.lean_right(0.6, 300))
+            loop.run_until_complete(robot.lean_right(intensity, duration))
             loop.close()
         return timed_action(cmd, do_c_pose)
     elif cmd == "ymcaA":
         # A Pose: Tall stance
+        intensity = get_param("extend_up", "intensity", 0.5)
+        duration = int(get_param("extend_up", "duration", 300))
         def do_a_pose():
             robot.set_mode(Go1Mode.STAND)
             time.sleep(0.2)
             loop = asyncio.new_event_loop()
-            loop.run_until_complete(robot.extend_up(0.5, 300))
+            loop.run_until_complete(robot.extend_up(intensity, duration))
             loop.close()
         return timed_action(cmd, do_a_pose)
     elif cmd == "ymcaMarch":
@@ -223,6 +306,8 @@ def execute_command(cmd):
         return timed_action(cmd, lambda: robot.set_mode(Go1Mode.DANCE1))
     elif cmd == "ymcaDance":
         # Full YMCA dance sequence
+        lean_intensity = get_param("lean_right", "intensity", 0.6)
+        lean_duration = int(get_param("lean_right", "duration", 300))
         def do_ymca_dance():
             poses = [
                 (Go1Mode.DANCE1, 2.0),       # Intro march
@@ -242,7 +327,7 @@ def execute_command(cmd):
                     robot.set_mode(Go1Mode.STAND)
                     time.sleep(0.2)
                     loop = asyncio.new_event_loop()
-                    loop.run_until_complete(robot.lean_right(0.6, 300))
+                    loop.run_until_complete(robot.lean_right(lean_intensity, lean_duration))
                     loop.close()
                 else:
                     robot.set_mode(pose)
@@ -262,17 +347,29 @@ async def execute_movement(cmd):
     robot.set_mode(Go1Mode.WALK)
 
     if cmd == "forward":
-        return await timed_async_action(cmd, robot.go_forward(0.5, 200))
+        speed = get_param("go_forward", "speed", 0.5)
+        duration = int(get_param("go_forward", "duration", 200))
+        return await timed_async_action(cmd, robot.go_forward(speed, duration))
     elif cmd == "backward":
-        return await timed_async_action(cmd, robot.go_backward(0.5, 200))
+        speed = get_param("go_backward", "speed", 0.5)
+        duration = int(get_param("go_backward", "duration", 200))
+        return await timed_async_action(cmd, robot.go_backward(speed, duration))
     elif cmd == "left":
-        return await timed_async_action(cmd, robot.go_left(0.4, 200))
+        speed = get_param("go_left", "speed", 0.4)
+        duration = int(get_param("go_left", "duration", 200))
+        return await timed_async_action(cmd, robot.go_left(speed, duration))
     elif cmd == "right":
-        return await timed_async_action(cmd, robot.go_right(0.4, 200))
+        speed = get_param("go_right", "speed", 0.4)
+        duration = int(get_param("go_right", "duration", 200))
+        return await timed_async_action(cmd, robot.go_right(speed, duration))
     elif cmd == "turnLeft":
-        return await timed_async_action(cmd, robot.turn_left(0.6, 200))
+        speed = get_param("turn_left", "speed", 0.6)
+        duration = int(get_param("turn_left", "duration", 200))
+        return await timed_async_action(cmd, robot.turn_left(speed, duration))
     elif cmd == "turnRight":
-        return await timed_async_action(cmd, robot.turn_right(0.6, 200))
+        speed = get_param("turn_right", "speed", 0.6)
+        duration = int(get_param("turn_right", "duration", 200))
+        return await timed_async_action(cmd, robot.turn_right(speed, duration))
 
     return {"name": cmd, "time_ms": 0, "success": False, "error": "Unknown movement"}
 
@@ -288,21 +385,37 @@ async def execute_pose(cmd):
     await asyncio.sleep(0.1)
 
     if cmd == "lookUp":
-        return await timed_async_action(cmd, robot.look_up(0.5, 300))
+        intensity = get_param("look_up", "intensity", 0.5)
+        duration = int(get_param("look_up", "duration", 300))
+        return await timed_async_action(cmd, robot.look_up(intensity, duration))
     elif cmd == "lookDown":
-        return await timed_async_action(cmd, robot.look_down(0.5, 300))
+        intensity = get_param("look_down", "intensity", 0.5)
+        duration = int(get_param("look_down", "duration", 300))
+        return await timed_async_action(cmd, robot.look_down(intensity, duration))
     elif cmd == "leanLeft":
-        return await timed_async_action(cmd, robot.lean_left(0.5, 300))
+        intensity = get_param("lean_left", "intensity", 0.5)
+        duration = int(get_param("lean_left", "duration", 300))
+        return await timed_async_action(cmd, robot.lean_left(intensity, duration))
     elif cmd == "leanRight":
-        return await timed_async_action(cmd, robot.lean_right(0.5, 300))
+        intensity = get_param("lean_right", "intensity", 0.5)
+        duration = int(get_param("lean_right", "duration", 300))
+        return await timed_async_action(cmd, robot.lean_right(intensity, duration))
     elif cmd == "twistLeft":
-        return await timed_async_action(cmd, robot.twist_left(0.5, 300))
+        intensity = get_param("twist_left", "intensity", 0.5)
+        duration = int(get_param("twist_left", "duration", 300))
+        return await timed_async_action(cmd, robot.twist_left(intensity, duration))
     elif cmd == "twistRight":
-        return await timed_async_action(cmd, robot.twist_right(0.5, 300))
+        intensity = get_param("twist_right", "intensity", 0.5)
+        duration = int(get_param("twist_right", "duration", 300))
+        return await timed_async_action(cmd, robot.twist_right(intensity, duration))
     elif cmd == "squat":
-        return await timed_async_action(cmd, robot.squat_down(0.5, 300))
+        intensity = get_param("squat_down", "intensity", 0.5)
+        duration = int(get_param("squat_down", "duration", 300))
+        return await timed_async_action(cmd, robot.squat_down(intensity, duration))
     elif cmd == "extend":
-        return await timed_async_action(cmd, robot.extend_up(0.5, 300))
+        intensity = get_param("extend_up", "intensity", 0.5)
+        duration = int(get_param("extend_up", "duration", 300))
+        return await timed_async_action(cmd, robot.extend_up(intensity, duration))
 
     return {"name": cmd, "time_ms": 0, "success": False, "error": "Unknown pose"}
 
@@ -566,7 +679,6 @@ HTML = """<!DOCTYPE html>
     <div class="mode-selector">
         <button class="mode-btn realtime active" onclick="setMode('realtime')">REALTIME</button>
         <button class="mode-btn record" onclick="setMode('record')">REC</button>
-        <button class="mode-btn teach" onclick="startTeachMode()" style="background:#00BCD4;">TEACH</button>
         <button class="mode-btn play" onclick="playSequence()">PLAY</button>
         <button class="mode-btn stop" onclick="stopPlayback()" style="background:#f44336;">STOP</button>
     </div>
@@ -576,9 +688,6 @@ HTML = """<!DOCTYPE html>
         <div class="progress" id="playProgress">0 / 0</div>
     </div>
 
-    <div class="teach-banner" id="teachBanner">
-        TEACH MODE: Robot is soft - move legs manually, then use Body Pose buttons to record positions
-    </div>
 
     <div class="container">
         <div class="main-panel">
@@ -589,6 +698,7 @@ HTML = """<!DOCTYPE html>
                     <button class="btn" style="background:#9C27B0;" onclick="startSimulation()">Start Simulation</button>
                     <button class="btn" style="background:#607D8B;" onclick="resetSimulation()">Reset Sim</button>
                     <button class="btn" style="background:#00BCD4;" onclick="openPoseBuilder()">Pose Builder</button>
+                    <button class="btn" style="background:#FF9800;" onclick="openParamEditor()">Param Editor</button>
                 </div>
             </div>
 
@@ -626,6 +736,16 @@ HTML = """<!DOCTYPE html>
                 <h2>YMCA Dance</h2>
                 <div class="btn-grid" id="ymca-btns"></div>
             </div>
+
+            <div class="panel">
+                <h2>Custom Poses (from Pose Builder)</h2>
+                <div class="btn-grid" id="custom-pose-btns"></div>
+            </div>
+
+            <div class="panel">
+                <h2>Custom Commands (from Param Editor)</h2>
+                <div class="btn-grid" id="custom-cmd-btns"></div>
+            </div>
         </div>
 
         <div class="side-panel">
@@ -648,8 +768,21 @@ HTML = """<!DOCTYPE html>
                 <div class="sequence-panel" id="sequence"></div>
                 <div class="sequence-controls">
                     <button class="seq-btn" style="background:#f44336;" onclick="clearSequence()">Clear</button>
-                    <button class="seq-btn" style="background:#9C27B0;" onclick="saveSequence()">Save</button>
-                    <button class="seq-btn" style="background:#607D8B;" onclick="loadSequence()">Load</button>
+                </div>
+                <div style="margin-top:10px;">
+                    <input type="text" id="seqFileName" placeholder="Sequence name..." style="width:100%;padding:8px;border-radius:6px;border:1px solid #444;background:#222;color:white;margin-bottom:8px;">
+                    <div class="sequence-controls">
+                        <button class="seq-btn" style="background:#9C27B0;" onclick="saveSequenceToFile()">Save to File</button>
+                    </div>
+                </div>
+                <div style="margin-top:10px;">
+                    <select id="seqFileSelect" style="width:100%;padding:8px;border-radius:6px;border:1px solid #444;background:#222;color:white;margin-bottom:8px;">
+                        <option value="">-- Select sequence --</option>
+                    </select>
+                    <div class="sequence-controls">
+                        <button class="seq-btn" style="background:#607D8B;" onclick="loadSequenceFromFile()">Load from File</button>
+                        <button class="seq-btn" style="background:#2196F3;" onclick="refreshSequenceList()">Refresh</button>
+                    </div>
                 </div>
             </div>
 
@@ -793,20 +926,109 @@ HTML = """<!DOCTYPE html>
             renderSequence();
         }
 
-        function saveSequence() {
-            const json = JSON.stringify(sequence);
-            localStorage.setItem('go1_sequence', json);
-            alert('Sequence saved! (' + sequence.length + ' actions)');
+        async function saveSequenceToFile() {
+            const name = document.getElementById('seqFileName').value.trim();
+            if (!name) {
+                alert('Enter a sequence name!');
+                return;
+            }
+            if (sequence.length === 0) {
+                alert('No actions to save!');
+                return;
+            }
+            try {
+                const res = await fetch('/api/sequence/save', {
+                    method: 'POST',
+                    headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify({name: name, sequence: sequence})
+                });
+                const data = await res.json();
+                if (data.success) {
+                    addLog('Saved: ' + name, true, 0);
+                    document.getElementById('seqFileName').value = '';
+                    refreshSequenceList();
+                } else {
+                    alert('Save failed!');
+                }
+            } catch(e) {
+                alert('Save error: ' + e);
+            }
         }
 
-        function loadSequence() {
-            const json = localStorage.getItem('go1_sequence');
-            if (json) {
-                sequence = JSON.parse(json);
+        async function loadSequenceFromFile() {
+            const name = document.getElementById('seqFileSelect').value;
+            if (!name) {
+                alert('Select a sequence file!');
+                return;
+            }
+            try {
+                const res = await fetch('/api/sequence/load/' + encodeURIComponent(name));
+                const data = await res.json();
+                if (data.sequence) {
+                    sequence = data.sequence;
+                    renderSequence();
+                    addLog('Loaded: ' + name, true, 0);
+                } else {
+                    alert('Load failed!');
+                }
+            } catch(e) {
+                alert('Load error: ' + e);
+            }
+        }
+
+        async function refreshSequenceList() {
+            try {
+                const res = await fetch('/api/sequence/list');
+                const data = await res.json();
+                const select = document.getElementById('seqFileSelect');
+                select.innerHTML = '<option value="">-- Select sequence --</option>';
+                for (const name of data.files || []) {
+                    const opt = document.createElement('option');
+                    opt.value = name;
+                    opt.textContent = name;
+                    select.appendChild(opt);
+                }
+            } catch(e) {
+                console.error('Failed to load sequence list');
+            }
+        }
+
+        async function loadCustomPoses() {
+            try {
+                const res = await fetch('/api/custom_poses');
+                const poses = await res.json();
+                const container = document.getElementById('custom-pose-btns');
+                container.innerHTML = '';
+                for (const [name, pose] of Object.entries(poses)) {
+                    const btn = document.createElement('button');
+                    btn.className = 'btn';
+                    btn.style.background = '#00BCD4';
+                    btn.textContent = name;
+                    btn.onclick = () => sendCustomPose(name, pose);
+                    container.appendChild(btn);
+                }
+            } catch(e) {
+                console.error('Failed to load custom poses');
+            }
+        }
+
+        async function sendCustomPose(name, pose) {
+            if (currentMode === 'record') {
+                // Add as custom pose to sequence
+                sequence.push({ cmd: 'customPose:' + name, name: name, duration: 800, pose: pose });
                 renderSequence();
-                alert('Sequence loaded! (' + sequence.length + ' actions)');
             } else {
-                alert('No saved sequence found');
+                // Execute immediately
+                try {
+                    await fetch('/api/custom_pose', {
+                        method: 'POST',
+                        headers: {'Content-Type': 'application/json'},
+                        body: JSON.stringify({pose: pose})
+                    });
+                    addLog(name, true, 0);
+                } catch(e) {
+                    addLog(name + ' failed', false, 0);
+                }
             }
         }
 
@@ -909,18 +1131,61 @@ HTML = """<!DOCTYPE html>
 
         async function openPoseBuilder() {
             addLog('Opening Pose Builder...', true, 0);
+            // Start the server first
+            fetch('/api/start_pose_builder', {method: 'POST'});
+            // Open the page after a short delay
+            setTimeout(() => {
+                window.open('http://localhost:8892', '_blank');
+            }, 1000);
+        }
+
+        async function openParamEditor() {
+            addLog('Opening Param Editor...', true, 0);
+            // Start the server first
+            fetch('/api/start_param_editor', {method: 'POST'});
+            // Open the page after a short delay
+            setTimeout(() => {
+                window.open('http://localhost:8893', '_blank');
+            }, 1000);
+        }
+
+        async function loadCustomCommands() {
             try {
-                const res = await fetch('/api/start_pose_builder', {method: 'POST'});
-                const data = await res.json();
-                if (data.success) {
-                    addLog('Pose Builder opened', true, 0);
-                    window.open('http://localhost:8892', '_blank');
-                } else {
-                    addLog('Error: ' + data.error, false, 0);
+                const res = await fetch('/api/custom_commands');
+                const cmds = await res.json();
+                const container = document.getElementById('custom-cmd-btns');
+                container.innerHTML = '';
+                for (const [name, cmd] of Object.entries(cmds)) {
+                    const btn = document.createElement('button');
+                    btn.className = 'btn';
+                    btn.style.background = '#FF9800';
+                    btn.textContent = name;
+                    btn.onclick = () => runCustomCommand(name, cmd);
+                    container.appendChild(btn);
+                }
+                if (Object.keys(cmds).length === 0) {
+                    container.innerHTML = '<span style="color:#666;font-size:11px;">No custom commands yet</span>';
                 }
             } catch(e) {
-                // Try opening directly if already running
-                window.open('http://localhost:8892', '_blank');
+                console.error('Failed to load custom commands');
+            }
+        }
+
+        async function runCustomCommand(name, cmd) {
+            if (currentMode === 'record') {
+                sequence.push({ cmd: 'customCmd:' + name, name: name, duration: 500 });
+                renderSequence();
+            } else {
+                try {
+                    await fetch('/api/run_custom_command', {
+                        method: 'POST',
+                        headers: {'Content-Type': 'application/json'},
+                        body: JSON.stringify({base_cmd: cmd.base_cmd, params: cmd.params})
+                    });
+                    addLog(name, true, 0);
+                } catch(e) {
+                    addLog(name + ' failed', false, 0);
+                }
             }
         }
 
@@ -977,6 +1242,9 @@ HTML = """<!DOCTYPE html>
         }, 3000);
 
         createButtons();
+        loadCustomPoses();
+        loadCustomCommands();
+        refreshSequenceList();
     </script>
 </body>
 </html>
@@ -996,6 +1264,19 @@ class DashboardHandler(SimpleHTTPRequestHandler):
             self.wfile.write(html.encode())
         elif self.path == '/api/status':
             self.send_json({'connected': connected, 'log': action_log[-10:]})
+        elif self.path == '/api/custom_poses':
+            poses = load_saved_poses()
+            self.send_json(poses)
+        elif self.path == '/api/sequence/list':
+            files = get_sequence_files()
+            self.send_json({'files': files})
+        elif self.path.startswith('/api/sequence/load/'):
+            name = urllib.parse.unquote(self.path.split('/')[-1])
+            seq = load_sequence_file(name)
+            self.send_json({'sequence': seq})
+        elif self.path == '/api/custom_commands':
+            cmds = load_custom_commands()
+            self.send_json(cmds)
         else:
             self.send_error(404)
 
@@ -1066,7 +1347,6 @@ class DashboardHandler(SimpleHTTPRequestHandler):
         elif self.path == '/api/start_pose_builder':
             start = time.time()
             try:
-                from pathlib import Path
                 script_dir = Path(__file__).parent
                 project_root = script_dir.parent
                 python_cmd = project_root / ".venv" / "bin" / "python"
@@ -1086,6 +1366,125 @@ class DashboardHandler(SimpleHTTPRequestHandler):
                 subprocess.Popen(["osascript", "-e", apple_script])
                 elapsed = (time.time() - start) * 1000
                 self.send_json({'success': True, 'time_ms': round(elapsed, 1)})
+            except Exception as e:
+                self.send_json({'success': False, 'error': str(e)})
+
+        elif self.path == '/api/start_param_editor':
+            start = time.time()
+            try:
+                script_dir = Path(__file__).parent
+                project_root = script_dir.parent
+                python_cmd = project_root / ".venv" / "bin" / "python"
+                param_script = script_dir / "go1_param_editor.py"
+
+                if not param_script.exists():
+                    self.send_json({'success': False, 'error': 'Param Editor not found'})
+                    return
+
+                apple_script = f'''
+                tell application "Terminal"
+                    activate
+                    do script "cd {project_root} && {python_cmd} {param_script}"
+                end tell
+                '''
+                subprocess.Popen(["osascript", "-e", apple_script])
+                elapsed = (time.time() - start) * 1000
+                self.send_json({'success': True, 'time_ms': round(elapsed, 1)})
+            except Exception as e:
+                self.send_json({'success': False, 'error': str(e)})
+
+        elif self.path == '/api/run_custom_command':
+            try:
+                content_length = int(self.headers.get('Content-Length', 0))
+                body = self.rfile.read(content_length).decode()
+                data = json.loads(body)
+                base_cmd = data.get('base_cmd')
+                params = data.get('params', {})
+
+                if robot and connected:
+                    loop = asyncio.new_event_loop()
+                    robot.set_mode(Go1Mode.STAND)
+                    time.sleep(0.1)
+
+                    intensity = params.get('intensity', 0.5)
+                    duration = int(params.get('duration', 300))
+                    speed = params.get('speed', 0.5)
+
+                    if base_cmd == 'look_up':
+                        loop.run_until_complete(robot.look_up(intensity, duration))
+                    elif base_cmd == 'look_down':
+                        loop.run_until_complete(robot.look_down(intensity, duration))
+                    elif base_cmd == 'lean_left':
+                        loop.run_until_complete(robot.lean_left(intensity, duration))
+                    elif base_cmd == 'lean_right':
+                        loop.run_until_complete(robot.lean_right(intensity, duration))
+                    elif base_cmd == 'twist_left':
+                        loop.run_until_complete(robot.twist_left(intensity, duration))
+                    elif base_cmd == 'twist_right':
+                        loop.run_until_complete(robot.twist_right(intensity, duration))
+                    elif base_cmd == 'squat_down':
+                        loop.run_until_complete(robot.squat_down(intensity, duration))
+                    elif base_cmd == 'extend_up':
+                        loop.run_until_complete(robot.extend_up(intensity, duration))
+                    elif base_cmd == 'go_forward':
+                        robot.set_mode(Go1Mode.WALK)
+                        loop.run_until_complete(robot.go_forward(speed, duration))
+                    elif base_cmd == 'go_backward':
+                        robot.set_mode(Go1Mode.WALK)
+                        loop.run_until_complete(robot.go_backward(speed, duration))
+                    elif base_cmd == 'set_led':
+                        robot.set_led_color(int(params.get('r', 0)), int(params.get('g', 0)), int(params.get('b', 0)))
+                    loop.close()
+
+                self.send_json({'success': True})
+            except Exception as e:
+                self.send_json({'success': False, 'error': str(e)})
+
+        elif self.path == '/api/sequence/save':
+            try:
+                content_length = int(self.headers.get('Content-Length', 0))
+                body = self.rfile.read(content_length).decode()
+                data = json.loads(body)
+                name = data.get('name', 'untitled')
+                seq = data.get('sequence', [])
+                save_sequence_file(name, seq)
+                self.send_json({'success': True})
+            except Exception as e:
+                self.send_json({'success': False, 'error': str(e)})
+
+        elif self.path == '/api/custom_pose':
+            try:
+                content_length = int(self.headers.get('Content-Length', 0))
+                body = self.rfile.read(content_length).decode()
+                data = json.loads(body)
+                pose = data.get('pose', {})
+                # Execute the custom body pose
+                if robot and connected:
+                    robot.set_mode(Go1Mode.STAND)
+                    time.sleep(0.1)
+                    loop = asyncio.new_event_loop()
+                    roll = pose.get('roll', 0)
+                    pitch = pose.get('pitch', 0)
+                    yaw = pose.get('yaw', 0)
+                    height = pose.get('height', 0)
+                    if roll < 0:
+                        loop.run_until_complete(robot.lean_left(abs(roll), 200))
+                    elif roll > 0:
+                        loop.run_until_complete(robot.lean_right(abs(roll), 200))
+                    if pitch < 0:
+                        loop.run_until_complete(robot.look_down(abs(pitch), 200))
+                    elif pitch > 0:
+                        loop.run_until_complete(robot.look_up(abs(pitch), 200))
+                    if yaw < 0:
+                        loop.run_until_complete(robot.twist_left(abs(yaw), 200))
+                    elif yaw > 0:
+                        loop.run_until_complete(robot.twist_right(abs(yaw), 200))
+                    if height < 0:
+                        loop.run_until_complete(robot.squat_down(abs(height), 200))
+                    elif height > 0:
+                        loop.run_until_complete(robot.extend_up(abs(height), 200))
+                    loop.close()
+                self.send_json({'success': True})
             except Exception as e:
                 self.send_json({'success': False, 'error': str(e)})
 

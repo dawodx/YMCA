@@ -62,6 +62,13 @@ DEMOS = {
         "description": "Create custom poses with joint sliders! Save poses and build choreography sequences.",
         "use_mjpython": False
     },
+    "go1_param_editor": {
+        "name": "Go1 Parameter Editor",
+        "script": "mo_simulation/go1_param_editor.py",
+        "icon": "⚙️",
+        "description": "See and tweak actual function parameters! Adjust intensity, speed, duration and save custom commands.",
+        "use_mjpython": False
+    },
 }
 
 HTML = """<!DOCTYPE html>

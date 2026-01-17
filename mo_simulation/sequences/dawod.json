@@ -1,0 +1,32 @@
+[
+  {
+    "cmd": "backward",
+    "name": "Backward",
+    "duration": 200
+  },
+  {
+    "cmd": "dance2",
+    "name": "Dance 2",
+    "duration": 5000
+  },
+  {
+    "cmd": "dance1",
+    "name": "Dance 1",
+    "duration": 5000
+  },
+  {
+    "cmd": "lookUp",
+    "name": "Look Up",
+    "duration": 400
+  },
+  {
+    "cmd": "lookDown",
+    "name": "Look Down",
+    "duration": 400
+  },
+  {
+    "cmd": "leanRight",
+    "name": "Lean R",
+    "duration": 400
+  }
+]
