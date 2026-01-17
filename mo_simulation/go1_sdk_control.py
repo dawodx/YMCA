@@ -12,6 +12,7 @@ SETUP:
 3. Run this script!
 """
 
+import asyncio
 import sys
 import time
 
@@ -24,17 +25,22 @@ except ImportError:
 
 
 def get_key():
-    """Get single keypress from terminal."""
+    """Get single keypress from terminal (non-blocking style)."""
     import tty
     import termios
+    import select
+
     fd = sys.stdin.fileno()
     old_settings = termios.tcgetattr(fd)
     try:
         tty.setraw(fd)
-        ch = sys.stdin.read(1)
+        # Check if input is available (with short timeout)
+        if select.select([sys.stdin], [], [], 0.05)[0]:
+            ch = sys.stdin.read(1)
+            return ch
+        return None
     finally:
         termios.tcsetattr(fd, termios.TCSADRAIN, old_settings)
-    return ch
 
 
 class Go1Controller:
@@ -61,7 +67,7 @@ class Go1Controller:
         """Disconnect from robot."""
         print("Disconnected.")
 
-    # ============== MODE COMMANDS ==============
+    # ============== MODE COMMANDS (sync - these work immediately) ==============
 
     def stand(self):
         """Default stand."""
@@ -129,43 +135,37 @@ class Go1Controller:
         self.current_mode = "STRAIGHT_HAND"
         print("Mode: STRAIGHT HAND")
 
-    # ============== MOVEMENT COMMANDS ==============
+    # ============== MOVEMENT COMMANDS (async - need await) ==============
 
-    def go_forward(self, speed=0.3, duration=500):
-        """Walk forward."""
+    async def go_forward(self, speed=0.4):
+        """Walk forward - short burst."""
         self.robot.set_mode(Go1Mode.WALK)
-        self.robot.go_forward(speed=speed, duration_ms=duration)
-        print(f"Forward (speed={speed})")
+        await self.robot.go_forward(speed=speed, duration_ms=100)
 
-    def go_backward(self, speed=0.3, duration=500):
-        """Walk backward."""
+    async def go_backward(self, speed=0.4):
+        """Walk backward - short burst."""
         self.robot.set_mode(Go1Mode.WALK)
-        self.robot.go_backward(speed=speed, duration_ms=duration)
-        print(f"Backward (speed={speed})")
+        await self.robot.go_backward(speed=speed, duration_ms=100)
 
-    def go_left(self, speed=0.3, duration=500):
-        """Strafe left."""
+    async def go_left(self, speed=0.3):
+        """Strafe left - short burst."""
         self.robot.set_mode(Go1Mode.WALK)
-        self.robot.go_left(speed=speed, duration_ms=duration)
-        print(f"Strafe left (speed={speed})")
+        await self.robot.go_left(speed=speed, duration_ms=100)
 
-    def go_right(self, speed=0.3, duration=500):
-        """Strafe right."""
+    async def go_right(self, speed=0.3):
+        """Strafe right - short burst."""
         self.robot.set_mode(Go1Mode.WALK)
-        self.robot.go_right(speed=speed, duration_ms=duration)
-        print(f"Strafe right (speed={speed})")
+        await self.robot.go_right(speed=speed, duration_ms=100)
 
-    def turn_left(self, speed=0.5, duration=500):
-        """Turn left."""
+    async def turn_left(self, speed=0.6):
+        """Turn left - short burst."""
         self.robot.set_mode(Go1Mode.WALK)
-        self.robot.turn_left(speed=speed, duration_ms=duration)
-        print(f"Turn left (speed={speed})")
+        await self.robot.turn_left(speed=speed, duration_ms=100)
 
-    def turn_right(self, speed=0.5, duration=500):
-        """Turn right."""
+    async def turn_right(self, speed=0.6):
+        """Turn right - short burst."""
         self.robot.set_mode(Go1Mode.WALK)
-        self.robot.turn_right(speed=speed, duration_ms=duration)
-        print(f"Turn right (speed={speed})")
+        await self.robot.turn_right(speed=speed, duration_ms=100)
 
     # ============== BODY POSE COMMANDS ==============
 
@@ -237,7 +237,7 @@ class Go1Controller:
         print("LED: OFF")
 
 
-def main():
+async def main():
     print("\n" + "=" * 60)
     print("  GO1 SDK CONTROL - Standard Unitree Movements")
     print("=" * 60)
@@ -245,7 +245,7 @@ def main():
     print("  1. Turn on Go1 robot")
     print("  2. Connect Mac to Go1 WiFi (Unitree_GoXXXX)")
     print("     Password: 00000000 or 88888888")
-    print("\n  MOVEMENT (in walk mode):")
+    print("\n  MOVEMENT (hold key for continuous):")
     print("    w/s      = Forward/Backward")
     print("    a/d      = Turn left/right")
     print("    q/e      = Strafe left/right")
@@ -280,7 +280,7 @@ def main():
         return
 
     # Start in standing mode
-    time.sleep(0.5)
+    await asyncio.sleep(0.5)
     robot.stand()
 
     print("\nReady! Press keys to control the robot.\n")
@@ -289,26 +289,36 @@ def main():
         while True:
             key = get_key()
 
+            if key is None:
+                await asyncio.sleep(0.01)  # Small delay when no input
+                continue
+
             # Exit
             if key == '0':
                 print("\nExiting...")
                 break
 
-            # Movement
+            # Movement (async)
             elif key == 'w':
-                robot.go_forward(0.4)
+                print("Forward")
+                await robot.go_forward(0.5)
             elif key == 's':
-                robot.go_backward(0.3)
+                print("Backward")
+                await robot.go_backward(0.5)
             elif key == 'a':
-                robot.turn_left(0.8)
+                print("Turn left")
+                await robot.turn_left(0.7)
             elif key == 'd':
-                robot.turn_right(0.8)
+                print("Turn right")
+                await robot.turn_right(0.7)
             elif key == 'q':
-                robot.go_left(0.3)
+                print("Strafe left")
+                await robot.go_left(0.4)
             elif key == 'e':
-                robot.go_right(0.3)
+                print("Strafe right")
+                await robot.go_right(0.4)
 
-            # Modes
+            # Modes (sync - instant)
             elif key == ' ':
                 robot.stand()
             elif key == 'z':
@@ -364,11 +374,11 @@ def main():
         print("\nInterrupted!")
     finally:
         robot.stand()
-        time.sleep(0.3)
+        await asyncio.sleep(0.2)
         robot.disconnect()
 
     print("\nDone!")
 
 
 if __name__ == "__main__":
-    main()
+    asyncio.run(main())
