@@ -145,6 +145,61 @@ class Go1Controller:
         self.robot.mqtt.client.publish("controller/action", "jumpYaw", qos=1)
         print("Mode: JUMP YAW")
 
+    # ============== RAW MQTT COMMANDS (all available moves) ==============
+
+    def send_action(self, action, name):
+        """Send raw MQTT action command."""
+        self.robot.mqtt.client.publish("controller/action", action, qos=1)
+        print(f"Action: {name}")
+
+    def dance3(self):
+        """Dance 3 - may be blacklisted on some models."""
+        self.send_action("dance3", "DANCE 3 (may not work)")
+
+    def dance4(self):
+        """Dance 4 - may be blacklisted on some models."""
+        self.send_action("dance4", "DANCE 4 (may not work)")
+
+    def backflip(self):
+        """Backflip - DANGEROUS! May damage robot hips. Use sparingly."""
+        self.send_action("backflip", "BACKFLIP (DANGEROUS!)")
+
+    def front_flip(self):
+        """Front flip - may be blacklisted."""
+        self.send_action("frontFlip", "FRONT FLIP (may not work)")
+
+    def front_jump(self):
+        """Front jump."""
+        self.send_action("frontJump", "FRONT JUMP")
+
+    def front_pounce(self):
+        """Front pounce."""
+        self.send_action("frontPounce", "FRONT POUNCE")
+
+    def wiggle_hips(self):
+        """Wiggle hips dance move."""
+        self.send_action("wiggleHips", "WIGGLE HIPS")
+
+    def stretch(self):
+        """Stretch pose."""
+        self.send_action("stretch", "STRETCH")
+
+    def sit(self):
+        """Sit pose."""
+        self.send_action("sit", "SIT")
+
+    def hand_stand(self):
+        """Hand stand - front legs up."""
+        self.send_action("handStand", "HAND STAND")
+
+    def pray(self):
+        """Pray pose - front legs together."""
+        self.send_action("pray", "PRAY")
+
+    def bound_jump(self):
+        """Bound jump - jumping forward."""
+        self.send_action("bound", "BOUND JUMP")
+
     # ============== MOVEMENT (async) ==============
 
     async def go_forward(self):
@@ -266,11 +321,21 @@ async def main():
     print("    f        = Walk mode")
     print("    r        = Run mode")
     print("    t        = Climb mode")
-    print("\n  SPECIAL (need L1+L2+START first!):")
+    print("\n  SPECIAL MOVES:")
     print("    1        = Dance 1")
     print("    2        = Dance 2")
-    print("    3        = Straight hand")
-    print("    4        = Jump Yaw")
+    print("    3        = Dance 3 (may not work)")
+    print("    4        = Dance 4 (may not work)")
+    print("    5        = Jump Yaw")
+    print("    6        = Straight Hand")
+    print("    -        = Front Jump")
+    print("    =        = Front Pounce")
+    print("    \\        = Stretch")
+    print("    p        = Pray")
+    print("    h        = Hand Stand")
+    print("    g        = Wiggle Hips")
+    print("    n        = Bound Jump")
+    print("    m        = BACKFLIP (DANGEROUS!)")
     print("\n  BODY POSE (in stand mode):")
     print("    i/k      = Look up/down")
     print("    j/l      = Lean left/right")
@@ -338,15 +403,35 @@ async def main():
             elif key == 't':
                 robot.climb_mode()
 
-            # Special (need L1+L2+START first!)
+            # Special moves
             elif key == '1':
                 robot.dance1()
             elif key == '2':
                 robot.dance2()
             elif key == '3':
-                robot.straight_hand()
+                robot.dance3()
             elif key == '4':
+                robot.dance4()
+            elif key == '5':
                 robot.jump_yaw()
+            elif key == '6':
+                robot.straight_hand()
+            elif key == '-':
+                robot.front_jump()
+            elif key == '=':
+                robot.front_pounce()
+            elif key == '\\':
+                robot.stretch()
+            elif key == 'p':
+                robot.pray()
+            elif key == 'h':
+                robot.hand_stand()
+            elif key == 'g':
+                robot.wiggle_hips()
+            elif key == 'n':
+                robot.bound_jump()
+            elif key == 'm':
+                robot.backflip()
 
             # Body pose
             elif key == 'i':
