@@ -139,6 +139,57 @@ dance = Choreography(
 )
 ```
 
+## Tools & Dashboards
+
+### Launcher (http://localhost:8889)
+```bash
+python launcher.py
+```
+Disco-themed UI to launch all tools.
+
+### Choreography Editor (http://localhost:8894)
+```bash
+python mo_simulation/go1_choreographer.py
+```
+Visual timeline editor for dance choreography:
+- Waveform visualization of YMCA music
+- Drag & drop move markers on timeline
+- Zoom in/out like Adobe Premiere
+- Click timeline to seek & add moves
+- Debug mode: Press SPACE to flag timestamps while playing
+- Save/Load choreography JSON files
+- Sections: INTRO, YOUNG MAN, CHORUS mapped to timeline
+- Real-time move highlighting during playback
+
+### Visual Dashboard (http://localhost:8890)
+```bash
+python mo_simulation/go1_dashboard.py
+```
+Control panel for the real Go1 robot:
+- All robot commands (Dance1, Dance2, JumpYaw, poses)
+- LED color picker
+- Sequence recording & playback
+- Action log with timing stats
+- Connect to robot via WiFi
+
+### Pose Builder (http://localhost:8892)
+```bash
+python mo_simulation/go1_pose_builder.py
+```
+Create custom poses with joint sliders and save them.
+
+### Parameter Editor (http://localhost:8893)
+```bash
+python mo_simulation/go1_param_editor.py
+```
+Adjust command parameters (intensity, speed, duration) and save as defaults.
+
+### MuJoCo Simulation
+```bash
+.venv/bin/mjpython mo_simulation/run_go1_keyboard.py
+```
+Keyboard-controlled simulation for testing.
+
 ## Controls (Keyboard Demo)
 
 | Key | Action |
