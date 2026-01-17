@@ -48,6 +48,13 @@ DEMOS = {
         "description": "Web dashboard with all commands, timing stats, LED control & action log!",
         "use_mjpython": False
     },
+    "go1_sim_server": {
+        "name": "Go1 Simulation Server (MuJoCo)",
+        "script": "mo_simulation/go1_sim_server.py",
+        "icon": "🎬",
+        "description": "MuJoCo simulation with dashboard API. Run this, then use Dashboard in SIM mode!",
+        "use_mjpython": True
+    },
 }
 
 HTML = """<!DOCTYPE html>

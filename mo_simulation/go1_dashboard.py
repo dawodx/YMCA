@@ -141,6 +141,15 @@ COMMANDS = {
     "wait500": {"name": "Wait 0.5s", "category": "wait", "color": "#9E9E9E", "duration": 500},
     "wait1000": {"name": "Wait 1s", "category": "wait", "color": "#9E9E9E", "duration": 1000},
     "wait2000": {"name": "Wait 2s", "category": "wait", "color": "#9E9E9E", "duration": 2000},
+
+    # LED colors
+    "ledRed": {"name": "LED Red", "category": "led", "color": "#f44336", "duration": 100, "rgb": [255, 0, 0]},
+    "ledGreen": {"name": "LED Green", "category": "led", "color": "#4CAF50", "duration": 100, "rgb": [0, 255, 0]},
+    "ledBlue": {"name": "LED Blue", "category": "led", "color": "#2196F3", "duration": 100, "rgb": [0, 0, 255]},
+    "ledYellow": {"name": "LED Yellow", "category": "led", "color": "#ffd700", "duration": 100, "rgb": [255, 215, 0]},
+    "ledPink": {"name": "LED Pink", "category": "led", "color": "#E91E63", "duration": 100, "rgb": [255, 20, 147]},
+    "ledCyan": {"name": "LED Cyan", "category": "led", "color": "#00BCD4", "duration": 100, "rgb": [0, 188, 212]},
+    "ledOff": {"name": "LED Off", "category": "led", "color": "#333333", "duration": 100, "rgb": [0, 0, 0]},
 }
 
 
@@ -181,6 +190,13 @@ def execute_command(cmd):
 
     if cmd in mqtt_commands:
         return timed_action(cmd, lambda: robot.mqtt.client.publish("controller/action", cmd, qos=1))
+
+    # LED commands
+    if cmd.startswith("led"):
+        led_info = COMMANDS.get(cmd)
+        if led_info and "rgb" in led_info:
+            r, g, b = led_info["rgb"]
+            return timed_action(cmd, lambda: robot.set_led_color(r, g, b))
 
     return {"name": cmd, "time_ms": 0, "success": False, "error": "Unknown command"}
 
@@ -478,6 +494,7 @@ HTML = """<!DOCTYPE html>
     <div class="header">
         <h1>Go1 Control Dashboard</h1>
         <div class="status-bar">
+            <span class="status" id="targetStatus" style="background:#2196F3;cursor:pointer;" onclick="toggleTarget()">REAL ROBOT</span>
             <span class="status disconnected" id="connStatus">Disconnected</span>
             <span class="status" id="modeStatus" style="background:#4CAF50;">REALTIME</span>
         </div>
@@ -501,6 +518,7 @@ HTML = """<!DOCTYPE html>
                 <div class="connect-row">
                     <button class="btn" style="background:#4CAF50;" onclick="connect()">Connect</button>
                     <button class="btn" style="background:#FF9800;" onclick="unlock()">Unlock SDK</button>
+                    <button class="btn" style="background:#9C27B0;" onclick="startSimulation()">Start Simulation</button>
                 </div>
             </div>
 
@@ -530,16 +548,8 @@ HTML = """<!DOCTYPE html>
             </div>
 
             <div class="panel">
-                <h2>LED</h2>
-                <div class="led-picker">
-                    <div class="led-btn" style="background:#f44336;" onclick="setLed(255,0,0)"></div>
-                    <div class="led-btn" style="background:#4CAF50;" onclick="setLed(0,255,0)"></div>
-                    <div class="led-btn" style="background:#2196F3;" onclick="setLed(0,0,255)"></div>
-                    <div class="led-btn" style="background:#ffd700;" onclick="setLed(255,215,0)"></div>
-                    <div class="led-btn" style="background:#E91E63;" onclick="setLed(255,20,147)"></div>
-                    <div class="led-btn" style="background:#00BCD4;" onclick="setLed(0,188,212)"></div>
-                    <div class="led-btn" style="background:#333;" onclick="setLed(0,0,0)"></div>
-                </div>
+                <h2>LED Colors</h2>
+                <div class="btn-grid" id="led-btns"></div>
             </div>
         </div>
 
@@ -580,6 +590,25 @@ HTML = """<!DOCTYPE html>
         let currentMode = 'realtime';
         let sequence = [];
         let isPlaying = false;
+        let apiBase = '';  // Empty = same server (real robot dashboard)
+        let isSimMode = false;
+
+        function toggleTarget() {
+            isSimMode = !isSimMode;
+            const el = document.getElementById('targetStatus');
+            if (isSimMode) {
+                apiBase = 'http://localhost:8891';
+                el.textContent = 'SIMULATION';
+                el.style.background = '#9C27B0';
+            } else {
+                apiBase = '';
+                el.textContent = 'REAL ROBOT';
+                el.style.background = '#2196F3';
+            }
+            // Update connection status
+            document.getElementById('connStatus').textContent = 'Disconnected';
+            document.getElementById('connStatus').className = 'status disconnected';
+        }
 
         function createButtons() {
             const categories = {
@@ -589,7 +618,8 @@ HTML = """<!DOCTYPE html>
                 'danger': 'dance-btns',
                 'move': 'move-btns',
                 'pose': 'pose-btns',
-                'wait': 'wait-btns'
+                'wait': 'wait-btns',
+                'led': 'led-btns'
             };
 
             for (const [cmd, info] of Object.entries(COMMANDS)) {
@@ -729,20 +759,45 @@ HTML = """<!DOCTYPE html>
         }
 
         async function connect() {
-            const res = await fetch('/api/connect', {method: 'POST'});
+            const res = await fetch(apiBase + '/api/connect', {method: 'POST'});
             const data = await res.json();
             updateConnStatus(data.connected);
             addLog('Connect', data.connected, data.time_ms || 0);
         }
 
+        async function startSimulation() {
+            addLog('Starting Simulation...', true, 0);
+            try {
+                const res = await fetch('/api/start_sim', {method: 'POST'});
+                const data = await res.json();
+                if (data.success) {
+                    // Switch to simulation mode
+                    isSimMode = true;
+                    apiBase = 'http://localhost:8891';
+                    const el = document.getElementById('targetStatus');
+                    el.textContent = 'SIMULATION';
+                    el.style.background = '#9C27B0';
+                    addLog('Simulation Started', true, data.time_ms || 0);
+                    // Wait a bit for sim to start, then auto-connect
+                    setTimeout(async () => {
+                        await connect();
+                    }, 2000);
+                } else {
+                    addLog('Sim Error: ' + data.error, false, 0);
+                }
+            } catch(e) {
+                addLog('Failed to start sim', false, 0);
+            }
+        }
+
         async function unlock() {
-            const res = await fetch('/api/unlock', {method: 'POST'});
+            const res = await fetch(apiBase + '/api/unlock', {method: 'POST'});
             const data = await res.json();
             addLog('Unlock', data.success, data.time_ms || 0);
         }
 
         async function sendCmd(cmd) {
-            const res = await fetch('/api/cmd/' + cmd, {method: 'POST'});
+            const res = await fetch(apiBase + '/api/cmd/' + cmd, {method: 'POST'});
             const data = await res.json();
             addLog(data.name, data.success, data.time_ms);
             updateStats();
@@ -750,7 +805,7 @@ HTML = """<!DOCTYPE html>
         }
 
         async function setLed(r, g, b) {
-            await fetch(`/api/led/${r}/${g}/${b}`, {method: 'POST'});
+            await fetch(apiBase + `/api/led/${r}/${g}/${b}`, {method: 'POST'});
         }
 
         function updateConnStatus(connected) {
@@ -781,7 +836,7 @@ HTML = """<!DOCTYPE html>
 
         setInterval(async () => {
             try {
-                const res = await fetch('/api/status');
+                const res = await fetch(apiBase + '/api/status');
                 const data = await res.json();
                 updateConnStatus(data.connected);
             } catch(e) {}
@@ -844,6 +899,36 @@ class DashboardHandler(SimpleHTTPRequestHandler):
                 self.send_json({'success': True})
             else:
                 self.send_json({'success': False})
+
+        elif self.path == '/api/start_sim':
+            start = time.time()
+            try:
+                # Find paths
+                from pathlib import Path
+                script_dir = Path(__file__).parent
+                project_root = script_dir.parent
+                mjpython = project_root / ".venv" / "bin" / "mjpython"
+                sim_script = script_dir / "go1_sim_server.py"
+
+                if not mjpython.exists():
+                    self.send_json({'success': False, 'error': 'mjpython not found'})
+                    return
+                if not sim_script.exists():
+                    self.send_json({'success': False, 'error': 'Sim script not found'})
+                    return
+
+                # Start simulation in background
+                subprocess.Popen(
+                    [str(mjpython), str(sim_script)],
+                    cwd=str(project_root),
+                    stdout=subprocess.DEVNULL,
+                    stderr=subprocess.DEVNULL
+                )
+                elapsed = (time.time() - start) * 1000
+                self.send_json({'success': True, 'time_ms': round(elapsed, 1)})
+            except Exception as e:
+                self.send_json({'success': False, 'error': str(e)})
+
         else:
             self.send_error(404)
 
