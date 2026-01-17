@@ -408,6 +408,8 @@ HTML = """<!DOCTYPE html>
         }
         .move-item:hover { border-color: #E91E63; }
         .move-item.selected { border-color: #E91E63; background: rgba(233,30,99,0.1); }
+        .move-item.current { border-color: #4CAF50; background: rgba(76,175,80,0.2); box-shadow: 0 0 10px rgba(76,175,80,0.3); }
+        .move-item.next { border-color: #FF9800; background: rgba(255,152,0,0.1); }
         .move-item .time { color: #E91E63; font-family: monospace; font-size: 11px; }
         .move-item .cmd { color: #4CAF50; font-weight: bold; font-size: 13px; }
         .move-item .lbl { color: #888; font-size: 10px; }
@@ -519,11 +521,10 @@ HTML = """<!DOCTYPE html>
                 </div>
                 <div id="debugInfo" style="display:none;margin-top:10px;padding:10px;background:rgba(255,152,0,0.2);border-radius:6px;font-size:12px">
                     <div style="margin-bottom:8px">
-                        <strong style="color:#FF9800">Debug Mode ON</strong> - Press SPACE or click timeline to flag current time.
+                        <strong style="color:#FF9800">Debug Mode ON</strong> - Press SPACE while playing to flag current time. Flags saved with main Save button.
                     </div>
                     <span id="flagCount" style="color:#4CAF50">0 flags</span>
                     <button class="btn btn-gray" style="margin-left:10px;padding:4px 8px;font-size:10px" onclick="clearFlags()">Clear Flags</button>
-                    <button class="btn btn-green" style="margin-left:5px;padding:4px 8px;font-size:10px" onclick="exportFlags()">Export Flags</button>
                 </div>
             </div>
 
@@ -651,19 +652,9 @@ function clearFlags() {
     document.getElementById('flagCount').textContent = '0 flags';
 }
 
-function exportFlags() {
-    if (!flags.length) return;
-    const text = flags.map(ms => fmtTime(ms) + ' (' + ms + 'ms)').join('\\n');
-    const blob = new Blob([text], {type: 'text/plain'});
-    const a = document.createElement('a');
-    a.href = URL.createObjectURL(blob);
-    a.download = 'flags_' + Date.now() + '.txt';
-    a.click();
-}
-
 function renderFlags() {
     document.querySelectorAll('.flag-marker').forEach(f => f.remove());
-    if (!debugMode) return;
+    if (!flags.length) return;
 
     const dur = getDur();
     const w = container.offsetWidth;
@@ -711,6 +702,7 @@ document.addEventListener('keydown', (e) => {
 function init() {
     renderSections();
     renderMoves();
+    renderFlags();
     renderCats();
     renderCmds();
     renderRuler();
@@ -748,6 +740,7 @@ function applyZoom() {
     document.getElementById('zoomLevel').textContent = Math.round(zoom * 100) + '%';
     renderSections();
     renderMoves();
+    renderFlags();
     renderRuler();
     redrawWaveform();
 }
@@ -1081,23 +1074,45 @@ function setAddCurrent() {
     updAddDisp();
 }
 
-// Timeline click - set add time or add flag in debug mode
+// Timeline click - seek to position and set add time
 function timelineClick(e) {
     if (dragging) return;
-    const rect = container.getBoundingClientRect();
-    const x = e.clientX - rect.left + wrapper.scrollLeft;
+    // Use wrapper rect (visible area) + scrollLeft to get position in full timeline
+    const wrapperRect = wrapper.getBoundingClientRect();
+    const x = e.clientX - wrapperRect.left + wrapper.scrollLeft;
     const dur = getDur();
-    const w = container.offsetWidth;
+    const w = container.offsetWidth;  // Full width including zoom
     const ms = Math.round(x / w * dur);
 
-    // In debug mode, add a flag
-    if (debugMode) {
-        addFlag(ms);
+    const wasPlaying = playing;
+
+    // Stop interval if playing
+    if (playing) {
+        if (interval) clearInterval(interval);
+        interval = null;
+        audio.pause();
+        playing = false;
     }
 
+    // Update curTime and UI
+    curTime = ms;
+    document.getElementById('curTime').textContent = fmtTime(ms);
+    document.getElementById('progFill').style.width = (ms / dur * 100) + '%';
+    document.getElementById('playhead').style.left = (ms / dur * container.offsetWidth) + 'px';
     document.getElementById('addTime').value = ms;
     updAddDisp();
-    seekTo(ms);
+    highlightCurrentMove(ms);
+
+    // Seek audio and wait for it to complete
+    audio.currentTime = ms / 1000;
+
+    // Resume if was playing - wait for seeked event
+    if (wasPlaying) {
+        audio.addEventListener('seeked', function onSeeked() {
+            audio.removeEventListener('seeked', onSeeked);
+            play();
+        }, { once: true });
+    }
 }
 
 // Ruler
@@ -1128,13 +1143,17 @@ function togglePlay() {
 function play() {
     playing = true;
     document.getElementById('playBtn').textContent = 'Pause';
-    audio.currentTime = curTime / 1000;
     audio.muted = document.getElementById('mute').checked;
-    audio.play();
+
+    // Just play from wherever the audio currently is
+    audio.play().catch(e => console.log('Play error:', e));
 
     const executeRobot = document.getElementById('execRobot').checked;
     let lastIdx = -1;
-    choreo.moves.forEach((m, i) => { if (m.time_ms < curTime) lastIdx = i; });
+    // Use audio's actual position for tracking
+    const startMs = Math.floor(audio.currentTime * 1000);
+    curTime = startMs;
+    choreo.moves.forEach((m, i) => { if (m.time_ms < startMs) lastIdx = i; });
 
     interval = setInterval(() => {
         curTime = Math.floor(audio.currentTime * 1000);
@@ -1145,6 +1164,13 @@ function play() {
         document.getElementById('curTime').textContent = fmtTime(curTime);
         document.getElementById('progFill').style.width = pct + '%';
         document.getElementById('playhead').style.left = (curTime / dur * container.offsetWidth) + 'px';
+
+        // Sync add-move timestamp to current position
+        document.getElementById('addTime').value = curTime;
+        updAddDisp();
+
+        // Highlight current/next move in list
+        highlightCurrentMove(curTime);
 
         // Execute moves only if robot execution is enabled
         if (executeRobot) {
@@ -1163,6 +1189,34 @@ function play() {
     }, 50);
 }
 
+function highlightCurrentMove(time) {
+    const items = document.querySelectorAll('.move-item');
+    items.forEach(item => {
+        item.classList.remove('current', 'next');
+    });
+
+    // Find the current and next move
+    let currentIdx = -1;
+    let nextIdx = -1;
+    for (let i = 0; i < choreo.moves.length; i++) {
+        if (choreo.moves[i].time_ms <= time) {
+            currentIdx = i;
+        } else if (nextIdx === -1) {
+            nextIdx = i;
+            break;
+        }
+    }
+
+    if (currentIdx >= 0 && items[currentIdx]) {
+        items[currentIdx].classList.add('current');
+        // Scroll into view
+        items[currentIdx].scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }
+    if (nextIdx >= 0 && items[nextIdx]) {
+        items[nextIdx].classList.add('next');
+    }
+}
+
 function pause() {
     playing = false;
     document.getElementById('playBtn').textContent = 'Play';
@@ -1177,15 +1231,35 @@ function stopPlay() {
     document.getElementById('curTime').textContent = fmtTime(0);
     document.getElementById('progFill').style.width = '0%';
     document.getElementById('playhead').style.left = '0px';
+
+    // Clear move highlighting
+    document.querySelectorAll('.move-item').forEach(item => {
+        item.classList.remove('current', 'next');
+    });
 }
 
 function seekTo(ms) {
     curTime = ms;
-    audio.currentTime = ms / 1000;
     const dur = getDur();
+
+    // Update UI immediately
     document.getElementById('curTime').textContent = fmtTime(ms);
     document.getElementById('progFill').style.width = (ms / dur * 100) + '%';
     document.getElementById('playhead').style.left = (ms / dur * container.offsetWidth) + 'px';
+
+    // Sync add-time
+    document.getElementById('addTime').value = ms;
+    updAddDisp();
+
+    // Highlight current move
+    highlightCurrentMove(ms);
+
+    // Always set audio time directly
+    try {
+        audio.currentTime = ms / 1000;
+    } catch(e) {
+        console.log('Seek error:', e);
+    }
 }
 
 function seekBar(e) {
@@ -1233,6 +1307,7 @@ async function doSave() {
     choreo.name = name;
     choreo.bpm = parseInt(document.getElementById('bpm').value);
     choreo.duration_ms = getDur();
+    choreo.flags = flags; // Save flags with choreography
     await fetch('/api/save', {
         method: 'POST',
         headers: {'Content-Type': 'application/json'},
@@ -1276,16 +1351,26 @@ function closeLoadModal(e) {
 
 async function doLoad() {
     if (!selectedLoad) return;
-    const data = await (await fetch('/api/load/' + selectedLoad)).json();
-    if (data) {
+    console.log('Loading:', selectedLoad);
+    const url = '/api/load/' + encodeURIComponent(selectedLoad);
+    console.log('URL:', url);
+    const res = await fetch(url);
+    const data = await res.json();
+    console.log('Loaded data:', data);
+    if (data && data.name) {
         choreo = data;
         document.getElementById('choreoName').value = data.name || selectedLoad;
         document.getElementById('bpm').value = data.bpm || 129;
         document.getElementById('duration').value = data.duration_ms || 290000;
         selIdx = -1;
-        flags = [];
-        document.getElementById('flagCount').textContent = '0 flags';
+        // Restore flags from saved data
+        flags = data.flags || [];
+        document.getElementById('flagCount').textContent = flags.length + ' flags';
+        console.log('Calling init(), moves:', choreo.moves.length, 'flags:', flags.length);
         init();
+        renderFlags();
+    } else {
+        console.log('Load failed - no data or no name');
     }
     closeLoadModal();
 }
@@ -1327,15 +1412,40 @@ class Handler(BaseHTTPRequestHandler):
         elif self.path == '/api/list':
             self.send_json(get_choreography_files())
         elif self.path.startswith('/api/load/'):
-            self.send_json(load_choreography(self.path[10:]) or {})
+            from urllib.parse import unquote
+            name = unquote(self.path[10:])
+            self.send_json(load_choreography(name) or {})
         elif self.path.startswith('/audio/'):
             path = MUSIC_DIR / self.path[7:]
             if path.exists():
-                self.send_response(200)
-                self.send_header('Content-Type', 'audio/mpeg')
-                self.send_header('Content-Length', str(path.stat().st_size))
-                self.end_headers()
-                self.wfile.write(path.read_bytes())
+                file_size = path.stat().st_size
+                range_header = self.headers.get('Range')
+
+                if range_header:
+                    # Handle Range request for seeking
+                    range_match = range_header.replace('bytes=', '').split('-')
+                    start = int(range_match[0]) if range_match[0] else 0
+                    end = int(range_match[1]) if range_match[1] else file_size - 1
+                    length = end - start + 1
+
+                    self.send_response(206)  # Partial Content
+                    self.send_header('Content-Type', 'audio/mpeg')
+                    self.send_header('Accept-Ranges', 'bytes')
+                    self.send_header('Content-Range', f'bytes {start}-{end}/{file_size}')
+                    self.send_header('Content-Length', str(length))
+                    self.end_headers()
+
+                    with open(path, 'rb') as f:
+                        f.seek(start)
+                        self.wfile.write(f.read(length))
+                else:
+                    # Full file request
+                    self.send_response(200)
+                    self.send_header('Content-Type', 'audio/mpeg')
+                    self.send_header('Accept-Ranges', 'bytes')
+                    self.send_header('Content-Length', str(file_size))
+                    self.end_headers()
+                    self.wfile.write(path.read_bytes())
             else:
                 self.send_error(404)
         else:
