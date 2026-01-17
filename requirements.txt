@@ -1,0 +1,3 @@
+unitree_legged_sdk
+numpy
+pygame  # for music playback and timing
