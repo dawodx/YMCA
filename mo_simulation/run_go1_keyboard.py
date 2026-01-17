@@ -1,21 +1,18 @@
 #!/usr/bin/env python3
 """
-Go1 Quadruped - Keyboard Control for YMCA Dance
+Go1 Quadruped - Walking with CPG (Central Pattern Generator)
+
+A proper walking gait using oscillators for each leg.
+Diagonal legs move together (trot gait).
 
 Controls:
-  Arrow Keys  - Body lean (forward/back/left/right)
-  W/S         - Body height up/down
-  A/D         - Body yaw left/right
-  Q/E         - Body roll left/right
-  Space       - Reset to stand
-  1-4         - Trigger dance poses (Y, M, C, A)
-  Esc         - Quit
+  Up/Down     - Walk forward/backward
+  Left/Right  - Turn left/right
+  Space       - Stop
+  1-4         - YMCA poses (Y, M, C, A)
 
 MUST be run with mjpython on macOS:
     .venv/bin/mjpython mo_simulation/run_go1_keyboard.py
-
-Or from ARA-Robotic venv:
-    /Users/dawod/ARA-Robotic/.venv/bin/mjpython mo_simulation/run_go1_keyboard.py
 """
 
 import time
@@ -23,304 +20,229 @@ import numpy as np
 import mujoco
 import mujoco.viewer
 from pathlib import Path
-import threading
 import math
 
-# Paths - use local Go1 model
 SCRIPT_DIR = Path(__file__).parent.parent
 GO1_XML = SCRIPT_DIR / "models/unitree_go1/scene.xml"
 
-# Go1 has 12 joints: 4 legs x 3 joints each
-# Order: FR_hip, FR_thigh, FR_calf, FL_hip, FL_thigh, FL_calf,
-#        RR_hip, RR_thigh, RR_calf, RL_hip, RL_thigh, RL_calf
+# Joint order from XML: FR_hip, FR_thigh, FR_calf, FL_hip, FL_thigh, FL_calf,
+#                       RR_hip, RR_thigh, RR_calf, RL_hip, RL_thigh, RL_calf
 
-# Joint indices
-FR_HIP, FR_THIGH, FR_CALF = 0, 1, 2
-FL_HIP, FL_THIGH, FL_CALF = 3, 4, 5
-RR_HIP, RR_THIGH, RR_CALF = 6, 7, 8
-RL_HIP, RL_THIGH, RL_CALF = 9, 10, 11
+# Standing pose from keyframe
+STAND = np.array([
+    0, 0.9, -1.8,   # FR: hip, thigh, calf
+    0, 0.9, -1.8,   # FL
+    0, 0.9, -1.8,   # RR
+    0, 0.9, -1.8,   # RL
+])
 
-# Default standing pose (from keyframe)
-DEFAULT_POSE = np.array([
-    0, 0.9, -1.8,  # FR
-    0, 0.9, -1.8,  # FL
-    0, 0.9, -1.8,  # RR
-    0, 0.9, -1.8,  # RL
-], dtype=np.float32)
-
-# Config
-CONFIG = {
-    "simulation_dt": 0.002,
-    "height_delta": 0.05,  # How much to change thigh angle
-    "lean_delta": 0.1,     # How much to lean
-    "yaw_delta": 0.15,     # How much to yaw
-    "roll_delta": 0.1,     # How much to roll
-}
+# Commands
+velocity = [0.0, 0.0]  # [forward, turn]
+dance_pose = None
 
 
-class KeyboardState:
-    """Track keyboard state for hold-to-move behavior."""
+def on_key(keycode):
+    global velocity, dance_pose
 
-    def __init__(self):
-        self.window = None
-        self.reset_flag = False
-        self.dance_pose = None  # 1, 2, 3, 4 for Y, M, C, A
-        self.lock = threading.Lock()
-        self.glfw = mujoco.viewer.glfw
-
-    def key_callback(self, key):
-        """Handle key callback."""
-        with self.lock:
-            if self.window is None:
-                self.window = self.glfw.get_current_context()
-
-            # Space = reset to stand
-            if key == 32:  # Space
-                self.reset_flag = True
-            # Dance poses
-            elif key == 49:  # 1 = Y pose
-                self.dance_pose = 1
-            elif key == 50:  # 2 = M pose
-                self.dance_pose = 2
-            elif key == 51:  # 3 = C pose
-                self.dance_pose = 3
-            elif key == 52:  # 4 = A pose
-                self.dance_pose = 4
-
-    def is_key_held(self, key_code):
-        """Check if key is currently held."""
-        with self.lock:
-            if self.window is None:
-                return False
-            try:
-                return self.glfw.get_key(self.window, key_code) == self.glfw.PRESS
-            except:
-                return False
-
-    def get_adjustments(self):
-        """Get pose adjustments based on held keys."""
-        glfw = self.glfw
-        adj = {
-            'height': 0,
-            'pitch': 0,
-            'roll': 0,
-            'yaw': 0,
-        }
-
-        # W/S - height
-        if self.is_key_held(glfw.KEY_W):
-            adj['height'] = CONFIG['height_delta']
-        elif self.is_key_held(glfw.KEY_S):
-            adj['height'] = -CONFIG['height_delta']
-
-        # Arrow keys - lean (pitch/roll body)
-        if self.is_key_held(glfw.KEY_UP):
-            adj['pitch'] = CONFIG['lean_delta']
-        elif self.is_key_held(glfw.KEY_DOWN):
-            adj['pitch'] = -CONFIG['lean_delta']
-
-        if self.is_key_held(glfw.KEY_LEFT):
-            adj['roll'] = CONFIG['roll_delta']
-        elif self.is_key_held(glfw.KEY_RIGHT):
-            adj['roll'] = -CONFIG['roll_delta']
-
-        # A/D - yaw
-        if self.is_key_held(glfw.KEY_A):
-            adj['yaw'] = CONFIG['yaw_delta']
-        elif self.is_key_held(glfw.KEY_D):
-            adj['yaw'] = -CONFIG['yaw_delta']
-
-        # Q/E - roll
-        if self.is_key_held(glfw.KEY_Q):
-            adj['roll'] = CONFIG['roll_delta']
-        elif self.is_key_held(glfw.KEY_E):
-            adj['roll'] = -CONFIG['roll_delta']
-
-        return adj
+    if keycode == 265:  # Up
+        velocity[0] = 0.5
+        dance_pose = None
+        print(">>> WALK FORWARD")
+    elif keycode == 264:  # Down
+        velocity[0] = -0.5
+        dance_pose = None
+        print(">>> WALK BACKWARD")
+    elif keycode == 263:  # Left
+        velocity[1] = 0.5
+        dance_pose = None
+        print(">>> TURN LEFT")
+    elif keycode == 262:  # Right
+        velocity[1] = -0.5
+        dance_pose = None
+        print(">>> TURN RIGHT")
+    elif keycode == 32:  # Space
+        velocity = [0.0, 0.0]
+        dance_pose = None
+        print(">>> STOP")
+    elif keycode == 49:  # 1 = Y
+        dance_pose = 'Y'
+        velocity = [0.0, 0.0]
+        print(">>> POSE: Y")
+    elif keycode == 50:  # 2 = M
+        dance_pose = 'M'
+        velocity = [0.0, 0.0]
+        print(">>> POSE: M")
+    elif keycode == 51:  # 3 = C
+        dance_pose = 'C'
+        velocity = [0.0, 0.0]
+        print(">>> POSE: C")
+    elif keycode == 52:  # 4 = A
+        dance_pose = 'A'
+        velocity = [0.0, 0.0]
+        print(">>> POSE: A")
 
 
-def compute_pose(base_pose, adjustments, dance_pose=None):
-    """Compute target joint positions based on adjustments or dance pose."""
-    pose = base_pose.copy()
+def cpg_gait(t, vx, wz):
+    """
+    Central Pattern Generator for trot gait.
+    Diagonal pairs move together: (FR, RL) and (FL, RR)
+    """
+    if abs(vx) < 0.1 and abs(wz) < 0.1:
+        return STAND.copy()
 
-    # Handle dance poses
-    if dance_pose == 1:  # Y - stand tall, spread legs
-        pose = np.array([
-            0.3, 0.6, -1.2,   # FR - spread out
-            -0.3, 0.6, -1.2,  # FL - spread out
-            0.3, 0.6, -1.2,   # RR
-            -0.3, 0.6, -1.2,  # RL
-        ], dtype=np.float32)
-        return pose
+    pose = np.zeros(12)
+    freq = 2.5  # Hz
+    phase = t * freq * 2 * np.pi
 
-    elif dance_pose == 2:  # M - crouch low, wiggle prep
-        pose = np.array([
-            0, 1.2, -2.2,  # FR - crouch
-            0, 1.2, -2.2,  # FL
-            0, 1.2, -2.2,  # RR
-            0, 1.2, -2.2,  # RL
-        ], dtype=np.float32)
-        return pose
+    # Gait parameters - tuned for Go1
+    lift_height = 0.15      # How much to lift foot (thigh angle)
+    step_length = 0.2       # Forward/back swing (thigh angle)
+    turn_amount = 0.15      # Hip abduction for turning
 
-    elif dance_pose == 3:  # C - lean to side (curved)
-        pose = np.array([
-            0.2, 0.7, -1.4,   # FR
-            -0.1, 1.1, -2.0,  # FL - lower
-            0.2, 0.7, -1.4,   # RR
-            -0.1, 1.1, -2.0,  # RL - lower
-        ], dtype=np.float32)
-        return pose
+    # Leg phases: FR and RL together (0), FL and RR together (pi)
+    leg_data = [
+        (0, 1, 2, 0, -1),          # FR: indices, phase, side (right=-1)
+        (3, 4, 5, np.pi, 1),       # FL: indices, phase, side (left=1)
+        (6, 7, 8, np.pi, -1),      # RR: indices, phase, side
+        (9, 10, 11, 0, 1),         # RL: indices, phase, side
+    ]
 
-    elif dance_pose == 4:  # A - straight stance
-        pose = np.array([
-            0, 0.8, -1.6,  # FR
-            0, 0.8, -1.6,  # FL
-            0, 0.8, -1.6,  # RR
-            0, 0.8, -1.6,  # RL
-        ], dtype=np.float32)
-        return pose
+    for hip_i, thigh_i, calf_i, leg_phase, side in leg_data:
+        p = phase + leg_phase
 
-    # Apply continuous adjustments
-    height = adjustments['height']
-    pitch = adjustments['pitch']
-    roll = adjustments['roll']
-    yaw = adjustments['yaw']
+        # Swing phase (lifting leg): when sin(p) > 0
+        swing = max(0, np.sin(p))
 
-    # Height - adjust all thigh joints
-    pose[FR_THIGH] -= height
-    pose[FL_THIGH] -= height
-    pose[RR_THIGH] -= height
-    pose[RL_THIGH] -= height
+        # Stance phase (on ground): when sin(p) < 0
+        stance = max(0, -np.sin(p))
 
-    # Pitch (lean forward/back) - front vs back legs
-    pose[FR_THIGH] += pitch
-    pose[FL_THIGH] += pitch
-    pose[RR_THIGH] -= pitch
-    pose[RL_THIGH] -= pitch
+        # Thigh: oscillate for stepping + lift during swing
+        thigh_swing = step_length * vx * np.sin(p)  # Forward/back
+        thigh_lift = lift_height * swing             # Lift during swing
 
-    # Roll (lean left/right) - left vs right legs
-    pose[FR_THIGH] -= roll
-    pose[RR_THIGH] -= roll
-    pose[FL_THIGH] += roll
-    pose[RL_THIGH] += roll
+        # Calf: extend during swing to clear ground, flex during stance
+        calf_swing = 0.3 * swing  # Extend knee during swing
 
-    # Yaw (twist) - hip abduction
-    pose[FR_HIP] += yaw
-    pose[FL_HIP] += yaw
-    pose[RR_HIP] -= yaw
-    pose[RL_HIP] -= yaw
+        # Hip: for turning
+        hip_turn = turn_amount * wz * side
+
+        # Apply to pose
+        pose[hip_i] = hip_turn
+        pose[thigh_i] = STAND[1] + thigh_swing + thigh_lift
+        pose[calf_i] = STAND[2] - calf_swing
 
     return pose
 
 
-def main():
-    print("\n" + "=" * 60)
-    print("GO1 QUADRUPED - Keyboard Control for YMCA Dance")
-    print("Team YMCA - Robot Rave Hackathon 2026")
-    print("=" * 60)
-    print("\nControls:")
-    print("  W/S         - Body height up/down")
-    print("  Arrow Keys  - Lean forward/back/left/right")
-    print("  A/D         - Yaw left/right")
-    print("  Q/E         - Roll left/right")
-    print("  1/2/3/4     - Dance poses Y/M/C/A")
-    print("  Space       - Reset to stand")
-    print("  Esc         - Quit")
-    print("=" * 60 + "\n")
+def get_dance_pose(name):
+    """YMCA dance poses."""
+    if name == 'Y':
+        return np.array([
+            0.4, 0.5, -1.2,    # FR spread
+            -0.4, 0.5, -1.2,   # FL spread
+            0.3, 0.5, -1.2,    # RR
+            -0.3, 0.5, -1.2,   # RL
+        ])
+    elif name == 'M':
+        return np.array([
+            0, 1.3, -2.4,      # Crouch low
+            0, 1.3, -2.4,
+            0, 1.3, -2.4,
+            0, 1.3, -2.4,
+        ])
+    elif name == 'C':
+        return np.array([
+            0.2, 0.6, -1.3,    # Right side high
+            -0.2, 1.2, -2.2,   # Left side low
+            0.2, 0.6, -1.3,
+            -0.2, 1.2, -2.2,
+        ])
+    elif name == 'A':
+        return np.array([
+            0, 0.7, -1.5,      # Medium stance
+            0, 0.7, -1.5,
+            0, 0.7, -1.5,
+            0, 0.7, -1.5,
+        ])
+    return STAND.copy()
 
-    # Check model exists
+
+def main():
+    global velocity, dance_pose
+
+    print("\n" + "=" * 55)
+    print("  GO1 WALKING - CPG Trot Gait")
+    print("=" * 55)
+    print("\n  Up/Down    = Walk forward/backward")
+    print("  Left/Right = Turn")
+    print("  Space      = Stop")
+    print("  1/2/3/4    = YMCA poses")
+    print("\n>>> CLICK MUJOCO WINDOW, THEN PRESS ARROWS! <<<")
+    print("=" * 55 + "\n")
+
     if not GO1_XML.exists():
-        print(f"Error: Go1 model not found at {GO1_XML}")
-        print("Make sure ARA-Robotic project exists with mujoco_menagerie")
+        print(f"Model not found: {GO1_XML}")
         return
 
-    print(f"Loading MuJoCo model: {GO1_XML}")
     model = mujoco.MjModel.from_xml_path(str(GO1_XML))
     data = mujoco.MjData(model)
-    model.opt.timestep = CONFIG["simulation_dt"]
+    model.opt.timestep = 0.002
 
-    # Reset to home keyframe
     mujoco.mj_resetDataKeyframe(model, data, 0)
-
-    # State
-    target_pose = DEFAULT_POSE.copy()
-    kb = KeyboardState()
-    counter = 0
-
-    def reset_to_stand():
-        nonlocal target_pose
-        mujoco.mj_resetDataKeyframe(model, data, 0)
-        target_pose = DEFAULT_POSE.copy()
-        kb.reset_flag = False
-        kb.dance_pose = None
-        print("Reset to stand!")
-
-    def key_callback(key):
-        kb.key_callback(key)
-
-    print("Launching viewer...")
 
     with mujoco.viewer.launch_passive(
         model, data,
         show_left_ui=False,
         show_right_ui=True,
-        key_callback=key_callback,
+        key_callback=on_key,
     ) as viewer:
-        # Set camera
-        viewer.cam.azimuth = 120
+        viewer.cam.azimuth = 90
         viewer.cam.elevation = -20
         viewer.cam.distance = 2.0
-        viewer.cam.lookat[:] = [0.0, 0.0, 0.3]
+        viewer.cam.lookat[:] = [0, 0, 0.25]
 
         start_time = time.time()
-        last_status_time = 0
+        last_print = 0
 
         while viewer.is_running():
-            step_start = time.time()
+            t0 = time.time()
+            t = time.time() - start_time
 
-            # Check for reset
-            if kb.reset_flag:
-                reset_to_stand()
+            # Decay velocity (spring back to zero)
+            velocity[0] *= 0.98
+            velocity[1] *= 0.98
 
-            # Get adjustments
-            adj = kb.get_adjustments()
-
-            # Compute target pose
-            target_pose = compute_pose(DEFAULT_POSE, adj, kb.dance_pose)
-
-            # Clear dance pose after applying (one-shot)
-            if kb.dance_pose:
-                print(f"Dance pose: {'YMCA'[kb.dance_pose-1]}")
-                kb.dance_pose = None
+            # Get target pose
+            if dance_pose:
+                target = get_dance_pose(dance_pose)
+            else:
+                target = cpg_gait(t, velocity[0], velocity[1])
 
             # Apply control
-            data.ctrl[:12] = target_pose
+            data.ctrl[:12] = target
 
-            # Step simulation
+            # Step physics
             mujoco.mj_step(model, data)
-            counter += 1
 
-            # Follow robot with camera
+            # Camera tracks robot
             viewer.cam.lookat[:] = data.qpos[:3]
-
-            # Sync viewer
             viewer.sync()
 
-            # Print status periodically
-            current_time = time.time()
-            if current_time - last_status_time > 1.0:
-                elapsed = current_time - start_time
-                height = data.qpos[2]
-                print(f"[{elapsed:.1f}s] Height: {height:.3f}m | Pose: [{target_pose[1]:.2f}, {target_pose[2]:.2f}]")
-                last_status_time = current_time
+            # Status
+            if time.time() - last_print > 0.5:
+                pos = data.qpos[:3]
+                status = "WALKING" if abs(velocity[0]) > 0.05 or abs(velocity[1]) > 0.05 else "STANDING"
+                if dance_pose:
+                    status = f"POSE: {dance_pose}"
+                print(f"[{status}] pos=({pos[0]:.2f}, {pos[1]:.2f}) vel=({velocity[0]:.2f}, {velocity[1]:.2f})")
+                last_print = time.time()
 
-            # Maintain real-time
-            elapsed = time.time() - step_start
-            sleep_time = CONFIG["simulation_dt"] - elapsed
-            if sleep_time > 0:
-                time.sleep(sleep_time)
+            # Real-time
+            dt = time.time() - t0
+            if dt < 0.002:
+                time.sleep(0.002 - dt)
 
-    print("\nDone! Let's make this dog dance!")
+    print("\nDone!")
 
 
 if __name__ == "__main__":

@@ -14,7 +14,6 @@ SETUP:
 
 import asyncio
 import sys
-import time
 
 try:
     from go1pylib import Go1, Go1Mode
@@ -34,8 +33,7 @@ def get_key():
     old_settings = termios.tcgetattr(fd)
     try:
         tty.setraw(fd)
-        # Check if input is available (with short timeout)
-        if select.select([sys.stdin], [], [], 0.05)[0]:
+        if select.select([sys.stdin], [], [], 0.02)[0]:
             ch = sys.stdin.read(1)
             return ch
         return None
@@ -44,16 +42,15 @@ def get_key():
 
 
 class Go1Controller:
-    """Controller for Go1 using go1pylib with all standard SDK movements."""
+    """Controller for Go1 using go1pylib."""
 
     def __init__(self):
         self.robot = Go1()
         self.connected = False
-        self.current_mode = None
 
     def connect(self):
-        """Connect to robot."""
-        print("Connecting to Go1...")
+        """Connect to robot via MQTT."""
+        print("Connecting to Go1 via MQTT...")
         try:
             self.robot.init()
             self.connected = True
@@ -63,178 +60,150 @@ class Go1Controller:
             print(f"Connection failed: {e}")
             return False
 
-    def disconnect(self):
-        """Disconnect from robot."""
-        print("Disconnected.")
+    # ============== MODE COMMANDS ==============
 
-    # ============== MODE COMMANDS (sync - these work immediately) ==============
+    def set_mode(self, mode, name):
+        """Set mode and print."""
+        self.robot.set_mode(mode)
+        print(f"Mode: {name}")
 
     def stand(self):
-        """Default stand."""
-        self.robot.set_mode(Go1Mode.STAND)
-        self.current_mode = "STAND"
-        print("Mode: STAND")
+        self.set_mode(Go1Mode.STAND, "STAND")
 
     def stand_up(self):
-        """Stand up from sitting."""
-        self.robot.set_mode(Go1Mode.STAND_UP)
-        self.current_mode = "STAND_UP"
-        print("Mode: STAND UP")
+        self.set_mode(Go1Mode.STAND_UP, "STAND UP")
 
     def stand_down(self):
-        """Sit down."""
-        self.robot.set_mode(Go1Mode.STAND_DOWN)
-        self.current_mode = "STAND_DOWN"
-        print("Mode: STAND DOWN (sit)")
+        self.set_mode(Go1Mode.STAND_DOWN, "SIT DOWN")
 
     def walk_mode(self):
-        """Enter walk mode."""
-        self.robot.set_mode(Go1Mode.WALK)
-        self.current_mode = "WALK"
-        print("Mode: WALK")
+        self.set_mode(Go1Mode.WALK, "WALK")
 
     def run_mode(self):
-        """Enter run mode (faster)."""
-        self.robot.set_mode(Go1Mode.RUN)
-        self.current_mode = "RUN"
-        print("Mode: RUN (fast)")
+        self.set_mode(Go1Mode.RUN, "RUN")
 
     def climb_mode(self):
-        """Enter climb/stair mode."""
-        self.robot.set_mode(Go1Mode.CLIMB)
-        self.current_mode = "CLIMB"
-        print("Mode: CLIMB (stairs)")
+        self.set_mode(Go1Mode.CLIMB, "CLIMB")
 
     def damping(self):
-        """Enter damping mode (soft/limp)."""
-        self.robot.set_mode(Go1Mode.DAMPING)
-        self.current_mode = "DAMPING"
-        print("Mode: DAMPING (soft)")
+        self.set_mode(Go1Mode.DAMPING, "DAMPING")
 
     def recovery(self):
-        """Recovery stand (from fallen)."""
-        self.robot.set_mode(Go1Mode.RECOVER_STAND)
-        self.current_mode = "RECOVER"
-        print("Mode: RECOVERY STAND")
+        self.set_mode(Go1Mode.RECOVER_STAND, "RECOVERY")
 
     def dance1(self):
-        """Dance routine 1."""
-        self.robot.set_mode(Go1Mode.DANCE1)
-        self.current_mode = "DANCE1"
-        print("Mode: DANCE 1!")
+        self.set_mode(Go1Mode.DANCE1, "DANCE 1")
 
     def dance2(self):
-        """Dance routine 2."""
-        self.robot.set_mode(Go1Mode.DANCE2)
-        self.current_mode = "DANCE2"
-        print("Mode: DANCE 2!")
+        self.set_mode(Go1Mode.DANCE2, "DANCE 2")
 
     def straight_hand(self):
-        """Straight hand pose."""
-        self.robot.set_mode(Go1Mode.STRAIGHT_HAND1)
-        self.current_mode = "STRAIGHT_HAND"
-        print("Mode: STRAIGHT HAND")
+        self.set_mode(Go1Mode.STRAIGHT_HAND1, "STRAIGHT HAND")
 
-    # ============== MOVEMENT COMMANDS (async - need await) ==============
+    def jump_yaw(self):
+        # Send raw MQTT command for jumpYaw
+        self.robot.mqtt.client.publish("controller/action", "jumpYaw", qos=1)
+        print("Mode: JUMP YAW")
 
-    async def go_forward(self, speed=0.4):
-        """Walk forward - short burst."""
+    # ============== MOVEMENT (async) ==============
+
+    async def go_forward(self):
+        print("Forward")
         self.robot.set_mode(Go1Mode.WALK)
-        await self.robot.go_forward(speed=speed, duration_ms=100)
+        await self.robot.go_forward(speed=0.5, duration_ms=150)
 
-    async def go_backward(self, speed=0.4):
-        """Walk backward - short burst."""
+    async def go_backward(self):
+        print("Backward")
         self.robot.set_mode(Go1Mode.WALK)
-        await self.robot.go_backward(speed=speed, duration_ms=100)
+        await self.robot.go_backward(speed=0.5, duration_ms=150)
 
-    async def go_left(self, speed=0.3):
-        """Strafe left - short burst."""
+    async def go_left(self):
+        print("Strafe left")
         self.robot.set_mode(Go1Mode.WALK)
-        await self.robot.go_left(speed=speed, duration_ms=100)
+        await self.robot.go_left(speed=0.4, duration_ms=150)
 
-    async def go_right(self, speed=0.3):
-        """Strafe right - short burst."""
+    async def go_right(self):
+        print("Strafe right")
         self.robot.set_mode(Go1Mode.WALK)
-        await self.robot.go_right(speed=speed, duration_ms=100)
+        await self.robot.go_right(speed=0.4, duration_ms=150)
 
-    async def turn_left(self, speed=0.6):
-        """Turn left - short burst."""
+    async def turn_left(self):
+        print("Turn left")
         self.robot.set_mode(Go1Mode.WALK)
-        await self.robot.turn_left(speed=speed, duration_ms=100)
+        await self.robot.turn_left(speed=0.6, duration_ms=150)
 
-    async def turn_right(self, speed=0.6):
-        """Turn right - short burst."""
+    async def turn_right(self):
+        print("Turn right")
         self.robot.set_mode(Go1Mode.WALK)
-        await self.robot.turn_right(speed=speed, duration_ms=100)
+        await self.robot.turn_right(speed=0.6, duration_ms=150)
 
-    # ============== BODY POSE COMMANDS ==============
+    # ============== BODY POSE (async, requires STAND mode) ==============
 
-    def look_up(self):
-        """Look up (pitch up)."""
-        self.robot.look_up()
+    async def look_up(self):
         print("Look up")
+        self.robot.set_mode(Go1Mode.STAND)
+        await asyncio.sleep(0.1)
+        await self.robot.look_up(speed=0.5, duration_ms=300)
 
-    def look_down(self):
-        """Look down (pitch down)."""
-        self.robot.look_down()
+    async def look_down(self):
         print("Look down")
+        self.robot.set_mode(Go1Mode.STAND)
+        await asyncio.sleep(0.1)
+        await self.robot.look_down(speed=0.5, duration_ms=300)
 
-    def lean_left(self):
-        """Lean left (roll)."""
-        self.robot.lean_left()
+    async def lean_left(self):
         print("Lean left")
+        self.robot.set_mode(Go1Mode.STAND)
+        await asyncio.sleep(0.1)
+        await self.robot.lean_left(speed=0.5, duration_ms=300)
 
-    def lean_right(self):
-        """Lean right (roll)."""
-        self.robot.lean_right()
+    async def lean_right(self):
         print("Lean right")
+        self.robot.set_mode(Go1Mode.STAND)
+        await asyncio.sleep(0.1)
+        await self.robot.lean_right(speed=0.5, duration_ms=300)
 
-    def twist_left(self):
-        """Twist left (yaw)."""
-        self.robot.twist_left()
+    async def twist_left(self):
         print("Twist left")
+        self.robot.set_mode(Go1Mode.STAND)
+        await asyncio.sleep(0.1)
+        await self.robot.twist_left(speed=0.5, duration_ms=300)
 
-    def twist_right(self):
-        """Twist right (yaw)."""
-        self.robot.twist_right()
+    async def twist_right(self):
         print("Twist right")
+        self.robot.set_mode(Go1Mode.STAND)
+        await asyncio.sleep(0.1)
+        await self.robot.twist_right(speed=0.5, duration_ms=300)
 
-    def squat_down(self):
-        """Lower body height."""
-        self.robot.squat_down()
+    async def squat_down(self):
         print("Squat down")
+        self.robot.set_mode(Go1Mode.STAND)
+        await asyncio.sleep(0.1)
+        await self.robot.squat_down(speed=0.5, duration_ms=300)
 
-    def extend_up(self):
-        """Raise body height."""
-        self.robot.extend_up()
+    async def extend_up(self):
         print("Extend up")
+        self.robot.set_mode(Go1Mode.STAND)
+        await asyncio.sleep(0.1)
+        await self.robot.extend_up(speed=0.5, duration_ms=300)
 
-    def reset_body(self):
-        """Reset body pose to neutral."""
-        self.robot.reset_body()
-        print("Reset body pose")
+    async def reset_body(self):
+        print("Reset body")
+        await self.robot.reset_body()
 
-    # ============== LED COMMANDS ==============
+    # ============== LED ==============
 
     def led_red(self):
-        """Set LED to red."""
         self.robot.set_led_color(255, 0, 0)
         print("LED: RED")
 
     def led_green(self):
-        """Set LED to green."""
         self.robot.set_led_color(0, 255, 0)
         print("LED: GREEN")
 
     def led_blue(self):
-        """Set LED to blue."""
         self.robot.set_led_color(0, 0, 255)
         print("LED: BLUE")
-
-    def led_off(self):
-        """Turn LED off."""
-        self.robot.set_led_color(0, 0, 0)
-        print("LED: OFF")
 
 
 async def main():
@@ -242,55 +211,55 @@ async def main():
     print("  GO1 SDK CONTROL - Standard Unitree Movements")
     print("=" * 60)
     print("\n  SETUP:")
-    print("  1. Turn on Go1 robot")
-    print("  2. Connect Mac to Go1 WiFi (Unitree_GoXXXX)")
-    print("     Password: 00000000 or 88888888")
-    print("\n  MOVEMENT (hold key for continuous):")
+    print("  1. Connect Mac to Go1 WiFi")
+    print("  2. For DANCE modes: Press L1+L2+START on controller first!")
+    print("     (This enables SDK Mode 2 required for special moves)")
+    print("\n  MOVEMENT:")
     print("    w/s      = Forward/Backward")
     print("    a/d      = Turn left/right")
     print("    q/e      = Strafe left/right")
     print("\n  MODES:")
     print("    Space    = Stand (stop)")
     print("    z        = Stand up")
-    print("    x        = Sit down (stand down)")
+    print("    x        = Sit down")
     print("    c        = Recovery stand")
-    print("    v        = Damping (soft/limp)")
-    print("    r        = Run mode (fast)")
-    print("    t        = Climb/stair mode")
-    print("\n  SPECIAL MOVES:")
+    print("    v        = Damping (soft)")
+    print("    f        = Walk mode")
+    print("    r        = Run mode")
+    print("    t        = Climb mode")
+    print("\n  SPECIAL (need L1+L2+START first!):")
     print("    1        = Dance 1")
     print("    2        = Dance 2")
-    print("    3        = Straight hand pose")
-    print("\n  BODY POSE:")
-    print("    i/k      = Look up/down (pitch)")
-    print("    j/l      = Lean left/right (roll)")
-    print("    u/o      = Twist left/right (yaw)")
-    print("    [/]      = Squat down / Extend up")
-    print("    b        = Reset body pose")
-    print("\n  LED:")
-    print("    7/8/9    = Red/Green/Blue")
+    print("    3        = Straight hand")
+    print("    4        = Jump Yaw")
+    print("\n  BODY POSE (in stand mode):")
+    print("    i/k      = Look up/down")
+    print("    j/l      = Lean left/right")
+    print("    u/o      = Twist left/right")
+    print("    [/]      = Squat/Extend")
+    print("    b        = Reset body")
+    print("\n  LED: 7=Red, 8=Green, 9=Blue")
     print("\n    0        = EXIT")
     print("=" * 60)
 
     robot = Go1Controller()
 
     if not robot.connect():
-        print("\nCould not connect to robot!")
-        print("Make sure you're on Go1's WiFi network.")
+        print("\nCould not connect!")
+        print("Make sure you're on Go1's WiFi.")
         return
 
-    # Start in standing mode
     await asyncio.sleep(0.5)
     robot.stand()
 
-    print("\nReady! Press keys to control the robot.\n")
+    print("\nReady! Press keys to control.\n")
 
     try:
         while True:
             key = get_key()
 
             if key is None:
-                await asyncio.sleep(0.01)  # Small delay when no input
+                await asyncio.sleep(0.01)
                 continue
 
             # Exit
@@ -298,27 +267,21 @@ async def main():
                 print("\nExiting...")
                 break
 
-            # Movement (async)
+            # Movement
             elif key == 'w':
-                print("Forward")
-                await robot.go_forward(0.5)
+                await robot.go_forward()
             elif key == 's':
-                print("Backward")
-                await robot.go_backward(0.5)
+                await robot.go_backward()
             elif key == 'a':
-                print("Turn left")
-                await robot.turn_left(0.7)
+                await robot.turn_left()
             elif key == 'd':
-                print("Turn right")
-                await robot.turn_right(0.7)
+                await robot.turn_right()
             elif key == 'q':
-                print("Strafe left")
-                await robot.go_left(0.4)
+                await robot.go_left()
             elif key == 'e':
-                print("Strafe right")
-                await robot.go_right(0.4)
+                await robot.go_right()
 
-            # Modes (sync - instant)
+            # Modes
             elif key == ' ':
                 robot.stand()
             elif key == 'z':
@@ -329,38 +292,42 @@ async def main():
                 robot.recovery()
             elif key == 'v':
                 robot.damping()
+            elif key == 'f':
+                robot.walk_mode()
             elif key == 'r':
                 robot.run_mode()
             elif key == 't':
                 robot.climb_mode()
 
-            # Special moves
+            # Special (need L1+L2+START first!)
             elif key == '1':
                 robot.dance1()
             elif key == '2':
                 robot.dance2()
             elif key == '3':
                 robot.straight_hand()
+            elif key == '4':
+                robot.jump_yaw()
 
             # Body pose
             elif key == 'i':
-                robot.look_up()
+                await robot.look_up()
             elif key == 'k':
-                robot.look_down()
+                await robot.look_down()
             elif key == 'j':
-                robot.lean_left()
+                await robot.lean_left()
             elif key == 'l':
-                robot.lean_right()
+                await robot.lean_right()
             elif key == 'u':
-                robot.twist_left()
+                await robot.twist_left()
             elif key == 'o':
-                robot.twist_right()
+                await robot.twist_right()
             elif key == '[':
-                robot.squat_down()
+                await robot.squat_down()
             elif key == ']':
-                robot.extend_up()
+                await robot.extend_up()
             elif key == 'b':
-                robot.reset_body()
+                await robot.reset_body()
 
             # LED
             elif key == '7':
@@ -375,7 +342,6 @@ async def main():
     finally:
         robot.stand()
         await asyncio.sleep(0.2)
-        robot.disconnect()
 
     print("\nDone!")
 
