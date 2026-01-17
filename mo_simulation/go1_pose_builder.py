@@ -1,92 +1,145 @@
 #!/usr/bin/env python3
 """
-Go1 Pose Builder - Custom Joint Control via Low-Level UDP
+Go1 Pose Builder - Body Pose Control for Real Robot
 
-Create custom poses by adjusting individual joint positions.
-Save poses and play them back as choreography.
+Create poses using body adjustments (lean, look, twist, squat, extend).
+Works with the real Go1 robot via go1pylib.
 
 Run with: python mo_simulation/go1_pose_builder.py
 Open: http://localhost:8892
 """
 
+import asyncio
 import time
 import json
-import struct
-import socket
-import threading
 from http.server import HTTPServer, BaseHTTPRequestHandler
 import webbrowser
 from pathlib import Path
 
-# Go1 Low-Level UDP Config
-GO1_IP = "192.168.12.1"
-LOW_LEVEL_PORT = 8007  # Low-level control port
-
-# Joint limits (radians) - approximate safe ranges
-JOINT_LIMITS = {
-    'hip': (-0.8, 0.8),
-    'thigh': (-0.5, 1.5),
-    'calf': (-2.7, -0.8),
-}
-
-# Default standing pose (12 joints)
-DEFAULT_POSE = [
-    0.0, 0.9, -1.8,   # FR: hip, thigh, calf
-    0.0, 0.9, -1.8,   # FL
-    0.0, 0.9, -1.8,   # RR
-    0.0, 0.9, -1.8,   # RL
-]
+try:
+    from go1pylib import Go1, Go1Mode
+except ImportError:
+    print("ERROR: go1pylib not installed!")
+    print("Run: pip install go1pylib")
+    exit(1)
 
 # Global state
-current_pose = DEFAULT_POSE.copy()
+robot = None
+connected = False
 saved_poses = {}
 sequence = []
-udp_socket = None
-connected = False
 
-# Joint names for display
-JOINT_NAMES = [
-    "FR Hip", "FR Thigh", "FR Calf",
-    "FL Hip", "FL Thigh", "FL Calf",
-    "RR Hip", "RR Thigh", "RR Calf",
-    "RL Hip", "RL Thigh", "RL Calf",
-]
+# Current body pose values (normalized -1 to 1)
+current_pose = {
+    "roll": 0.0,      # Lean left(-) / right(+)
+    "pitch": 0.0,     # Look down(-) / up(+)
+    "yaw": 0.0,       # Twist left(-) / right(+)
+    "height": 0.0,    # Squat(-) / extend(+)
+}
 
-# ============== UDP LOW-LEVEL CONTROL ==============
+# ============== ROBOT CONNECTION ==============
 
-def connect_udp():
-    """Connect to Go1 low-level UDP interface."""
-    global udp_socket, connected
+def connect_robot():
+    """Connect to real Go1 robot."""
+    global robot, connected
     try:
-        udp_socket = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-        udp_socket.settimeout(1.0)
+        robot = Go1()
+        robot.init()
         connected = True
-        print(f"UDP connected to {GO1_IP}:{LOW_LEVEL_PORT}")
+        print("Connected to Go1 robot!")
         return True
     except Exception as e:
-        print(f"UDP connection failed: {e}")
+        print(f"Connection failed: {e}")
         connected = False
         return False
 
-def send_joint_positions(positions):
-    """
-    Send joint positions to Go1 via low-level UDP.
-    Note: This requires the robot to be in low-level mode.
-    """
-    global udp_socket, connected
-
-    if not connected or not udp_socket:
+def send_body_pose(pose):
+    """Send body pose adjustments to robot."""
+    global robot, connected
+    if not robot or not connected:
         return False
 
     try:
-        # Build LowCmd packet (simplified)
-        # Real implementation needs proper CRC and structure
-        # This is a placeholder - actual protocol is more complex
-        cmd_data = struct.pack('<12f', *positions)
-        udp_socket.sendto(cmd_data, (GO1_IP, LOW_LEVEL_PORT))
+        # Put in stand mode first
+        robot.set_mode(Go1Mode.STAND)
+        time.sleep(0.1)
+
+        loop = asyncio.new_event_loop()
+
+        # Apply each adjustment
+        roll = pose.get("roll", 0)
+        pitch = pose.get("pitch", 0)
+        yaw = pose.get("yaw", 0)
+        height = pose.get("height", 0)
+
+        # Roll (lean left/right)
+        if roll < 0:
+            loop.run_until_complete(robot.lean_left(abs(roll), 200))
+        elif roll > 0:
+            loop.run_until_complete(robot.lean_right(abs(roll), 200))
+
+        # Pitch (look up/down)
+        if pitch < 0:
+            loop.run_until_complete(robot.look_down(abs(pitch), 200))
+        elif pitch > 0:
+            loop.run_until_complete(robot.look_up(abs(pitch), 200))
+
+        # Yaw (twist left/right)
+        if yaw < 0:
+            loop.run_until_complete(robot.twist_left(abs(yaw), 200))
+        elif yaw > 0:
+            loop.run_until_complete(robot.twist_right(abs(yaw), 200))
+
+        # Height (squat/extend)
+        if height < 0:
+            loop.run_until_complete(robot.squat_down(abs(height), 200))
+        elif height > 0:
+            loop.run_until_complete(robot.extend_up(abs(height), 200))
+
+        loop.close()
         return True
     except Exception as e:
         print(f"Send failed: {e}")
+        return False
+
+
+def execute_move(move_name):
+    """Execute a special move."""
+    global robot, connected
+    if not robot or not connected:
+        return False
+
+    try:
+        # Direct mode commands
+        if move_name == "straightHand":
+            robot.set_mode(Go1Mode.STRAIGHT_HAND1)
+        elif move_name == "dance1":
+            robot.set_mode(Go1Mode.DANCE1)
+        elif move_name == "dance2":
+            robot.set_mode(Go1Mode.DANCE2)
+        elif move_name == "stand":
+            robot.set_mode(Go1Mode.STAND)
+        elif move_name == "standDown":
+            robot.set_mode(Go1Mode.STAND_DOWN)
+        elif move_name == "standUp":
+            robot.set_mode(Go1Mode.STAND_UP)
+        elif move_name == "recover":
+            robot.set_mode(Go1Mode.RECOVER_STAND)
+        # MQTT action commands
+        elif move_name == "jumpYaw":
+            robot.mqtt.client.publish("controller/action", "jumpYaw", qos=1)
+        elif move_name == "pray":
+            robot.mqtt.client.publish("controller/action", "pray", qos=1)
+        # Body pose combos for front leg effect
+        elif move_name == "frontUp":
+            robot.set_mode(Go1Mode.STAND)
+            time.sleep(0.2)
+            loop = asyncio.new_event_loop()
+            loop.run_until_complete(robot.look_up(0.9, 300))
+            loop.close()
+        return True
+    except Exception as e:
+        print(f"Move failed: {e}")
         return False
 
 # ============== POSE MANAGEMENT ==============
@@ -116,19 +169,23 @@ def load_poses_from_file():
     global saved_poses
     filepath = Path(__file__).parent / "saved_poses.json"
     if filepath.exists():
-        with open(filepath, 'r') as f:
-            saved_poses = json.load(f)
-    # Add some preset poses
+        try:
+            with open(filepath, 'r') as f:
+                saved_poses = json.load(f)
+        except:
+            saved_poses = {}
+    # Add some preset poses (body pose format)
     if not saved_poses:
         saved_poses = {
-            "Stand": [0, 0.9, -1.8, 0, 0.9, -1.8, 0, 0.9, -1.8, 0, 0.9, -1.8],
-            "Sit": [0, 1.4, -2.6, 0, 1.4, -2.6, 0, 1.4, -2.6, 0, 1.4, -2.6],
-            "Tall": [0, 0.5, -1.0, 0, 0.5, -1.0, 0, 0.5, -1.0, 0, 0.5, -1.0],
-            "Wide": [0.3, 0.8, -1.6, -0.3, 0.8, -1.6, 0.3, 0.8, -1.6, -0.3, 0.8, -1.6],
-            "Lean Left": [0.2, 1.0, -1.9, -0.2, 0.7, -1.5, 0.2, 1.0, -1.9, -0.2, 0.7, -1.5],
-            "Lean Right": [-0.2, 0.7, -1.5, 0.2, 1.0, -1.9, -0.2, 0.7, -1.5, 0.2, 1.0, -1.9],
-            "Front Up": [0, 0.5, -1.0, 0, 0.5, -1.0, 0, 1.2, -2.2, 0, 1.2, -2.2],
-            "Back Up": [0, 1.2, -2.2, 0, 1.2, -2.2, 0, 0.5, -1.0, 0, 0.5, -1.0],
+            "Stand": {"roll": 0, "pitch": 0, "yaw": 0, "height": 0},
+            "Squat": {"roll": 0, "pitch": 0, "yaw": 0, "height": -0.7},
+            "Tall": {"roll": 0, "pitch": 0, "yaw": 0, "height": 0.7},
+            "Lean Left": {"roll": -0.6, "pitch": 0, "yaw": 0, "height": 0},
+            "Lean Right": {"roll": 0.6, "pitch": 0, "yaw": 0, "height": 0},
+            "Look Up": {"roll": 0, "pitch": 0.6, "yaw": 0, "height": 0},
+            "Look Down": {"roll": 0, "pitch": -0.5, "yaw": 0, "height": 0},
+            "Twist Left": {"roll": 0, "pitch": 0, "yaw": -0.5, "height": 0},
+            "Twist Right": {"roll": 0, "pitch": 0, "yaw": 0.5, "height": 0},
         }
 
 # ============== WEB SERVER ==============
@@ -148,23 +205,18 @@ HTML = """<!DOCTYPE html>
             color: white;
             padding: 20px;
         }
-        .header {
-            text-align: center;
-            margin-bottom: 20px;
-        }
+        .header { text-align: center; margin-bottom: 20px; }
         .header h1 { font-size: 28px; color: #00BCD4; }
         .header p { color: #888; font-size: 14px; margin-top: 5px; }
 
         .container {
-            max-width: 1200px;
+            max-width: 900px;
             margin: 0 auto;
             display: grid;
-            grid-template-columns: 1fr 300px;
+            grid-template-columns: 1fr 280px;
             gap: 20px;
         }
-        @media (max-width: 900px) {
-            .container { grid-template-columns: 1fr; }
-        }
+        @media (max-width: 700px) { .container { grid-template-columns: 1fr; } }
 
         .panel {
             background: rgba(255,255,255,0.05);
@@ -177,61 +229,45 @@ HTML = """<!DOCTYPE html>
             color: #00BCD4;
             margin-bottom: 15px;
             text-transform: uppercase;
-            letter-spacing: 1px;
         }
 
-        .legs-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 15px;
-        }
-        .leg-panel {
-            background: rgba(0,0,0,0.2);
-            border-radius: 8px;
-            padding: 12px;
-        }
-        .leg-panel h3 {
-            font-size: 12px;
-            color: #ffd700;
-            margin-bottom: 10px;
-        }
-
-        .joint-slider {
-            margin-bottom: 12px;
-        }
-        .joint-slider label {
+        .pose-slider { margin-bottom: 20px; }
+        .pose-slider label {
             display: flex;
             justify-content: space-between;
-            font-size: 11px;
+            font-size: 13px;
             color: #aaa;
-            margin-bottom: 4px;
+            margin-bottom: 6px;
         }
-        .joint-slider input[type="range"] {
-            width: 100%;
-            height: 6px;
-            border-radius: 3px;
+        .pose-slider .slider-row { display: flex; align-items: center; gap: 10px; }
+        .pose-slider input[type="range"] {
+            flex: 1;
+            height: 8px;
+            border-radius: 4px;
             background: #333;
             outline: none;
             -webkit-appearance: none;
         }
-        .joint-slider input[type="range"]::-webkit-slider-thumb {
+        .pose-slider input[type="range"]::-webkit-slider-thumb {
             -webkit-appearance: none;
-            width: 16px;
-            height: 16px;
+            width: 20px;
+            height: 20px;
             border-radius: 50%;
             background: #00BCD4;
             cursor: pointer;
         }
-        .joint-value {
+        .pose-value {
             color: #00BCD4;
             font-weight: bold;
+            min-width: 50px;
+            text-align: right;
         }
 
         .btn {
-            padding: 10px 16px;
+            padding: 12px 20px;
             border: none;
-            border-radius: 6px;
-            font-size: 12px;
+            border-radius: 8px;
+            font-size: 13px;
             font-weight: 600;
             cursor: pointer;
             transition: all 0.2s;
@@ -244,34 +280,27 @@ HTML = """<!DOCTYPE html>
         .btn-danger { background: #f44336; color: white; }
         .btn-purple { background: #9C27B0; color: white; }
 
-        .btn-row {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 8px;
-            margin-bottom: 15px;
-        }
+        .btn-row { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 15px; }
 
         .pose-btn {
-            padding: 8px 14px;
+            padding: 10px 16px;
             border: 1px solid rgba(255,255,255,0.2);
-            border-radius: 6px;
-            font-size: 11px;
+            border-radius: 8px;
+            font-size: 12px;
             cursor: pointer;
             background: rgba(255,255,255,0.1);
             color: white;
             transition: all 0.2s;
+            margin: 3px;
         }
-        .pose-btn:hover {
-            border-color: #00BCD4;
-            background: rgba(0,188,212,0.2);
-        }
+        .pose-btn:hover { border-color: #00BCD4; background: rgba(0,188,212,0.2); }
 
         .sequence-list {
             background: rgba(0,0,0,0.3);
             border-radius: 8px;
             padding: 10px;
-            min-height: 100px;
-            max-height: 200px;
+            min-height: 80px;
+            max-height: 150px;
             overflow-y: auto;
         }
         .sequence-item {
@@ -283,24 +312,17 @@ HTML = """<!DOCTYPE html>
             border-radius: 4px;
             font-size: 12px;
         }
-        .sequence-item .remove {
-            color: #f44336;
-            cursor: pointer;
-        }
+        .sequence-item .remove { color: #f44336; cursor: pointer; }
 
-        .save-input {
-            display: flex;
-            gap: 8px;
-            margin-bottom: 10px;
-        }
+        .save-input { display: flex; gap: 8px; margin-bottom: 10px; }
         .save-input input {
             flex: 1;
-            padding: 8px 12px;
+            padding: 10px 12px;
             border: 1px solid rgba(255,255,255,0.2);
             border-radius: 6px;
             background: rgba(0,0,0,0.3);
             color: white;
-            font-size: 12px;
+            font-size: 13px;
         }
 
         .status {
@@ -313,19 +335,13 @@ HTML = """<!DOCTYPE html>
         .status.connected { background: #4CAF50; }
         .status.disconnected { background: #f44336; }
 
-        .robot-diagram {
-            text-align: center;
-            padding: 20px;
-            font-family: monospace;
-            font-size: 12px;
-            color: #666;
-        }
+        .quick-poses { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 10px; }
     </style>
 </head>
 <body>
     <div class="header">
         <h1>Go1 Pose Builder</h1>
-        <p>Adjust joint sliders to create custom poses</p>
+        <p>Adjust body pose sliders - works with real robot!</p>
     </div>
 
     <div class="container">
@@ -333,85 +349,90 @@ HTML = """<!DOCTYPE html>
             <div class="panel">
                 <span class="status disconnected" id="connStatus">Disconnected</span>
                 <div class="btn-row">
-                    <button class="btn btn-success" onclick="connect()">Connect</button>
-                    <button class="btn btn-warning" onclick="sendPose()">Send to Robot</button>
-                    <button class="btn btn-primary" onclick="resetPose()">Reset to Stand</button>
+                    <button class="btn btn-success" onclick="connect()">Connect to Robot</button>
+                    <button class="btn btn-warning" onclick="sendPose()">Send Pose</button>
+                    <button class="btn btn-primary" onclick="resetPose()">Reset</button>
                 </div>
             </div>
 
             <div class="panel">
-                <h2>Joint Controls</h2>
-                <div class="legs-grid">
-                    <div class="leg-panel">
-                        <h3>Front Right (FR)</h3>
-                        <div class="joint-slider">
-                            <label><span>Hip</span><span class="joint-value" id="val0">0.00</span></label>
-                            <input type="range" min="-0.8" max="0.8" step="0.01" value="0" id="joint0" oninput="updateJoint(0)">
-                        </div>
-                        <div class="joint-slider">
-                            <label><span>Thigh</span><span class="joint-value" id="val1">0.90</span></label>
-                            <input type="range" min="-0.5" max="1.5" step="0.01" value="0.9" id="joint1" oninput="updateJoint(1)">
-                        </div>
-                        <div class="joint-slider">
-                            <label><span>Calf</span><span class="joint-value" id="val2">-1.80</span></label>
-                            <input type="range" min="-2.7" max="-0.8" step="0.01" value="-1.8" id="joint2" oninput="updateJoint(2)">
-                        </div>
-                    </div>
+                <h2>Body Pose Controls</h2>
 
-                    <div class="leg-panel">
-                        <h3>Front Left (FL)</h3>
-                        <div class="joint-slider">
-                            <label><span>Hip</span><span class="joint-value" id="val3">0.00</span></label>
-                            <input type="range" min="-0.8" max="0.8" step="0.01" value="0" id="joint3" oninput="updateJoint(3)">
-                        </div>
-                        <div class="joint-slider">
-                            <label><span>Thigh</span><span class="joint-value" id="val4">0.90</span></label>
-                            <input type="range" min="-0.5" max="1.5" step="0.01" value="0.9" id="joint4" oninput="updateJoint(4)">
-                        </div>
-                        <div class="joint-slider">
-                            <label><span>Calf</span><span class="joint-value" id="val5">-1.80</span></label>
-                            <input type="range" min="-2.7" max="-0.8" step="0.01" value="-1.8" id="joint5" oninput="updateJoint(5)">
-                        </div>
+                <div class="pose-slider">
+                    <label><span>Roll (Lean Left/Right)</span><span class="pose-value" id="valRoll">0.00</span></label>
+                    <div class="slider-row">
+                        <span>L</span>
+                        <input type="range" min="-1" max="1" step="0.05" value="0" id="sliderRoll" oninput="updatePose('roll')">
+                        <span>R</span>
                     </div>
+                </div>
 
-                    <div class="leg-panel">
-                        <h3>Rear Right (RR)</h3>
-                        <div class="joint-slider">
-                            <label><span>Hip</span><span class="joint-value" id="val6">0.00</span></label>
-                            <input type="range" min="-0.8" max="0.8" step="0.01" value="0" id="joint6" oninput="updateJoint(6)">
-                        </div>
-                        <div class="joint-slider">
-                            <label><span>Thigh</span><span class="joint-value" id="val7">0.90</span></label>
-                            <input type="range" min="-0.5" max="1.5" step="0.01" value="0.9" id="joint7" oninput="updateJoint(7)">
-                        </div>
-                        <div class="joint-slider">
-                            <label><span>Calf</span><span class="joint-value" id="val8">-1.80</span></label>
-                            <input type="range" min="-2.7" max="-0.8" step="0.01" value="-1.8" id="joint8" oninput="updateJoint(8)">
-                        </div>
+                <div class="pose-slider">
+                    <label><span>Pitch (Look Down/Up)</span><span class="pose-value" id="valPitch">0.00</span></label>
+                    <div class="slider-row">
+                        <span>D</span>
+                        <input type="range" min="-1" max="1" step="0.05" value="0" id="sliderPitch" oninput="updatePose('pitch')">
+                        <span>U</span>
                     </div>
+                </div>
 
-                    <div class="leg-panel">
-                        <h3>Rear Left (RL)</h3>
-                        <div class="joint-slider">
-                            <label><span>Hip</span><span class="joint-value" id="val9">0.00</span></label>
-                            <input type="range" min="-0.8" max="0.8" step="0.01" value="0" id="joint9" oninput="updateJoint(9)">
-                        </div>
-                        <div class="joint-slider">
-                            <label><span>Thigh</span><span class="joint-value" id="val10">0.90</span></label>
-                            <input type="range" min="-0.5" max="1.5" step="0.01" value="0.9" id="joint10" oninput="updateJoint(10)">
-                        </div>
-                        <div class="joint-slider">
-                            <label><span>Calf</span><span class="joint-value" id="val11">-1.80</span></label>
-                            <input type="range" min="-2.7" max="-0.8" step="0.01" value="-1.8" id="joint11" oninput="updateJoint(11)">
-                        </div>
+                <div class="pose-slider">
+                    <label><span>Yaw (Twist Left/Right)</span><span class="pose-value" id="valYaw">0.00</span></label>
+                    <div class="slider-row">
+                        <span>L</span>
+                        <input type="range" min="-1" max="1" step="0.05" value="0" id="sliderYaw" oninput="updatePose('yaw')">
+                        <span>R</span>
                     </div>
+                </div>
+
+                <div class="pose-slider">
+                    <label><span>Height (Squat/Extend)</span><span class="pose-value" id="valHeight">0.00</span></label>
+                    <div class="slider-row">
+                        <span>-</span>
+                        <input type="range" min="-1" max="1" step="0.05" value="0" id="sliderHeight" oninput="updatePose('height')">
+                        <span>+</span>
+                    </div>
+                </div>
+
+                <h2>Quick Poses</h2>
+                <div class="quick-poses">
+                    <button class="pose-btn" onclick="quickPose(0,0,0,0)">Stand</button>
+                    <button class="pose-btn" onclick="quickPose(0,0,0,-0.7)">Squat</button>
+                    <button class="pose-btn" onclick="quickPose(0,0,0,0.7)">Tall</button>
+                    <button class="pose-btn" onclick="quickPose(-0.6,0,0,0)">Lean L</button>
+                    <button class="pose-btn" onclick="quickPose(0.6,0,0,0)">Lean R</button>
+                    <button class="pose-btn" onclick="quickPose(0,0.6,0,0)">Look Up</button>
+                    <button class="pose-btn" onclick="quickPose(0,-0.6,0,0)">Look Down</button>
+                    <button class="pose-btn" onclick="quickPose(0,0,-0.5,0)">Twist L</button>
+                    <button class="pose-btn" onclick="quickPose(0,0,0.5,0)">Twist R</button>
+                </div>
+            </div>
+
+            <div class="panel">
+                <h2>Front Leg Moves (Trump Arms!)</h2>
+                <div class="quick-poses">
+                    <button class="pose-btn" style="background:#E91E63;" onclick="doMove('straightHand')">Straight Hand (Y)</button>
+                    <button class="pose-btn" style="background:#9C27B0;" onclick="doMove('frontUp')">Front Up</button>
+                    <button class="pose-btn" style="background:#FF9800;" onclick="doMove('pray')">Pray</button>
+                </div>
+                <h2 style="margin-top:15px;">SDK Dances</h2>
+                <div class="quick-poses">
+                    <button class="pose-btn" style="background:#2196F3;" onclick="doMove('dance1')">Dance 1</button>
+                    <button class="pose-btn" style="background:#2196F3;" onclick="doMove('dance2')">Dance 2</button>
+                    <button class="pose-btn" style="background:#FF5722;" onclick="doMove('jumpYaw')">Jump Yaw</button>
+                </div>
+                <h2 style="margin-top:15px;">Recovery</h2>
+                <div class="quick-poses">
+                    <button class="pose-btn" style="background:#4CAF50;" onclick="doMove('stand')">Stand</button>
+                    <button class="pose-btn" style="background:#4CAF50;" onclick="doMove('recover')">Recovery</button>
+                    <button class="pose-btn" style="background:#607D8B;" onclick="doMove('standDown')">Sit</button>
                 </div>
             </div>
         </div>
 
         <div class="side-panel">
             <div class="panel">
-                <h2>Save Current Pose</h2>
+                <h2>Save Pose</h2>
                 <div class="save-input">
                     <input type="text" id="poseName" placeholder="Pose name...">
                     <button class="btn btn-purple" onclick="savePose()">Save</button>
@@ -430,52 +451,47 @@ HTML = """<!DOCTYPE html>
                     <button class="btn btn-danger" onclick="clearSequence()">Clear</button>
                 </div>
                 <div class="sequence-list" id="sequence"></div>
-            </div>
-
-            <div class="panel">
-                <div class="robot-diagram">
-                    <pre>
-    [FL]----[FR]
-      |      |
-      |  ^^  |
-      |      |
-    [RL]----[RR]
-                    </pre>
-                    <p>Front = Head direction</p>
-                </div>
+                <p style="font-size:11px;color:#666;margin-top:8px;">Double-click saved pose to add</p>
             </div>
         </div>
     </div>
 
     <script>
-        let currentPose = [0, 0.9, -1.8, 0, 0.9, -1.8, 0, 0.9, -1.8, 0, 0.9, -1.8];
+        let currentPose = {roll: 0, pitch: 0, yaw: 0, height: 0};
         let savedPoses = {};
         let sequence = [];
 
-        function updateJoint(idx) {
-            const slider = document.getElementById('joint' + idx);
+        function updatePose(axis) {
+            const slider = document.getElementById('slider' + axis.charAt(0).toUpperCase() + axis.slice(1));
             const value = parseFloat(slider.value);
-            currentPose[idx] = value;
-            document.getElementById('val' + idx).textContent = value.toFixed(2);
+            currentPose[axis] = value;
+            document.getElementById('val' + axis.charAt(0).toUpperCase() + axis.slice(1)).textContent = value.toFixed(2);
         }
 
         function setSliders(pose) {
-            for (let i = 0; i < 12; i++) {
-                document.getElementById('joint' + i).value = pose[i];
-                document.getElementById('val' + i).textContent = pose[i].toFixed(2);
-                currentPose[i] = pose[i];
+            for (const axis of ['roll', 'pitch', 'yaw', 'height']) {
+                const val = pose[axis] || 0;
+                document.getElementById('slider' + axis.charAt(0).toUpperCase() + axis.slice(1)).value = val;
+                document.getElementById('val' + axis.charAt(0).toUpperCase() + axis.slice(1)).textContent = val.toFixed(2);
+                currentPose[axis] = val;
             }
         }
 
         function resetPose() {
-            setSliders([0, 0.9, -1.8, 0, 0.9, -1.8, 0, 0.9, -1.8, 0, 0.9, -1.8]);
+            setSliders({roll: 0, pitch: 0, yaw: 0, height: 0});
+            sendPose();
+        }
+
+        function quickPose(roll, pitch, yaw, height) {
+            setSliders({roll, pitch, yaw, height});
+            sendPose();
         }
 
         async function connect() {
             const res = await fetch('/api/connect', {method: 'POST'});
             const data = await res.json();
             const el = document.getElementById('connStatus');
-            el.textContent = data.connected ? 'Connected' : 'Disconnected';
+            el.textContent = data.connected ? 'Connected to Go1' : 'Disconnected';
             el.className = 'status ' + (data.connected ? 'connected' : 'disconnected');
         }
 
@@ -487,14 +503,17 @@ HTML = """<!DOCTYPE html>
             });
         }
 
+        async function doMove(moveName) {
+            await fetch('/api/move/' + moveName, {method: 'POST'});
+        }
+
         async function savePose() {
             const name = document.getElementById('poseName').value.trim();
             if (!name) { alert('Enter a pose name'); return; }
-
             await fetch('/api/save_pose', {
                 method: 'POST',
                 headers: {'Content-Type': 'application/json'},
-                body: JSON.stringify({name: name, pose: currentPose.slice()})
+                body: JSON.stringify({name: name, pose: {...currentPose}})
             });
             document.getElementById('poseName').value = '';
             loadSavedPoses();
@@ -513,17 +532,14 @@ HTML = """<!DOCTYPE html>
                 const btn = document.createElement('button');
                 btn.className = 'pose-btn';
                 btn.textContent = name;
-                btn.onclick = () => {
-                    setSliders(pose);
-                    sendPose();
-                };
+                btn.onclick = () => { setSliders(pose); sendPose(); };
                 btn.ondblclick = () => addToSequence(name, pose);
                 container.appendChild(btn);
             }
         }
 
         function addToSequence(name, pose) {
-            sequence.push({name, pose: pose.slice()});
+            sequence.push({name, pose: {...pose}});
             renderSequence();
         }
 
@@ -543,10 +559,7 @@ HTML = """<!DOCTYPE html>
             });
         }
 
-        function clearSequence() {
-            sequence = [];
-            renderSequence();
-        }
+        function clearSequence() { sequence = []; renderSequence(); }
 
         async function playSequence() {
             for (const item of sequence) {
@@ -556,11 +569,10 @@ HTML = """<!DOCTYPE html>
                     headers: {'Content-Type': 'application/json'},
                     body: JSON.stringify({pose: item.pose})
                 });
-                await new Promise(r => setTimeout(r, 1000));
+                await new Promise(r => setTimeout(r, 800));
             }
         }
 
-        // Load saved poses on start
         loadSavedPoses();
     </script>
 </body>
@@ -601,16 +613,15 @@ class PoseHandler(BaseHTTPRequestHandler):
             data = {}
 
         if self.path == '/api/connect':
-            success = connect_udp()
+            success = connect_robot()
             self.send_json({'connected': success})
 
         elif self.path == '/api/pose':
-            pose = data.get('pose', DEFAULT_POSE)
-            current_pose = pose
-            # Try to send to robot
-            if connected:
-                send_joint_positions(pose)
-            self.send_json({'success': True, 'pose': pose})
+            pose = data.get('pose', current_pose)
+            current_pose.update(pose)
+            # Send to real robot
+            success = send_body_pose(pose)
+            self.send_json({'success': success, 'pose': pose})
 
         elif self.path == '/api/save_pose':
             name = data.get('name', 'Unnamed')
@@ -622,6 +633,11 @@ class PoseHandler(BaseHTTPRequestHandler):
             name = data.get('name')
             delete_pose(name)
             self.send_json({'success': True})
+
+        elif self.path.startswith('/api/move/'):
+            move_name = self.path.split('/')[-1]
+            success = execute_move(move_name)
+            self.send_json({'success': success})
 
         else:
             self.send_error(404)

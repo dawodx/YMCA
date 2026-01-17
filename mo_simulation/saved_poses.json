@@ -124,5 +124,23 @@
     0,
     0.9,
     -1.8
-  ]
+  ],
+  "oh": {
+    "roll": -0.55,
+    "pitch": 0,
+    "yaw": 0.5,
+    "height": 0
+  },
+  "la": {
+    "roll": 0.45,
+    "pitch": 0,
+    "yaw": -0.6,
+    "height": 0
+  },
+  "sqat": {
+    "roll": 0,
+    "pitch": 0,
+    "yaw": 0,
+    "height": -0.9
+  }
 }

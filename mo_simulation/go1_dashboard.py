@@ -101,23 +101,13 @@ COMMANDS = {
     "damping": {"name": "Damping", "category": "mode", "color": "#FF9800", "duration": 500},
     "recoverStand": {"name": "Recovery", "category": "mode", "color": "#FF9800", "duration": 2000},
 
-    # Dances
+    # Dances (only 1 & 2 work on Go1 Pro)
     "dance1": {"name": "Dance 1", "category": "dance", "color": "#E91E63", "duration": 5000},
     "dance2": {"name": "Dance 2", "category": "dance", "color": "#E91E63", "duration": 5000},
-    "dance3": {"name": "Dance 3", "category": "dance", "color": "#9C27B0", "duration": 5000},
-    "dance4": {"name": "Dance 4", "category": "dance", "color": "#9C27B0", "duration": 5000},
 
-    # Special moves
+    # Special moves (only these work on Go1 Pro)
     "jumpYaw": {"name": "Jump Yaw", "category": "special", "color": "#FF5722", "duration": 2000},
     "straightHand1": {"name": "Straight Hand", "category": "special", "color": "#FF5722", "duration": 2000},
-    "frontJump": {"name": "Front Jump", "category": "special", "color": "#FF5722", "duration": 1500},
-    "frontPounce": {"name": "Front Pounce", "category": "special", "color": "#FF5722", "duration": 1500},
-    "stretch": {"name": "Stretch", "category": "special", "color": "#795548", "duration": 2000},
-    "pray": {"name": "Pray", "category": "special", "color": "#795548", "duration": 2000},
-    "handStand": {"name": "Hand Stand", "category": "special", "color": "#795548", "duration": 3000},
-    "wiggleHips": {"name": "Wiggle Hips", "category": "special", "color": "#795548", "duration": 2000},
-    "bound": {"name": "Bound Jump", "category": "special", "color": "#795548", "duration": 1500},
-    "backflip": {"name": "BACKFLIP", "category": "danger", "color": "#f44336", "duration": 3000},
 
     # Movement
     "forward": {"name": "Forward", "category": "move", "color": "#00BCD4", "duration": 200},
@@ -192,11 +182,8 @@ def execute_command(cmd):
     if cmd in mode_map:
         return timed_action(cmd, lambda: robot.set_mode(mode_map[cmd]))
 
-    # Raw MQTT commands
-    mqtt_commands = ["dance3", "dance4", "jumpYaw", "frontJump", "frontPounce",
-                     "stretch", "pray", "handStand", "wiggleHips", "bound", "backflip"]
-
-    if cmd in mqtt_commands:
+    # Raw MQTT commands (jumpYaw uses MQTT)
+    if cmd == "jumpYaw":
         return timed_action(cmd, lambda: robot.mqtt.client.publish("controller/action", cmd, qos=1))
 
     # LED commands
@@ -601,6 +588,7 @@ HTML = """<!DOCTYPE html>
                     <button class="btn" style="background:#FF9800;" onclick="unlock()">Unlock SDK</button>
                     <button class="btn" style="background:#9C27B0;" onclick="startSimulation()">Start Simulation</button>
                     <button class="btn" style="background:#607D8B;" onclick="resetSimulation()">Reset Sim</button>
+                    <button class="btn" style="background:#00BCD4;" onclick="openPoseBuilder()">Pose Builder</button>
                 </div>
             </div>
 
@@ -702,7 +690,6 @@ HTML = """<!DOCTYPE html>
                 'mode': 'mode-btns',
                 'dance': 'dance-btns',
                 'special': 'dance-btns',
-                'danger': 'dance-btns',
                 'move': 'move-btns',
                 'pose': 'pose-btns',
                 'wait': 'wait-btns',
@@ -920,6 +907,23 @@ HTML = """<!DOCTYPE html>
             }
         }
 
+        async function openPoseBuilder() {
+            addLog('Opening Pose Builder...', true, 0);
+            try {
+                const res = await fetch('/api/start_pose_builder', {method: 'POST'});
+                const data = await res.json();
+                if (data.success) {
+                    addLog('Pose Builder opened', true, 0);
+                    window.open('http://localhost:8892', '_blank');
+                } else {
+                    addLog('Error: ' + data.error, false, 0);
+                }
+            } catch(e) {
+                // Try opening directly if already running
+                window.open('http://localhost:8892', '_blank');
+            }
+        }
+
         async function unlock() {
             const res = await fetch(apiBase + '/api/unlock', {method: 'POST'});
             const data = await res.json();
@@ -1054,6 +1058,32 @@ class DashboardHandler(SimpleHTTPRequestHandler):
                     stdout=subprocess.DEVNULL,
                     stderr=subprocess.DEVNULL
                 )
+                elapsed = (time.time() - start) * 1000
+                self.send_json({'success': True, 'time_ms': round(elapsed, 1)})
+            except Exception as e:
+                self.send_json({'success': False, 'error': str(e)})
+
+        elif self.path == '/api/start_pose_builder':
+            start = time.time()
+            try:
+                from pathlib import Path
+                script_dir = Path(__file__).parent
+                project_root = script_dir.parent
+                python_cmd = project_root / ".venv" / "bin" / "python"
+                pose_script = script_dir / "go1_pose_builder.py"
+
+                if not pose_script.exists():
+                    self.send_json({'success': False, 'error': 'Pose Builder not found'})
+                    return
+
+                # Start Pose Builder in new terminal
+                apple_script = f'''
+                tell application "Terminal"
+                    activate
+                    do script "cd {project_root} && {python_cmd} {pose_script}"
+                end tell
+                '''
+                subprocess.Popen(["osascript", "-e", apple_script])
                 elapsed = (time.time() - start) * 1000
                 self.send_json({'success': True, 'time_ms': round(elapsed, 1)})
             except Exception as e:
