@@ -16,6 +16,9 @@ pip install -r ../requirements.txt
 
 # Run the parser
 python rhythm_parser.py --file path/to/song.mp3
+
+# Visualize the beats
+python3 beat_visualizer.py --json music/ymca_clustered_analysis.json --audio music/ymca_music.mp3 
 ```
 
 **Output:**

@@ -1,0 +1,5353 @@
+{
+    "source_file": "music/ymca_music.mp3",
+    "tempo": 129.19921875,
+    "total_beats": 594,
+    "events": [
+        {
+            "id": 0,
+            "timestamp": 0.603718820861678,
+            "strength": 1.0,
+            "loudness": 0.26731443405151367,
+            "spectral_centroid": 0.467734287355555,
+            "pitch": 0.0,
+            "type": "JUMP"
+        },
+        {
+            "id": 1,
+            "timestamp": 1.1145578231292517,
+            "strength": 0.9615374803543091,
+            "loudness": 0.6166926026344299,
+            "spectral_centroid": 0.20575040924547347,
+            "pitch": 0.0,
+            "type": "JUMP"
+        },
+        {
+            "id": 2,
+            "timestamp": 1.6021768707482993,
+            "strength": 0.15894567966461182,
+            "loudness": 0.787682831287384,
+            "spectral_centroid": 0.3688441661460558,
+            "pitch": 0.663575871169284,
+            "type": "STEP"
+        },
+        {
+            "id": 3,
+            "timestamp": 2.089795918367347,
+            "strength": 0.15533259510993958,
+            "loudness": 0.8175333142280579,
+            "spectral_centroid": 0.12226388796933466,
+            "pitch": 0.663575871169284,
+            "type": "STEP"
+        },
+        {
+            "id": 4,
+            "timestamp": 2.5774149659863945,
+            "strength": 0.31484222412109375,
+            "loudness": 0.7887486219406128,
+            "spectral_centroid": 0.49153768697026157,
+            "pitch": 0.7711054127039705,
+            "type": "STEP"
+        },
+        {
+            "id": 5,
+            "timestamp": 3.0650340136054424,
+            "strength": 0.3149055540561676,
+            "loudness": 0.8459511995315552,
+            "spectral_centroid": 0.044094802060759754,
+            "pitch": 0.663575871169284,
+            "type": "STEP"
+        },
+        {
+            "id": 6,
+            "timestamp": 3.5294331065759637,
+            "strength": 0.3519192337989807,
+            "loudness": 0.874646782875061,
+            "spectral_centroid": 0.37239789623624664,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 7,
+            "timestamp": 4.017052154195011,
+            "strength": 0.2847844362258911,
+            "loudness": 0.8096427321434021,
+            "spectral_centroid": 0.008182614167923818,
+            "pitch": 0.7071067811865476,
+            "type": "STEP"
+        },
+        {
+            "id": 8,
+            "timestamp": 4.481451247165533,
+            "strength": 0.5094786882400513,
+            "loudness": 0.8169370293617249,
+            "spectral_centroid": 0.49876830765449853,
+            "pitch": 0.81695772662055,
+            "type": "STEP"
+        },
+        {
+            "id": 9,
+            "timestamp": 4.9458503401360545,
+            "strength": 0.3847660422325134,
+            "loudness": 0.860745906829834,
+            "spectral_centroid": 0.23657339926174864,
+            "pitch": 0.6674199270850172,
+            "type": "STEP"
+        },
+        {
+            "id": 10,
+            "timestamp": 5.456689342403628,
+            "strength": 0.18578678369522095,
+            "loudness": 0.9136502146720886,
+            "spectral_centroid": 0.46921168317289585,
+            "pitch": 0.663575871169284,
+            "type": "STEP"
+        },
+        {
+            "id": 11,
+            "timestamp": 5.944308390022676,
+            "strength": 0.173537939786911,
+            "loudness": 0.8815013766288757,
+            "spectral_centroid": 0.06848196131378932,
+            "pitch": 0.6597539553864471,
+            "type": "STEP"
+        },
+        {
+            "id": 12,
+            "timestamp": 6.431927437641724,
+            "strength": 0.22270698845386505,
+            "loudness": 0.8476282358169556,
+            "spectral_centroid": 0.5353860188785118,
+            "pitch": 0.7112030090986409,
+            "type": "STEP"
+        },
+        {
+            "id": 13,
+            "timestamp": 6.919546485260771,
+            "strength": 0.19432306289672852,
+            "loudness": 0.9199799299240112,
+            "spectral_centroid": 0.01876502964610466,
+            "pitch": 0.6830201283771977,
+            "type": "STEP"
+        },
+        {
+            "id": 14,
+            "timestamp": 7.383945578231293,
+            "strength": 0.4077012240886688,
+            "loudness": 0.8636801242828369,
+            "spectral_centroid": 0.41439256935468144,
+            "pitch": 0.6227248111794115,
+            "type": "STEP"
+        },
+        {
+            "id": 15,
+            "timestamp": 7.848344671201814,
+            "strength": 0.3944392800331116,
+            "loudness": 0.8248432278633118,
+            "spectral_centroid": 0.08267480339979873,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 16,
+            "timestamp": 8.312743764172335,
+            "strength": 0.3763449788093567,
+            "loudness": 0.8424981236457825,
+            "spectral_centroid": 0.43583897473086947,
+            "pitch": 0.8360532082885094,
+            "type": "STEP"
+        },
+        {
+            "id": 17,
+            "timestamp": 8.800362811791382,
+            "strength": 0.38429221510887146,
+            "loudness": 0.8398124575614929,
+            "spectral_centroid": 0.3408017266067468,
+            "pitch": 0.7755723809168673,
+            "type": "STEP"
+        },
+        {
+            "id": 18,
+            "timestamp": 9.287981859410431,
+            "strength": 0.1704409271478653,
+            "loudness": 0.8491832613945007,
+            "spectral_centroid": 0.4605557249860368,
+            "pitch": 0.663575871169284,
+            "type": "STEP"
+        },
+        {
+            "id": 19,
+            "timestamp": 9.775600907029478,
+            "strength": 0.21108543872833252,
+            "loudness": 0.8292296528816223,
+            "spectral_centroid": 0.11846886909916461,
+            "pitch": 0.663575871169284,
+            "type": "STEP"
+        },
+        {
+            "id": 20,
+            "timestamp": 10.263219954648527,
+            "strength": 0.28734493255615234,
+            "loudness": 0.8083223700523376,
+            "spectral_centroid": 0.5424174571726079,
+            "pitch": 0.6227248111794115,
+            "type": "STEP"
+        },
+        {
+            "id": 21,
+            "timestamp": 10.727619047619047,
+            "strength": 0.29521140456199646,
+            "loudness": 0.8381306529045105,
+            "spectral_centroid": 0.07079336423641161,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 22,
+            "timestamp": 11.215238095238096,
+            "strength": 0.3220027685165405,
+            "loudness": 0.8751399517059326,
+            "spectral_centroid": 0.5280734858857162,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 23,
+            "timestamp": 11.679637188208616,
+            "strength": 0.4278605580329895,
+            "loudness": 0.8742184042930603,
+            "spectral_centroid": 0.0,
+            "pitch": 0.6790862219136609,
+            "type": "STEP"
+        },
+        {
+            "id": 24,
+            "timestamp": 12.144036281179138,
+            "strength": 0.5256456732749939,
+            "loudness": 0.7923017144203186,
+            "spectral_centroid": 0.4371431097292435,
+            "pitch": 0.6949591099211686,
+            "type": "STEP"
+        },
+        {
+            "id": 25,
+            "timestamp": 12.631655328798185,
+            "strength": 0.3135955035686493,
+            "loudness": 0.9004612565040588,
+            "spectral_centroid": 0.3232942564231626,
+            "pitch": 0.6674199270850172,
+            "type": "STEP"
+        },
+        {
+            "id": 26,
+            "timestamp": 13.119274376417234,
+            "strength": 0.15829339623451233,
+            "loudness": 0.8665608167648315,
+            "spectral_centroid": 0.46790559711270385,
+            "pitch": 0.663575871169284,
+            "type": "STEP"
+        },
+        {
+            "id": 27,
+            "timestamp": 13.606893424036281,
+            "strength": 0.18201754987239838,
+            "loudness": 0.8057658076286316,
+            "spectral_centroid": 0.0886095987705549,
+            "pitch": 0.7071067811865476,
+            "type": "STEP"
+        },
+        {
+            "id": 28,
+            "timestamp": 14.094512471655328,
+            "strength": 0.2728525698184967,
+            "loudness": 0.842345118522644,
+            "spectral_centroid": 0.529722940864474,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 29,
+            "timestamp": 14.55891156462585,
+            "strength": 0.3034294843673706,
+            "loudness": 0.7093037366867065,
+            "spectral_centroid": 0.10574723851573929,
+            "pitch": 0.6227248111794115,
+            "type": "STEP"
+        },
+        {
+            "id": 30,
+            "timestamp": 15.046530612244897,
+            "strength": 0.3469753861427307,
+            "loudness": 0.8616424798965454,
+            "spectral_centroid": 0.5131210323629314,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 31,
+            "timestamp": 15.51092970521542,
+            "strength": 0.39656519889831543,
+            "loudness": 0.7201043367385864,
+            "spectral_centroid": 0.03880785549574004,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 32,
+            "timestamp": 15.975328798185942,
+            "strength": 0.492396742105484,
+            "loudness": 0.8571287393569946,
+            "spectral_centroid": 0.4043048570156822,
+            "pitch": 0.675174973084095,
+            "type": "STEP"
+        },
+        {
+            "id": 33,
+            "timestamp": 16.439727891156462,
+            "strength": 0.27821189165115356,
+            "loudness": 0.8127105236053467,
+            "spectral_centroid": 0.22789011005218898,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 34,
+            "timestamp": 16.950566893424035,
+            "strength": 0.1298142820596695,
+            "loudness": 0.908804714679718,
+            "spectral_centroid": 0.4422967738719431,
+            "pitch": 0.663575871169284,
+            "type": "STEP"
+        },
+        {
+            "id": 35,
+            "timestamp": 17.438185941043084,
+            "strength": 0.1492440402507782,
+            "loudness": 0.8690853714942932,
+            "spectral_centroid": 0.18136645167312146,
+            "pitch": 0.6597539553864471,
+            "type": "STEP"
+        },
+        {
+            "id": 36,
+            "timestamp": 17.925804988662133,
+            "strength": 0.21893565356731415,
+            "loudness": 0.8256393671035767,
+            "spectral_centroid": 0.512275659495521,
+            "pitch": 0.7491535384383409,
+            "type": "STEP"
+        },
+        {
+            "id": 37,
+            "timestamp": 18.413424036281178,
+            "strength": 0.20501863956451416,
+            "loudness": 0.9099413156509399,
+            "spectral_centroid": 0.07916961823710165,
+            "pitch": 0.6674199270850172,
+            "type": "STEP"
+        },
+        {
+            "id": 38,
+            "timestamp": 18.877823129251702,
+            "strength": 0.258331298828125,
+            "loudness": 0.9151819944381714,
+            "spectral_centroid": 0.40987484775864963,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 39,
+            "timestamp": 19.365442176870747,
+            "strength": 0.11644285172224045,
+            "loudness": 0.8110563158988953,
+            "spectral_centroid": 0.08218262693318208,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 40,
+            "timestamp": 19.82984126984127,
+            "strength": 0.40470650792121887,
+            "loudness": 0.8489598631858826,
+            "spectral_centroid": 0.5232897187591101,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 41,
+            "timestamp": 20.29424036281179,
+            "strength": 0.4991464912891388,
+            "loudness": 0.8425078988075256,
+            "spectral_centroid": 0.28012549862711356,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 42,
+            "timestamp": 20.805079365079365,
+            "strength": 0.1510000377893448,
+            "loudness": 0.9234316945075989,
+            "spectral_centroid": 0.5215261228715469,
+            "pitch": 0.6446851542197897,
+            "type": "STEP"
+        },
+        {
+            "id": 43,
+            "timestamp": 21.292698412698414,
+            "strength": 0.11923475563526154,
+            "loudness": 0.9285281300544739,
+            "spectral_centroid": 0.3359701801335109,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 44,
+            "timestamp": 21.757097505668934,
+            "strength": 0.16223162412643433,
+            "loudness": 0.8013710379600525,
+            "spectral_centroid": 0.5146509783325058,
+            "pitch": 0.663575871169284,
+            "type": "STEP"
+        },
+        {
+            "id": 45,
+            "timestamp": 22.244716553287983,
+            "strength": 0.12618541717529297,
+            "loudness": 0.868018627166748,
+            "spectral_centroid": 0.12774881619815778,
+            "pitch": 0.6674199270850172,
+            "type": "STEP"
+        },
+        {
+            "id": 46,
+            "timestamp": 22.709115646258503,
+            "strength": 0.2863553464412689,
+            "loudness": 0.8760473728179932,
+            "spectral_centroid": 0.4786487850922264,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 47,
+            "timestamp": 23.173514739229024,
+            "strength": 0.09251315891742706,
+            "loudness": 0.8368850350379944,
+            "spectral_centroid": 0.2187351685769965,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 48,
+            "timestamp": 23.661133786848072,
+            "strength": 0.3411240577697754,
+            "loudness": 0.8847942352294922,
+            "spectral_centroid": 0.5099958811310561,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 49,
+            "timestamp": 24.125532879818593,
+            "strength": 0.3594200313091278,
+            "loudness": 0.8484253883361816,
+            "spectral_centroid": 0.24895025962836415,
+            "pitch": 0.663575871169284,
+            "type": "STEP"
+        },
+        {
+            "id": 50,
+            "timestamp": 24.636371882086166,
+            "strength": 0.09738273173570633,
+            "loudness": 0.8570314049720764,
+            "spectral_centroid": 0.5395761963273908,
+            "pitch": 0.7891291473386417,
+            "type": "STEP"
+        },
+        {
+            "id": 51,
+            "timestamp": 25.123990929705215,
+            "strength": 0.04185093194246292,
+            "loudness": 0.7983232736587524,
+            "spectral_centroid": 0.39140717278199194,
+            "pitch": 0.6712862513901318,
+            "type": "STEP"
+        },
+        {
+            "id": 52,
+            "timestamp": 25.588390022675735,
+            "strength": 0.16238917410373688,
+            "loudness": 0.8812153339385986,
+            "spectral_centroid": 0.4985444208584165,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 53,
+            "timestamp": 26.076009070294784,
+            "strength": 0.011095156893134117,
+            "loudness": 0.7511439919471741,
+            "spectral_centroid": 0.4963203105400437,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 54,
+            "timestamp": 26.540408163265305,
+            "strength": 0.11714930832386017,
+            "loudness": 0.822292685508728,
+            "spectral_centroid": 0.46582411805795854,
+            "pitch": 0.6446851542197897,
+            "type": "STEP"
+        },
+        {
+            "id": 55,
+            "timestamp": 27.00480725623583,
+            "strength": 0.09393009543418884,
+            "loudness": 0.9116636514663696,
+            "spectral_centroid": 0.4131428547859236,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 56,
+            "timestamp": 27.445986394557824,
+            "strength": 0.1477772295475006,
+            "loudness": 0.8729706406593323,
+            "spectral_centroid": 0.4443838062463262,
+            "pitch": 0.6409720409603646,
+            "type": "STEP"
+        },
+        {
+            "id": 57,
+            "timestamp": 27.88716553287982,
+            "strength": 0.21401993930339813,
+            "loudness": 0.9633845686912537,
+            "spectral_centroid": 0.401282327819053,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 58,
+            "timestamp": 28.398004535147393,
+            "strength": 0.1901407539844513,
+            "loudness": 0.8447157740592957,
+            "spectral_centroid": 0.4628019832238636,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 59,
+            "timestamp": 28.88562358276644,
+            "strength": 0.18439795076847076,
+            "loudness": 0.8838151693344116,
+            "spectral_centroid": 0.12299006253924831,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 60,
+            "timestamp": 29.350022675736962,
+            "strength": 0.29331520199775696,
+            "loudness": 0.8801083564758301,
+            "spectral_centroid": 0.4377821045055624,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 61,
+            "timestamp": 29.837641723356008,
+            "strength": 0.17923790216445923,
+            "loudness": 0.8651460409164429,
+            "spectral_centroid": 0.2228865772365745,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 62,
+            "timestamp": 30.30204081632653,
+            "strength": 0.40545305609703064,
+            "loudness": 0.862714409828186,
+            "spectral_centroid": 0.43843801255924686,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 63,
+            "timestamp": 30.789659863945577,
+            "strength": 0.15898019075393677,
+            "loudness": 0.8902016878128052,
+            "spectral_centroid": 0.10354414523461208,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 64,
+            "timestamp": 31.2540589569161,
+            "strength": 0.3598942160606384,
+            "loudness": 0.843433141708374,
+            "spectral_centroid": 0.43228698532530213,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 65,
+            "timestamp": 31.71845804988662,
+            "strength": 0.24856281280517578,
+            "loudness": 0.949285626411438,
+            "spectral_centroid": 0.37916354197917934,
+            "pitch": 0.7112030090986409,
+            "type": "STEP"
+        },
+        {
+            "id": 66,
+            "timestamp": 32.20607709750567,
+            "strength": 0.17581713199615479,
+            "loudness": 0.867800772190094,
+            "spectral_centroid": 0.44985361110221117,
+            "pitch": 0.7448387315613512,
+            "type": "STEP"
+        },
+        {
+            "id": 67,
+            "timestamp": 32.670476190476194,
+            "strength": 0.17948763072490692,
+            "loudness": 0.7789241075515747,
+            "spectral_centroid": 0.2410705579677925,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 68,
+            "timestamp": 33.13487528344671,
+            "strength": 0.20449602603912354,
+            "loudness": 0.8197343349456787,
+            "spectral_centroid": 0.43239091486852754,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 69,
+            "timestamp": 33.599274376417235,
+            "strength": 0.1814984679222107,
+            "loudness": 0.8864291906356812,
+            "spectral_centroid": 0.25839587254254587,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 70,
+            "timestamp": 34.08689342403628,
+            "strength": 0.35394567251205444,
+            "loudness": 0.8705954551696777,
+            "spectral_centroid": 0.43865891776746896,
+            "pitch": 0.6372803136596312,
+            "type": "STEP"
+        },
+        {
+            "id": 71,
+            "timestamp": 34.57451247165533,
+            "strength": 0.13363465666770935,
+            "loudness": 0.881615400314331,
+            "spectral_centroid": 0.16709748613830266,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 72,
+            "timestamp": 35.03891156462585,
+            "strength": 0.24012088775634766,
+            "loudness": 0.9330306053161621,
+            "spectral_centroid": 0.5109878417984977,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 73,
+            "timestamp": 35.48009070294785,
+            "strength": 0.20192986726760864,
+            "loudness": 0.9543629288673401,
+            "spectral_centroid": 0.40601826006428965,
+            "pitch": 0.6597539553864471,
+            "type": "STEP"
+        },
+        {
+            "id": 74,
+            "timestamp": 35.9677097505669,
+            "strength": 0.14228737354278564,
+            "loudness": 0.8484217524528503,
+            "spectral_centroid": 0.4466186318734168,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 75,
+            "timestamp": 36.45532879818594,
+            "strength": 0.22276164591312408,
+            "loudness": 0.6500682234764099,
+            "spectral_centroid": 0.24512030966084286,
+            "pitch": 0.6409720409603646,
+            "type": "STEP"
+        },
+        {
+            "id": 76,
+            "timestamp": 36.89650793650794,
+            "strength": 0.21453498303890228,
+            "loudness": 0.9394824504852295,
+            "spectral_centroid": 0.3548624304821771,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 77,
+            "timestamp": 37.384126984126986,
+            "strength": 0.2251223772764206,
+            "loudness": 0.8026741147041321,
+            "spectral_centroid": 0.2184716943238434,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 78,
+            "timestamp": 37.8485260770975,
+            "strength": 0.21226920187473297,
+            "loudness": 0.7935429215431213,
+            "spectral_centroid": 0.4742495947526843,
+            "pitch": 0.6409720409603646,
+            "type": "STEP"
+        },
+        {
+            "id": 79,
+            "timestamp": 38.33614512471655,
+            "strength": 0.176255002617836,
+            "loudness": 0.7834778428077698,
+            "spectral_centroid": 0.15033626818330162,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 80,
+            "timestamp": 38.800544217687076,
+            "strength": 0.20272640883922577,
+            "loudness": 0.8195905685424805,
+            "spectral_centroid": 0.5065744211877682,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 81,
+            "timestamp": 39.24172335600907,
+            "strength": 0.3274659514427185,
+            "loudness": 0.824328601360321,
+            "spectral_centroid": 0.5230621235434769,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 82,
+            "timestamp": 39.72934240362812,
+            "strength": 0.19499406218528748,
+            "loudness": 0.8087186813354492,
+            "spectral_centroid": 0.24753527274676665,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 83,
+            "timestamp": 40.19374149659864,
+            "strength": 0.04088740050792694,
+            "loudness": 0.8000717759132385,
+            "spectral_centroid": 0.34706634886423543,
+            "pitch": 0.7236346187201891,
+            "type": "STEP"
+        },
+        {
+            "id": 84,
+            "timestamp": 40.658140589569165,
+            "strength": 0.2892329692840576,
+            "loudness": 0.9619268774986267,
+            "spectral_centroid": 0.507067038295118,
+            "pitch": 0.6712862513901318,
+            "type": "STEP"
+        },
+        {
+            "id": 85,
+            "timestamp": 41.145759637188206,
+            "strength": 0.20537954568862915,
+            "loudness": 0.798923671245575,
+            "spectral_centroid": 0.21039796345731543,
+            "pitch": 0.675174973084095,
+            "type": "STEP"
+        },
+        {
+            "id": 86,
+            "timestamp": 41.61015873015873,
+            "strength": 0.08310015499591827,
+            "loudness": 0.8307561874389648,
+            "spectral_centroid": 0.392415275782622,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 87,
+            "timestamp": 42.05133786848072,
+            "strength": 0.13072651624679565,
+            "loudness": 0.9014908075332642,
+            "spectral_centroid": 0.469521533738884,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 88,
+            "timestamp": 42.515736961451246,
+            "strength": 0.22293689846992493,
+            "loudness": 0.8081942796707153,
+            "spectral_centroid": 0.5855847438678776,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 89,
+            "timestamp": 42.98013605442177,
+            "strength": 0.20660988986492157,
+            "loudness": 0.8749424815177917,
+            "spectral_centroid": 0.4636970781060629,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 90,
+            "timestamp": 43.46775510204082,
+            "strength": 0.21504926681518555,
+            "loudness": 0.7844235897064209,
+            "spectral_centroid": 0.5309891354265357,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 91,
+            "timestamp": 43.95537414965986,
+            "strength": 0.267216295003891,
+            "loudness": 0.7841623425483704,
+            "spectral_centroid": 0.16381780539808663,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 92,
+            "timestamp": 44.39655328798186,
+            "strength": 0.26934802532196045,
+            "loudness": 0.8435469269752502,
+            "spectral_centroid": 0.3945898320677335,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 93,
+            "timestamp": 44.90739229024943,
+            "strength": 0.23214034736156464,
+            "loudness": 0.839792013168335,
+            "spectral_centroid": 0.19509131547250336,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 94,
+            "timestamp": 45.37179138321996,
+            "strength": 0.23524905741214752,
+            "loudness": 0.8176811337471008,
+            "spectral_centroid": 0.38578251349527154,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 95,
+            "timestamp": 45.859410430839006,
+            "strength": 0.31191837787628174,
+            "loudness": 0.837349534034729,
+            "spectral_centroid": 0.20739044658351352,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 96,
+            "timestamp": 46.34702947845805,
+            "strength": 0.2547629773616791,
+            "loudness": 0.8480032086372375,
+            "spectral_centroid": 0.41919876282367297,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 97,
+            "timestamp": 46.78820861678005,
+            "strength": 0.2088862657546997,
+            "loudness": 0.9395809769630432,
+            "spectral_centroid": 0.4527700165079454,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 98,
+            "timestamp": 47.29904761904762,
+            "strength": 0.14493049681186676,
+            "loudness": 0.8119803071022034,
+            "spectral_centroid": 0.46181203789709535,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 99,
+            "timestamp": 47.78666666666667,
+            "strength": 0.21200589835643768,
+            "loudness": 0.8019010424613953,
+            "spectral_centroid": 0.167569338888963,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 100,
+            "timestamp": 48.251065759637186,
+            "strength": 0.26905617117881775,
+            "loudness": 0.8641128540039062,
+            "spectral_centroid": 0.4355281206867435,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 101,
+            "timestamp": 48.71546485260771,
+            "strength": 0.13973228633403778,
+            "loudness": 0.8884902000427246,
+            "spectral_centroid": 0.29248822277987124,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 102,
+            "timestamp": 49.20308390022676,
+            "strength": 0.2354760468006134,
+            "loudness": 0.8188267350196838,
+            "spectral_centroid": 0.5000316921204985,
+            "pitch": 0.762248511627881,
+            "type": "STEP"
+        },
+        {
+            "id": 103,
+            "timestamp": 49.69070294784581,
+            "strength": 0.18511350452899933,
+            "loudness": 0.7780736684799194,
+            "spectral_centroid": 0.18492839490513313,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 104,
+            "timestamp": 50.155102040816324,
+            "strength": 0.13016381859779358,
+            "loudness": 0.832493782043457,
+            "spectral_centroid": 0.3946344693936645,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 105,
+            "timestamp": 50.64272108843537,
+            "strength": 0.18409885466098785,
+            "loudness": 0.9240057468414307,
+            "spectral_centroid": 0.35431729142364304,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 106,
+            "timestamp": 51.153560090702946,
+            "strength": 0.20133870840072632,
+            "loudness": 0.8613234758377075,
+            "spectral_centroid": 0.388316554108256,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 107,
+            "timestamp": 51.61795918367347,
+            "strength": 0.16883835196495056,
+            "loudness": 0.6926690340042114,
+            "spectral_centroid": 0.20304434980174757,
+            "pitch": 0.7491535384383409,
+            "type": "STEP"
+        },
+        {
+            "id": 108,
+            "timestamp": 52.082358276643994,
+            "strength": 0.2475840151309967,
+            "loudness": 0.8782674074172974,
+            "spectral_centroid": 0.41833467569402866,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 109,
+            "timestamp": 52.569977324263036,
+            "strength": 0.18236087262630463,
+            "loudness": 0.8565818667411804,
+            "spectral_centroid": 0.18284404838972176,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 110,
+            "timestamp": 53.03437641723356,
+            "strength": 0.30441468954086304,
+            "loudness": 0.832619845867157,
+            "spectral_centroid": 0.47631879758933593,
+            "pitch": 0.675174973084095,
+            "type": "STEP"
+        },
+        {
+            "id": 111,
+            "timestamp": 53.498775510204084,
+            "strength": 0.20101596415042877,
+            "loudness": 0.8115832209587097,
+            "spectral_centroid": 0.13357131123403326,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 112,
+            "timestamp": 53.98639455782313,
+            "strength": 0.24542278051376343,
+            "loudness": 0.8161927461624146,
+            "spectral_centroid": 0.6199915407303885,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 113,
+            "timestamp": 54.427573696145124,
+            "strength": 0.31268805265426636,
+            "loudness": 0.9350569844245911,
+            "spectral_centroid": 0.5103259979715137,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 114,
+            "timestamp": 54.89197278911565,
+            "strength": 0.0798351839184761,
+            "loudness": 0.7490807771682739,
+            "spectral_centroid": 0.4685428014625782,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 115,
+            "timestamp": 55.356371882086165,
+            "strength": 0.017216987907886505,
+            "loudness": 0.7825667262077332,
+            "spectral_centroid": 0.4320239076647096,
+            "pitch": 0.7448387315613512,
+            "type": "STEP"
+        },
+        {
+            "id": 116,
+            "timestamp": 55.797551020408164,
+            "strength": 0.23491013050079346,
+            "loudness": 0.8645669221878052,
+            "spectral_centroid": 0.4411899055361266,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 117,
+            "timestamp": 56.30839002267574,
+            "strength": 0.17349566519260406,
+            "loudness": 0.7955233454704285,
+            "spectral_centroid": 0.22092020906173057,
+            "pitch": 0.663575871169284,
+            "type": "STEP"
+        },
+        {
+            "id": 118,
+            "timestamp": 56.74956916099773,
+            "strength": 0.032347213476896286,
+            "loudness": 0.8255124688148499,
+            "spectral_centroid": 0.41720198747394477,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 119,
+            "timestamp": 57.19074829931973,
+            "strength": 0.2340027540922165,
+            "loudness": 0.869930624961853,
+            "spectral_centroid": 0.4906456350749432,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 120,
+            "timestamp": 57.655147392290246,
+            "strength": 0.14339648187160492,
+            "loudness": 0.8808185458183289,
+            "spectral_centroid": 0.39426885717962734,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 121,
+            "timestamp": 58.142766439909295,
+            "strength": 0.2645453214645386,
+            "loudness": 0.6824504137039185,
+            "spectral_centroid": 0.4503975185007351,
+            "pitch": 0.6674199270850172,
+            "type": "STEP"
+        },
+        {
+            "id": 122,
+            "timestamp": 58.60716553287982,
+            "strength": 0.3987888991832733,
+            "loudness": 0.8605407476425171,
+            "spectral_centroid": 0.32263258885733254,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 123,
+            "timestamp": 59.07156462585034,
+            "strength": 0.4199816882610321,
+            "loudness": 0.7418363094329834,
+            "spectral_centroid": 0.2980711653943211,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 124,
+            "timestamp": 59.559183673469384,
+            "strength": 0.3768633008003235,
+            "loudness": 0.8532792925834656,
+            "spectral_centroid": 0.42825133346060246,
+            "pitch": 0.6674199270850172,
+            "type": "STEP"
+        },
+        {
+            "id": 125,
+            "timestamp": 60.02358276643991,
+            "strength": 0.39905592799186707,
+            "loudness": 0.8512151837348938,
+            "spectral_centroid": 0.2569045056851171,
+            "pitch": 0.6597539553864471,
+            "type": "STEP"
+        },
+        {
+            "id": 126,
+            "timestamp": 60.48798185941043,
+            "strength": 0.16499733924865723,
+            "loudness": 0.8774641156196594,
+            "spectral_centroid": 0.45828865496937504,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 127,
+            "timestamp": 60.95238095238095,
+            "strength": 0.3131744861602783,
+            "loudness": 0.8562861084938049,
+            "spectral_centroid": 0.23787534978643277,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 128,
+            "timestamp": 61.41678004535147,
+            "strength": 0.3411276340484619,
+            "loudness": 0.8308230638504028,
+            "spectral_centroid": 0.21131611279966225,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 129,
+            "timestamp": 61.881179138322,
+            "strength": 0.36464443802833557,
+            "loudness": 1.0,
+            "spectral_centroid": 0.3652994102274575,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 130,
+            "timestamp": 62.368798185941046,
+            "strength": 0.09150964021682739,
+            "loudness": 0.8500313758850098,
+            "spectral_centroid": 0.49386616513832243,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 131,
+            "timestamp": 62.85641723356009,
+            "strength": 0.12131650000810623,
+            "loudness": 0.8573423027992249,
+            "spectral_centroid": 0.4903350132690148,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 132,
+            "timestamp": 63.32081632653061,
+            "strength": 0.17503540217876434,
+            "loudness": 0.9075750708580017,
+            "spectral_centroid": 0.5310996498951831,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 133,
+            "timestamp": 63.80843537414966,
+            "strength": 0.13831697404384613,
+            "loudness": 0.7044411897659302,
+            "spectral_centroid": 0.25228419114240014,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 134,
+            "timestamp": 64.27283446712018,
+            "strength": 0.21900667250156403,
+            "loudness": 0.9119993448257446,
+            "spectral_centroid": 0.4745287195695384,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 135,
+            "timestamp": 64.7372335600907,
+            "strength": 0.2623155117034912,
+            "loudness": 0.8699861168861389,
+            "spectral_centroid": 0.34691088371341045,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 136,
+            "timestamp": 65.20163265306122,
+            "strength": 0.26667770743370056,
+            "loudness": 0.8503519296646118,
+            "spectral_centroid": 0.5130065025246643,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 137,
+            "timestamp": 65.68925170068027,
+            "strength": 0.2103995978832245,
+            "loudness": 0.8978707790374756,
+            "spectral_centroid": 0.29872178446670944,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 138,
+            "timestamp": 66.1536507936508,
+            "strength": 0.11430978029966354,
+            "loudness": 0.8731231093406677,
+            "spectral_centroid": 0.46597841668136675,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 139,
+            "timestamp": 66.64126984126985,
+            "strength": 0.1400349885225296,
+            "loudness": 0.8512647151947021,
+            "spectral_centroid": 0.3700170921957212,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 140,
+            "timestamp": 67.10566893424036,
+            "strength": 0.2047458291053772,
+            "loudness": 0.8967310786247253,
+            "spectral_centroid": 0.5272530219667895,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 141,
+            "timestamp": 67.57006802721088,
+            "strength": 0.026893096044659615,
+            "loudness": 0.7469769716262817,
+            "spectral_centroid": 0.30624785379409925,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 142,
+            "timestamp": 68.0344671201814,
+            "strength": 0.22639596462249756,
+            "loudness": 0.832429051399231,
+            "spectral_centroid": 0.4918026429064574,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 143,
+            "timestamp": 68.52208616780045,
+            "strength": 0.16297000646591187,
+            "loudness": 0.7985389828681946,
+            "spectral_centroid": 0.18230656428292139,
+            "pitch": 0.9438743126816934,
+            "type": "STEP"
+        },
+        {
+            "id": 144,
+            "timestamp": 68.98648526077098,
+            "strength": 0.31801122426986694,
+            "loudness": 0.9398861527442932,
+            "spectral_centroid": 0.5369665538611648,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 145,
+            "timestamp": 69.4508843537415,
+            "strength": 0.17158199846744537,
+            "loudness": 0.8872411251068115,
+            "spectral_centroid": 0.39964378735179773,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 146,
+            "timestamp": 69.93850340136055,
+            "strength": 0.18186472356319427,
+            "loudness": 0.841126024723053,
+            "spectral_centroid": 0.4597719186383834,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 147,
+            "timestamp": 70.4261224489796,
+            "strength": 0.1576165109872818,
+            "loudness": 0.8096434473991394,
+            "spectral_centroid": 0.3314559491524571,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 148,
+            "timestamp": 70.89052154195011,
+            "strength": 0.19368670880794525,
+            "loudness": 0.8916213512420654,
+            "spectral_centroid": 0.5094700867971177,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 149,
+            "timestamp": 71.37814058956916,
+            "strength": 0.20461587607860565,
+            "loudness": 0.8555874228477478,
+            "spectral_centroid": 0.3929095187445932,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 150,
+            "timestamp": 71.81931972789116,
+            "strength": 0.12065427005290985,
+            "loudness": 0.8663078546524048,
+            "spectral_centroid": 0.4725676245345151,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 151,
+            "timestamp": 72.3069387755102,
+            "strength": 0.1401837319135666,
+            "loudness": 0.8143991827964783,
+            "spectral_centroid": 0.31815577992102967,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 152,
+            "timestamp": 72.77133786848073,
+            "strength": 0.25993773341178894,
+            "loudness": 0.8663902282714844,
+            "spectral_centroid": 0.48782091119711807,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 153,
+            "timestamp": 73.25895691609978,
+            "strength": 0.25914013385772705,
+            "loudness": 0.8416642546653748,
+            "spectral_centroid": 0.40782472127225977,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 154,
+            "timestamp": 73.7233560090703,
+            "strength": 0.1498860865831375,
+            "loudness": 0.823652982711792,
+            "spectral_centroid": 0.5329121338126996,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 155,
+            "timestamp": 74.18775510204081,
+            "strength": 0.07400396466255188,
+            "loudness": 0.8096733689308167,
+            "spectral_centroid": 0.31582059323443445,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 156,
+            "timestamp": 74.65215419501133,
+            "strength": 0.12484025210142136,
+            "loudness": 0.8894827961921692,
+            "spectral_centroid": 0.4194152005257886,
+            "pitch": 0.7030341458111747,
+            "type": "STEP"
+        },
+        {
+            "id": 157,
+            "timestamp": 75.13977324263038,
+            "strength": 0.16365452110767365,
+            "loudness": 0.8029079437255859,
+            "spectral_centroid": 0.33852238863849954,
+            "pitch": 0.6712862513901318,
+            "type": "STEP"
+        },
+        {
+            "id": 158,
+            "timestamp": 75.58095238095238,
+            "strength": 0.24648763239383698,
+            "loudness": 0.8883463144302368,
+            "spectral_centroid": 0.4189502347923431,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 159,
+            "timestamp": 76.06857142857143,
+            "strength": 0.161994069814682,
+            "loudness": 0.7603244185447693,
+            "spectral_centroid": 0.340593191274845,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 160,
+            "timestamp": 76.53297052154196,
+            "strength": 0.19653181731700897,
+            "loudness": 0.8435850739479065,
+            "spectral_centroid": 0.5040375360989653,
+            "pitch": 0.7891291473386417,
+            "type": "STEP"
+        },
+        {
+            "id": 161,
+            "timestamp": 76.99736961451246,
+            "strength": 0.28684201836586,
+            "loudness": 0.924797534942627,
+            "spectral_centroid": 0.305940275390534,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 162,
+            "timestamp": 77.46176870748299,
+            "strength": 0.12860305607318878,
+            "loudness": 0.8498766422271729,
+            "spectral_centroid": 0.46241972292847544,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 163,
+            "timestamp": 77.92616780045351,
+            "strength": 0.09272466599941254,
+            "loudness": 0.8350896835327148,
+            "spectral_centroid": 0.4143717167377816,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 164,
+            "timestamp": 78.39056689342404,
+            "strength": 0.15106530487537384,
+            "loudness": 0.917931854724884,
+            "spectral_centroid": 0.5287802135174098,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 165,
+            "timestamp": 78.90140589569161,
+            "strength": 0.16612422466278076,
+            "loudness": 0.7470603585243225,
+            "spectral_centroid": 0.22916885748907562,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 166,
+            "timestamp": 79.34258503401361,
+            "strength": 0.28934159874916077,
+            "loudness": 0.9428362846374512,
+            "spectral_centroid": 0.4431576864249874,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 167,
+            "timestamp": 79.83020408163266,
+            "strength": 0.2312035858631134,
+            "loudness": 0.798746645450592,
+            "spectral_centroid": 0.2968284381656932,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 168,
+            "timestamp": 80.29460317460317,
+            "strength": 0.2839146554470062,
+            "loudness": 0.8966237902641296,
+            "spectral_centroid": 0.44817475963661885,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 169,
+            "timestamp": 80.78222222222222,
+            "strength": 0.29580873250961304,
+            "loudness": 0.933276891708374,
+            "spectral_centroid": 0.3529556881452421,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 170,
+            "timestamp": 81.24662131519274,
+            "strength": 0.09166105091571808,
+            "loudness": 0.7643420100212097,
+            "spectral_centroid": 0.5195439949899449,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 171,
+            "timestamp": 81.73424036281179,
+            "strength": 0.13208109140396118,
+            "loudness": 0.788940966129303,
+            "spectral_centroid": 0.3678758875420352,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 172,
+            "timestamp": 82.19863945578231,
+            "strength": 0.1366633176803589,
+            "loudness": 0.9103379845619202,
+            "spectral_centroid": 0.47751144894684605,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 173,
+            "timestamp": 82.68625850340136,
+            "strength": 0.16804558038711548,
+            "loudness": 0.7962396144866943,
+            "spectral_centroid": 0.1806961248484819,
+            "pitch": 0.6989849670895099,
+            "type": "STEP"
+        },
+        {
+            "id": 174,
+            "timestamp": 83.12743764172336,
+            "strength": 0.19031895697116852,
+            "loudness": 0.7145862579345703,
+            "spectral_centroid": 0.5321192708265953,
+            "pitch": 0.7666641723348003,
+            "type": "STEP"
+        },
+        {
+            "id": 175,
+            "timestamp": 83.61505668934241,
+            "strength": 0.18239927291870117,
+            "loudness": 0.7902095317840576,
+            "spectral_centroid": 0.18121061375981973,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 176,
+            "timestamp": 84.07945578231292,
+            "strength": 0.3337748348712921,
+            "loudness": 0.9070847630500793,
+            "spectral_centroid": 0.49389783586929276,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 177,
+            "timestamp": 84.56707482993197,
+            "strength": 0.2537838816642761,
+            "loudness": 0.8327558040618896,
+            "spectral_centroid": 0.33860413009986995,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 178,
+            "timestamp": 85.03147392290249,
+            "strength": 0.17655494809150696,
+            "loudness": 0.8946511149406433,
+            "spectral_centroid": 0.5001323244275128,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 179,
+            "timestamp": 85.51909297052154,
+            "strength": 0.1284167468547821,
+            "loudness": 0.7980473041534424,
+            "spectral_centroid": 0.20705471772762563,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 180,
+            "timestamp": 85.98349206349206,
+            "strength": 0.19912376999855042,
+            "loudness": 0.9262226223945618,
+            "spectral_centroid": 0.48090497720953607,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 181,
+            "timestamp": 86.44789115646259,
+            "strength": 0.15156076848506927,
+            "loudness": 0.8859618306159973,
+            "spectral_centroid": 0.39440268654239324,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 182,
+            "timestamp": 86.91229024943311,
+            "strength": 0.2138379067182541,
+            "loudness": 0.9034181237220764,
+            "spectral_centroid": 0.5008331178435027,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 183,
+            "timestamp": 87.37668934240362,
+            "strength": 0.07126561552286148,
+            "loudness": 0.7987715005874634,
+            "spectral_centroid": 0.4002773759272122,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 184,
+            "timestamp": 87.84108843537415,
+            "strength": 0.2520681321620941,
+            "loudness": 0.909795880317688,
+            "spectral_centroid": 0.46941183436756545,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 185,
+            "timestamp": 88.3287074829932,
+            "strength": 0.2488483190536499,
+            "loudness": 0.8847707509994507,
+            "spectral_centroid": 0.3712451997501502,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 186,
+            "timestamp": 88.79310657596372,
+            "strength": 0.2538380026817322,
+            "loudness": 0.8828991651535034,
+            "spectral_centroid": 0.4598060137467677,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 187,
+            "timestamp": 89.28072562358277,
+            "strength": 0.18648862838745117,
+            "loudness": 0.7808853983879089,
+            "spectral_centroid": 0.24042119357698274,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 188,
+            "timestamp": 89.72190476190477,
+            "strength": 0.1968631148338318,
+            "loudness": 0.7694917917251587,
+            "spectral_centroid": 0.5146058374445733,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 189,
+            "timestamp": 90.20952380952382,
+            "strength": 0.15477989614009857,
+            "loudness": 0.8334053754806519,
+            "spectral_centroid": 0.39935194032033533,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 190,
+            "timestamp": 90.67392290249433,
+            "strength": 0.19997259974479675,
+            "loudness": 0.8514142632484436,
+            "spectral_centroid": 0.5494825432831363,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 191,
+            "timestamp": 91.13832199546485,
+            "strength": 0.16513510048389435,
+            "loudness": 0.8123956918716431,
+            "spectral_centroid": 0.2282771413240622,
+            "pitch": 0.6712862513901318,
+            "type": "STEP"
+        },
+        {
+            "id": 192,
+            "timestamp": 91.60272108843537,
+            "strength": 0.21772003173828125,
+            "loudness": 0.8527870178222656,
+            "spectral_centroid": 0.48479490908979117,
+            "pitch": 0.6674199270850172,
+            "type": "STEP"
+        },
+        {
+            "id": 193,
+            "timestamp": 92.0671201814059,
+            "strength": 0.1592051386833191,
+            "loudness": 0.8982669115066528,
+            "spectral_centroid": 0.46971170750697894,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 194,
+            "timestamp": 92.55473922902495,
+            "strength": 0.16785886883735657,
+            "loudness": 0.7505613565444946,
+            "spectral_centroid": 0.558271638400774,
+            "pitch": 0.7071067811865476,
+            "type": "STEP"
+        },
+        {
+            "id": 195,
+            "timestamp": 93.01913832199547,
+            "strength": 0.26917946338653564,
+            "loudness": 0.7264568209648132,
+            "spectral_centroid": 0.1833599454470019,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 196,
+            "timestamp": 93.48353741496598,
+            "strength": 0.35269537568092346,
+            "loudness": 0.8893197178840637,
+            "spectral_centroid": 0.4772367267694054,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 197,
+            "timestamp": 93.97115646258503,
+            "strength": 0.29966408014297485,
+            "loudness": 0.8398452997207642,
+            "spectral_centroid": 0.38968384714664855,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 198,
+            "timestamp": 94.43555555555555,
+            "strength": 0.23339731991291046,
+            "loudness": 0.839832067489624,
+            "spectral_centroid": 0.4536865113675072,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 199,
+            "timestamp": 94.9231746031746,
+            "strength": 0.17799502611160278,
+            "loudness": 0.767447292804718,
+            "spectral_centroid": 0.1788356814857417,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 200,
+            "timestamp": 95.38757369614513,
+            "strength": 0.22764818370342255,
+            "loudness": 0.7577645182609558,
+            "spectral_centroid": 0.6025203840009935,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 201,
+            "timestamp": 95.85197278911565,
+            "strength": 0.20623978972434998,
+            "loudness": 0.914763867855072,
+            "spectral_centroid": 0.4408106258756213,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 202,
+            "timestamp": 96.36281179138322,
+            "strength": 0.2115062028169632,
+            "loudness": 0.7170760035514832,
+            "spectral_centroid": 0.521543714494821,
+            "pitch": 0.7534933407372879,
+            "type": "STEP"
+        },
+        {
+            "id": 203,
+            "timestamp": 96.85043083900227,
+            "strength": 0.157412588596344,
+            "loudness": 0.7288464307785034,
+            "spectral_centroid": 0.1221671389848406,
+            "pitch": 0.7405487761432821,
+            "type": "STEP"
+        },
+        {
+            "id": 204,
+            "timestamp": 97.3148299319728,
+            "strength": 0.27450165152549744,
+            "loudness": 0.8338072896003723,
+            "spectral_centroid": 0.49405042162219387,
+            "pitch": 0.7236346187201891,
+            "type": "STEP"
+        },
+        {
+            "id": 205,
+            "timestamp": 97.7792290249433,
+            "strength": 0.31338033080101013,
+            "loudness": 0.8053832650184631,
+            "spectral_centroid": 0.3432386481736989,
+            "pitch": 0.7534933407372879,
+            "type": "STEP"
+        },
+        {
+            "id": 206,
+            "timestamp": 98.26684807256235,
+            "strength": 0.26149073243141174,
+            "loudness": 0.8672763705253601,
+            "spectral_centroid": 0.5206706790940654,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 207,
+            "timestamp": 98.73124716553288,
+            "strength": 0.2718122601509094,
+            "loudness": 0.7476263642311096,
+            "spectral_centroid": 0.2136709705484321,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 208,
+            "timestamp": 99.21886621315193,
+            "strength": 0.2306438386440277,
+            "loudness": 0.8588943481445312,
+            "spectral_centroid": 0.44404383752983606,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 209,
+            "timestamp": 99.66004535147393,
+            "strength": 0.16232535243034363,
+            "loudness": 0.913295567035675,
+            "spectral_centroid": 0.4823193538959042,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 210,
+            "timestamp": 100.1708843537415,
+            "strength": 0.16276684403419495,
+            "loudness": 0.8117684125900269,
+            "spectral_centroid": 0.4612617174129769,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 211,
+            "timestamp": 100.63528344671202,
+            "strength": 0.3031679689884186,
+            "loudness": 0.7288340330123901,
+            "spectral_centroid": 0.16883009383221206,
+            "pitch": 0.9117224885582168,
+            "type": "STEP"
+        },
+        {
+            "id": 212,
+            "timestamp": 101.09968253968253,
+            "strength": 0.31944647431373596,
+            "loudness": 0.8620310425758362,
+            "spectral_centroid": 0.4274786650349385,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 213,
+            "timestamp": 101.56408163265306,
+            "strength": 0.14675484597682953,
+            "loudness": 0.8226009607315063,
+            "spectral_centroid": 0.3074478642024788,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 214,
+            "timestamp": 102.0517006802721,
+            "strength": 0.2771439254283905,
+            "loudness": 0.770538330078125,
+            "spectral_centroid": 0.49319337517545203,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 215,
+            "timestamp": 102.53931972789115,
+            "strength": 0.21364131569862366,
+            "loudness": 0.6608249545097351,
+            "spectral_centroid": 0.8179570621887926,
+            "pitch": 0.6227248111794115,
+            "type": "STEP"
+        },
+        {
+            "id": 216,
+            "timestamp": 103.00371882086168,
+            "strength": 0.2094869464635849,
+            "loudness": 0.864558756351471,
+            "spectral_centroid": 0.44015662100269864,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 217,
+            "timestamp": 103.44489795918368,
+            "strength": 0.37593233585357666,
+            "loudness": 0.9474416375160217,
+            "spectral_centroid": 0.4726711232609179,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 218,
+            "timestamp": 103.95573696145125,
+            "strength": 0.18959826231002808,
+            "loudness": 0.7733604907989502,
+            "spectral_centroid": 0.22153324490313464,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 219,
+            "timestamp": 104.42013605442177,
+            "strength": 0.07167724519968033,
+            "loudness": 0.7692862749099731,
+            "spectral_centroid": 0.3684327589836605,
+            "pitch": 0.7153229662176293,
+            "type": "STEP"
+        },
+        {
+            "id": 220,
+            "timestamp": 104.86131519274376,
+            "strength": 0.24220840632915497,
+            "loudness": 0.9424853324890137,
+            "spectral_centroid": 0.4603432015965965,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 221,
+            "timestamp": 105.37215419501133,
+            "strength": 0.15582053363323212,
+            "loudness": 0.7277604341506958,
+            "spectral_centroid": 0.19140366847515664,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 222,
+            "timestamp": 105.83655328798186,
+            "strength": 0.10299789160490036,
+            "loudness": 0.7182343006134033,
+            "spectral_centroid": 0.7843115514300032,
+            "pitch": 0.8312378961427879,
+            "type": "STEP"
+        },
+        {
+            "id": 223,
+            "timestamp": 106.27773242630386,
+            "strength": 0.1460736244916916,
+            "loudness": 0.9102123975753784,
+            "spectral_centroid": 0.4873851700448927,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 224,
+            "timestamp": 106.71891156462586,
+            "strength": 0.2465541958808899,
+            "loudness": 0.8986259698867798,
+            "spectral_centroid": 0.5211753330134297,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 225,
+            "timestamp": 107.2065306122449,
+            "strength": 0.2721829116344452,
+            "loudness": 0.8710712790489197,
+            "spectral_centroid": 0.4275190838459126,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 226,
+            "timestamp": 107.71736961451248,
+            "strength": 0.08397700637578964,
+            "loudness": 0.7184617519378662,
+            "spectral_centroid": 0.5560604516578627,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 227,
+            "timestamp": 108.18176870748299,
+            "strength": 0.31864240765571594,
+            "loudness": 0.7292097806930542,
+            "spectral_centroid": 0.16546553724275542,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 228,
+            "timestamp": 108.62294784580499,
+            "strength": 0.30992016196250916,
+            "loudness": 0.8737540245056152,
+            "spectral_centroid": 0.5085790749149129,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 229,
+            "timestamp": 109.08734693877551,
+            "strength": 0.24875576794147491,
+            "loudness": 0.8332207202911377,
+            "spectral_centroid": 0.5048933170255009,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 230,
+            "timestamp": 109.62140589569161,
+            "strength": 0.264280766248703,
+            "loudness": 0.8111407160758972,
+            "spectral_centroid": 0.5426494990799285,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 231,
+            "timestamp": 110.10902494331066,
+            "strength": 0.12599024176597595,
+            "loudness": 0.7977927327156067,
+            "spectral_centroid": 0.1263200227814764,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 232,
+            "timestamp": 110.57342403628118,
+            "strength": 0.20621417462825775,
+            "loudness": 0.83968186378479,
+            "spectral_centroid": 0.47710548068210423,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 233,
+            "timestamp": 111.01460317460318,
+            "strength": 0.18165957927703857,
+            "loudness": 0.9504668712615967,
+            "spectral_centroid": 0.4554985347531708,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 234,
+            "timestamp": 111.52544217687075,
+            "strength": 0.15530984103679657,
+            "loudness": 0.8038156032562256,
+            "spectral_centroid": 0.44268751163394654,
+            "pitch": 0.6712862513901318,
+            "type": "STEP"
+        },
+        {
+            "id": 235,
+            "timestamp": 112.01306122448979,
+            "strength": 0.32273513078689575,
+            "loudness": 0.7667243480682373,
+            "spectral_centroid": 0.19457034319139985,
+            "pitch": 0.7448387315613512,
+            "type": "STEP"
+        },
+        {
+            "id": 236,
+            "timestamp": 112.45424036281179,
+            "strength": 0.28439104557037354,
+            "loudness": 0.9034538269042969,
+            "spectral_centroid": 0.3636124175375615,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 237,
+            "timestamp": 112.91863945578231,
+            "strength": 0.19262388348579407,
+            "loudness": 0.9109488129615784,
+            "spectral_centroid": 0.3501888080538685,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 238,
+            "timestamp": 113.42947845804989,
+            "strength": 0.2649082839488983,
+            "loudness": 0.8287955522537231,
+            "spectral_centroid": 0.5039285116329286,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 239,
+            "timestamp": 113.91709750566893,
+            "strength": 0.15042832493782043,
+            "loudness": 0.7538284063339233,
+            "spectral_centroid": 0.13329038113591474,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 240,
+            "timestamp": 114.38149659863946,
+            "strength": 0.12743432819843292,
+            "loudness": 0.8230538964271545,
+            "spectral_centroid": 0.43376088211019687,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 241,
+            "timestamp": 114.82267573696146,
+            "strength": 0.27711984515190125,
+            "loudness": 0.8674831986427307,
+            "spectral_centroid": 0.4882432939214243,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 242,
+            "timestamp": 115.35673469387756,
+            "strength": 0.19337095320224762,
+            "loudness": 0.7791338562965393,
+            "spectral_centroid": 0.48047448097335205,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 243,
+            "timestamp": 115.8443537414966,
+            "strength": 0.24948084354400635,
+            "loudness": 0.7547566890716553,
+            "spectral_centroid": 0.13766580908327536,
+            "pitch": 0.7891291473386417,
+            "type": "STEP"
+        },
+        {
+            "id": 244,
+            "timestamp": 116.28553287981859,
+            "strength": 0.3263415992259979,
+            "loudness": 0.8135440945625305,
+            "spectral_centroid": 0.47073594349208486,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 245,
+            "timestamp": 116.77315192743764,
+            "strength": 0.40615761280059814,
+            "loudness": 0.8567976951599121,
+            "spectral_centroid": 0.3365838028922924,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 246,
+            "timestamp": 117.26077097505669,
+            "strength": 0.3375151753425598,
+            "loudness": 0.796548068523407,
+            "spectral_centroid": 0.545098326140748,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 247,
+            "timestamp": 117.74839002267574,
+            "strength": 0.15005311369895935,
+            "loudness": 0.7497448325157166,
+            "spectral_centroid": 0.14762437605222894,
+            "pitch": 0.6227248111794115,
+            "type": "STEP"
+        },
+        {
+            "id": 248,
+            "timestamp": 118.18956916099773,
+            "strength": 0.2793721854686737,
+            "loudness": 0.8601712584495544,
+            "spectral_centroid": 0.550043265090196,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 249,
+            "timestamp": 118.65396825396826,
+            "strength": 0.45460832118988037,
+            "loudness": 0.9383653998374939,
+            "spectral_centroid": 0.45163962633112764,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 250,
+            "timestamp": 119.14158730158731,
+            "strength": 0.1491626799106598,
+            "loudness": 0.7910365462303162,
+            "spectral_centroid": 0.22904855279258263,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 251,
+            "timestamp": 119.58276643990929,
+            "strength": 0.0,
+            "loudness": 0.8223797678947449,
+            "spectral_centroid": 0.4430974436838396,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 252,
+            "timestamp": 120.04716553287982,
+            "strength": 0.19958661496639252,
+            "loudness": 0.9300002455711365,
+            "spectral_centroid": 0.3593030452686318,
+            "pitch": 0.7448387315613512,
+            "type": "STEP"
+        },
+        {
+            "id": 253,
+            "timestamp": 120.55800453514739,
+            "strength": 0.11356310546398163,
+            "loudness": 0.7246007323265076,
+            "spectral_centroid": 0.2073074926277617,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 254,
+            "timestamp": 120.99918367346939,
+            "strength": 0.020954497158527374,
+            "loudness": 0.7926080226898193,
+            "spectral_centroid": 0.3734335845172623,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 255,
+            "timestamp": 121.41714285714286,
+            "strength": 0.15242591500282288,
+            "loudness": 0.744779646396637,
+            "spectral_centroid": 0.7352202489627996,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 256,
+            "timestamp": 121.9047619047619,
+            "strength": 0.1776953488588333,
+            "loudness": 0.8662156462669373,
+            "spectral_centroid": 0.41250281566034797,
+            "pitch": 0.675174973084095,
+            "type": "STEP"
+        },
+        {
+            "id": 257,
+            "timestamp": 122.39238095238095,
+            "strength": 0.36038902401924133,
+            "loudness": 0.8085075616836548,
+            "spectral_centroid": 0.3553485387741023,
+            "pitch": 0.6559540522187244,
+            "type": "STEP"
+        },
+        {
+            "id": 258,
+            "timestamp": 122.88,
+            "strength": 0.2557920813560486,
+            "loudness": 0.8154093623161316,
+            "spectral_centroid": 0.4302518979800724,
+            "pitch": 0.6790862219136609,
+            "type": "STEP"
+        },
+        {
+            "id": 259,
+            "timestamp": 123.34439909297052,
+            "strength": 0.30729296803474426,
+            "loudness": 0.8370603322982788,
+            "spectral_centroid": 0.34799154764500606,
+            "pitch": 0.6597539553864471,
+            "type": "STEP"
+        },
+        {
+            "id": 260,
+            "timestamp": 123.80879818594104,
+            "strength": 0.36234816908836365,
+            "loudness": 0.808885931968689,
+            "spectral_centroid": 0.41449051025663813,
+            "pitch": 0.663575871169284,
+            "type": "STEP"
+        },
+        {
+            "id": 261,
+            "timestamp": 124.27319727891157,
+            "strength": 0.367510586977005,
+            "loudness": 0.8063538074493408,
+            "spectral_centroid": 0.4836502675863577,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 262,
+            "timestamp": 124.73759637188209,
+            "strength": 0.17940548062324524,
+            "loudness": 0.7814087867736816,
+            "spectral_centroid": 0.4687281743123845,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 263,
+            "timestamp": 125.2019954648526,
+            "strength": 0.1711399257183075,
+            "loudness": 0.8079107403755188,
+            "spectral_centroid": 0.3523973098790707,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 264,
+            "timestamp": 125.66639455782312,
+            "strength": 0.23461076617240906,
+            "loudness": 0.7546152472496033,
+            "spectral_centroid": 0.2906903120232808,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 265,
+            "timestamp": 126.13079365079365,
+            "strength": 0.28670763969421387,
+            "loudness": 0.8862316608428955,
+            "spectral_centroid": 0.3514877040274354,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 266,
+            "timestamp": 126.59519274376417,
+            "strength": 0.10024219006299973,
+            "loudness": 0.841854453086853,
+            "spectral_centroid": 0.4769992522761546,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 267,
+            "timestamp": 127.08281179138322,
+            "strength": 0.1411166489124298,
+            "loudness": 0.8654109835624695,
+            "spectral_centroid": 0.3762737770452571,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 268,
+            "timestamp": 127.54721088435375,
+            "strength": 0.14208191633224487,
+            "loudness": 0.8338091969490051,
+            "spectral_centroid": 0.5297571064235189,
+            "pitch": 0.8960596419119525,
+            "type": "STEP"
+        },
+        {
+            "id": 269,
+            "timestamp": 128.03482993197278,
+            "strength": 0.12187526375055313,
+            "loudness": 0.6562516689300537,
+            "spectral_centroid": 0.2458672785869875,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 270,
+            "timestamp": 128.4760090702948,
+            "strength": 0.3052505850791931,
+            "loudness": 0.8433147668838501,
+            "spectral_centroid": 0.504189329830955,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 271,
+            "timestamp": 128.96362811791383,
+            "strength": 0.1939852386713028,
+            "loudness": 0.8165420293807983,
+            "spectral_centroid": 0.38061248653710367,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 272,
+            "timestamp": 129.42802721088435,
+            "strength": 0.2840176820755005,
+            "loudness": 0.833670437335968,
+            "spectral_centroid": 0.4588815777741749,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 273,
+            "timestamp": 129.91564625850341,
+            "strength": 0.2068348079919815,
+            "loudness": 0.846214234828949,
+            "spectral_centroid": 0.30366026430935583,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 274,
+            "timestamp": 130.40326530612245,
+            "strength": 0.11763986200094223,
+            "loudness": 0.8326542973518372,
+            "spectral_centroid": 0.45753638681883213,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 275,
+            "timestamp": 130.86766439909297,
+            "strength": 0.13327664136886597,
+            "loudness": 0.8284110426902771,
+            "spectral_centroid": 0.42189670568493187,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 276,
+            "timestamp": 131.355283446712,
+            "strength": 0.1652112901210785,
+            "loudness": 0.8268843293190002,
+            "spectral_centroid": 0.5188298718677293,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 277,
+            "timestamp": 131.81968253968253,
+            "strength": 0.02517307922244072,
+            "loudness": 0.6988280415534973,
+            "spectral_centroid": 0.2393637317074599,
+            "pitch": 0.7491535384383409,
+            "type": "STEP"
+        },
+        {
+            "id": 278,
+            "timestamp": 132.28408163265306,
+            "strength": 0.14993545413017273,
+            "loudness": 0.7600089311599731,
+            "spectral_centroid": 0.47635736467796125,
+            "pitch": 0.7405487761432821,
+            "type": "STEP"
+        },
+        {
+            "id": 279,
+            "timestamp": 132.77170068027212,
+            "strength": 0.1769379824399948,
+            "loudness": 0.7311796545982361,
+            "spectral_centroid": 0.23366626896635972,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 280,
+            "timestamp": 133.23609977324264,
+            "strength": 0.29488319158554077,
+            "loudness": 0.8476012349128723,
+            "spectral_centroid": 0.4994817185695729,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 281,
+            "timestamp": 133.70049886621314,
+            "strength": 0.24931107461452484,
+            "loudness": 0.812207043170929,
+            "spectral_centroid": 0.4238517153337494,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 282,
+            "timestamp": 134.1881179138322,
+            "strength": 0.1423284113407135,
+            "loudness": 0.8099590539932251,
+            "spectral_centroid": 0.4516428280757439,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 283,
+            "timestamp": 134.67573696145124,
+            "strength": 0.124121755361557,
+            "loudness": 0.7365261316299438,
+            "spectral_centroid": 0.4059336604690634,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 284,
+            "timestamp": 135.14013605442176,
+            "strength": 0.2873840034008026,
+            "loudness": 0.8212060332298279,
+            "spectral_centroid": 0.5118563200954571,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 285,
+            "timestamp": 135.62775510204082,
+            "strength": 0.18884843587875366,
+            "loudness": 0.8088787794113159,
+            "spectral_centroid": 0.44355329135504346,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 286,
+            "timestamp": 136.09215419501135,
+            "strength": 0.1553822159767151,
+            "loudness": 0.8615435361862183,
+            "spectral_centroid": 0.48392120108487696,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 287,
+            "timestamp": 136.57977324263038,
+            "strength": 0.14043045043945312,
+            "loudness": 0.7523582577705383,
+            "spectral_centroid": 0.36409277903223836,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 288,
+            "timestamp": 137.0441723356009,
+            "strength": 0.29877156019210815,
+            "loudness": 0.8430965542793274,
+            "spectral_centroid": 0.5101915378723954,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 289,
+            "timestamp": 137.50857142857143,
+            "strength": 0.31583964824676514,
+            "loudness": 0.8187912106513977,
+            "spectral_centroid": 0.41243075166316556,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 290,
+            "timestamp": 137.97297052154195,
+            "strength": 0.22271627187728882,
+            "loudness": 0.7841204404830933,
+            "spectral_centroid": 0.4798457813247713,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 291,
+            "timestamp": 138.460589569161,
+            "strength": 0.10067221522331238,
+            "loudness": 0.7713680863380432,
+            "spectral_centroid": 0.2778615840516028,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 292,
+            "timestamp": 138.9249886621315,
+            "strength": 0.12445531040430069,
+            "loudness": 0.8575521111488342,
+            "spectral_centroid": 0.44855830634140303,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 293,
+            "timestamp": 139.41260770975057,
+            "strength": 0.13127078115940094,
+            "loudness": 0.7625678181648254,
+            "spectral_centroid": 0.503077704332125,
+            "pitch": 0.6597539553864471,
+            "type": "STEP"
+        },
+        {
+            "id": 294,
+            "timestamp": 139.8770068027211,
+            "strength": 0.15972204506397247,
+            "loudness": 0.8389143943786621,
+            "spectral_centroid": 0.48799405945959384,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 295,
+            "timestamp": 140.34140589569162,
+            "strength": 0.15027885138988495,
+            "loudness": 0.6624961495399475,
+            "spectral_centroid": 0.39136715994450594,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 296,
+            "timestamp": 140.80580498866212,
+            "strength": 0.13267360627651215,
+            "loudness": 0.8310608267784119,
+            "spectral_centroid": 0.48270371690781294,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 297,
+            "timestamp": 141.27020408163264,
+            "strength": 0.25696831941604614,
+            "loudness": 0.8916468024253845,
+            "spectral_centroid": 0.35023048191201944,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 298,
+            "timestamp": 141.7578231292517,
+            "strength": 0.1002206802368164,
+            "loudness": 0.8675252795219421,
+            "spectral_centroid": 0.495340829281917,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 299,
+            "timestamp": 142.22222222222223,
+            "strength": 0.10651379078626633,
+            "loudness": 0.8215533494949341,
+            "spectral_centroid": 0.4857637626919995,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 300,
+            "timestamp": 142.68662131519275,
+            "strength": 0.11452694982290268,
+            "loudness": 0.8604089617729187,
+            "spectral_centroid": 0.5575271064436086,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 301,
+            "timestamp": 143.19746031746033,
+            "strength": 0.2031426727771759,
+            "loudness": 0.7332011461257935,
+            "spectral_centroid": 0.3066572157536133,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 302,
+            "timestamp": 143.6386394557823,
+            "strength": 0.3642575740814209,
+            "loudness": 0.8908588290214539,
+            "spectral_centroid": 0.4357665859765256,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 303,
+            "timestamp": 144.12625850340137,
+            "strength": 0.26558515429496765,
+            "loudness": 0.816840410232544,
+            "spectral_centroid": 0.3766908640773379,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 304,
+            "timestamp": 144.59065759637187,
+            "strength": 0.30456534028053284,
+            "loudness": 0.8480293154716492,
+            "spectral_centroid": 0.49331631700604933,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 305,
+            "timestamp": 145.07827664399093,
+            "strength": 0.20830349624156952,
+            "loudness": 0.8684501051902771,
+            "spectral_centroid": 0.382469466609303,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 306,
+            "timestamp": 145.54267573696146,
+            "strength": 0.13953033089637756,
+            "loudness": 0.8582746386528015,
+            "spectral_centroid": 0.5084450320799181,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 307,
+            "timestamp": 146.0302947845805,
+            "strength": 0.1616239696741104,
+            "loudness": 0.8362032771110535,
+            "spectral_centroid": 0.4226476586441225,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 308,
+            "timestamp": 146.49469387755101,
+            "strength": 0.1912807822227478,
+            "loudness": 0.8804109692573547,
+            "spectral_centroid": 0.47196134066118356,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 309,
+            "timestamp": 146.98231292517008,
+            "strength": 0.16374889016151428,
+            "loudness": 0.728035569190979,
+            "spectral_centroid": 0.21647912703340222,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 310,
+            "timestamp": 147.4467120181406,
+            "strength": 0.1816299557685852,
+            "loudness": 0.759421706199646,
+            "spectral_centroid": 0.5242483706337672,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 311,
+            "timestamp": 147.93433106575964,
+            "strength": 0.2741433382034302,
+            "loudness": 0.6952003836631775,
+            "spectral_centroid": 0.24218320915795713,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 312,
+            "timestamp": 148.37551020408162,
+            "strength": 0.3703770339488983,
+            "loudness": 0.8978476524353027,
+            "spectral_centroid": 0.5022914170743183,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 313,
+            "timestamp": 148.86312925170068,
+            "strength": 0.2220699042081833,
+            "loudness": 0.859380841255188,
+            "spectral_centroid": 0.3764915066544298,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 314,
+            "timestamp": 149.3275283446712,
+            "strength": 0.201112300157547,
+            "loudness": 0.8288174271583557,
+            "spectral_centroid": 0.4974542517297787,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 315,
+            "timestamp": 149.81514739229024,
+            "strength": 0.04810284823179245,
+            "loudness": 0.782938539981842,
+            "spectral_centroid": 0.4547909217196794,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 316,
+            "timestamp": 150.27954648526077,
+            "strength": 0.2143796980381012,
+            "loudness": 0.8437420129776001,
+            "spectral_centroid": 0.5785739191723084,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 317,
+            "timestamp": 150.76716553287983,
+            "strength": 0.10331498086452484,
+            "loudness": 0.8428210616111755,
+            "spectral_centroid": 0.36039626535994806,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 318,
+            "timestamp": 151.23156462585035,
+            "strength": 0.18755897879600525,
+            "loudness": 0.9063612818717957,
+            "spectral_centroid": 0.4723155636539952,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 319,
+            "timestamp": 151.7191836734694,
+            "strength": 0.1558578610420227,
+            "loudness": 0.7151485681533813,
+            "spectral_centroid": 0.2161653446494938,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 320,
+            "timestamp": 152.16036281179137,
+            "strength": 0.24416019022464752,
+            "loudness": 0.8106099963188171,
+            "spectral_centroid": 0.5132380209407811,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 321,
+            "timestamp": 152.64798185941044,
+            "strength": 0.21949513256549835,
+            "loudness": 0.8468292355537415,
+            "spectral_centroid": 0.3496487240643216,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 322,
+            "timestamp": 153.11238095238096,
+            "strength": 0.1558992713689804,
+            "loudness": 0.9001347422599792,
+            "spectral_centroid": 0.49746248822810446,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 323,
+            "timestamp": 153.6,
+            "strength": 0.12887240946292877,
+            "loudness": 0.7825156450271606,
+            "spectral_centroid": 0.20616532193020207,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 324,
+            "timestamp": 154.06439909297052,
+            "strength": 0.19859695434570312,
+            "loudness": 0.8082916736602783,
+            "spectral_centroid": 0.477213906381495,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 325,
+            "timestamp": 154.55201814058958,
+            "strength": 0.18960748612880707,
+            "loudness": 0.81173175573349,
+            "spectral_centroid": 0.5392054062929251,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 326,
+            "timestamp": 154.99319727891157,
+            "strength": 0.18946878612041473,
+            "loudness": 0.8301722407341003,
+            "spectral_centroid": 0.5398900284018293,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 327,
+            "timestamp": 155.4575963718821,
+            "strength": 0.106910839676857,
+            "loudness": 0.8417682647705078,
+            "spectral_centroid": 0.3944569976253102,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 328,
+            "timestamp": 155.9219954648526,
+            "strength": 0.25472521781921387,
+            "loudness": 0.8069742918014526,
+            "spectral_centroid": 0.502444274028681,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 329,
+            "timestamp": 156.38639455782314,
+            "strength": 0.18130500614643097,
+            "loudness": 0.9478811025619507,
+            "spectral_centroid": 0.41893413421144793,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 330,
+            "timestamp": 156.8972335600907,
+            "strength": 0.13549891114234924,
+            "loudness": 0.7843442559242249,
+            "spectral_centroid": 0.4939396529140439,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 331,
+            "timestamp": 157.38485260770975,
+            "strength": 0.26820796728134155,
+            "loudness": 0.7655266523361206,
+            "spectral_centroid": 0.11625305332110307,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 332,
+            "timestamp": 157.82603174603176,
+            "strength": 0.21504680812358856,
+            "loudness": 0.8160227537155151,
+            "spectral_centroid": 0.4217750167300919,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 333,
+            "timestamp": 158.3136507936508,
+            "strength": 0.24473069608211517,
+            "loudness": 0.8139442205429077,
+            "spectral_centroid": 0.21458192555948719,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 334,
+            "timestamp": 158.80126984126983,
+            "strength": 0.26688727736473083,
+            "loudness": 0.7850238680839539,
+            "spectral_centroid": 0.8819311886666403,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 335,
+            "timestamp": 159.26566893424035,
+            "strength": 0.1522582769393921,
+            "loudness": 0.7845870852470398,
+            "spectral_centroid": 0.3729597901905284,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 336,
+            "timestamp": 159.73006802721088,
+            "strength": 0.1896475851535797,
+            "loudness": 0.8889596462249756,
+            "spectral_centroid": 0.37955566511751243,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 337,
+            "timestamp": 160.1712471655329,
+            "strength": 0.23105451464653015,
+            "loudness": 0.8328995704650879,
+            "spectral_centroid": 0.5385038635503325,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 338,
+            "timestamp": 160.70530612244897,
+            "strength": 0.15638872981071472,
+            "loudness": 0.7908192873001099,
+            "spectral_centroid": 0.6515161362444791,
+            "pitch": 0.7534933407372879,
+            "type": "STEP"
+        },
+        {
+            "id": 339,
+            "timestamp": 161.19292517006804,
+            "strength": 0.17033956944942474,
+            "loudness": 0.7324204444885254,
+            "spectral_centroid": 0.20031515402079259,
+            "pitch": 0.7448387315613512,
+            "type": "STEP"
+        },
+        {
+            "id": 340,
+            "timestamp": 161.63410430839002,
+            "strength": 0.3360306918621063,
+            "loudness": 0.8200241923332214,
+            "spectral_centroid": 0.39087097796996945,
+            "pitch": 0.7030341458111747,
+            "type": "STEP"
+        },
+        {
+            "id": 341,
+            "timestamp": 162.09850340136055,
+            "strength": 0.28501132130622864,
+            "loudness": 0.7358062863349915,
+            "spectral_centroid": 0.3236672722265976,
+            "pitch": 0.7448387315613512,
+            "type": "STEP"
+        },
+        {
+            "id": 342,
+            "timestamp": 162.60934240362812,
+            "strength": 0.3839842677116394,
+            "loudness": 0.7680992484092712,
+            "spectral_centroid": 0.433665567876928,
+            "pitch": 0.6227248111794115,
+            "type": "STEP"
+        },
+        {
+            "id": 343,
+            "timestamp": 163.07374149659864,
+            "strength": 0.15759120881557465,
+            "loudness": 0.7641832232475281,
+            "spectral_centroid": 0.5762488270057147,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 344,
+            "timestamp": 163.53814058956917,
+            "strength": 0.19656062126159668,
+            "loudness": 0.8592095375061035,
+            "spectral_centroid": 0.3880513609335556,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 345,
+            "timestamp": 164.0025396825397,
+            "strength": 0.21859031915664673,
+            "loudness": 0.9171624183654785,
+            "spectral_centroid": 0.3868330344760934,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 346,
+            "timestamp": 164.51337868480726,
+            "strength": 0.12149837613105774,
+            "loudness": 0.7690223455429077,
+            "spectral_centroid": 0.47271139463351675,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 347,
+            "timestamp": 165.0009977324263,
+            "strength": 0.2966759204864502,
+            "loudness": 0.7060872912406921,
+            "spectral_centroid": 0.19596624686444816,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 348,
+            "timestamp": 165.41895691609977,
+            "strength": 0.29530826210975647,
+            "loudness": 0.7738646864891052,
+            "spectral_centroid": 0.7268640031150376,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 349,
+            "timestamp": 165.9065759637188,
+            "strength": 0.2435380071401596,
+            "loudness": 0.7493197917938232,
+            "spectral_centroid": 0.3624711489046067,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 350,
+            "timestamp": 166.39419501133787,
+            "strength": 0.19194535911083221,
+            "loudness": 0.8290167450904846,
+            "spectral_centroid": 0.3601083619862335,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 351,
+            "timestamp": 166.8818140589569,
+            "strength": 0.2435598522424698,
+            "loudness": 0.7327998876571655,
+            "spectral_centroid": 0.1514350962333519,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 352,
+            "timestamp": 167.34621315192743,
+            "strength": 0.3396029472351074,
+            "loudness": 0.8291412591934204,
+            "spectral_centroid": 0.4177028969467402,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 353,
+            "timestamp": 167.81061224489795,
+            "strength": 0.31017982959747314,
+            "loudness": 0.9208840131759644,
+            "spectral_centroid": 0.5319295893280075,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 354,
+            "timestamp": 168.29823129251702,
+            "strength": 0.17730426788330078,
+            "loudness": 0.5346565842628479,
+            "spectral_centroid": 0.25060382941962245,
+            "pitch": 0.6674199270850172,
+            "type": "STEP"
+        },
+        {
+            "id": 355,
+            "timestamp": 168.76263038548754,
+            "strength": 0.09522399306297302,
+            "loudness": 0.7516813278198242,
+            "spectral_centroid": 0.36319329703340414,
+            "pitch": 0.7491535384383409,
+            "type": "STEP"
+        },
+        {
+            "id": 356,
+            "timestamp": 169.22702947845804,
+            "strength": 0.0984971821308136,
+            "loudness": 0.8639788031578064,
+            "spectral_centroid": 0.6214573095393425,
+            "pitch": 0.6712862513901318,
+            "type": "STEP"
+        },
+        {
+            "id": 357,
+            "timestamp": 169.7146485260771,
+            "strength": 0.17088276147842407,
+            "loudness": 0.7027707695960999,
+            "spectral_centroid": 0.22541270328990162,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 358,
+            "timestamp": 170.15582766439908,
+            "strength": 0.04897560179233551,
+            "loudness": 0.7347647547721863,
+            "spectral_centroid": 0.7492499069079865,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 359,
+            "timestamp": 170.5970068027211,
+            "strength": 0.06493920832872391,
+            "loudness": 0.8622720241546631,
+            "spectral_centroid": 0.5000668190403416,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 360,
+            "timestamp": 171.03818594104308,
+            "strength": 0.1750875562429428,
+            "loudness": 0.8479647636413574,
+            "spectral_centroid": 0.5641548665730188,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 361,
+            "timestamp": 171.5025850340136,
+            "strength": 0.30311837792396545,
+            "loudness": 0.8769975304603577,
+            "spectral_centroid": 0.47698175907722146,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 362,
+            "timestamp": 172.03664399092972,
+            "strength": 0.14869564771652222,
+            "loudness": 0.7576934099197388,
+            "spectral_centroid": 0.5672767259908768,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 363,
+            "timestamp": 172.52426303854875,
+            "strength": 0.19155743718147278,
+            "loudness": 0.735525369644165,
+            "spectral_centroid": 0.13184531720695178,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 364,
+            "timestamp": 172.98866213151928,
+            "strength": 0.2745405435562134,
+            "loudness": 0.7626937031745911,
+            "spectral_centroid": 0.44885185299756003,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 365,
+            "timestamp": 173.40662131519275,
+            "strength": 0.30789104104042053,
+            "loudness": 0.5418072938919067,
+            "spectral_centroid": 1.0,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 366,
+            "timestamp": 173.8942403628118,
+            "strength": 0.1975318193435669,
+            "loudness": 0.7529474496841431,
+            "spectral_centroid": 0.5064253386127192,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 367,
+            "timestamp": 174.40507936507936,
+            "strength": 0.2599318325519562,
+            "loudness": 0.7349655628204346,
+            "spectral_centroid": 0.2565418527685176,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 368,
+            "timestamp": 174.86947845804988,
+            "strength": 0.20450663566589355,
+            "loudness": 0.8553741574287415,
+            "spectral_centroid": 0.3949039062354724,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 369,
+            "timestamp": 175.3338775510204,
+            "strength": 0.16562588512897491,
+            "loudness": 0.9185749292373657,
+            "spectral_centroid": 0.46262019993296283,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 370,
+            "timestamp": 175.84471655328798,
+            "strength": 0.16563692688941956,
+            "loudness": 0.8164123892784119,
+            "spectral_centroid": 0.4608207199569094,
+            "pitch": 0.7153229662176293,
+            "type": "STEP"
+        },
+        {
+            "id": 371,
+            "timestamp": 176.33233560090702,
+            "strength": 0.20179910957813263,
+            "loudness": 0.7667998671531677,
+            "spectral_centroid": 0.15707954605427663,
+            "pitch": 0.7534933407372879,
+            "type": "STEP"
+        },
+        {
+            "id": 372,
+            "timestamp": 176.7502947845805,
+            "strength": 0.21953335404396057,
+            "loudness": 0.7965824604034424,
+            "spectral_centroid": 0.562374650219176,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 373,
+            "timestamp": 177.23791383219955,
+            "strength": 0.16387052834033966,
+            "loudness": 0.7726781368255615,
+            "spectral_centroid": 0.32940204499543246,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 374,
+            "timestamp": 177.7255328798186,
+            "strength": 0.1807677000761032,
+            "loudness": 0.7423823475837708,
+            "spectral_centroid": 0.6526965415749013,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 375,
+            "timestamp": 178.23637188208616,
+            "strength": 0.22659264504909515,
+            "loudness": 0.7569593787193298,
+            "spectral_centroid": 0.18633863262620132,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 376,
+            "timestamp": 178.70077097505668,
+            "strength": 0.16670949757099152,
+            "loudness": 0.7815651297569275,
+            "spectral_centroid": 0.4894028126367474,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 377,
+            "timestamp": 179.18839002267575,
+            "strength": 0.08095069229602814,
+            "loudness": 0.7820987701416016,
+            "spectral_centroid": 0.41507478188860114,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 378,
+            "timestamp": 179.67600907029478,
+            "strength": 0.1414300948381424,
+            "loudness": 0.7797743678092957,
+            "spectral_centroid": 0.48414594403577854,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 379,
+            "timestamp": 180.1404081632653,
+            "strength": 0.26330628991127014,
+            "loudness": 0.68888258934021,
+            "spectral_centroid": 0.1606892537501506,
+            "pitch": 0.6299605249474367,
+            "type": "STEP"
+        },
+        {
+            "id": 380,
+            "timestamp": 180.55836734693878,
+            "strength": 0.4073328375816345,
+            "loudness": 0.821381688117981,
+            "spectral_centroid": 0.6294942328359981,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 381,
+            "timestamp": 181.06920634920635,
+            "strength": 0.24667851626873016,
+            "loudness": 0.786198616027832,
+            "spectral_centroid": 0.26394288631029506,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 382,
+            "timestamp": 181.5568253968254,
+            "strength": 0.30466365814208984,
+            "loudness": 0.7817507982254028,
+            "spectral_centroid": 0.5289726082860017,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 383,
+            "timestamp": 182.0212244897959,
+            "strength": 0.2227289080619812,
+            "loudness": 0.6947832107543945,
+            "spectral_centroid": 0.20771738653161873,
+            "pitch": 0.6227248111794115,
+            "type": "STEP"
+        },
+        {
+            "id": 384,
+            "timestamp": 182.48562358276644,
+            "strength": 0.29314693808555603,
+            "loudness": 0.7961798906326294,
+            "spectral_centroid": 0.4862469395126111,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 385,
+            "timestamp": 182.95002267573696,
+            "strength": 0.32494449615478516,
+            "loudness": 0.9144720435142517,
+            "spectral_centroid": 0.47579319185693,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 386,
+            "timestamp": 183.43764172335602,
+            "strength": 0.11936894804239273,
+            "loudness": 0.7463186383247375,
+            "spectral_centroid": 0.2488621864623897,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 387,
+            "timestamp": 183.90204081632652,
+            "strength": 0.019783686846494675,
+            "loudness": 0.7712699770927429,
+            "spectral_centroid": 0.35794593138079417,
+            "pitch": 0.7534933407372879,
+            "type": "STEP"
+        },
+        {
+            "id": 388,
+            "timestamp": 184.36643990929704,
+            "strength": 0.14748074114322662,
+            "loudness": 0.8796372413635254,
+            "spectral_centroid": 0.5154792558946472,
+            "pitch": 0.7845840978967508,
+            "type": "STEP"
+        },
+        {
+            "id": 389,
+            "timestamp": 184.8540589569161,
+            "strength": 0.1740526407957077,
+            "loudness": 0.710760772228241,
+            "spectral_centroid": 0.19815916578945875,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 390,
+            "timestamp": 185.2952380952381,
+            "strength": 0.018715638667345047,
+            "loudness": 0.7747697234153748,
+            "spectral_centroid": 0.35524084711677945,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 391,
+            "timestamp": 185.75963718820861,
+            "strength": 0.1484157145023346,
+            "loudness": 0.8763098120689392,
+            "spectral_centroid": 0.4840684617791852,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 392,
+            "timestamp": 186.2008163265306,
+            "strength": 0.2075279951095581,
+            "loudness": 0.8861832618713379,
+            "spectral_centroid": 0.40178041460920133,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 393,
+            "timestamp": 186.68843537414966,
+            "strength": 0.3663106858730316,
+            "loudness": 0.7901249527931213,
+            "spectral_centroid": 0.37118009188146295,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 394,
+            "timestamp": 187.1760544217687,
+            "strength": 0.3324275612831116,
+            "loudness": 0.835981547832489,
+            "spectral_centroid": 0.4888587311023011,
+            "pitch": 0.675174973084095,
+            "type": "STEP"
+        },
+        {
+            "id": 395,
+            "timestamp": 187.64045351473922,
+            "strength": 0.26967954635620117,
+            "loudness": 0.9082319736480713,
+            "spectral_centroid": 0.3726693614131836,
+            "pitch": 0.6674199270850172,
+            "type": "STEP"
+        },
+        {
+            "id": 396,
+            "timestamp": 188.10485260770974,
+            "strength": 0.40672537684440613,
+            "loudness": 0.8224558234214783,
+            "spectral_centroid": 0.4240972119020326,
+            "pitch": 0.6674199270850172,
+            "type": "STEP"
+        },
+        {
+            "id": 397,
+            "timestamp": 188.56925170068027,
+            "strength": 0.3536478579044342,
+            "loudness": 0.7578675150871277,
+            "spectral_centroid": 0.32516497558711205,
+            "pitch": 0.6227248111794115,
+            "type": "STEP"
+        },
+        {
+            "id": 398,
+            "timestamp": 189.0336507936508,
+            "strength": 0.13954810798168182,
+            "loudness": 0.8705065846443176,
+            "spectral_centroid": 0.39396669648999727,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 399,
+            "timestamp": 189.49804988662132,
+            "strength": 0.2465686947107315,
+            "loudness": 0.8450700044631958,
+            "spectral_centroid": 0.3376851608189572,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 400,
+            "timestamp": 189.96244897959184,
+            "strength": 0.32229602336883545,
+            "loudness": 0.8002058267593384,
+            "spectral_centroid": 0.23318008473634333,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 401,
+            "timestamp": 190.42684807256236,
+            "strength": 0.31952059268951416,
+            "loudness": 0.8869240880012512,
+            "spectral_centroid": 0.3266010840233456,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 402,
+            "timestamp": 190.9144671201814,
+            "strength": 0.0851367935538292,
+            "loudness": 0.8467423319816589,
+            "spectral_centroid": 0.5102673793970356,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 403,
+            "timestamp": 191.40208616780046,
+            "strength": 0.13721580803394318,
+            "loudness": 0.8026739358901978,
+            "spectral_centroid": 0.40029886264882486,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 404,
+            "timestamp": 191.866485260771,
+            "strength": 0.15193670988082886,
+            "loudness": 0.860584020614624,
+            "spectral_centroid": 0.5397657653714495,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 405,
+            "timestamp": 192.35410430839002,
+            "strength": 0.15294265747070312,
+            "loudness": 0.5817577242851257,
+            "spectral_centroid": 0.26025515906307356,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 406,
+            "timestamp": 192.795283446712,
+            "strength": 0.27995064854621887,
+            "loudness": 0.8516247272491455,
+            "spectral_centroid": 0.43779728712400784,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 407,
+            "timestamp": 193.28290249433107,
+            "strength": 0.2132057547569275,
+            "loudness": 0.8044003248214722,
+            "spectral_centroid": 0.3446998644815426,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 408,
+            "timestamp": 193.7473015873016,
+            "strength": 0.28974711894989014,
+            "loudness": 0.8755952715873718,
+            "spectral_centroid": 0.4341074070008435,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 409,
+            "timestamp": 194.21170068027212,
+            "strength": 0.19283489882946014,
+            "loudness": 0.8536509275436401,
+            "spectral_centroid": 0.34421650900430056,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 410,
+            "timestamp": 194.69931972789115,
+            "strength": 0.08869489282369614,
+            "loudness": 0.8370832204818726,
+            "spectral_centroid": 0.42188336768785845,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 411,
+            "timestamp": 195.16371882086167,
+            "strength": 0.10307125002145767,
+            "loudness": 0.7707744836807251,
+            "spectral_centroid": 0.4494335423786087,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 412,
+            "timestamp": 195.65133786848074,
+            "strength": 0.1189296692609787,
+            "loudness": 0.8391507863998413,
+            "spectral_centroid": 0.5056043106468063,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 413,
+            "timestamp": 196.11573696145123,
+            "strength": 0.010280556045472622,
+            "loudness": 0.6678337454795837,
+            "spectral_centroid": 0.3539658100332475,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 414,
+            "timestamp": 196.58013605442176,
+            "strength": 0.142487034201622,
+            "loudness": 0.7851182818412781,
+            "spectral_centroid": 0.4922534709048658,
+            "pitch": 0.9384379966711432,
+            "type": "STEP"
+        },
+        {
+            "id": 415,
+            "timestamp": 197.09097505668933,
+            "strength": 0.22940517961978912,
+            "loudness": 0.7077012658119202,
+            "spectral_centroid": 0.18044555115221125,
+            "pitch": 0.8555950256826023,
+            "type": "STEP"
+        },
+        {
+            "id": 416,
+            "timestamp": 197.53215419501134,
+            "strength": 0.30586928129196167,
+            "loudness": 0.8699027895927429,
+            "spectral_centroid": 0.5469626562092967,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 417,
+            "timestamp": 197.99655328798187,
+            "strength": 0.15813928842544556,
+            "loudness": 0.8711560964584351,
+            "spectral_centroid": 0.4038407172512318,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 418,
+            "timestamp": 198.4841723356009,
+            "strength": 0.18200616538524628,
+            "loudness": 0.7938316464424133,
+            "spectral_centroid": 0.5271619116435325,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 419,
+            "timestamp": 198.99501133786848,
+            "strength": 0.11751954257488251,
+            "loudness": 0.7037693858146667,
+            "spectral_centroid": 0.20091951925663534,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 420,
+            "timestamp": 199.4361904761905,
+            "strength": 0.26873788237571716,
+            "loudness": 0.8873134255409241,
+            "spectral_centroid": 0.500682341260668,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 421,
+            "timestamp": 199.94702947845806,
+            "strength": 0.18887364864349365,
+            "loudness": 0.8157619833946228,
+            "spectral_centroid": 0.4082335930632318,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 422,
+            "timestamp": 200.41142857142856,
+            "strength": 0.12022697180509567,
+            "loudness": 0.816724956035614,
+            "spectral_centroid": 0.477151039866137,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 423,
+            "timestamp": 200.89904761904762,
+            "strength": 0.1320541948080063,
+            "loudness": 0.621432363986969,
+            "spectral_centroid": 0.26362637314925164,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 424,
+            "timestamp": 201.3402267573696,
+            "strength": 0.2436182200908661,
+            "loudness": 0.7682910561561584,
+            "spectral_centroid": 0.5224489668428783,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 425,
+            "timestamp": 201.82784580498867,
+            "strength": 0.25732943415641785,
+            "loudness": 0.7964460849761963,
+            "spectral_centroid": 0.38026220384890763,
+            "pitch": 0.6597539553864471,
+            "type": "STEP"
+        },
+        {
+            "id": 426,
+            "timestamp": 202.2922448979592,
+            "strength": 0.2087446004152298,
+            "loudness": 0.8254932165145874,
+            "spectral_centroid": 0.4998397038585623,
+            "pitch": 0.6790862219136609,
+            "type": "STEP"
+        },
+        {
+            "id": 427,
+            "timestamp": 202.77986394557823,
+            "strength": 0.12250401824712753,
+            "loudness": 0.787338137626648,
+            "spectral_centroid": 0.25531313932064226,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 428,
+            "timestamp": 203.24426303854875,
+            "strength": 0.14366884529590607,
+            "loudness": 0.7497333288192749,
+            "spectral_centroid": 0.5502045554120033,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 429,
+            "timestamp": 203.70866213151928,
+            "strength": 0.08721007406711578,
+            "loudness": 0.8101515173912048,
+            "spectral_centroid": 0.3226954626463356,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 430,
+            "timestamp": 204.1730612244898,
+            "strength": 0.21945948898792267,
+            "loudness": 0.8582055568695068,
+            "spectral_centroid": 0.47429968464488664,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 431,
+            "timestamp": 204.66068027210883,
+            "strength": 0.17352257668972015,
+            "loudness": 0.7283812165260315,
+            "spectral_centroid": 0.3142618908181426,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 432,
+            "timestamp": 205.10185941043085,
+            "strength": 0.26355212926864624,
+            "loudness": 0.7782325744628906,
+            "spectral_centroid": 0.5344582992839709,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 433,
+            "timestamp": 205.58947845804988,
+            "strength": 0.18791408836841583,
+            "loudness": 0.8578084111213684,
+            "spectral_centroid": 0.378042863302984,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 434,
+            "timestamp": 206.07709750566895,
+            "strength": 0.11679724603891373,
+            "loudness": 0.836994469165802,
+            "spectral_centroid": 0.4772801994803122,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 435,
+            "timestamp": 206.54149659863947,
+            "strength": 0.07540718466043472,
+            "loudness": 0.7906086444854736,
+            "spectral_centroid": 0.4112972611998585,
+            "pitch": 0.7405487761432821,
+            "type": "STEP"
+        },
+        {
+            "id": 436,
+            "timestamp": 207.0291156462585,
+            "strength": 0.11569076031446457,
+            "loudness": 0.8883651494979858,
+            "spectral_centroid": 0.5127952425810632,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 437,
+            "timestamp": 207.51673469387754,
+            "strength": 0.1562448889017105,
+            "loudness": 0.7143763899803162,
+            "spectral_centroid": 0.1740184322456208,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 438,
+            "timestamp": 207.95791383219955,
+            "strength": 0.291537880897522,
+            "loudness": 0.8624575138092041,
+            "spectral_centroid": 0.5401026906244407,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 439,
+            "timestamp": 208.46875283446713,
+            "strength": 0.21933361887931824,
+            "loudness": 0.7970924377441406,
+            "spectral_centroid": 0.44912826145183976,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 440,
+            "timestamp": 208.93315192743765,
+            "strength": 0.2701333165168762,
+            "loudness": 0.824208676815033,
+            "spectral_centroid": 0.5785911430882148,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 441,
+            "timestamp": 209.39755102040817,
+            "strength": 0.25701993703842163,
+            "loudness": 0.9004687070846558,
+            "spectral_centroid": 0.39235021868275516,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 442,
+            "timestamp": 209.8619501133787,
+            "strength": 0.07845966517925262,
+            "loudness": 0.828507125377655,
+            "spectral_centroid": 0.47519228654395806,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 443,
+            "timestamp": 210.3263492063492,
+            "strength": 0.09493178129196167,
+            "loudness": 0.7180761694908142,
+            "spectral_centroid": 0.40013369667933735,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 444,
+            "timestamp": 210.81396825396826,
+            "strength": 0.16464519500732422,
+            "loudness": 0.8542710542678833,
+            "spectral_centroid": 0.5029369327007893,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 445,
+            "timestamp": 211.27836734693878,
+            "strength": 0.08987772464752197,
+            "loudness": 0.7347503304481506,
+            "spectral_centroid": 0.25084194261381865,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 446,
+            "timestamp": 211.7427664399093,
+            "strength": 0.19225938618183136,
+            "loudness": 0.8135170936584473,
+            "spectral_centroid": 0.4618048313551936,
+            "pitch": 0.7491535384383409,
+            "type": "STEP"
+        },
+        {
+            "id": 447,
+            "timestamp": 212.23038548752834,
+            "strength": 0.12432433664798737,
+            "loudness": 0.6589334607124329,
+            "spectral_centroid": 0.2431323157879666,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 448,
+            "timestamp": 212.69478458049886,
+            "strength": 0.2599136531352997,
+            "loudness": 0.770775556564331,
+            "spectral_centroid": 0.5038596429109502,
+            "pitch": 0.6989849670895099,
+            "type": "STEP"
+        },
+        {
+            "id": 449,
+            "timestamp": 213.15918367346939,
+            "strength": 0.23732557892799377,
+            "loudness": 0.8666995763778687,
+            "spectral_centroid": 0.3191345286934737,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 450,
+            "timestamp": 213.6235827664399,
+            "strength": 0.09411661326885223,
+            "loudness": 0.8649889230728149,
+            "spectral_centroid": 0.482261383608553,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 451,
+            "timestamp": 214.11120181405894,
+            "strength": 0.10925568640232086,
+            "loudness": 0.8342730402946472,
+            "spectral_centroid": 0.4455323514364427,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 452,
+            "timestamp": 214.57560090702947,
+            "strength": 0.1538613885641098,
+            "loudness": 0.7685875296592712,
+            "spectral_centroid": 0.5099999242712349,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 453,
+            "timestamp": 215.06321995464853,
+            "strength": 0.13402517139911652,
+            "loudness": 0.7894454002380371,
+            "spectral_centroid": 0.4672560353744098,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 454,
+            "timestamp": 215.52761904761905,
+            "strength": 0.22080637514591217,
+            "loudness": 0.7647294998168945,
+            "spectral_centroid": 0.548149467692725,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 455,
+            "timestamp": 216.0152380952381,
+            "strength": 0.14002196490764618,
+            "loudness": 0.7623049020767212,
+            "spectral_centroid": 0.2809150141496942,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 456,
+            "timestamp": 216.4564172335601,
+            "strength": 0.25398361682891846,
+            "loudness": 0.7834213972091675,
+            "spectral_centroid": 0.5217570581929374,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 457,
+            "timestamp": 216.9208163265306,
+            "strength": 0.2716033458709717,
+            "loudness": 0.8422590494155884,
+            "spectral_centroid": 0.39527097571708336,
+            "pitch": 0.7711054127039705,
+            "type": "STEP"
+        },
+        {
+            "id": 458,
+            "timestamp": 217.40843537414966,
+            "strength": 0.08823955804109573,
+            "loudness": 0.8125364184379578,
+            "spectral_centroid": 0.4756950138302976,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 459,
+            "timestamp": 217.8960544217687,
+            "strength": 0.17517900466918945,
+            "loudness": 0.7762813568115234,
+            "spectral_centroid": 0.38329266435676335,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 460,
+            "timestamp": 218.36045351473922,
+            "strength": 0.18883799016475677,
+            "loudness": 0.8373515009880066,
+            "spectral_centroid": 0.44687851908842546,
+            "pitch": 0.8122523963562356,
+            "type": "STEP"
+        },
+        {
+            "id": 461,
+            "timestamp": 218.82485260770974,
+            "strength": 0.20270191133022308,
+            "loudness": 0.8431518077850342,
+            "spectral_centroid": 0.42483760565290773,
+            "pitch": 0.6830201283771977,
+            "type": "STEP"
+        },
+        {
+            "id": 462,
+            "timestamp": 219.28925170068027,
+            "strength": 0.2254292368888855,
+            "loudness": 0.7428306341171265,
+            "spectral_centroid": 0.45801998401431726,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 463,
+            "timestamp": 219.77687074829933,
+            "strength": 0.17872294783592224,
+            "loudness": 0.7753311395645142,
+            "spectral_centroid": 0.3139077463810386,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 464,
+            "timestamp": 220.24126984126985,
+            "strength": 0.1680755317211151,
+            "loudness": 0.7451898455619812,
+            "spectral_centroid": 0.5452004637062265,
+            "pitch": 0.7578582832551991,
+            "type": "STEP"
+        },
+        {
+            "id": 465,
+            "timestamp": 220.70566893424035,
+            "strength": 0.19363489747047424,
+            "loudness": 0.8030322790145874,
+            "spectral_centroid": 0.34895260144454804,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 466,
+            "timestamp": 221.17006802721087,
+            "strength": 0.1875193864107132,
+            "loudness": 0.7724090814590454,
+            "spectral_centroid": 0.5520840367964478,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 467,
+            "timestamp": 221.68090702947845,
+            "strength": 0.23466460406780243,
+            "loudness": 0.7984640598297119,
+            "spectral_centroid": 0.2608640364830598,
+            "pitch": 0.8806658735961486,
+            "type": "STEP"
+        },
+        {
+            "id": 468,
+            "timestamp": 222.14530612244897,
+            "strength": 0.18166978657245636,
+            "loudness": 0.7782175540924072,
+            "spectral_centroid": 0.5100566907081565,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 469,
+            "timestamp": 222.6097052154195,
+            "strength": 0.1406903713941574,
+            "loudness": 0.681440532207489,
+            "spectral_centroid": 0.19919455742861222,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 470,
+            "timestamp": 223.0508843537415,
+            "strength": 0.24523590505123138,
+            "loudness": 0.7391271591186523,
+            "spectral_centroid": 0.5272292457995185,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 471,
+            "timestamp": 223.53850340136054,
+            "strength": 0.21285903453826904,
+            "loudness": 0.7818115949630737,
+            "spectral_centroid": 0.2565459555742153,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 472,
+            "timestamp": 224.00290249433107,
+            "strength": 0.32049697637557983,
+            "loudness": 0.7843571305274963,
+            "spectral_centroid": 0.5210802067091601,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 473,
+            "timestamp": 224.4905215419501,
+            "strength": 0.1713380068540573,
+            "loudness": 0.8064404129981995,
+            "spectral_centroid": 0.3285757639823707,
+            "pitch": 0.7491535384383409,
+            "type": "STEP"
+        },
+        {
+            "id": 474,
+            "timestamp": 224.95492063492063,
+            "strength": 0.15076415240764618,
+            "loudness": 0.8225688338279724,
+            "spectral_centroid": 0.47141478875358156,
+            "pitch": 0.7491535384383409,
+            "type": "STEP"
+        },
+        {
+            "id": 475,
+            "timestamp": 225.4425396825397,
+            "strength": 0.13315077126026154,
+            "loudness": 0.7931913733482361,
+            "spectral_centroid": 0.2564076898912778,
+            "pitch": 0.7448387315613512,
+            "type": "STEP"
+        },
+        {
+            "id": 476,
+            "timestamp": 225.9069387755102,
+            "strength": 0.19288738071918488,
+            "loudness": 0.7491887807846069,
+            "spectral_centroid": 0.5484968050315513,
+            "pitch": 0.71946679000541,
+            "type": "STEP"
+        },
+        {
+            "id": 477,
+            "timestamp": 226.39455782312925,
+            "strength": 0.21033844351768494,
+            "loudness": 0.6815657019615173,
+            "spectral_centroid": 0.19313405688795124,
+            "pitch": 0.7491535384383409,
+            "type": "STEP"
+        },
+        {
+            "id": 478,
+            "timestamp": 226.83573696145126,
+            "strength": 0.2534584105014801,
+            "loudness": 0.7887449860572815,
+            "spectral_centroid": 0.4994101031432972,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 479,
+            "timestamp": 227.3233560090703,
+            "strength": 0.14128130674362183,
+            "loudness": 0.7563878297805786,
+            "spectral_centroid": 0.25484501297674805,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 480,
+            "timestamp": 227.78775510204082,
+            "strength": 0.3571845293045044,
+            "loudness": 0.82905513048172,
+            "spectral_centroid": 0.48476216557794677,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 481,
+            "timestamp": 228.27537414965985,
+            "strength": 0.14975348114967346,
+            "loudness": 0.8001430034637451,
+            "spectral_centroid": 0.28312171375254386,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 482,
+            "timestamp": 228.73977324263038,
+            "strength": 0.17596423625946045,
+            "loudness": 0.8216330409049988,
+            "spectral_centroid": 0.5223878333237297,
+            "pitch": 1.0,
+            "type": "STEP"
+        },
+        {
+            "id": 483,
+            "timestamp": 229.22739229024944,
+            "strength": 0.1202886775135994,
+            "loudness": 0.7570897340774536,
+            "spectral_centroid": 0.2749957861378473,
+            "pitch": 1.0,
+            "type": "STEP"
+        },
+        {
+            "id": 484,
+            "timestamp": 229.69179138321996,
+            "strength": 0.13718673586845398,
+            "loudness": 0.8194252848625183,
+            "spectral_centroid": 0.513229913271698,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 485,
+            "timestamp": 230.179410430839,
+            "strength": 0.1272294819355011,
+            "loudness": 0.7315559387207031,
+            "spectral_centroid": 0.3460293616831553,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 486,
+            "timestamp": 230.64380952380952,
+            "strength": 0.14768680930137634,
+            "loudness": 0.7875190377235413,
+            "spectral_centroid": 0.5370662542087191,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 487,
+            "timestamp": 231.13142857142856,
+            "strength": 0.16558894515037537,
+            "loudness": 0.7787812352180481,
+            "spectral_centroid": 0.20294008846459388,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 488,
+            "timestamp": 231.57260770975057,
+            "strength": 0.23079873621463776,
+            "loudness": 0.7978922128677368,
+            "spectral_centroid": 0.490897019032477,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 489,
+            "timestamp": 232.0602267573696,
+            "strength": 0.21107487380504608,
+            "loudness": 0.7759088277816772,
+            "spectral_centroid": 0.3576982949051873,
+            "pitch": 0.8555950256826023,
+            "type": "STEP"
+        },
+        {
+            "id": 490,
+            "timestamp": 232.52462585034013,
+            "strength": 0.19029594957828522,
+            "loudness": 0.8118927478790283,
+            "spectral_centroid": 0.4974861958875475,
+            "pitch": 0.7112030090986409,
+            "type": "STEP"
+        },
+        {
+            "id": 491,
+            "timestamp": 233.0122448979592,
+            "strength": 0.08529701083898544,
+            "loudness": 0.7553596496582031,
+            "spectral_centroid": 0.2441351052521796,
+            "pitch": 0.6712862513901318,
+            "type": "STEP"
+        },
+        {
+            "id": 492,
+            "timestamp": 233.47664399092972,
+            "strength": 0.10679537802934647,
+            "loudness": 0.8381326794624329,
+            "spectral_centroid": 0.4947603632618237,
+            "pitch": 0.6597539553864471,
+            "type": "STEP"
+        },
+        {
+            "id": 493,
+            "timestamp": 233.96426303854875,
+            "strength": 0.19638624787330627,
+            "loudness": 0.8569018244743347,
+            "spectral_centroid": 0.35964049009041466,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 494,
+            "timestamp": 234.42866213151927,
+            "strength": 0.26735982298851013,
+            "loudness": 0.7322567701339722,
+            "spectral_centroid": 0.5570819183707809,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 495,
+            "timestamp": 234.8930612244898,
+            "strength": 0.1648763120174408,
+            "loudness": 0.757174015045166,
+            "spectral_centroid": 0.21360198261437302,
+            "pitch": 0.675174973084095,
+            "type": "STEP"
+        },
+        {
+            "id": 496,
+            "timestamp": 235.35746031746032,
+            "strength": 0.24860140681266785,
+            "loudness": 0.8011891841888428,
+            "spectral_centroid": 0.5305277907832521,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 497,
+            "timestamp": 235.82185941043085,
+            "strength": 0.21124199032783508,
+            "loudness": 0.9185208678245544,
+            "spectral_centroid": 0.3633196032082307,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 498,
+            "timestamp": 236.30947845804988,
+            "strength": 0.14900566637516022,
+            "loudness": 0.7949886918067932,
+            "spectral_centroid": 0.5713301143988982,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 499,
+            "timestamp": 236.7738775510204,
+            "strength": 0.11070065945386887,
+            "loudness": 0.82962566614151,
+            "spectral_centroid": 0.38091658279161306,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 500,
+            "timestamp": 237.23827664399093,
+            "strength": 0.17924368381500244,
+            "loudness": 0.8348347544670105,
+            "spectral_centroid": 0.5352228676020563,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 501,
+            "timestamp": 237.72589569160996,
+            "strength": 0.1273825317621231,
+            "loudness": 0.7231029868125916,
+            "spectral_centroid": 0.2338208114910943,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 502,
+            "timestamp": 238.16707482993198,
+            "strength": 0.31805315613746643,
+            "loudness": 0.8893401026725769,
+            "spectral_centroid": 0.4680209670380376,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 503,
+            "timestamp": 238.654693877551,
+            "strength": 0.2647779583930969,
+            "loudness": 0.8349924087524414,
+            "spectral_centroid": 0.35134650237574616,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 504,
+            "timestamp": 239.11909297052154,
+            "strength": 0.17832447588443756,
+            "loudness": 0.7831853032112122,
+            "spectral_centroid": 0.5549673487674078,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 505,
+            "timestamp": 239.6067120181406,
+            "strength": 0.21772615611553192,
+            "loudness": 0.9269601702690125,
+            "spectral_centroid": 0.4065063339719694,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 506,
+            "timestamp": 240.07111111111112,
+            "strength": 0.10847637802362442,
+            "loudness": 0.8023878335952759,
+            "spectral_centroid": 0.4706046582530181,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 507,
+            "timestamp": 240.53551020408165,
+            "strength": 0.10276851058006287,
+            "loudness": 0.7498050928115845,
+            "spectral_centroid": 0.4290325730962749,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 508,
+            "timestamp": 241.02312925170068,
+            "strength": 0.16177979111671448,
+            "loudness": 0.8756400942802429,
+            "spectral_centroid": 0.46363717876653415,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 509,
+            "timestamp": 241.51074829931972,
+            "strength": 0.11529560387134552,
+            "loudness": 0.7025136351585388,
+            "spectral_centroid": 0.19167202769062558,
+            "pitch": 0.6949591099211686,
+            "type": "STEP"
+        },
+        {
+            "id": 510,
+            "timestamp": 241.95192743764173,
+            "strength": 0.1910323053598404,
+            "loudness": 0.8128290772438049,
+            "spectral_centroid": 0.48608024298412983,
+            "pitch": 0.7153229662176293,
+            "type": "STEP"
+        },
+        {
+            "id": 511,
+            "timestamp": 242.43954648526076,
+            "strength": 0.0710810124874115,
+            "loudness": 0.7245094776153564,
+            "spectral_centroid": 0.31835772743431856,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 512,
+            "timestamp": 242.9039455782313,
+            "strength": 0.37770363688468933,
+            "loudness": 0.8220847845077515,
+            "spectral_centroid": 0.5136096048068433,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 513,
+            "timestamp": 243.39156462585035,
+            "strength": 0.2367146760225296,
+            "loudness": 0.90618896484375,
+            "spectral_centroid": 0.3822603667839333,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 514,
+            "timestamp": 243.85596371882087,
+            "strength": 0.11014479398727417,
+            "loudness": 0.8323115110397339,
+            "spectral_centroid": 0.5441734235652979,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 515,
+            "timestamp": 244.3435827664399,
+            "strength": 0.15846772491931915,
+            "loudness": 0.8357923030853271,
+            "spectral_centroid": 0.366225460170265,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 516,
+            "timestamp": 244.80798185941043,
+            "strength": 0.20566871762275696,
+            "loudness": 0.7912622094154358,
+            "spectral_centroid": 0.5510515323256285,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 517,
+            "timestamp": 245.29560090702947,
+            "strength": 0.23760825395584106,
+            "loudness": 0.7538484930992126,
+            "spectral_centroid": 0.5022733018082854,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 518,
+            "timestamp": 245.76,
+            "strength": 0.18255676329135895,
+            "loudness": 0.8734318017959595,
+            "spectral_centroid": 0.5441705701038634,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 519,
+            "timestamp": 246.22439909297051,
+            "strength": 0.09283968061208725,
+            "loudness": 0.6965553760528564,
+            "spectral_centroid": 0.2659968017786323,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 520,
+            "timestamp": 246.68879818594104,
+            "strength": 0.29140129685401917,
+            "loudness": 0.7604316473007202,
+            "spectral_centroid": 0.4851294800158378,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 521,
+            "timestamp": 247.15319727891156,
+            "strength": 0.314162015914917,
+            "loudness": 0.8483471870422363,
+            "spectral_centroid": 0.36468649629914185,
+            "pitch": 0.663575871169284,
+            "type": "STEP"
+        },
+        {
+            "id": 522,
+            "timestamp": 247.64081632653063,
+            "strength": 0.11933751404285431,
+            "loudness": 0.8240826725959778,
+            "spectral_centroid": 0.534070434926757,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 523,
+            "timestamp": 248.12843537414966,
+            "strength": 0.18401040136814117,
+            "loudness": 0.8387120962142944,
+            "spectral_centroid": 0.32637509345633925,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 524,
+            "timestamp": 248.56961451247165,
+            "strength": 0.14324955642223358,
+            "loudness": 0.802524983882904,
+            "spectral_centroid": 0.46022562336885825,
+            "pitch": 0.8360532082885094,
+            "type": "STEP"
+        },
+        {
+            "id": 525,
+            "timestamp": 249.0572335600907,
+            "strength": 0.21909205615520477,
+            "loudness": 0.8074890375137329,
+            "spectral_centroid": 0.39181580182888887,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 526,
+            "timestamp": 249.52163265306123,
+            "strength": 0.22487352788448334,
+            "loudness": 0.8139336705207825,
+            "spectral_centroid": 0.531524000112159,
+            "pitch": 0.6227248111794115,
+            "type": "STEP"
+        },
+        {
+            "id": 527,
+            "timestamp": 249.98603174603176,
+            "strength": 0.14436298608779907,
+            "loudness": 0.7854454517364502,
+            "spectral_centroid": 0.4131268382538244,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 528,
+            "timestamp": 250.45043083900228,
+            "strength": 0.17858412861824036,
+            "loudness": 0.7965465188026428,
+            "spectral_centroid": 0.5346715882705294,
+            "pitch": 0.626332219312064,
+            "type": "STEP"
+        },
+        {
+            "id": 529,
+            "timestamp": 250.91482993197278,
+            "strength": 0.20791156589984894,
+            "loudness": 0.8972054719924927,
+            "spectral_centroid": 0.3661991880821923,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 530,
+            "timestamp": 251.40244897959184,
+            "strength": 0.15601114928722382,
+            "loudness": 0.8104526996612549,
+            "spectral_centroid": 0.5514648880260072,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 531,
+            "timestamp": 251.86684807256236,
+            "strength": 0.11320823431015015,
+            "loudness": 0.8477205634117126,
+            "spectral_centroid": 0.34712103292860635,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 532,
+            "timestamp": 252.3312471655329,
+            "strength": 0.14764411747455597,
+            "loudness": 0.8134328722953796,
+            "spectral_centroid": 0.5534482480898913,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 533,
+            "timestamp": 252.81886621315192,
+            "strength": 0.13396495580673218,
+            "loudness": 0.728990375995636,
+            "spectral_centroid": 0.19404498504649065,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 534,
+            "timestamp": 253.26004535147393,
+            "strength": 0.26605427265167236,
+            "loudness": 0.8226310014724731,
+            "spectral_centroid": 0.5116553078932183,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 535,
+            "timestamp": 253.74766439909297,
+            "strength": 0.22382932901382446,
+            "loudness": 0.806291937828064,
+            "spectral_centroid": 0.44061842493031794,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 536,
+            "timestamp": 254.2120634920635,
+            "strength": 0.25619184970855713,
+            "loudness": 0.7831836938858032,
+            "spectral_centroid": 0.5515027883763544,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 537,
+            "timestamp": 254.72290249433107,
+            "strength": 0.2386794090270996,
+            "loudness": 0.9027873873710632,
+            "spectral_centroid": 0.3833854790337782,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 538,
+            "timestamp": 255.1873015873016,
+            "strength": 0.15614521503448486,
+            "loudness": 0.8552783131599426,
+            "spectral_centroid": 0.5336932883935154,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 539,
+            "timestamp": 255.6517006802721,
+            "strength": 0.11189960688352585,
+            "loudness": 0.777800977230072,
+            "spectral_centroid": 0.3343141259176073,
+            "pitch": 0.7845840978967508,
+            "type": "STEP"
+        },
+        {
+            "id": 540,
+            "timestamp": 256.1393197278912,
+            "strength": 0.15347066521644592,
+            "loudness": 0.8006307482719421,
+            "spectral_centroid": 0.5249125320652416,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 541,
+            "timestamp": 256.6269387755102,
+            "strength": 0.11091164499521255,
+            "loudness": 0.5518534183502197,
+            "spectral_centroid": 0.19593494767997402,
+            "pitch": 0.7448387315613512,
+            "type": "STEP"
+        },
+        {
+            "id": 542,
+            "timestamp": 257.0681179138322,
+            "strength": 0.2088407725095749,
+            "loudness": 0.8224284052848816,
+            "spectral_centroid": 0.5337122005117039,
+            "pitch": 0.7800652260133736,
+            "type": "STEP"
+        },
+        {
+            "id": 543,
+            "timestamp": 257.5325170068027,
+            "strength": 0.18045294284820557,
+            "loudness": 0.7110421061515808,
+            "spectral_centroid": 0.24294732783828935,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 544,
+            "timestamp": 257.9969160997732,
+            "strength": 0.34902018308639526,
+            "loudness": 0.8051415085792542,
+            "spectral_centroid": 0.49102018383382035,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 545,
+            "timestamp": 258.4845351473923,
+            "strength": 0.16305431723594666,
+            "loudness": 0.8944201469421387,
+            "spectral_centroid": 0.311583066429764,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 546,
+            "timestamp": 258.9489342403628,
+            "strength": 0.10664765536785126,
+            "loudness": 0.7992547750473022,
+            "spectral_centroid": 0.5316838911521569,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 547,
+            "timestamp": 259.43655328798184,
+            "strength": 0.20953232049942017,
+            "loudness": 0.839464008808136,
+            "spectral_centroid": 0.3980550623547359,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 548,
+            "timestamp": 259.9009523809524,
+            "strength": 0.2429894357919693,
+            "loudness": 0.8571084141731262,
+            "spectral_centroid": 0.5533073725885064,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 549,
+            "timestamp": 260.3653514739229,
+            "strength": 0.15801027417182922,
+            "loudness": 0.8662662506103516,
+            "spectral_centroid": 0.2961874822660402,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 550,
+            "timestamp": 260.82975056689344,
+            "strength": 0.2256401777267456,
+            "loudness": 0.7820978760719299,
+            "spectral_centroid": 0.5213737244573268,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 551,
+            "timestamp": 261.29414965986393,
+            "strength": 0.11046483367681503,
+            "loudness": 0.7579049468040466,
+            "spectral_centroid": 0.3155617375114551,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 552,
+            "timestamp": 261.7585487528345,
+            "strength": 0.34427422285079956,
+            "loudness": 0.8166033625602722,
+            "spectral_centroid": 0.5205400352868673,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 553,
+            "timestamp": 262.222947845805,
+            "strength": 0.2801923453807831,
+            "loudness": 0.862291157245636,
+            "spectral_centroid": 0.3483435767906705,
+            "pitch": 0.6712862513901318,
+            "type": "STEP"
+        },
+        {
+            "id": 554,
+            "timestamp": 262.68734693877553,
+            "strength": 0.16089195013046265,
+            "loudness": 0.8439849019050598,
+            "spectral_centroid": 0.49241018712377504,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 555,
+            "timestamp": 263.17496598639457,
+            "strength": 0.17483407258987427,
+            "loudness": 0.8197231888771057,
+            "spectral_centroid": 0.3207812613687186,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 556,
+            "timestamp": 263.63936507936506,
+            "strength": 0.23434557020664215,
+            "loudness": 0.7288374304771423,
+            "spectral_centroid": 0.4923048214916446,
+            "pitch": 0.8408964152537146,
+            "type": "STEP"
+        },
+        {
+            "id": 557,
+            "timestamp": 264.1037641723356,
+            "strength": 0.2398257851600647,
+            "loudness": 0.8190870881080627,
+            "spectral_centroid": 0.39323956382428893,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 558,
+            "timestamp": 264.5681632653061,
+            "strength": 0.21928954124450684,
+            "loudness": 0.78697669506073,
+            "spectral_centroid": 0.4937064241367407,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 559,
+            "timestamp": 265.03256235827666,
+            "strength": 0.08761068433523178,
+            "loudness": 0.8280431032180786,
+            "spectral_centroid": 0.4032707636118377,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 560,
+            "timestamp": 265.49696145124716,
+            "strength": 0.16364210844039917,
+            "loudness": 0.7855423092842102,
+            "spectral_centroid": 0.5059894187955255,
+            "pitch": 0.6712862513901318,
+            "type": "STEP"
+        },
+        {
+            "id": 561,
+            "timestamp": 265.9613605442177,
+            "strength": 0.17658764123916626,
+            "loudness": 0.8567339181900024,
+            "spectral_centroid": 0.30587331046379024,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 562,
+            "timestamp": 266.44897959183675,
+            "strength": 0.14583249390125275,
+            "loudness": 0.87140953540802,
+            "spectral_centroid": 0.47511555795799576,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 563,
+            "timestamp": 266.91337868480724,
+            "strength": 0.0906500592827797,
+            "loudness": 0.8260366916656494,
+            "spectral_centroid": 0.3448659900644751,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 564,
+            "timestamp": 267.3777777777778,
+            "strength": 0.13970981538295746,
+            "loudness": 0.8303371071815491,
+            "spectral_centroid": 0.5648986391430731,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 565,
+            "timestamp": 267.88861678004537,
+            "strength": 0.16170360147953033,
+            "loudness": 0.7326098680496216,
+            "spectral_centroid": 0.20339508328178726,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 566,
+            "timestamp": 268.3297959183673,
+            "strength": 0.25969398021698,
+            "loudness": 0.8682570457458496,
+            "spectral_centroid": 0.533743692184084,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 567,
+            "timestamp": 268.7941950113379,
+            "strength": 0.16553696990013123,
+            "loudness": 0.8449673652648926,
+            "spectral_centroid": 0.35357262557046604,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 568,
+            "timestamp": 269.2818140589569,
+            "strength": 0.15391495823860168,
+            "loudness": 0.7366031408309937,
+            "spectral_centroid": 0.5035291066093864,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 569,
+            "timestamp": 269.76943310657595,
+            "strength": 0.25649598240852356,
+            "loudness": 0.8444390892982483,
+            "spectral_centroid": 0.37569844878992675,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 570,
+            "timestamp": 270.2338321995465,
+            "strength": 0.15607811510562897,
+            "loudness": 0.8143157362937927,
+            "spectral_centroid": 0.44540592801922835,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 571,
+            "timestamp": 270.698231292517,
+            "strength": 0.09802185744047165,
+            "loudness": 0.651213526725769,
+            "spectral_centroid": 0.39722586434594326,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 572,
+            "timestamp": 271.185850340136,
+            "strength": 0.19381214678287506,
+            "loudness": 0.6746780872344971,
+            "spectral_centroid": 0.4587425882302792,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 573,
+            "timestamp": 271.6966893424036,
+            "strength": 0.1756056249141693,
+            "loudness": 0.5303094387054443,
+            "spectral_centroid": 0.15959556201699612,
+            "pitch": 0.7448387315613512,
+            "type": "STEP"
+        },
+        {
+            "id": 574,
+            "timestamp": 272.1378684807256,
+            "strength": 0.2301301807165146,
+            "loudness": 0.5970426797866821,
+            "spectral_centroid": 0.4379582206392208,
+            "pitch": 0.6869768237290446,
+            "type": "STEP"
+        },
+        {
+            "id": 575,
+            "timestamp": 272.62548752834465,
+            "strength": 0.1771744042634964,
+            "loudness": 0.4360780715942383,
+            "spectral_centroid": 0.22509903222145447,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 576,
+            "timestamp": 273.06666666666666,
+            "strength": 0.28113287687301636,
+            "loudness": 0.3687753677368164,
+            "spectral_centroid": 0.605379053304356,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 577,
+            "timestamp": 273.5542857142857,
+            "strength": 0.19641344249248505,
+            "loudness": 0.4187113642692566,
+            "spectral_centroid": 0.41537993606634216,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 578,
+            "timestamp": 274.0419047619048,
+            "strength": 0.17347773909568787,
+            "loudness": 0.3906550705432892,
+            "spectral_centroid": 0.49254981984040896,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 579,
+            "timestamp": 274.5295238095238,
+            "strength": 0.2210972011089325,
+            "loudness": 0.29837745428085327,
+            "spectral_centroid": 0.3825948048361013,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 580,
+            "timestamp": 274.9939229024943,
+            "strength": 0.3004823625087738,
+            "loudness": 0.2956133484840393,
+            "spectral_centroid": 0.5211122413090324,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 581,
+            "timestamp": 275.45832199546487,
+            "strength": 0.1974879503250122,
+            "loudness": 0.2197912633419037,
+            "spectral_centroid": 0.3040908993660089,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 582,
+            "timestamp": 275.92272108843537,
+            "strength": 0.21915899217128754,
+            "loudness": 0.18504653871059418,
+            "spectral_centroid": 0.5543406146485772,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 583,
+            "timestamp": 276.4103401360544,
+            "strength": 0.12582612037658691,
+            "loudness": 0.13041578233242035,
+            "spectral_centroid": 0.4160390511108283,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 584,
+            "timestamp": 276.8515192743764,
+            "strength": 0.31953009963035583,
+            "loudness": 0.12070444971323013,
+            "spectral_centroid": 0.5154461451477255,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 585,
+            "timestamp": 277.31591836734697,
+            "strength": 0.2725726068019867,
+            "loudness": 0.11885742098093033,
+            "spectral_centroid": 0.3573808393726501,
+            "pitch": 0.663575871169284,
+            "type": "STEP"
+        },
+        {
+            "id": 586,
+            "timestamp": 277.803537414966,
+            "strength": 0.2018822729587555,
+            "loudness": 0.10002676397562027,
+            "spectral_centroid": 0.5082130262573582,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 587,
+            "timestamp": 278.29115646258504,
+            "strength": 0.19756153225898743,
+            "loudness": 0.06443452090024948,
+            "spectral_centroid": 0.42681207166191193,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 588,
+            "timestamp": 278.73233560090705,
+            "strength": 0.2327321618795395,
+            "loudness": 0.057015206664800644,
+            "spectral_centroid": 0.5079797519917338,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 589,
+            "timestamp": 279.2199546485261,
+            "strength": 0.2352784126996994,
+            "loudness": 0.03438323363661766,
+            "spectral_centroid": 0.39744040642278716,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 590,
+            "timestamp": 279.6843537414966,
+            "strength": 0.20555554330348969,
+            "loudness": 0.020195409655570984,
+            "spectral_centroid": 0.5358528791650817,
+            "pitch": 0.6597539553864471,
+            "type": "STEP"
+        },
+        {
+            "id": 591,
+            "timestamp": 280.17197278911567,
+            "strength": 0.150873064994812,
+            "loudness": 0.012475953437387943,
+            "spectral_centroid": 0.3768093091640925,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 592,
+            "timestamp": 280.6131519274376,
+            "strength": 0.14978666603565216,
+            "loudness": 0.000258892890997231,
+            "spectral_centroid": 0.5288227948035641,
+            "pitch": 0.0,
+            "type": "STEP"
+        },
+        {
+            "id": 593,
+            "timestamp": 281.10077097505666,
+            "strength": 0.26040998101234436,
+            "loudness": 0.0,
+            "spectral_centroid": 0.4290800915702802,
+            "pitch": 0.0,
+            "type": "STEP"
+        }
+    ]
+}
