@@ -263,6 +263,7 @@ def run_command(cmd):
 HTML = """<!DOCTYPE html>
 <html>
 <head>
+    <meta charset="UTF-8">
     <title>Go1 Dashboard</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <style>
@@ -475,7 +476,7 @@ HTML = """<!DOCTYPE html>
 </head>
 <body>
     <div class="header">
-        <h1>🐕 Go1 Control Dashboard</h1>
+        <h1>Go1 Control Dashboard</h1>
         <div class="status-bar">
             <span class="status disconnected" id="connStatus">Disconnected</span>
             <span class="status" id="modeStatus" style="background:#4CAF50;">REALTIME</span>
@@ -483,10 +484,10 @@ HTML = """<!DOCTYPE html>
     </div>
 
     <div class="mode-selector">
-        <button class="mode-btn realtime active" onclick="setMode('realtime')">⚡ REALTIME</button>
-        <button class="mode-btn record" onclick="setMode('record')">⏺ RECORD</button>
-        <button class="mode-btn play" onclick="playSequence()">▶ PLAY</button>
-        <button class="mode-btn stop" onclick="stopPlayback()" style="background:#f44336;display:none;">⏹ STOP</button>
+        <button class="mode-btn realtime active" onclick="setMode('realtime')">REALTIME</button>
+        <button class="mode-btn record" onclick="setMode('record')">REC</button>
+        <button class="mode-btn play" onclick="playSequence()">PLAY</button>
+        <button class="mode-btn stop" onclick="stopPlayback()" style="background:#f44336;">STOP</button>
     </div>
 
     <div class="now-playing" id="nowPlaying">
@@ -499,7 +500,7 @@ HTML = """<!DOCTYPE html>
             <div class="panel">
                 <div class="connect-row">
                     <button class="btn" style="background:#4CAF50;" onclick="connect()">Connect</button>
-                    <button class="btn" style="background:#FF9800;" onclick="unlock()">🔓 Unlock</button>
+                    <button class="btn" style="background:#FF9800;" onclick="unlock()">Unlock SDK</button>
                 </div>
             </div>
 
@@ -614,7 +615,7 @@ HTML = """<!DOCTYPE html>
                 statusEl.textContent = 'REALTIME';
                 statusEl.style.background = '#4CAF50';
             } else if (mode === 'record') {
-                statusEl.textContent = '⏺ RECORDING';
+                statusEl.textContent = 'RECORDING';
                 statusEl.style.background = '#f44336';
                 statusEl.classList.add('recording');
             }
@@ -687,12 +688,9 @@ HTML = """<!DOCTYPE html>
             const nowPlaying = document.getElementById('nowPlaying');
             nowPlaying.classList.add('active');
 
-            // Show stop button, hide play button
-            document.querySelector('.mode-btn.play').style.display = 'none';
-            document.querySelector('.mode-btn.stop').style.display = 'inline-block';
-
+            
             const statusEl = document.getElementById('modeStatus');
-            statusEl.textContent = '▶ PLAYING';
+            statusEl.textContent = 'PLAYING';
             statusEl.style.background = '#2196F3';
             statusEl.classList.add('playing');
 
@@ -715,10 +713,7 @@ HTML = """<!DOCTYPE html>
             const nowPlaying = document.getElementById('nowPlaying');
             nowPlaying.classList.remove('active');
 
-            // Show play button, hide stop button
-            document.querySelector('.mode-btn.play').style.display = 'inline-block';
-            document.querySelector('.mode-btn.stop').style.display = 'none';
-
+            
             const statusEl = document.getElementById('modeStatus');
             statusEl.textContent = 'REALTIME';
             statusEl.style.background = '#4CAF50';
@@ -807,7 +802,7 @@ class DashboardHandler(SimpleHTTPRequestHandler):
         if self.path == '/' or self.path == '/index.html':
             html = HTML.replace('COMMANDS_JSON', json.dumps(COMMANDS))
             self.send_response(200)
-            self.send_header('Content-Type', 'text/html')
+            self.send_header('Content-Type', 'text/html; charset=utf-8')
             self.end_headers()
             self.wfile.write(html.encode())
         elif self.path == '/api/status':
@@ -865,13 +860,13 @@ def main():
     server = HTTPServer(('', port), DashboardHandler)
 
     print("\n" + "=" * 50)
-    print("  🐕 Go1 Control Dashboard")
+    print("  Go1 Control Dashboard")
     print("=" * 50)
     print(f"\n  Open: http://localhost:{port}")
     print("\n  MODES:")
-    print("  ⚡ REALTIME - Execute immediately on click")
-    print("  ⏺  RECORD  - Record actions to sequence")
-    print("  ▶  PLAY    - Play recorded sequence")
+    print("  REALTIME - Execute immediately on click")
+    print("  RECORD   - Record actions to sequence")
+    print("  PLAY     - Play recorded sequence")
     print("\n  Press Ctrl+C to stop")
     print("=" * 50 + "\n")
 
