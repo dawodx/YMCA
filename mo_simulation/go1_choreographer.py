@@ -30,6 +30,12 @@ PROJECT_ROOT = SCRIPT_DIR.parent
 CHOREO_DIR = SCRIPT_DIR / "choreography"
 MUSIC_DIR = PROJECT_ROOT / "alex_music" / "music"
 
+# Import shared commands
+try:
+    from .go1_commands import get_all_commands, get_commands_by_category
+except ImportError:
+    from go1_commands import get_all_commands, get_commands_by_category
+
 CHOREO_DIR.mkdir(exist_ok=True)
 
 robot = None
@@ -61,13 +67,6 @@ DEFAULT_CHOREOGRAPHY = {
     ]
 }
 
-AVAILABLE_COMMANDS = {
-    "Modes": ["stand", "standUp", "standDown", "walk", "damping", "recoverStand"],
-    "Poses": ["lookUp", "lookDown", "leanLeft", "leanRight", "twistLeft", "twistRight", "squat", "extend"],
-    "Dance": ["dance1", "dance2", "straightHand1", "jumpYaw"],
-    "LED": ["ledRed", "ledGreen", "ledBlue", "ledYellow", "ledPink", "ledCyan", "ledWhite", "ledOff"],
-    "YMCA": ["ymcaY", "ymcaM", "ymcaC", "ymcaA", "ymcaDance"],
-}
 
 
 def get_choreography_files():
@@ -123,6 +122,46 @@ def execute_move(cmd, params):
         if cmd in led_map:
             robot.set_led_color(*led_map[cmd])
             return True
+
+        # Raw MQTT commands (sent directly to controller/action topic)
+        mqtt_commands = ["jumpYaw", "backflip", "wiggleHips", "sit", "pray", "stretch", "sideRoll",
+                         "dance3", "dance4", "frontJump", "frontPounce", "handStand", "bound"]
+        if cmd in mqtt_commands:
+            robot.mqtt.client.publish("controller/action", cmd, qos=1)
+            return True
+
+        # Check for custom poses (pose_* commands)
+        if cmd.startswith("pose_"):
+            all_cmds = get_all_commands()
+            if cmd in all_cmds and "pose_data" in all_cmds[cmd]:
+                pose = all_cmds[cmd]["pose_data"]
+                robot.set_mode(Go1Mode.STAND)
+                time.sleep(0.1)
+                loop = asyncio.new_event_loop()
+                # Handle dict format (roll, pitch, yaw, height)
+                if isinstance(pose, dict):
+                    roll = pose.get('roll', 0)
+                    pitch = pose.get('pitch', 0)
+                    yaw = pose.get('yaw', 0)
+                    height = pose.get('height', 0)
+                    if roll < 0:
+                        loop.run_until_complete(robot.lean_left(abs(roll), 200))
+                    elif roll > 0:
+                        loop.run_until_complete(robot.lean_right(abs(roll), 200))
+                    if pitch < 0:
+                        loop.run_until_complete(robot.look_down(abs(pitch), 200))
+                    elif pitch > 0:
+                        loop.run_until_complete(robot.look_up(abs(pitch), 200))
+                    if yaw < 0:
+                        loop.run_until_complete(robot.twist_left(abs(yaw), 200))
+                    elif yaw > 0:
+                        loop.run_until_complete(robot.twist_right(abs(yaw), 200))
+                    if height < 0:
+                        loop.run_until_complete(robot.squat_down(abs(height), 200))
+                    elif height > 0:
+                        loop.run_until_complete(robot.extend_up(abs(height), 200))
+                loop.close()
+                return True
 
         intensity = params.get("intensity", 0.5)
         duration = int(params.get("duration", 300))
@@ -515,6 +554,9 @@ HTML = """<!DOCTYPE html>
                     <label style="color:#888;font-size:11px;margin-left:10px">
                         <input type="checkbox" id="execRobot" checked> Execute Robot
                     </label>
+                    <label style="color:#4FC3F7;font-size:11px;margin-left:10px">
+                        <input type="checkbox" id="execSim"> Execute Sim
+                    </label>
                 </div>
                 <div class="progress-bar" onclick="seekBar(event)">
                     <div class="progress-fill" id="progFill"></div>
@@ -613,6 +655,7 @@ HTML = """<!DOCTYPE html>
 <script>
 let choreo = CHOREO_JSON;
 const CMDS = COMMANDS_JSON;
+const CMD_INFO = CMD_INFO_JSON;
 let selIdx = -1;
 let zoom = 1;
 let playing = false;
@@ -1048,7 +1091,9 @@ function renderCmds() {
     for (const cmd of CMDS[activeCat] || []) {
         const btn = document.createElement('button');
         btn.className = 'cmd-btn';
-        btn.textContent = cmd;
+        const info = CMD_INFO[cmd];
+        btn.textContent = info ? info.name : cmd;
+        if (info && info.color) btn.style.borderColor = info.color;
         btn.onclick = () => addMove(cmd);
         el.appendChild(btn);
     }
@@ -1061,7 +1106,9 @@ function addMove(cmd) {
         params.intensity = 0.5;
         params.duration = 300;
     }
-    choreo.moves.push({ time_ms: t, cmd, params, label: cmd });
+    const info = CMD_INFO[cmd];
+    const label = info ? info.name : cmd;
+    choreo.moves.push({ time_ms: t, cmd, params, label });
     renderMoves();
 }
 
@@ -1149,6 +1196,7 @@ function play() {
     audio.play().catch(e => console.log('Play error:', e));
 
     const executeRobot = document.getElementById('execRobot').checked;
+    const executeSim = document.getElementById('execSim').checked;
     let lastIdx = -1;
     // Use audio's actual position for tracking
     const startMs = Math.floor(audio.currentTime * 1000);
@@ -1172,12 +1220,12 @@ function play() {
         // Highlight current/next move in list
         highlightCurrentMove(curTime);
 
-        // Execute moves only if robot execution is enabled
-        if (executeRobot) {
+        // Execute moves if enabled
+        if (executeRobot || executeSim) {
             choreo.moves.forEach((m, i) => {
                 if (i > lastIdx && m.time_ms <= curTime) {
                     lastIdx = i;
-                    execMove(m.cmd, m.params);
+                    execMove(m.cmd, m.params, executeRobot, executeSim);
                 }
             });
         } else {
@@ -1268,14 +1316,33 @@ function seekBar(e) {
     seekTo(Math.floor(pct * getDur()));
 }
 
-async function execMove(cmd, params) {
-    try {
-        await fetch('/api/execute', {
-            method: 'POST',
-            headers: {'Content-Type': 'application/json'},
-            body: JSON.stringify({cmd, params})
-        });
-    } catch(e) {}
+async function execMove(cmd, params, toRobot = true, toSim = false) {
+    const payload = JSON.stringify({cmd, params});
+    const headers = {'Content-Type': 'application/json'};
+
+    // Send to real robot
+    if (toRobot) {
+        try {
+            await fetch('/api/execute', {
+                method: 'POST',
+                headers,
+                body: payload
+            });
+        } catch(e) {}
+    }
+
+    // Send to simulation
+    if (toSim) {
+        try {
+            await fetch('http://localhost:8891/cmd', {
+                method: 'POST',
+                headers,
+                body: payload
+            });
+        } catch(e) {
+            console.log('Sim not running');
+        }
+    }
 }
 
 // Connect
@@ -1351,15 +1418,20 @@ function closeLoadModal(e) {
 
 async function doLoad() {
     if (!selectedLoad) return;
-    console.log('Loading:', selectedLoad);
-    const url = '/api/load/' + encodeURIComponent(selectedLoad);
+    await loadChoreoByName(selectedLoad);
+    closeLoadModal();
+}
+
+async function loadChoreoByName(name) {
+    console.log('Loading:', name);
+    const url = '/api/load/' + encodeURIComponent(name);
     console.log('URL:', url);
     const res = await fetch(url);
     const data = await res.json();
     console.log('Loaded data:', data);
     if (data && data.name) {
         choreo = data;
-        document.getElementById('choreoName').value = data.name || selectedLoad;
+        document.getElementById('choreoName').value = data.name || name;
         document.getElementById('bpm').value = data.bpm || 129;
         document.getElementById('duration').value = data.duration_ms || 290000;
         selIdx = -1;
@@ -1367,12 +1439,15 @@ async function doLoad() {
         flags = data.flags || [];
         document.getElementById('flagCount').textContent = flags.length + ' flags';
         console.log('Calling init(), moves:', choreo.moves.length, 'flags:', flags.length);
+        // Save to localStorage for persistence across refresh
+        localStorage.setItem('lastChoreo', name);
         init();
         renderFlags();
+        return true;
     } else {
         console.log('Load failed - no data or no name');
+        return false;
     }
-    closeLoadModal();
 }
 
 // Audio duration
@@ -1384,7 +1459,20 @@ audio.addEventListener('loadedmetadata', () => {
     applyZoom();
 });
 
-init();
+// On startup, check for last loaded choreography
+(async function startup() {
+    const lastChoreo = localStorage.getItem('lastChoreo');
+    if (lastChoreo) {
+        const loaded = await loadChoreoByName(lastChoreo);
+        if (!loaded) {
+            // If load failed, clear localStorage and use default
+            localStorage.removeItem('lastChoreo');
+            init();
+        }
+    } else {
+        init();
+    }
+})();
 </script>
 </body>
 </html>
@@ -1404,7 +1492,8 @@ class Handler(BaseHTTPRequestHandler):
     def do_GET(self):
         if self.path in ('/', '/index.html'):
             html = HTML.replace('CHOREO_JSON', json.dumps(DEFAULT_CHOREOGRAPHY))
-            html = html.replace('COMMANDS_JSON', json.dumps(AVAILABLE_COMMANDS))
+            html = html.replace('COMMANDS_JSON', json.dumps(get_commands_by_category()))
+            html = html.replace('CMD_INFO_JSON', json.dumps(get_all_commands()))
             self.send_response(200)
             self.send_header('Content-Type', 'text/html; charset=utf-8')
             self.end_headers()

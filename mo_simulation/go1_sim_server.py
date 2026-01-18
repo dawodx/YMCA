@@ -400,6 +400,14 @@ class SimHandler(BaseHTTPRequestHandler):
         self.end_headers()
         self.wfile.write(json.dumps(data).encode())
 
+    def do_OPTIONS(self):
+        """Handle CORS preflight for choreographer"""
+        self.send_response(200)
+        self.send_header('Access-Control-Allow-Origin', '*')
+        self.send_header('Access-Control-Allow-Methods', 'POST, GET, OPTIONS')
+        self.send_header('Access-Control-Allow-Headers', 'Content-Type')
+        self.end_headers()
+
     def do_GET(self):
         if self.path == '/api/status':
             self.send_json({'connected': state.connected, 'mode': 'simulation'})
@@ -430,6 +438,19 @@ class SimHandler(BaseHTTPRequestHandler):
             state.dance_step = 0
             state.led_color = [0, 255, 0]
             self.send_json({'success': True, 'time_ms': 1})
+        elif self.path == '/cmd':
+            # Choreographer format: JSON body with {cmd, params}
+            try:
+                length = int(self.headers.get('Content-Length', 0))
+                body = self.rfile.read(length).decode()
+                data = json.loads(body)
+                cmd = data.get('cmd', '')
+                params = data.get('params', {})
+                print(f">>> Choreographer: {cmd}")
+                result = execute_sim_command(cmd)
+                self.send_json({'ok': True})
+            except Exception as e:
+                self.send_json({'ok': False, 'error': str(e)})
         else:
             self.send_error(404)
 

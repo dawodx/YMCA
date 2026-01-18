@@ -22,8 +22,13 @@ import webbrowser
 SCRIPT_DIR = Path(__file__).parent
 SEQUENCES_DIR = SCRIPT_DIR / "sequences"
 SAVED_POSES_FILE = SCRIPT_DIR / "saved_poses.json"
-CUSTOM_COMMANDS_FILE = SCRIPT_DIR / "custom_commands.json"
 DEFAULT_PARAMS_FILE = SCRIPT_DIR / "default_params.json"
+
+# Import shared commands
+try:
+    from .go1_commands import COMMANDS, get_all_commands, CUSTOM_COMMANDS_FILE
+except ImportError:
+    from go1_commands import COMMANDS, get_all_commands, CUSTOM_COMMANDS_FILE
 
 
 def load_default_params():
@@ -167,69 +172,6 @@ async def timed_async_action(name, action_coro):
     return result
 
 
-# ============== COMMAND DEFINITIONS ==============
-
-COMMANDS = {
-    # Modes
-    "stand": {"name": "Stand", "category": "mode", "color": "#4CAF50", "duration": 500},
-    "standUp": {"name": "Stand Up", "category": "mode", "color": "#4CAF50", "duration": 1000},
-    "standDown": {"name": "Sit Down", "category": "mode", "color": "#4CAF50", "duration": 1000},
-    "walk": {"name": "Walk Mode", "category": "mode", "color": "#2196F3", "duration": 300},
-    "run": {"name": "Run Mode", "category": "mode", "color": "#2196F3", "duration": 300},
-    "climb": {"name": "Climb Mode", "category": "mode", "color": "#2196F3", "duration": 300},
-    "damping": {"name": "Damping", "category": "mode", "color": "#FF9800", "duration": 500},
-    "recoverStand": {"name": "Recovery", "category": "mode", "color": "#FF9800", "duration": 2000},
-
-    # Dances (only 1 & 2 work on Go1 Pro)
-    "dance1": {"name": "Dance 1", "category": "dance", "color": "#E91E63", "duration": 5000},
-    "dance2": {"name": "Dance 2", "category": "dance", "color": "#E91E63", "duration": 5000},
-
-    # Special moves (only these work on Go1 Pro)
-    "jumpYaw": {"name": "Jump Yaw", "category": "special", "color": "#FF5722", "duration": 2000},
-    "straightHand1": {"name": "Straight Hand", "category": "special", "color": "#FF5722", "duration": 2000},
-
-    # Movement
-    "forward": {"name": "Forward", "category": "move", "color": "#00BCD4", "duration": 200},
-    "backward": {"name": "Backward", "category": "move", "color": "#00BCD4", "duration": 200},
-    "left": {"name": "Strafe L", "category": "move", "color": "#00BCD4", "duration": 200},
-    "right": {"name": "Strafe R", "category": "move", "color": "#00BCD4", "duration": 200},
-    "turnLeft": {"name": "Turn L", "category": "move", "color": "#00BCD4", "duration": 200},
-    "turnRight": {"name": "Turn R", "category": "move", "color": "#00BCD4", "duration": 200},
-
-    # Body pose
-    "lookUp": {"name": "Look Up", "category": "pose", "color": "#607D8B", "duration": 400},
-    "lookDown": {"name": "Look Down", "category": "pose", "color": "#607D8B", "duration": 400},
-    "leanLeft": {"name": "Lean L", "category": "pose", "color": "#607D8B", "duration": 400},
-    "leanRight": {"name": "Lean R", "category": "pose", "color": "#607D8B", "duration": 400},
-    "twistLeft": {"name": "Twist L", "category": "pose", "color": "#607D8B", "duration": 400},
-    "twistRight": {"name": "Twist R", "category": "pose", "color": "#607D8B", "duration": 400},
-    "squat": {"name": "Squat", "category": "pose", "color": "#607D8B", "duration": 400},
-    "extend": {"name": "Extend", "category": "pose", "color": "#607D8B", "duration": 400},
-
-    # Delays for choreography
-    "wait500": {"name": "Wait 0.5s", "category": "wait", "color": "#9E9E9E", "duration": 500},
-    "wait1000": {"name": "Wait 1s", "category": "wait", "color": "#9E9E9E", "duration": 1000},
-    "wait2000": {"name": "Wait 2s", "category": "wait", "color": "#9E9E9E", "duration": 2000},
-
-    # LED colors
-    "ledRed": {"name": "LED Red", "category": "led", "color": "#f44336", "duration": 100, "rgb": [255, 0, 0]},
-    "ledGreen": {"name": "LED Green", "category": "led", "color": "#4CAF50", "duration": 100, "rgb": [0, 255, 0]},
-    "ledBlue": {"name": "LED Blue", "category": "led", "color": "#2196F3", "duration": 100, "rgb": [0, 0, 255]},
-    "ledYellow": {"name": "LED Yellow", "category": "led", "color": "#ffd700", "duration": 100, "rgb": [255, 215, 0]},
-    "ledPink": {"name": "LED Pink", "category": "led", "color": "#E91E63", "duration": 100, "rgb": [255, 20, 147]},
-    "ledCyan": {"name": "LED Cyan", "category": "led", "color": "#00BCD4", "duration": 100, "rgb": [0, 188, 212]},
-    "ledOff": {"name": "LED Off", "category": "led", "color": "#333333", "duration": 100, "rgb": [0, 0, 0]},
-
-    # YMCA Dance Poses (from dance_mujoco.py)
-    "ymcaY": {"name": "Y Pose", "category": "ymca", "color": "#FFD700", "duration": 1500},
-    "ymcaM": {"name": "M Pose", "category": "ymca", "color": "#FFD700", "duration": 1500},
-    "ymcaC": {"name": "C Pose", "category": "ymca", "color": "#FFD700", "duration": 1500},
-    "ymcaA": {"name": "A Pose", "category": "ymca", "color": "#FFD700", "duration": 1500},
-    "ymcaMarch": {"name": "March", "category": "ymca", "color": "#FF9800", "duration": 2000},
-    "ymcaDance": {"name": "YMCA Dance!", "category": "ymca", "color": "#E91E63", "duration": 30000},
-}
-
-
 def execute_command(cmd):
     """Execute a command and return timing."""
     global robot
@@ -261,8 +203,10 @@ def execute_command(cmd):
     if cmd in mode_map:
         return timed_action(cmd, lambda: robot.set_mode(mode_map[cmd]))
 
-    # Raw MQTT commands (jumpYaw uses MQTT)
-    if cmd == "jumpYaw":
+    # Raw MQTT commands (sent directly to controller/action topic)
+    mqtt_commands = ["jumpYaw", "backflip", "wiggleHips", "sit", "pray", "stretch", "sideRoll",
+                     "dance3", "dance4", "frontJump", "frontPounce", "handStand", "bound"]
+    if cmd in mqtt_commands:
         return timed_action(cmd, lambda: robot.mqtt.client.publish("controller/action", cmd, qos=1))
 
     # LED commands
@@ -1268,7 +1212,7 @@ class DashboardHandler(SimpleHTTPRequestHandler):
 
     def do_GET(self):
         if self.path == '/' or self.path == '/index.html':
-            html = HTML.replace('COMMANDS_JSON', json.dumps(COMMANDS))
+            html = HTML.replace('COMMANDS_JSON', json.dumps(get_all_commands()))
             self.send_response(200)
             self.send_header('Content-Type', 'text/html; charset=utf-8')
             self.end_headers()
