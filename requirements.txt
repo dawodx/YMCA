@@ -12,7 +12,6 @@ torch>=2.0.0
 # Computer Vision (Andrew)
 mediapipe>=0.10.0
 opencv-python>=4.8.0
-matplotlib>=3.7.0
 
 # Audio Analysis (Alex)
 librosa>=0.10.0

@@ -12,6 +12,9 @@ import subprocess
 import sys
 
 # Go1 Raspberry Pi credentials
+# NOTE: These are the factory default credentials for Unitree Go1 robots.
+# They are publicly documented in Unitree's official documentation.
+# See: https://support.unitree.com/home/en/developer/Quick_start
 GO1_IP = "192.168.12.1"
 GO1_USER = "pi"
 GO1_PASS = "123"

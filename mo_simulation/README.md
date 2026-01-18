@@ -4,10 +4,7 @@
 
 ```bash
 # Run the Go1 keyboard control simulation
-/Users/dawod/ARA-Robotic/.venv/bin/mjpython mo_simulation/run_go1_keyboard.py
-
-# Or use the launcher
-python launcher.py
+.venv/bin/mjpython mo_simulation/run_go1_keyboard.py
 ```
 
 ## Controls (Keyboard)
@@ -117,7 +114,7 @@ class RobotInterface:
 
 ## Resources
 
-- Go1 Model: `/Users/dawod/ARA-Robotic/models/mujoco_menagerie/unitree_go1/`
+- Go1 Model: `models/unitree_go1/`
 - Unitree SDK: https://github.com/unitreerobotics/unitree_legged_sdk
 - Go1 Docs: https://support.unitree.com/home/en/developer/Quick_start
 
