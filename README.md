@@ -127,11 +127,7 @@ cd YMCA
 # Activate environment
 source .venv/bin/activate
 
-# Launch the main launcher
-python launcher.py
-# Open http://localhost:8889
-
-# Or run individual tools:
+# Run the tools:
 python mo_simulation/go1_dashboard.py      # Control Dashboard (port 8890)
 python mo_simulation/go1_choreographer.py  # Choreography Editor (port 8894)
 
@@ -225,7 +221,6 @@ YMCA/
 ├── models/                  # Robot models
 │   └── unitree_go1/         # Go1 MJCF model
 ├── docs/media/              # Images and demos
-├── launcher.py              # Main launcher server
 ├── setup.sh                 # Setup script
 └── requirements.txt         # Dependencies
 ```
@@ -234,7 +229,6 @@ YMCA/
 
 | Tool | Port | Command |
 |------|------|---------|
-| Launcher | 8889 | `python launcher.py` |
 | Dashboard | 8890 | `python mo_simulation/go1_dashboard.py` |
 | Sim Server | 8891 | `mjpython mo_simulation/go1_sim_server.py` |
 | Pose Builder | 8892 | `python mo_simulation/go1_pose_builder.py` |
