@@ -124,8 +124,8 @@ def execute_move(cmd, params):
             return True
 
         # Raw MQTT commands (sent directly to controller/action topic)
-        mqtt_commands = ["jumpYaw", "backflip", "wiggleHips", "sit", "pray", "stretch", "sideRoll",
-                         "dance3", "dance4", "frontJump", "frontPounce", "handStand", "bound"]
+        # Only jumpYaw confirmed working on Go1 Pro - others are blacklisted
+        mqtt_commands = ["jumpYaw"]
         if cmd in mqtt_commands:
             robot.mqtt.client.publish("controller/action", cmd, qos=1)
             return True
@@ -162,6 +162,84 @@ def execute_move(cmd, params):
                         loop.run_until_complete(robot.extend_up(abs(height), 200))
                 loop.close()
                 return True
+
+        # Dance sequences
+        if cmd.startswith("dance") and cmd not in ["dance1", "dance2"]:
+            robot.set_mode(Go1Mode.STAND)
+            time.sleep(0.2)
+            loop = asyncio.new_event_loop()
+
+            if cmd == "danceWave":
+                for _ in range(2):
+                    loop.run_until_complete(robot.lean_left(0.6, 300))
+                    time.sleep(0.4)
+                    loop.run_until_complete(robot.lean_right(0.6, 300))
+                    time.sleep(0.4)
+
+            elif cmd == "danceNod":
+                for _ in range(3):
+                    loop.run_until_complete(robot.look_up(0.5, 200))
+                    time.sleep(0.3)
+                    loop.run_until_complete(robot.look_down(0.5, 200))
+                    time.sleep(0.3)
+
+            elif cmd == "danceShake":
+                for _ in range(4):
+                    loop.run_until_complete(robot.twist_left(0.4, 150))
+                    time.sleep(0.2)
+                    loop.run_until_complete(robot.twist_right(0.4, 150))
+                    time.sleep(0.2)
+
+            elif cmd == "danceBounce":
+                for _ in range(3):
+                    loop.run_until_complete(robot.squat_down(0.5, 250))
+                    time.sleep(0.3)
+                    loop.run_until_complete(robot.extend_up(0.5, 250))
+                    time.sleep(0.3)
+
+            elif cmd == "danceGroove":
+                loop.run_until_complete(robot.lean_left(0.5, 300))
+                time.sleep(0.3)
+                loop.run_until_complete(robot.squat_down(0.4, 250))
+                time.sleep(0.3)
+                loop.run_until_complete(robot.lean_right(0.5, 300))
+                time.sleep(0.3)
+                loop.run_until_complete(robot.extend_up(0.4, 250))
+                time.sleep(0.3)
+                loop.run_until_complete(robot.twist_left(0.4, 200))
+                time.sleep(0.2)
+                loop.run_until_complete(robot.twist_right(0.4, 200))
+                time.sleep(0.2)
+                loop.run_until_complete(robot.look_up(0.5, 200))
+                time.sleep(0.3)
+                loop.run_until_complete(robot.look_down(0.3, 200))
+                time.sleep(0.2)
+
+            elif cmd == "danceTwist":
+                for _ in range(3):
+                    loop.run_until_complete(robot.twist_left(0.6, 300))
+                    time.sleep(0.3)
+                    loop.run_until_complete(robot.twist_right(0.6, 300))
+                    time.sleep(0.3)
+
+            elif cmd == "danceWiggle":
+                for _ in range(2):
+                    loop.run_until_complete(robot.lean_left(0.4, 150))
+                    loop.run_until_complete(robot.twist_right(0.3, 150))
+                    time.sleep(0.2)
+                    loop.run_until_complete(robot.lean_right(0.4, 150))
+                    loop.run_until_complete(robot.twist_left(0.3, 150))
+                    time.sleep(0.2)
+
+            elif cmd == "danceHipShake":
+                for _ in range(6):
+                    loop.run_until_complete(robot.lean_left(0.5, 100))
+                    time.sleep(0.15)
+                    loop.run_until_complete(robot.lean_right(0.5, 100))
+                    time.sleep(0.15)
+
+            loop.close()
+            return True
 
         intensity = params.get("intensity", 0.5)
         duration = int(params.get("duration", 300))
@@ -516,6 +594,7 @@ HTML = """<!DOCTYPE html>
     <div class="header">
         <h1>Go1 Choreography Editor</h1>
         <div style="display:flex;gap:10px;align-items:center">
+            <button class="btn btn-gray" onclick="undoDelete()" id="undoBtn" title="Undo last delete (Cmd+Z)">↶ Undo</button>
             <span id="status" style="padding:4px 10px;border-radius:10px;font-size:11px;background:#f44336">Disconnected</span>
             <button class="btn btn-green" onclick="connect()">Connect</button>
             <button class="btn btn-blue" onclick="loadDialog()">Load</button>
@@ -663,6 +742,7 @@ let interval = null;
 let curTime = 0;
 let dragging = null;
 let dragType = null;
+let draggedMove = null;  // Store reference to the actual move object during drag
 let activeCat = 'Poses';
 let debugMode = false;
 let flags = [];
@@ -739,7 +819,56 @@ document.addEventListener('keydown', (e) => {
     if (e.code === 'Enter' && document.getElementById('saveModal').classList.contains('show')) {
         doSave();
     }
+    // Ctrl+Z to undo
+    if ((e.ctrlKey || e.metaKey) && e.code === 'KeyZ') {
+        e.preventDefault();
+        undoDelete();
+    }
+    // Delete/Backspace to delete selected move
+    if ((e.code === 'Delete' || e.code === 'Backspace') && selIdx >= 0) {
+        // Don't delete if focused on input
+        if (document.activeElement.tagName !== 'INPUT') {
+            e.preventDefault();
+            delSelected();
+        }
+    }
 });
+
+// Auto-save to localStorage every 10 seconds
+let autoSaveInterval = null;
+
+function autoSave() {
+    try {
+        const saveData = {
+            choreo: choreo,
+            flags: flags,
+            timestamp: Date.now()
+        };
+        localStorage.setItem('choreo_autosave', JSON.stringify(saveData));
+        console.log('Auto-saved at', new Date().toLocaleTimeString());
+    } catch(e) {
+        console.warn('Auto-save failed:', e);
+    }
+}
+
+function loadAutoSave() {
+    try {
+        const saved = localStorage.getItem('choreo_autosave');
+        if (saved) {
+            const data = JSON.parse(saved);
+            // Only restore if saved within last hour
+            if (Date.now() - data.timestamp < 3600000) {
+                return data;
+            }
+        }
+    } catch(e) {}
+    return null;
+}
+
+function startAutoSave() {
+    if (autoSaveInterval) clearInterval(autoSaveInterval);
+    autoSaveInterval = setInterval(autoSave, 10000);  // Every 10 seconds
+}
 
 // Init
 function init() {
@@ -751,6 +880,7 @@ function init() {
     renderRuler();
     loadWaveform();
     updTotTime();
+    startAutoSave();
 }
 
 function updTotTime() {
@@ -938,8 +1068,40 @@ function renderMoves() {
         marker.className = 'move-marker' + (i === selIdx ? ' selected' : '');
         marker.style.left = (m.time_ms / dur * w - 3) + 'px';
         marker.innerHTML = `<div class="label">${m.label || m.cmd}</div>`;
-        marker.onmousedown = (e) => startDragMove(e, i);
-        marker.onclick = (e) => { e.stopPropagation(); selectMove(i); };
+        marker.dataset.moveIndex = i;  // Store index in data attribute
+
+        // Use a flag to distinguish click from drag
+        let isDragging = false;
+        let startX = 0;
+
+        marker.onmousedown = (e) => {
+            e.stopPropagation();
+            e.preventDefault();
+            startX = e.clientX;
+            isDragging = false;
+
+            const onMouseMove = (moveE) => {
+                if (Math.abs(moveE.clientX - startX) > 5) {
+                    isDragging = true;
+                    startDragMove(e, i);
+                    document.removeEventListener('mousemove', onMouseMove);
+                    document.removeEventListener('mouseup', onMouseUp);
+                }
+            };
+
+            const onMouseUp = () => {
+                document.removeEventListener('mousemove', onMouseMove);
+                document.removeEventListener('mouseup', onMouseUp);
+                if (!isDragging) {
+                    // It was a click, not a drag
+                    selectMove(i);
+                }
+            };
+
+            document.addEventListener('mousemove', onMouseMove);
+            document.addEventListener('mouseup', onMouseUp);
+        };
+
         el.appendChild(marker);
 
         // List item
@@ -958,32 +1120,63 @@ function renderMoves() {
 
 function startDragMove(e, idx) {
     e.stopPropagation();
+    e.preventDefault();  // Prevent text selection during drag
     dragging = idx;
     dragType = 'move';
+    draggedMove = choreo.moves[idx];  // Store reference to actual move object
     e.target.classList.add('dragging');
     document.onmousemove = dragMove;
     document.onmouseup = stopDrag;
 }
 
 function dragMove(e) {
-    if (dragType !== 'move') return;
+    if (dragType !== 'move' || !draggedMove) return;
     const rect = container.getBoundingClientRect();
     const x = e.clientX - rect.left + wrapper.scrollLeft;
     const dur = getDur();
     const w = container.offsetWidth;
     let ms = Math.round(x / w * dur);
     ms = Math.max(0, Math.min(dur, ms));
-    choreo.moves[dragging].time_ms = ms;
-    renderMoves();
-    if (selIdx === dragging) {
+
+    // Update the move object directly (not by index)
+    draggedMove.time_ms = ms;
+
+    // Update marker position visually without full re-render (avoids sorting)
+    const markers = document.querySelectorAll('.move-marker');
+    markers.forEach((marker, i) => {
+        if (choreo.moves[i] === draggedMove) {
+            marker.style.left = (ms / dur * w - 3) + 'px';
+        }
+    });
+
+    // Update editor if this move is selected
+    if (selIdx >= 0 && choreo.moves[selIdx] === draggedMove) {
         document.getElementById('editTime').value = ms;
     }
 }
 
 function stopDrag() {
     document.querySelectorAll('.dragging').forEach(el => el.classList.remove('dragging'));
+
+    // Only re-render (which sorts) after drag is complete
+    if (dragType === 'move' && draggedMove) {
+        // Find new index of the moved item after sorting
+        const movedMove = draggedMove;
+        renderMoves();  // This sorts the array
+        // Update selIdx to track the moved item
+        if (selIdx >= 0) {
+            selIdx = choreo.moves.indexOf(movedMove);
+            if (selIdx >= 0) {
+                renderMoves();  // Re-render with correct selection
+            }
+        }
+    } else if (dragType === 'section') {
+        renderSections();
+    }
+
     dragging = null;
     dragType = null;
+    draggedMove = null;
     document.onmousemove = null;
     document.onmouseup = null;
 }
@@ -1036,21 +1229,93 @@ function liveUpdate() {
     renderMoves();
 }
 
+// Undo stack - stores actions {type: 'add'|'delete', move: {...}}
+let undoStack = [];
+
+function pushUndo(type, move) {
+    undoStack.push({type, move: JSON.parse(JSON.stringify(move))});
+    if (undoStack.length > 50) undoStack.shift();
+    updateUndoBtn();
+}
+
+function updateUndoBtn() {
+    const btn = document.getElementById('undoBtn');
+    if (btn) {
+        btn.disabled = undoStack.length === 0;
+        btn.style.opacity = undoStack.length === 0 ? '0.5' : '1';
+    }
+}
+
 function delMove(i, e) {
     e.stopPropagation();
+    const deletedMove = choreo.moves[i];
+    pushUndo('delete', deletedMove);
+
     choreo.moves.splice(i, 1);
     selIdx = -1;
     renderMoves();
     document.getElementById('editor').style.display = 'none';
+    showUndoNotification('Move deleted');
 }
 
 function delSelected() {
     if (selIdx >= 0) {
+        const deletedMove = choreo.moves[selIdx];
+        pushUndo('delete', deletedMove);
+
         choreo.moves.splice(selIdx, 1);
         selIdx = -1;
         renderMoves();
         document.getElementById('editor').style.display = 'none';
+        showUndoNotification('Move deleted');
     }
+}
+
+function undo() {
+    if (undoStack.length === 0) return;
+    const action = undoStack.pop();
+
+    if (action.type === 'delete') {
+        // Undo delete = restore the move
+        choreo.moves.push(action.move);
+    } else if (action.type === 'add') {
+        // Undo add = remove the move
+        const idx = choreo.moves.findIndex(m =>
+            m.time_ms === action.move.time_ms &&
+            m.cmd === action.move.cmd &&
+            m.label === action.move.label
+        );
+        if (idx >= 0) choreo.moves.splice(idx, 1);
+    }
+
+    selIdx = -1;
+    renderMoves();
+    document.getElementById('editor').style.display = 'none';
+    hideUndoNotification();
+    updateUndoBtn();
+}
+
+// Keep old name for compatibility
+function undoDelete() { undo(); }
+
+function showUndoNotification(msg) {
+    let notif = document.getElementById('undoNotif');
+    if (!notif) {
+        notif = document.createElement('div');
+        notif.id = 'undoNotif';
+        notif.style.cssText = 'position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:#333;color:white;padding:12px 20px;border-radius:8px;display:flex;gap:15px;align-items:center;z-index:1000;box-shadow:0 4px 12px rgba(0,0,0,0.3);';
+        document.body.appendChild(notif);
+    }
+    notif.innerHTML = `<span>${msg || 'Action completed'}</span><button onclick="undo()" style="background:#4CAF50;border:none;color:white;padding:6px 12px;border-radius:4px;cursor:pointer;font-weight:bold;">UNDO</button><span onclick="hideUndoNotification()" style="cursor:pointer;opacity:0.7;">&times;</span>`;
+    notif.style.display = 'flex';
+
+    clearTimeout(notif.hideTimeout);
+    notif.hideTimeout = setTimeout(hideUndoNotification, 5000);
+}
+
+function hideUndoNotification() {
+    const notif = document.getElementById('undoNotif');
+    if (notif) notif.style.display = 'none';
 }
 
 function dupeMove() {
@@ -1059,7 +1324,9 @@ function dupeMove() {
     m.time_ms += 500;
     m.label = (m.label || '') + ' copy';
     choreo.moves.push(m);
+    pushUndo('add', m);
     renderMoves();
+    showUndoNotification('Move duplicated');
 }
 
 async function testMove() {
@@ -1108,8 +1375,11 @@ function addMove(cmd) {
     }
     const info = CMD_INFO[cmd];
     const label = info ? info.name : cmd;
-    choreo.moves.push({ time_ms: t, cmd, params, label });
+    const newMove = { time_ms: t, cmd, params, label };
+    choreo.moves.push(newMove);
+    pushUndo('add', newMove);
     renderMoves();
+    showUndoNotification('Move added');
 }
 
 function updAddDisp() {
@@ -1124,6 +1394,12 @@ function setAddCurrent() {
 // Timeline click - seek to position and set add time
 function timelineClick(e) {
     if (dragging) return;
+
+    // Ignore clicks on move markers or flag markers
+    if (e.target.closest('.move-marker') || e.target.closest('.flag-marker')) {
+        return;
+    }
+
     // Use wrapper rect (visible area) + scrollLeft to get position in full timeline
     const wrapperRect = wrapper.getBoundingClientRect();
     const x = e.clientX - wrapperRect.left + wrapper.scrollLeft;
@@ -1459,8 +1735,28 @@ audio.addEventListener('loadedmetadata', () => {
     applyZoom();
 });
 
-// On startup, check for last loaded choreography
+// On startup, check for auto-save first, then last loaded choreography
 (async function startup() {
+    // Check for auto-save first
+    const autoSaved = loadAutoSave();
+    if (autoSaved && autoSaved.choreo && autoSaved.choreo.moves && autoSaved.choreo.moves.length > 0) {
+        const timeSince = Math.round((Date.now() - autoSaved.timestamp) / 60000);
+        if (confirm(`Found auto-saved work from ${timeSince} minute(s) ago with ${autoSaved.choreo.moves.length} moves. Restore it?`)) {
+            choreo = autoSaved.choreo;
+            flags = autoSaved.flags || [];
+            document.getElementById('choreoName').value = choreo.name || 'Restored';
+            document.getElementById('bpm').value = choreo.bpm || 129;
+            document.getElementById('duration').value = choreo.duration_ms || 290000;
+            document.getElementById('flagCount').textContent = flags.length + ' flags';
+            selIdx = -1;
+            init();
+            renderFlags();
+            console.log('Restored auto-save with', choreo.moves.length, 'moves');
+            return;
+        }
+    }
+
+    // Otherwise try to load last choreography
     const lastChoreo = localStorage.getItem('lastChoreo');
     if (lastChoreo) {
         const loaded = await loadChoreoByName(lastChoreo);

@@ -204,8 +204,8 @@ def execute_command(cmd):
         return timed_action(cmd, lambda: robot.set_mode(mode_map[cmd]))
 
     # Raw MQTT commands (sent directly to controller/action topic)
-    mqtt_commands = ["jumpYaw", "backflip", "wiggleHips", "sit", "pray", "stretch", "sideRoll",
-                     "dance3", "dance4", "frontJump", "frontPounce", "handStand", "bound"]
+    # Only jumpYaw confirmed working on Go1 Pro - others are blacklisted
+    mqtt_commands = ["jumpYaw"]
     if cmd in mqtt_commands:
         return timed_action(cmd, lambda: robot.mqtt.client.publish("controller/action", cmd, qos=1))
 
@@ -277,6 +277,127 @@ def execute_command(cmd):
                     robot.set_mode(pose)
                 time.sleep(duration)
         return timed_action(cmd, do_ymca_dance)
+
+    # Dance sequences (pre-built combinations of body poses)
+    if cmd == "danceWave":
+        def do_wave():
+            robot.set_mode(Go1Mode.STAND)
+            time.sleep(0.2)
+            loop = asyncio.new_event_loop()
+            for _ in range(2):
+                loop.run_until_complete(robot.lean_left(0.6, 300))
+                time.sleep(0.4)
+                loop.run_until_complete(robot.lean_right(0.6, 300))
+                time.sleep(0.4)
+            loop.close()
+        return timed_action(cmd, do_wave)
+
+    elif cmd == "danceNod":
+        def do_nod():
+            robot.set_mode(Go1Mode.STAND)
+            time.sleep(0.2)
+            loop = asyncio.new_event_loop()
+            for _ in range(3):
+                loop.run_until_complete(robot.look_up(0.5, 200))
+                time.sleep(0.3)
+                loop.run_until_complete(robot.look_down(0.5, 200))
+                time.sleep(0.3)
+            loop.close()
+        return timed_action(cmd, do_nod)
+
+    elif cmd == "danceShake":
+        def do_shake():
+            robot.set_mode(Go1Mode.STAND)
+            time.sleep(0.2)
+            loop = asyncio.new_event_loop()
+            for _ in range(4):
+                loop.run_until_complete(robot.twist_left(0.4, 150))
+                time.sleep(0.2)
+                loop.run_until_complete(robot.twist_right(0.4, 150))
+                time.sleep(0.2)
+            loop.close()
+        return timed_action(cmd, do_shake)
+
+    elif cmd == "danceBounce":
+        def do_bounce():
+            robot.set_mode(Go1Mode.STAND)
+            time.sleep(0.2)
+            loop = asyncio.new_event_loop()
+            for _ in range(3):
+                loop.run_until_complete(robot.squat_down(0.5, 250))
+                time.sleep(0.3)
+                loop.run_until_complete(robot.extend_up(0.5, 250))
+                time.sleep(0.3)
+            loop.close()
+        return timed_action(cmd, do_bounce)
+
+    elif cmd == "danceGroove":
+        def do_groove():
+            robot.set_mode(Go1Mode.STAND)
+            time.sleep(0.2)
+            loop = asyncio.new_event_loop()
+            # Combo sequence
+            loop.run_until_complete(robot.lean_left(0.5, 300))
+            time.sleep(0.3)
+            loop.run_until_complete(robot.squat_down(0.4, 250))
+            time.sleep(0.3)
+            loop.run_until_complete(robot.lean_right(0.5, 300))
+            time.sleep(0.3)
+            loop.run_until_complete(robot.extend_up(0.4, 250))
+            time.sleep(0.3)
+            loop.run_until_complete(robot.twist_left(0.4, 200))
+            time.sleep(0.2)
+            loop.run_until_complete(robot.twist_right(0.4, 200))
+            time.sleep(0.2)
+            loop.run_until_complete(robot.look_up(0.5, 200))
+            time.sleep(0.3)
+            loop.run_until_complete(robot.look_down(0.3, 200))
+            time.sleep(0.2)
+            loop.close()
+        return timed_action(cmd, do_groove)
+
+    elif cmd == "danceTwist":
+        def do_twist():
+            robot.set_mode(Go1Mode.STAND)
+            time.sleep(0.2)
+            loop = asyncio.new_event_loop()
+            for _ in range(3):
+                loop.run_until_complete(robot.twist_left(0.6, 300))
+                time.sleep(0.3)
+                loop.run_until_complete(robot.twist_right(0.6, 300))
+                time.sleep(0.3)
+            loop.close()
+        return timed_action(cmd, do_twist)
+
+    elif cmd == "danceWiggle":
+        def do_wiggle():
+            robot.set_mode(Go1Mode.STAND)
+            time.sleep(0.2)
+            loop = asyncio.new_event_loop()
+            # Fast alternating lean + twist
+            for _ in range(2):
+                loop.run_until_complete(robot.lean_left(0.4, 150))
+                loop.run_until_complete(robot.twist_right(0.3, 150))
+                time.sleep(0.2)
+                loop.run_until_complete(robot.lean_right(0.4, 150))
+                loop.run_until_complete(robot.twist_left(0.3, 150))
+                time.sleep(0.2)
+            loop.close()
+        return timed_action(cmd, do_wiggle)
+
+    elif cmd == "danceHipShake":
+        def do_hip_shake():
+            robot.set_mode(Go1Mode.STAND)
+            time.sleep(0.2)
+            loop = asyncio.new_event_loop()
+            # Fast hip shake - quick left/right leans
+            for _ in range(6):
+                loop.run_until_complete(robot.lean_left(0.5, 100))
+                time.sleep(0.15)
+                loop.run_until_complete(robot.lean_right(0.5, 100))
+                time.sleep(0.15)
+            loop.close()
+        return timed_action(cmd, do_hip_shake)
 
     return {"name": cmd, "time_ms": 0, "success": False, "error": "Unknown command"}
 
@@ -658,6 +779,11 @@ HTML = """<!DOCTYPE html>
             </div>
 
             <div class="panel">
+                <h2>Dance Sequences</h2>
+                <div class="btn-grid" id="sequence-btns"></div>
+            </div>
+
+            <div class="panel">
                 <h2>Movement</h2>
                 <div class="btn-grid" id="move-btns"></div>
             </div>
@@ -768,6 +894,7 @@ HTML = """<!DOCTYPE html>
                 'mode': 'mode-btns',
                 'dance': 'dance-btns',
                 'special': 'dance-btns',
+                'sequence': 'sequence-btns',
                 'move': 'move-btns',
                 'pose': 'pose-btns',
                 'wait': 'wait-btns',

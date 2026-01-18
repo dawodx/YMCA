@@ -28,15 +28,19 @@ COMMANDS = {
     "dance1": {"name": "Dance 1", "category": "dance", "color": "#E91E63", "duration": 5000},
     "dance2": {"name": "Dance 2", "category": "dance", "color": "#E91E63", "duration": 5000},
 
-    # Special moves (from controller: L1/L2/R1 + button combos)
+    # Special moves (confirmed working via MQTT on Go1 Pro)
     "jumpYaw": {"name": "Jump Yaw", "category": "special", "color": "#FF5722", "duration": 2000},
     "straightHand1": {"name": "Straight Hand", "category": "special", "color": "#FF5722", "duration": 2000},
-    "backflip": {"name": "Backflip", "category": "special", "color": "#f44336", "duration": 3000},
-    "wiggleHips": {"name": "Wiggle Hips", "category": "special", "color": "#FF5722", "duration": 2000},
-    "sit": {"name": "Sit", "category": "special", "color": "#FF5722", "duration": 1500},
-    "pray": {"name": "Bow", "category": "special", "color": "#FF5722", "duration": 2000},
-    "stretch": {"name": "Stretch", "category": "special", "color": "#FF5722", "duration": 2000},
-    "sideRoll": {"name": "Side Roll", "category": "special", "color": "#FF5722", "duration": 3000},
+
+    # Dance sequences (combinations of body poses)
+    "danceWave": {"name": "Wave", "category": "sequence", "color": "#9C27B0", "duration": 3000},
+    "danceNod": {"name": "Nod", "category": "sequence", "color": "#9C27B0", "duration": 2500},
+    "danceShake": {"name": "Shake", "category": "sequence", "color": "#9C27B0", "duration": 2000},
+    "danceBounce": {"name": "Bounce", "category": "sequence", "color": "#9C27B0", "duration": 3000},
+    "danceGroove": {"name": "Groove", "category": "sequence", "color": "#9C27B0", "duration": 5000},
+    "danceTwist": {"name": "Twist", "category": "sequence", "color": "#9C27B0", "duration": 2500},
+    "danceWiggle": {"name": "Wiggle", "category": "sequence", "color": "#9C27B0", "duration": 3000},
+    "danceHipShake": {"name": "Hip Shake", "category": "sequence", "color": "#9C27B0", "duration": 3000},
 
     # Movement
     "forward": {"name": "Forward", "category": "move", "color": "#00BCD4", "duration": 200},
@@ -140,6 +144,7 @@ def get_commands_by_category():
         "mode": "Modes",
         "dance": "Dance",
         "special": "Special",
+        "sequence": "Sequences",
         "move": "Movement",
         "pose": "Poses",
         "wait": "Timing",
@@ -150,7 +155,7 @@ def get_commands_by_category():
     }
 
     # Define category order
-    category_order = ["Modes", "Dance", "Special", "Movement", "Poses", "Timing", "LED", "YMCA", "Custom Cmds", "Custom Poses"]
+    category_order = ["Modes", "Dance", "Special", "Sequences", "Movement", "Poses", "Timing", "LED", "YMCA", "Custom Cmds", "Custom Poses"]
 
     for cmd_id, cmd_info in all_cmds.items():
         cat = cmd_info.get("category", "other")
