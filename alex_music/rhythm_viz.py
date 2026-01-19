@@ -61,7 +61,7 @@ while running:
     while event_idx < len(events) and now >= events[event_idx]["timestamp"]:
         ev = events[event_idx]
         # We prioritize the "JUMP" if multiple events happen in one frame
-        if ev["strength"] > 0.35:
+        if ev["strength"] > 0.25:
             hit_beat = True
             last_move_type = ev["type"]
             current_strength = 1.0 # Force visual spike

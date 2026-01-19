@@ -30,7 +30,7 @@ class SongState(Enum):
     OUTRO = 4
 
 # --- MOVES ---
-MOVES_INTRO = ["twistLeft", "twistRight"]
+MOVES_INTRO = ["twistRight", "twistLeft"]
 
 def get_song_state(t_ms):
     """Timestamp map for YMCA."""
@@ -38,9 +38,9 @@ def get_song_state(t_ms):
         return SongState.INTRO_1
     elif t_ms < 62000: # "Young man..."
         return SongState.INTRO_2
-    elif t_ms < 92000: # "It's fun to stay..."
+    elif t_ms < 88500: # "It's fun to stay..."
         return SongState.CHORUS
-    elif t_ms < 125000: # Verse 2
+    elif t_ms < 135000: # Verse 2
         return SongState.INTRO_1
     elif t_ms < 155000: # Chorus 2
         return SongState.CHORUS
@@ -77,85 +77,76 @@ def main():
     start_time = time.time()
     
     last_state = None
-    # 60.0 / BPM is standard. 
-    # If using 65.0, you are adding lag compensation, but 60 is mathematically correct for music.
-    beat_interval = 60.0 / BPM 
+    beat_interval = 60.0 / BPM
     next_beat_time = 0.0
-    beat_counter = 0
     intro_move_index = 0
+    chorus_start_time = None
 
     while True:
         if not pygame.mixer.music.get_busy():
             break
-            
+
         # 1. TIMEKEEPING
         now = time.time() - start_time
         now_ms = now * 1000
         current_state = get_song_state(now_ms)
-        
+
         # 2. STATE TRANSITIONS (Run ONCE when section changes)
         if current_state != last_state:
             print(f"\n[{now:.2f}s] === ENTERING {current_state.name} ===")
-            
+
             if current_state == SongState.INTRO_1:
                 send_command("stand")
                 send_command("ledYellow")
 
             elif current_state == SongState.INTRO_2:
-                # ACTION: Wiggle Hips (Once)
-                # This puts the robot in a special mode that loops internally
                 send_command("stand")
                 send_command("wiggleHips")
                 print(">> Command: wiggleHips (Loop Started)")
 
             elif current_state == SongState.CHORUS:
-                # ACTION: Stop Wiggling, prepare for poses
-                send_command("stand") # Reset pose
+                send_command("stand")
                 send_command("ledPink")
-                
+                chorus_start_time = now
+                # Align next_beat_time to now so chorus always starts on-beat
+                next_beat_time = now
+
             elif current_state == SongState.OUTRO:
                 send_command("standDown")
                 send_command("ledOff")
-                
+
             last_state = current_state
 
         # 3. BEAT ACTIONS (Run EVERY BEAT)
         if now >= next_beat_time:
-            
-            # --- INTRO LOGIC ---
+
             if current_state == SongState.INTRO_1:
-                # Twist back and forth
                 cmd = MOVES_INTRO[intro_move_index % 2]
                 send_command(cmd)
-                print(f"[{now:.2f}s] Beat {beat_counter}: {cmd}")
+                print(f"[{now:.2f}s] Beat {int((now / beat_interval))}: {cmd}")
                 intro_move_index += 1
 
-            # --- CHORUS LOGIC (Y-M-C-A) ---
             elif current_state == SongState.CHORUS:
-                # Cycle through 4 poses
-                cycle = beat_counter % 4
-                
-                if cycle == 0:
-                    # Y - Squat
-                    send_command("squat")
-                    print(f"[{now:.2f}s] Y (Squat)")
-                elif cycle == 1:
-                    # M - Stand
-                    send_command("stand")
-                    print(f"[{now:.2f}s] M (Stand)")
-                elif cycle == 2:
-                    # C - Twist Left
-                    send_command("twistLeft")
-                    print(f"[{now:.2f}s] C (TwistLeft)")
-                elif cycle == 3:
-                    # A - Twist Right
-                    send_command("twistRight")
-                    print(f"[{now:.2f}s] A (TwistRight)")
+                if chorus_start_time is not None:
+                    # Y is held for 2 beats, M/C/A for 1 each: [Y, Y, M, C, A] (repeat)
+                    chorus_beat = int((now - chorus_start_time) / beat_interval)
+                    cycle = chorus_beat % 5
 
-            # Advance Clock
+                    if cycle == 0 or cycle == 1:
+                        send_command("squat")
+                        print(f"[{now:.2f}s] Y (Squat)")
+                    elif cycle == 2:
+                        send_command("stand")
+                        print(f"[{now:.2f}s] M (Stand)")
+                    elif cycle == 3:
+                        send_command("twistLeft")
+                        print(f"[{now:.2f}s] C (TwistLeft)")
+                    elif cycle == 4:
+                        send_command("ymcaA")
+                        print(f"[{now:.2f}s] A")
+
             next_beat_time += beat_interval
-            beat_counter += 1
-            
+
         time.sleep(0.01)
 
 if __name__ == "__main__":
